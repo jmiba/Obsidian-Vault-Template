@@ -1,0 +1,103 @@
+{
+  "targetAttributes": [
+    "action",
+    "status",
+    "related",
+    "starred"
+  ],
+  "targetTags": true,
+  "getFromInlineField": true,
+  "enableTabHeader": true,
+  "activateSnippet": true,
+  "enableEditor": true,
+  "enableFileList": true,
+  "enableBacklinks": true,
+  "enableQuickSwitcher": true,
+  "enableSuggestor": true,
+  "selectors": [
+    {
+      "type": "path",
+      "name": "action",
+      "value": "04 Literatur-Notes/Zotero",
+      "matchCaseSensitive": false,
+      "match": "contains",
+      "uid": "273d-9a03",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "path",
+      "name": "",
+      "value": "04 Literatur-Notes/Pocket",
+      "matchCaseSensitive": false,
+      "match": "contains",
+      "uid": "fa4a-6e7d",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "path",
+      "name": "action",
+      "value": "04 Literatur-Notes/Kindle",
+      "matchCaseSensitive": false,
+      "match": "contains",
+      "uid": "1d0f-f08d",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "path",
+      "name": "action",
+      "value": "04 Literatur-Notes/Omnivore",
+      "matchCaseSensitive": false,
+      "match": "contains",
+      "uid": "55af-c4dc",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "attribute",
+      "name": "status",
+      "value": "new",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "12c1-769f",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "attribute",
+      "name": "status",
+      "value": "obsolete",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "e936-fc43",
+      "selectText": true,
+      "selectAppend": false,
+      "selectPrepend": true,
+      "selectBackground": false
+    },
+    {
+      "type": "attribute",
+      "name": "starred",
+      "value": "true",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "bb83-51a5",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": false,
+      "selectBackground": false
+    }
+  ]
+}

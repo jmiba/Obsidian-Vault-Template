@@ -1,0 +1,335 @@
+{
+  "main": {
+    "id": "e0534333d24d33c0",
+    "type": "split",
+    "children": [
+      {
+        "id": "67228037c3825230",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "81dc4d7a1b2b8135",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "55a550f03787c5f7",
+    "type": "split",
+    "children": [
+      {
+        "id": "5829e39dd2e0c57f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bfde98f95a7d34fa",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime"
+              }
+            }
+          },
+          {
+            "id": "0b4e03562a7a6403",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#Wissenschaft/Workflow",
+                "matchingCase": false,
+                "explainSearch": true,
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "byModifiedTime"
+              }
+            }
+          },
+          {
+            "id": "c8f649270635609d",
+            "type": "leaf",
+            "state": {
+              "type": "recent-files",
+              "state": {}
+            }
+          },
+          {
+            "id": "35893bfdb940e345",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 339.5
+  },
+  "right": {
+    "id": "2aaee8f84269a5a5",
+    "type": "split",
+    "children": [
+      {
+        "id": "61fda47f050251d2",
+        "type": "tabs",
+        "dimension": 62.24611708482676,
+        "children": [
+          {
+            "id": "6cf7dc61ecf6eac5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": ""
+              }
+            }
+          },
+          {
+            "id": "973af1eb83aedd76",
+            "type": "leaf",
+            "state": {
+              "type": "zotero-annotation-view",
+              "state": {
+                "itemId": -1,
+                "attachmentId": -1,
+                "follow": "zt-reader"
+              }
+            }
+          },
+          {
+            "id": "a255dd377eb59770",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "alphabetical",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2b6f3fba44ef03bb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": true,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "36d8be0038b888d9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "9cfaf32fceb2e78f",
+            "type": "leaf",
+            "state": {
+              "type": "localgraph",
+              "state": {
+                "options": {
+                  "collapse-filter": true,
+                  "search": "",
+                  "localJumps": 1,
+                  "localBacklinks": true,
+                  "localForelinks": true,
+                  "localInterlinks": false,
+                  "showTags": false,
+                  "showAttachments": false,
+                  "hideUnresolved": false,
+                  "collapse-color-groups": false,
+                  "colorGroups": [],
+                  "collapse-display": false,
+                  "showArrow": true,
+                  "textFadeMultiplier": 0,
+                  "nodeSizeMultiplier": 1,
+                  "lineSizeMultiplier": 1,
+                  "collapse-forces": true,
+                  "centerStrength": 0.518713248970312,
+                  "repelStrength": 10,
+                  "linkStrength": 1,
+                  "linkDistance": 250,
+                  "scale": 1.4031676796662211,
+                  "close": true
+                }
+              }
+            }
+          },
+          {
+            "id": "f5569bb653c5c0c0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          },
+          {
+            "id": "3e031334a2d55d62",
+            "type": "leaf",
+            "state": {
+              "type": "file-properties",
+              "state": {}
+            }
+          },
+          {
+            "id": "d1e1d4d61a771487",
+            "type": "leaf",
+            "state": {
+              "type": "ReferenceListView",
+              "state": {}
+            }
+          },
+          {
+            "id": "fead4adbd9bc8937",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {}
+            }
+          },
+          {
+            "id": "24ed0be06a3ef7b2",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-chat-view",
+              "state": {}
+            }
+          },
+          {
+            "id": "ec4dfb3ac5e02803",
+            "type": "leaf",
+            "state": {
+              "type": "tlfItemView",
+              "state": {}
+            }
+          },
+          {
+            "id": "77da86e20392a8d1",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 9
+      },
+      {
+        "id": "463bd6bee6ee2334",
+        "type": "tabs",
+        "dimension": 37.753882915173236,
+        "children": [
+          {
+            "id": "89ee5ee6e65113de",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 399.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "zk-prefixer:Neue eindeutige Notiz erstellen": false,
+      "audio-recorder:Audioaufzeichnung starten/stoppen": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-wordnet-plugin:WordNet Dictionary": false,
+      "obsidian-file-info-plugin:File Info Panel": false,
+      "obsidian-kindle-plugin:Sync your Kindle highlights": false,
+      "obsidian-textgenerator-plugin:Generate Text!": false,
+      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
+      "obsidian-omnivore:Omnivore": false,
+      "periodic-notes:Open today": false
+    }
+  },
+  "active": "81dc4d7a1b2b8135",
+  "lastOpenFiles": [
+    "README.md",
+    "LICENSE",
+    "Dashboard.canvas",
+    "Wissensmanagement/Second Brain mit KI.md",
+    "Wissensmanagement/Tiago Forte - Second Brain.md",
+    "Wissensmanagement/Things Theme.md",
+    "Wissensmanagement/Schreibtechniken.md",
+    "Wissensmanagement/Academic Research Workflow.md",
+    "Wissensmanagement",
+    "Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "Notizensammlung/Obsidian Plugin Ominvore einrichten.md",
+    "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
+    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
+    "Notizensammlung",
+    "Konzepte/Micro Concepts/Note-Taking.md",
+    "Konzepte/Macro Concepts/Rolle von Bibliohteken.md",
+    "Konzepte/Macro Concepts/Publizieren.md",
+    "Konzepte/Macro Concepts/Open Access.md",
+    "Konzepte/Micro Concepts",
+    "Konzepte/Macro Concepts",
+    "Konzepte",
+    "05 Tagebuch/Wöchentliche Notes/2024, W08 (19.02.).md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "05 Tagebuch/Tägliche Notiz/2024-01-01, Mo (W01).md",
+    "05 Tagebuch/Wöchentliche Notes",
+    "05 Tagebuch/Tägliche Notiz",
+    "05 Tagebuch",
+    "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md",
+    "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 12-1 (1975).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 11-1 (1974).md",
+    "04 Literatur-Notes/Zotero",
+    "02 Dateien/Medien/Z99VS7EC.png",
+    "02 Dateien/Medien/VWNP3I52.png",
+    "02 Dateien/Medien/VR8I52KL.png",
+    "02 Dateien/Medien/V8RAWVP3.png",
+    "02 Dateien/Medien/Pasted image 20240227182927.png",
+    "02 Dateien/Medien/Pasted image 20240227182847.png",
+    "02 Dateien/Medien/Pasted image 20240226194331.png",
+    "02 Dateien/Medien/Pasted image 20240226183307.png",
+    "02 Dateien/Medien/Pasted image 20240226182730.png",
+    "02 Dateien/Medien/KX58JZPN.png",
+    "Canvasses/Unbenannt.canvas",
+    "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
+    "Untitled.canvas",
+    "Untitled 1.canvas"
+  ]
+}

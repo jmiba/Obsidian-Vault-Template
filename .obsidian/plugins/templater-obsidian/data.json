@@ -1,0 +1,39 @@
+{
+  "command_timeout": 5,
+  "templates_folder": "02 Dateien/Vorlagen",
+  "templates_pairs": [
+    [
+      "",
+      ""
+    ]
+  ],
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": true,
+  "enable_system_commands": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "enable_folder_templates": true,
+  "folder_templates": [
+    {
+      "folder": "/",
+      "template": "02 Dateien/Vorlagen/General Note.md"
+    },
+    {
+      "folder": "05 Tagebuch/Tägliche Notiz",
+      "template": "02 Dateien/Vorlagen/Tagebuchseite.md"
+    },
+    {
+      "folder": "05 Tagebuch/Wöchentliche Notes",
+      "template": "02 Dateien/Vorlagen/Wochenseite.md"
+    }
+  ],
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "enabled_templates_hotkeys": [
+    "02 Dateien/Vorlagen/Sport.md"
+  ],
+  "startup_templates": [
+    ""
+  ],
+  "enable_ribbon_icon": true
+}

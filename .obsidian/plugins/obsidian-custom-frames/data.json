@@ -1,0 +1,16 @@
+{
+  "frames": [
+    {
+      "url": "https://www.icloud.com/notes",
+      "displayName": "iCloud Notes",
+      "icon": "smartphone",
+      "hideOnMobile": true,
+      "addRibbonIcon": true,
+      "openInCenter": true,
+      "zoomLevel": 1,
+      "forceIframe": false,
+      "customCss": ""
+    }
+  ],
+  "padding": 5
+}

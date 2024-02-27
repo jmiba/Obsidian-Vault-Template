@@ -1,0 +1,18 @@
+{
+  "queueTagMap": {},
+  "defaultPriorityMin": 10,
+  "defaultPriorityMax": 50,
+  "queueFolderPath": "01 Datenbanken/IW-Queues",
+  "queueFileName": "BFP-Queue.md",
+  "defaultQueueType": "afactor",
+  "skipAddNoteWindow": false,
+  "autoAddNewNotes": false,
+  "defaultFirstRepDate": "tomorrow",
+  "askForNextRepDate": true,
+  "dropdownNaturalDates": {
+    "today": "today",
+    "tomorrow": "tomorrow",
+    "in two days": "in two days",
+    "next week": "next week"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "type": "group",
+      "ctime": 1685090772458,
+      "items": [
+        {
+          "type": "file",
+          "path": "Wissensmanagement/Schreibtechniken.md",
+          "ctime": 1683212349288
+        }
+      ],
+      "title": "Schreiben"
+    },
+    {
+      "type": "group",
+      "ctime": 1685090795881,
+      "items": [
+        {
+          "type": "file",
+          "path": "04 Literatur-Notes/Pocket/massimoaria openalexR.md",
+          "ctime": 1683212349288
+        }
+      ],
+      "title": "Datenanalyse"
+    },
+    {
+      "type": "group",
+      "ctime": 1694548614926,
+      "items": [
+        {
+          "type": "search",
+          "ctime": 1694548569880,
+          "query": "[status:new]",
+          "title": "Neue Notizen"
+        }
+      ],
+      "title": "Wissen managen"
+    },
+    {
+      "type": "group",
+      "ctime": 1705416289929,
+      "items": [
+        {
+          "type": "search",
+          "ctime": 1705416311635,
+          "query": "[aliases:FDM-Zertifikatskurs 2024",
+          "title": "Zertifikatskurs FDM für Studierende 2024"
+        }
+      ],
+      "title": "Forschungsdatenmanagement"
+    }
+  ]
+}

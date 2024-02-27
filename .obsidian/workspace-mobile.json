@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "597e8846eeb3f160",
+    "type": "split",
+    "children": [
+      {
+        "id": "f944719ef0b180d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4f14a9df564cf768",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Notizensammlung/Erstellen eines Arbeitszeugnisses an der BTU.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f285a5cb7da1d667",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "6d3e05f49ff5ce45",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical"
+          }
+        }
+      },
+      {
+        "id": "9f0173d9022642d1",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "[\"topics\":personal",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          }
+        }
+      },
+      {
+        "id": "adb621bb9b1db200",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true
+          }
+        }
+      },
+      {
+        "id": "55228d2d51be3e6e",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {}
+        }
+      },
+      {
+        "id": "604bbe2803e61f03",
+        "type": "leaf",
+        "state": {
+          "type": "recent-files",
+          "state": {}
+        }
+      },
+      {
+        "id": "7f446a4781bce046",
+        "type": "leaf",
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency"
+          }
+        }
+      }
+    ],
+    "currentTab": 1
+  },
+  "right": {
+    "id": "dd813030a183f4fa",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "36e649b23da691f1",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "Notizensammlung/Erstellen eines Arbeitszeugnisses an der BTU.md",
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          }
+        }
+      },
+      {
+        "id": "d50990761dd5273f",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "file": "Notizensammlung/Erstellen eines Arbeitszeugnisses an der BTU.md",
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          }
+        }
+      },
+      {
+        "id": "72fbf8de5ad4cc8d",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "Notizensammlung/Erstellen eines Arbeitszeugnisses an der BTU.md"
+          }
+        }
+      },
+      {
+        "id": "83e15837e1d81b13",
+        "type": "leaf",
+        "state": {
+          "type": "calendar",
+          "state": {}
+        }
+      },
+      {
+        "id": "7a206bb39039d8ec",
+        "type": "leaf",
+        "state": {
+          "type": "tlfItemView",
+          "state": {}
+        }
+      }
+    ]
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "cmdr:Pandoc Reference List: Show reference list": false,
+      "obsidian-custom-frames:Open ChatGPT": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "edit-history:Open edit history": false,
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graphen-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "zk-prefixer:Neue eindeutige Notiz erstellen": false,
+      "audio-recorder:Audioaufzeichnung starten/stoppen": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-textgenerator-plugin:Generate Text!": false,
+      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
+      "obsidian-wordnet-plugin:WordNet Dictionary": false,
+      "obsidian-file-info-plugin:File Info Panel": false,
+      "dbfolder:Create a new database table": false,
+      "periodic-notes:Open today": false
+    }
+  },
+  "active": "4f14a9df564cf768",
+  "lastOpenFiles": [
+    "04 Literatur-Notes/Pocket/mProjectsCode obsidian-js-engine-plugin.md",
+    "Unbenannt.canvas",
+    "Notizensammlung/IT-Sicherheitskonzept.md",
+    "05 Tagebuch/Tägliche Notiz/2023-09-14, Do (W37).md",
+    "Notizensammlung/Leistungsbeschreibung UB-Struktur Umsetzungsbegleitung.md",
+    "05 Tagebuch/Tägliche Notiz/2023-09-22, Fr (W38).md",
+    "05 Tagebuch/Tägliche Notiz/2023-09-13, Mi (W37).md",
+    "05 Tagebuch/Tägliche Notiz/2023-09-06, Mi (W36) FSR.md",
+    "Notizensammlung/202309140913.md",
+    "Notizensammlung/Remotely Save Synchronisation.md",
+    "01 Datenbanken/Change Log.md",
+    "The Hare With Amber Eyes A Familys Century of Art and Loss.md",
+    "01 Datenbanken/Books I've read.md",
+    "Die Puppe im Grase Norwegische Märchen.md",
+    "04 Literatur-Notes/Kindle/Abrahams - Home.md",
+    "04 Literatur-Notes/Pocket/Free Courses on AI - Aakash Gupta Product Growth Guy.md",
+    "04 Literatur-Notes/Pocket/Aakash Gupta Product Growth Guy.md",
+    "_debug_remotely_save/sync_plans_hist_exported_on_1694629003038.md",
+    "_debug_remotely_save",
+    "Notizensammlung/202309131816.md",
+    "04 Literatur-Notes/Pocket/Die Bibliothek als Institution steht auf dem Spiel – neueste Kunde aus Göttingen.md",
+    "04 Literatur-Notes/Pocket/ChatGPT presents new risks – here are five things you can do to mitigate them.md",
+    "04 Literatur-Notes/Pocket/“FakeGPT”   New Variant of Fake-ChatGPT Chrome Extension Stealing Facebook Ad Accounts with….md",
+    "04 Literatur-Notes/Pocket/‘My generation have done terrible things’   Sir David Attenborough backs school climate strikers.md",
+    "04 Literatur-Notes/Pocket/Zweitveröffentlichungsservice der TU Berlin – Automatisierungsmöglichkeiten für den Workflow.md",
+    "04 Literatur-Notes/Kindle/Waal - The Hare With Amber Eyes.md",
+    "04 Literatur-Notes/Kindle/Kuhn - Hikikomori-1680047495199.md"
+  ]
+}

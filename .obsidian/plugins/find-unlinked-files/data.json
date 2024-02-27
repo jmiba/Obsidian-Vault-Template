@@ -1,0 +1,37 @@
+{
+  "outputFileName": "01 Datenbanken/Verwaiste Dateien",
+  "disableWorkingLinks": false,
+  "directoriesToIgnore": [
+    "04 Literatur-Notes/Pocket/",
+    "02 Dateien/Vorlagen/",
+    "01 Datenbanken/"
+  ],
+  "filesToIgnore": [],
+  "fileTypesToIgnore": [],
+  "linksToIgnore": [],
+  "tagsToIgnore": [],
+  "fileTypesToDelete": [],
+  "ignoreFileTypes": true,
+  "ignoreDirectories": true,
+  "unresolvedLinksIgnoreDirectories": true,
+  "unresolvedLinksOutputFileName": "01 Datenbanken/Broken Links",
+  "unresolvedLinksDirectoriesToIgnore": [
+    "02 Dateien/Vorlagen/"
+  ],
+  "unresolvedLinksFilesToIgnore": [],
+  "unresolvedLinksFileTypesToIgnore": [],
+  "unresolvedLinksLinksToIgnore": [],
+  "unresolvedLinksTagsToIgnore": [],
+  "withoutTagsDirectoriesToIgnore": [
+    "02 Dateien/Vorlagen/"
+  ],
+  "withoutTagsFilesToIgnore": [],
+  "withoutTagsOutputFileName": "01 Datenbanken/Dateien ohne Tags",
+  "emptyFilesOutputFileName": "empty files",
+  "emptyFilesDirectories": [
+    "02 Dateien/Vorlagen/"
+  ],
+  "emptyFilesFilesToIgnore": [],
+  "emptyFilesIgnoreDirectories": true,
+  "openOutputFile": true
+}

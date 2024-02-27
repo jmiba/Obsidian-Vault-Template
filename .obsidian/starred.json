@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "type": "file",
+      "title": "Link file",
+      "path": "Link file.md"
+    },
+    {
+      "type": "file",
+      "title": "Schreibprozess",
+      "path": "Wissensmanagement/Schreibtechniken.md"
+    },
+    {
+      "type": "file",
+      "title": "massimoaria openalexR",
+      "path": "04 Literatur-Notes/Pocket/massimoaria openalexR.md"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "accentColor": "",
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "styles",
+    "Influx styles",
+    "supercharged-links-gen",
+    "Styling Tweaks",
+    "Cards",
+    "supercharged-links-gen_copy",
+    "Lucide-file-icons",
+    "custom-callouts"
+  ],
+  "baseFontSize": 14,
+  "cssTheme": "Things",
+  "nativeMenus": false,
+  "translucency": false,
+  "showViewHeader": true
+}

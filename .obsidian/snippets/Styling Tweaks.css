@@ -1,0 +1,165 @@
+
+/*Task Panel*/
+.workspace-tab-header[aria-label="Task Panel"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon
+> svg {
+    display: none;
+}
+.workspace-tab-header[aria-label="Task Panel"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-status-container {
+    display: none;
+}
+
+.theme-light .workspace-tab-header[aria-label="Task Panel"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(85, 94, 104)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>' );
+    background-size: 17px 17px; /* adopt this to your file tree font height */
+    transform: translate(0px, 2.5px); /* to position the icon */
+    background-repeat: no-repeat;
+    display: flex;
+    height: 17px;
+    width: 17px;
+    margin: -4px 2px 0 0;
+	filter: opacity(var(--icon-opacity));
+}
+.theme-dark .workspace-tab-header[aria-label="Task Panel"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(190, 198, 207)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>' );
+    background-size: 17px 17px; /* adopt this to your file tree font height */
+    transform: translate(0px, 2.5px); /* to position the icon */
+    background-repeat: no-repeat;
+    display: flex;
+    height: 17px;
+    width: 17px;
+    margin: -4px 2px 0 0;
+	filter: opacity(var(--icon-opacity));
+}
+.theme-light .workspace-tab-header[aria-label="Task Panel"].is-active.mod-active
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(34, 34, 34)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>' );
+}
+.theme-dark .workspace-tab-header[aria-label="Task Panel"].is-active.mod-active
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(218,218,218)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>' );
+}
+
+/*Change Log*/
+.workspace-tab-header[aria-label="Change Log"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon
+> svg {
+    display: none;
+}
+.workspace-tab-header[aria-label="Change Log"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-status-container {
+    display: none;
+}
+
+.theme-light .workspace-tab-header[aria-label="Change Log"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(85, 94, 104)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-clock"><path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="8" cy="16" r="6"></circle><path d="M9.5 17.5 8 16.25V14"></path></svg>' );
+    background-size: 17px 17px; /* adopt this to your file tree font height */
+    transform: translate(0px, 2.5px); /* to position the icon */
+    background-repeat: no-repeat;
+    display: flex;
+    height: 17px;
+    width: 17px;
+    margin: -4px 2px 0 0;
+	filter: opacity(var(--icon-opacity));
+}
+.theme-dark .workspace-tab-header[aria-label="Change Log"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(190, 198, 207)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-clock"><path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="8" cy="16" r="6"></circle><path d="M9.5 17.5 8 16.25V14"></path></svg>' );
+    background-size: 17px 17px; /* adopt this to your file tree font height */
+    transform: translate(0px, 2.5px); /* to position the icon */
+    background-repeat: no-repeat;
+    display: flex;
+    height: 17px;
+    width: 17px;
+    margin: -4px 2px 0 0;
+	filter: opacity(var(--icon-opacity));
+}
+.theme-light .workspace-tab-header[aria-label="Change Log"].is-active.mod-active
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(34, 34, 34)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-clock"><path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="8" cy="16" r="6"></circle><path d="M9.5 17.5 8 16.25V14"></path></svg>' );
+}
+.theme-dark .workspace-tab-header[aria-label="Change Log"].is-active.mod-active
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(218,218,218)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-clock"><path d="M16 22h2c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="8" cy="16" r="6"></circle><path d="M9.5 17.5 8 16.25V14"></path></svg>' );
+}
+
+.mod-header {
+	display:none;
+}
+
+.dataview.inline-field-key::before {
+  content: "(";
+}
+.dataview.inline-field-key::after {
+  content: ":";
+}
+.dataview.inline-field-value::after {
+  content: ")";
+}
+.dataview.inline-field {
+	display:none;
+}
+
+.mod-left-split .markdown-preview-view {	
+	font-size: 14px;	
+}
+
+.mod-left-split .markdown-preview-view ul > li.task-list-item .task-list-item-checkbox {
+    margin-inline-start: calc(var(--checkbox-size) * -1.1);
+}
+.mod-left-split .markdown-preview-view input[type=checkbox], .mod-left-split .markdown-preview-view input[type=checkbox]::after {
+    width: calc(var(--checkbox-size) * .7);
+	height: calc(var(--checkbox-size) * .7);
+}
+
+.mod-left-split .markdown-preview-view .task-list-item-checkbox {
+    position: relative;
+    top: 0.4em;
+    margin-right: 0.6em;
+}
+
+.mod-left-split .markdown-preview-view h2 {
+	font-size: 15px;
+}
+
+.mod-left-split .markdown-preview-view  h4 {
+	font-size: 13px;
+}
+.mod-left-split .markdown-preview-view {
+	--file-margins: calc(var(--size-4-5) * .2);
+}
+.my-table-class {
+font-size: .85em;
+}
+.markdown-rendered tbody tr:nth-child(even){background-color: rgba(200,200,240,0.1);}
+
+.markdown-rendered thead tr > th{
+	text-align: center;
+	font-weight: bold !important;
+}
+
+.number-right, .number-right span {
+	float:right;
+}
+
+.float-right {
+	float: right;
+	margin-top: -6px;
+}
+

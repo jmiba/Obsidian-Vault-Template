@@ -1,0 +1,24 @@
+.callout[data-callout="question"] {
+    --callout-color: 255, 212, 0;
+    --callout-icon: lucide-help-circle;
+}
+.callout[data-callout="idea"] {
+    --callout-color: 95, 178, 54;
+    --callout-icon: lucide-lightbulb;
+}
+.callout[data-callout="fact"] {
+    --callout-color: 46, 168, 229;
+	--callout-icon: lucide-award;
+}
+.callout[data-callout="argument"] {
+    --callout-color: 162, 138, 229;
+    --callout-icon: lucide-gem;
+}
+.callout[data-callout="pursue"] {
+    --callout-color: 241, 152, 55;
+    --callout-icon: lucide-corner-down-right;
+}
+.callout[data-callout="opinion"] {
+    --callout-color: 229, 110, 238;
+    --callout-icon: lucide-crown;
+}

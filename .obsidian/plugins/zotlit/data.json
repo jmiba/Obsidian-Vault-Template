@@ -1,0 +1,27 @@
+{
+  "logLevel": "ERROR",
+  "citationEditorSuggester": true,
+  "showCitekeyInSuggester": true,
+  "literatureNoteFolder": "04 Literatur-Notes/Zotero",
+  "enableServer": true,
+  "serverPort": 9091,
+  "serverHostname": "127.0.0.1",
+  "template": {
+    "folder": "02 Dateien/Vorlagen/ZotLit",
+    "templates": {
+      "filename": "<%=  it.shortTitle ?  it.shortTitle+\" (\"+it.date+\")\" :  it.title ?it.title+\" (\"+it.date+\")\" : it.citekey ?? it.DOI ?? it.key %>.md"
+    }
+  },
+  "updateAnnotBlock": false,
+  "updateOverwrite": false,
+  "autoPairEta": true,
+  "autoTrim": [
+    false,
+    false
+  ],
+  "autoRefresh": true,
+  "zoteroDataDir": "",
+  "citationLibrary": 1,
+  "imgExcerptImport": "copy",
+  "imgExcerptPath": "02 Dateien/Medien"
+}

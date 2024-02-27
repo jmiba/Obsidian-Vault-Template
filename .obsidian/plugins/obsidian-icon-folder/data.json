@@ -1,0 +1,115 @@
+{
+  "settings": {
+    "migrated": 4,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "MipOmnivore",
+      "LiPaperclip",
+      "LiGripHorizontal",
+      "LiCheckSquare",
+      "LiBike"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [
+      {
+        "icon": "LiGraduationCap",
+        "rule": "01 Datenbanken/Themen-DB.md\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 0,
+        "useFilePath": true
+      },
+      {
+        "icon": "FasFileZipper",
+        "rule": "02 Dateien/Zip-Dateien\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 1,
+        "useFilePath": true
+      },
+      {
+        "icon": "FasCalendarWeek",
+        "rule": "05 Tagebuch/Wöchentliche Notes\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 2,
+        "useFilePath": true
+      },
+      {
+        "icon": "FabCalendarDay",
+        "rule": "00 Archiv/Tagebuch/Tägliche Notiz\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 3,
+        "useFilePath": true
+      },
+      {
+        "icon": "FasUserPlus",
+        "rule": "03 Personen/VIPs\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 4,
+        "useFilePath": true
+      },
+      {
+        "icon": "FasUserGear",
+        "rule": "03 Personen/Kontakte\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 5,
+        "useFilePath": true
+      },
+      {
+        "icon": "FasCalendarDay",
+        "rule": "05 Tagebuch/Tägliche Notiz\\/[\\w\\d\\s]+\\.(?:\\w+\\.)*\\w+",
+        "for": "files",
+        "order": 6,
+        "useFilePath": true
+      }
+    ],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": true,
+    "iconsBackgroundCheckEnabled": false,
+    "iconInTitleEnabled": false,
+    "iconInFrontmatterEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconIdentifier": ":"
+  },
+  "00 Archiv": "FasBoxArchive",
+  "02 Dateien": "LiFiles",
+  "03 Personen": "FasUserGroup",
+  "04 Literatur-Notes": "FasBookOpen",
+  "05 Tagebuch": "FasBook",
+  "02 Dateien/Bibliographie": "FasFileLines",
+  "02 Dateien/Medien": "FasImages",
+  "02 Dateien/Office-Dateien": "FasFileWord",
+  "02 Dateien/PDFs": "FasFilePdf",
+  "02 Dateien/Vorlagen": "LiLayoutTemplate",
+  "04 Literatur-Notes/Kindle": "LiBook",
+  "04 Literatur-Notes/Pocket": "LiPocket",
+  "04 Literatur-Notes/Zotero": "LiFileText",
+  "02 Dateien/Wörterbücher": "FasBookAtlas",
+  "00 Archiv/Tagebuch/Wöchentliche Notiz": "FasCalendarWeek",
+  "00 Archiv/Tagebuch": "FasBook",
+  "01 Datenbanken": "FasDatabase",
+  "01 Datenbanken/IW-Queues": "FasFileSignature",
+  "01 Datenbanken/Broken Links.md": "FasLinkSlash",
+  "01 Datenbanken/Verwaiste Dateien.md": "FasFile",
+  "01 Datenbanken/Change Log.md": "LiFileClock",
+  "01 Datenbanken/Task Panel.md": "LiCheckSquare",
+  "02 Dateien/HTML-Dateien": "FasFileCode",
+  "01 Datenbanken/Fortbildung.md": "LiStethoscope",
+  "01 Datenbanken/Dienstreisen.md": "LiTrain",
+  "01 Datenbanken/Themen.md": "LiPaperclip",
+  "02 Dateien/Javascript": "LiFileJson",
+  "01 Datenbanken/Aufgabenerfüllung.md": "LiCheckSquare",
+  "01 Datenbanken/Beratung.md": "LiGraduationCap",
+  "04 Literatur-Notes/Omnivore": "MipOmnivore",
+  "05 Tagebuch/Tägliche Notiz": "FasCalendarDay",
+  "03 Personen/Kontakte": "FasUserGear",
+  "00 Archiv/Tagebuch/Tägliche Notiz": "FasCalendarDay",
+  "05 Tagebuch/Wöchentliche Notes": "FasCalendarWeek",
+  "01 Datenbanken/Sport.md": "LiBike"
+}

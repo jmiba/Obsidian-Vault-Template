@@ -1,0 +1,35 @@
+{
+  "showGettingStartedBanner": false,
+  "hasMigratedDailyNoteSettings": true,
+  "hasMigratedWeeklyNoteSettings": false,
+  "daily": {
+    "format": "YYYY-MM-DD, dd ([W]ww)",
+    "folder": "05 Tagebuch/Tägliche Notiz",
+    "enabled": true,
+    "template": "02 Dateien/Vorlagen/Tagebuchseite.md"
+  },
+  "weekly": {
+    "format": "gggg, [W]ww (DD.MM.)",
+    "template": "02 Dateien/Vorlagen/Wochenseite.md",
+    "folder": "05 Tagebuch/Wöchentliche Notes",
+    "enabled": true
+  },
+  "monthly": {
+    "format": "",
+    "template": "",
+    "folder": "",
+    "enabled": false
+  },
+  "quarterly": {
+    "format": "",
+    "template": "",
+    "folder": "",
+    "enabled": false
+  },
+  "yearly": {
+    "format": "",
+    "template": "",
+    "folder": "",
+    "enabled": false
+  }
+}

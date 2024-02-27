@@ -1,0 +1,32 @@
+div[data-id="273d-9a03"] div.setting-item-description::before,
+.data-link-icon[data-link-path*="04 Literatur-Notes/Zotero" i]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 24 24' fill='none' stroke='%2377AF04' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cline x1='16' y1='13' x2='8' y2='13'%3E%3C/line%3E%3Cline x1='16' y1='17' x2='8' y2='17'%3E%3C/line%3E%3Cline x1='10' y1='9' x2='8' y2='9'%3E%3C/line%3E%3C/svg%3E")!important;
+	display:inline-flex !important;
+	margin: 0px 4px 0px 0px !important;
+	vertical-align: top !important;
+}
+
+
+div[data-id="fa4a-6e7d"] div.setting-item-description::before,
+.data-link-icon[data-link-path*="04 Literatur-Notes/Pocket" i]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 24 24' fill='none' stroke='%238F9294' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 3h16a2 2 0 0 1 2 2v6a10 10 0 0 1-10 10A10 10 0 0 1 2 11V5a2 2 0 0 1 2-2z'%3E%3C/path%3E%3Cpolyline points='8 10 12 14 16 10'%3E%3C/polyline%3E%3C/svg%3E")!important;
+	display:inline-flex !important;
+	margin: 0px 4px 0px 0px !important;
+	vertical-align: top !important;
+}
+
+
+div[data-id="1d0f-f08d"] div.setting-item-description::before,
+.data-link-icon[data-link-path*="04 Literatur-Notes/Kindle" i]::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 24 24' fill='none' stroke='%235B8E7D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'%3E%3C/path%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'%3E%3C/path%3E%3C/svg%3E")!important;
+	display:inline-flex !important;
+	margin: 0px 4px 0px 0px !important;
+	vertical-align: top !important;
+}
+div[data-id="55af-c4dc"] div.setting-item-description::before,
+.data-link-icon[data-link-path*="04 Literatur-Notes/Omnivore" i]::before {
+    content: url("data:image/svg+xml,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.416%2011.046v-4.599c0%20-0.397%200.462%20-0.616%200.764%20-0.344l1.422%202.068c0.29%200.243%200.699%200.243%200.99%200l1.387%20-2.05c0.308%20-0.255%200.77%20-0.053%200.77%200.344V8.889c0%201.179%200.782%202.139%201.961%202.139h0.036c1.007%200%201.879%20-0.687%202.121%20-1.659%200.119%20-0.51%200.219%20-1.043%200.219%20-1.452%20-0.018%20-4.018%20-3.419%20-7.058%20-7.484%20-6.785C4.148%201.369%201.363%204.154%201.126%207.609c-0.273%204.065%202.939%207.467%206.969%207.467%22%20stroke%3D%22%237196A3%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20class%3D%22layer%22%2F%3E%3C%2Fsvg%3E")!important;
+	display:inline-flex !important;
+	margin: 0px 4px 0px 0px !important;
+	vertical-align: top !important;
+}

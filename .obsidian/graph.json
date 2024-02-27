@@ -1,0 +1,100 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:\"04 Literatur-Notes/Omnivore\"",
+      "color": {
+        "a": 1,
+        "rgb": 2375024
+      }
+    },
+    {
+      "query": "path:\"04 Literatur-Notes/Zotero\"",
+      "color": {
+        "a": 1,
+        "rgb": 7927637
+      }
+    },
+    {
+      "query": "path:\"04 Literatur-Notes/Pocket\"",
+      "color": {
+        "a": 1,
+        "rgb": 10986917
+      }
+    },
+    {
+      "query": "path:\"04 Literatur-Notes/Kindle\"",
+      "color": {
+        "a": 1,
+        "rgb": 12385254
+      }
+    },
+    {
+      "query": "path:\"03 Personen\"",
+      "color": {
+        "a": 1,
+        "rgb": 11951318
+      }
+    },
+    {
+      "query": "path:Freizeit",
+      "color": {
+        "a": 1,
+        "rgb": 14942556
+      }
+    },
+    {
+      "query": "path:Herausgebertätigkeit",
+      "color": {
+        "a": 1,
+        "rgb": 16110592
+      }
+    },
+    {
+      "query": "path:\"05 Tagebuch\"",
+      "color": {
+        "a": 1,
+        "rgb": 11184893
+      }
+    },
+    {
+      "query": "path:Wissensmanagement",
+      "color": {
+        "a": 1,
+        "rgb": 238900
+      }
+    },
+    {
+      "query": "path:Arbeit",
+      "color": {
+        "a": 1,
+        "rgb": 7822591
+      }
+    },
+    {
+      "query": "path:Notizensammlung  ",
+      "color": {
+        "a": 1,
+        "rgb": 13537938
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": -0.4,
+  "nodeSizeMultiplier": 1.97152777777778,
+  "lineSizeMultiplier": 0.729513888888889,
+  "collapse-forces": false,
+  "centerStrength": 0.1953125,
+  "repelStrength": 11.40625,
+  "linkStrength": 0.903645833333333,
+  "linkDistance": 313,
+  "scale": 0.24800536807411291,
+  "close": true
+}

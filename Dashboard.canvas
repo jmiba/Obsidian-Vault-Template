@@ -1,0 +1,7 @@
+{
+	"nodes":[
+		{"id":"24e8b4bbde2a3af2","type":"text","text":"```dataviewjs\nawait dv.view(\"02 Dateien/Javascript/sport\", {container:this.container, year:2023, days:30})\n```","x":-60,"y":-41,"width":1040,"height":661,"color":"4"},
+		{"id":"3100f20e485491bc","type":"file","file":"01 Datenbanken/Aufgabenerfüllung.md","x":-60,"y":660,"width":1040,"height":560,"color":"6"}
+	],
+	"edges":[]
+}

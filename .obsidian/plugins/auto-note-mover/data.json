@@ -1,0 +1,31 @@
+{
+  "trigger_auto_manual": "Automatic",
+  "use_regex_to_check_for_tags": false,
+  "statusBar_trigger_indicator": false,
+  "folder_tag_pattern": [
+    {
+      "folder": "05 Tagebuch/Tägliche Notiz",
+      "tag": "",
+      "pattern": "^\\d{4}-\\d\\d-\\d\\d, (Mo|Di|Mi|Do|Fr|Sa|So) \\(W\\d*\\)$"
+    },
+    {
+      "folder": "00 Archiv",
+      "tag": "#archiv",
+      "pattern": ""
+    },
+    {
+      "folder": "Notizensammlung",
+      "tag": "",
+      "pattern": "^\\d{4}-\\d\\d-\\d\\d \\d{7}"
+    }
+  ],
+  "use_regex_to_check_for_excluded_folder": false,
+  "excluded_folder": [
+    {
+      "folder": "Notizensammlung"
+    },
+    {
+      "folder": ""
+    }
+  ]
+}

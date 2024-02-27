@@ -1,0 +1,96 @@
+{
+  "confirmDeletion": true,
+  "showAddCommand": true,
+  "debug": false,
+  "editorMenu": [
+    {
+      "id": "workspace:toggle-stacked-tabs",
+      "icon": "lucide-layers",
+      "name": "Umschalten zwischen Stapel-/Tab-Ansicht",
+      "mode": "any"
+    },
+    {
+      "id": "app:open-settings",
+      "icon": "lucide-wrench",
+      "name": "Einstellungen öffnen",
+      "mode": "any"
+    }
+  ],
+  "fileMenu": [
+    {
+      "id": "obsidian-pandoc:pandoc-export-docx",
+      "icon": "file-text",
+      "name": "Pandoc Plugin: Export as Word Document (docx)",
+      "mode": "desktop"
+    },
+    {
+      "id": "obsidian-pandoc:pandoc-export-odt",
+      "icon": "file-text",
+      "name": "Pandoc Plugin: Export as OpenDocument (odt)",
+      "mode": "desktop",
+      "color": "#000000"
+    },
+    {
+      "id": "obsidian-pandoc:pandoc-export-html",
+      "icon": "file-digit",
+      "name": "Pandoc Plugin: Export as HTML (without Pandoc)",
+      "mode": "desktop",
+      "color": "#000000"
+    },
+    {
+      "id": "obsidian-table-to-csv-exporter:obsidian-table-to-csv-exporter",
+      "icon": "table",
+      "name": "Table to CSV Exporter: Export table to CSV file",
+      "mode": "any"
+    }
+  ],
+  "leftRibbon": [
+    {
+      "id": "obsidian-pandoc-reference-list:focus-reference-list-view",
+      "icon": "quote",
+      "name": "Pandoc Reference List: Show reference list",
+      "mode": "any"
+    }
+  ],
+  "rightRibbon": [],
+  "titleBar": [],
+  "statusBar": [],
+  "pageHeader": [],
+  "macros": [
+    {
+      "macro": [
+        {
+          "action": 0,
+          "commandId": "obsidian-pocket:sync-pocket-list"
+        },
+        {
+          "action": 0,
+          "commandId": "recent-files-obsidian:recent-files-open"
+        }
+      ],
+      "name": "Sync Pocket list and go to new Pocket note",
+      "icon": "star",
+      "startup": false
+    }
+  ],
+  "explorer": [],
+  "hide": {
+    "statusbar": [],
+    "leftRibbon": [
+      "Text Generator: Templates Packages Manager",
+      "Heutige Notiz öffnen",
+      "Omnivore"
+    ]
+  },
+  "spacing": "8",
+  "advancedToolbar": {
+    "rowHeight": 48,
+    "rowCount": 1,
+    "spacing": 0,
+    "buttonWidth": 48,
+    "columnLayout": false,
+    "mappedIcons": [],
+    "tooltips": false,
+    "heightOffset": 0
+  }
+}
