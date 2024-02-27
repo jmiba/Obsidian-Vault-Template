@@ -46,8 +46,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -131,8 +130,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -165,7 +163,7 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
@@ -189,7 +187,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -206,7 +204,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -218,7 +216,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -253,7 +251,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+                "file": "README.md"
               }
             }
           },
@@ -263,7 +261,7 @@
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+                "file": "README.md"
               }
             }
           },
@@ -349,10 +347,10 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "81dc4d7a1b2b8135",
+  "active": "6280d879b77c8594",
   "lastOpenFiles": [
-    "Notizensammlung/Zertifikatskurs FDM.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "Notizensammlung/Zertifikatskurs FDM.md",
     "01 Datenbanken/Task Panel.md",
     "Wissensmanagement/Schreibtechniken.md",
     "01 Datenbanken/Change Log.md",

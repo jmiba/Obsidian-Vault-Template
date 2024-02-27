@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
@@ -63,10 +67,6 @@
     {
       "basename": "Things Theme",
       "path": "Wissensmanagement/Things Theme.md"
-    },
-    {
-      "basename": "README",
-      "path": "README.md"
     },
     {
       "basename": "The Secret Power of ‘Read It Later’ Apps",
