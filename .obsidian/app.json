@@ -5,7 +5,7 @@
   "showFrontmatter": true,
   "newFileLocation": "root",
   "attachmentFolderPath": "02 Dateien",
-  "promptDelete": false,
+  "promptDelete": true,
   "showUnsupportedFiles": true,
   "userIgnoreFilters": [
     "00 Archiv/",
@@ -212,5 +212,6 @@
     "margin": "0",
     "downscalePercent": 76
   },
-  "showInlineTitle": true
+  "showInlineTitle": true,
+  "trashOption": "local"
 }

@@ -5,17 +5,16 @@
     {
       "id": 1,
       "name": "Meine Bibliothek",
-      "lastUpdate": 1709064732233
+      "lastUpdate": 1709069041400
     }
   ],
   "renderCitations": true,
-  "renderCitationsReadingMode": true,
+  "renderCitationsReadingMode": false,
   "renderLinkCitations": true,
-  "cslStyleURL": "https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-author-date.csl",
   "pullFromZotero": true,
   "hideLinks": true,
   "showCitekeyTooltips": true,
   "cslLang": "de-DE",
   "pathToBibliography": "",
-  "enableCiteKeyCompletion": false
+  "enableCiteKeyCompletion": true
 }

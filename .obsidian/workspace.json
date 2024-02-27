@@ -8,14 +8,46 @@
         "type": "tabs",
         "children": [
           {
+            "id": "6280d879b77c8594",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              }
+            }
+          },
+          {
             "id": "81dc4d7a1b2b8135",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6d146a6f67b4fb67",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -44,7 +76,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#Wissenschaft/Workflow",
+                "query": "[status:new]",
                 "matchingCase": false,
                 "explainSearch": true,
                 "collapseAll": true,
@@ -62,6 +94,36 @@
             }
           },
           {
+            "id": "5b78a9c1820390e8",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01 Datenbanken/Change Log.md",
+                "mode": "preview",
+                "backlinks": true,
+                "source": false
+              },
+              "pinned": true
+            }
+          },
+          {
+            "id": "f495a9db78840508",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01 Datenbanken/Task Panel.md",
+                "mode": "preview",
+                "backlinks": true,
+                "source": false
+              },
+              "pinned": true
+            }
+          },
+          {
             "id": "35893bfdb940e345",
             "type": "leaf",
             "state": {
@@ -69,7 +131,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -102,6 +165,7 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
@@ -125,6 +189,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -141,6 +206,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -152,6 +218,7 @@
             "state": {
               "type": "localgraph",
               "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -185,7 +252,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+              }
             }
           },
           {
@@ -193,7 +262,9 @@
             "type": "leaf",
             "state": {
               "type": "file-properties",
-              "state": {}
+              "state": {
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+              }
             }
           },
           {
@@ -280,53 +351,53 @@
   },
   "active": "81dc4d7a1b2b8135",
   "lastOpenFiles": [
-    "README.md",
-    "LICENSE",
-    "Dashboard.canvas",
-    "Wissensmanagement/Second Brain mit KI.md",
-    "Wissensmanagement/Tiago Forte - Second Brain.md",
-    "Wissensmanagement/Things Theme.md",
+    "Notizensammlung/Zertifikatskurs FDM.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Task Panel.md",
     "Wissensmanagement/Schreibtechniken.md",
-    "Wissensmanagement/Academic Research Workflow.md",
-    "Wissensmanagement",
-    "Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md",
-    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "01 Datenbanken/Change Log.md",
+    "01 Datenbanken/Sport.md",
+    "README.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+    "Obsidian-Vault-Template/LICENSE",
+    "Obsidian-Vault-Template",
+    "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md",
+    "04 Literatur-Notes/Omnivore/Obsidian AI Summary.md",
+    "02 Dateien/Vorlagen/Kindvorlage.md",
+    "02 Dateien/Vorlagen/General Note.md",
+    "02 Dateien/Vorlagen/Wochenseite.md",
+    "02 Dateien/Vorlagen/Notizenvorlage.md",
+    "04 Literatur-Notes/Omnivore/iPhone-Nutzer aufgepasst- Warum das Schließen von Apps deinem Smartphone eher schadet.md",
+    "04 Literatur-Notes/Omnivore/Writing 1000 words.md",
     "Notizensammlung/Obsidian Plugin Ominvore einrichten.md",
-    "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
-    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
-    "Notizensammlung",
-    "Konzepte/Micro Concepts/Note-Taking.md",
     "Konzepte/Macro Concepts/Rolle von Bibliohteken.md",
     "Konzepte/Macro Concepts/Publizieren.md",
     "Konzepte/Macro Concepts/Open Access.md",
-    "Konzepte/Micro Concepts",
-    "Konzepte/Macro Concepts",
-    "Konzepte",
-    "05 Tagebuch/Wöchentliche Notes/2024, W08 (19.02.).md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-    "05 Tagebuch/Tägliche Notiz/2024-01-01, Mo (W01).md",
-    "05 Tagebuch/Wöchentliche Notes",
-    "05 Tagebuch/Tägliche Notiz",
-    "05 Tagebuch",
-    "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md",
-    "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-1 (1975).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 11-1 (1974).md",
-    "04 Literatur-Notes/Zotero",
-    "02 Dateien/Medien/Z99VS7EC.png",
-    "02 Dateien/Medien/VWNP3I52.png",
-    "02 Dateien/Medien/VR8I52KL.png",
-    "02 Dateien/Medien/V8RAWVP3.png",
+    "Open Access - Koste es, was es wolle (2022).md",
+    "Knöchelmann.md",
+    "Konzepte/Micro Concepts/Note-Taking.md",
+    "02 Dateien/Bibliographie/Meine Bibliothek.json",
+    "02 Dateien/HTML-Dateien/README.html",
+    "~$README.docx",
+    "02 Dateien/Office-Dateien/README.docx",
+    "Test.md",
+    "02 Dateien/PDFs/Zotero _ Your personal research assistant.pdf",
     "02 Dateien/Medien/Pasted image 20240227182927.png",
+    "02 Dateien/Medien/LK6AKADW.png",
+    "02 Dateien/Medien/DIF793R8.png",
+    "02 Dateien/Medien/7XRCWY33.png",
+    "02 Dateien/Medien/KX58JZPN.png",
+    "Konzepte/Micro Concepts/DEAL Postpayment.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
+    "Dashboard.canvas",
     "02 Dateien/Medien/Pasted image 20240227182847.png",
     "02 Dateien/Medien/Pasted image 20240226194331.png",
     "02 Dateien/Medien/Pasted image 20240226183307.png",
     "02 Dateien/Medien/Pasted image 20240226182730.png",
-    "02 Dateien/Medien/KX58JZPN.png",
+    "04LITE~1/Zotero",
+    "02 Dateien/Vorlagen/prompts/dalle",
+    "02 Dateien/Vorlagen/prompts/default",
+    "02 Dateien/Medien/Z99VS7EC.png",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
     "Untitled.canvas",

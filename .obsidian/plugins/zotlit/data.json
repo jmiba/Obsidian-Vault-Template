@@ -1,7 +1,7 @@
 {
   "logLevel": "ERROR",
-  "citationEditorSuggester": true,
-  "showCitekeyInSuggester": true,
+  "citationEditorSuggester": false,
+  "showCitekeyInSuggester": false,
   "literatureNoteFolder": "04 Literatur-Notes/Zotero",
   "enableServer": true,
   "serverPort": 9091,

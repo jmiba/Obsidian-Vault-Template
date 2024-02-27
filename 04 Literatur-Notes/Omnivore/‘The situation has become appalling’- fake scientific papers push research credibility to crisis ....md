@@ -37,7 +37,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 > Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Open Access Transformation"!
 > 
 > ##### Zum Thema "Wissenschaftskommunikation":
-> - [[04 Literatur-Notes/Zotero/Empfehlungen zur Transformation des wissenschaftlichen Publizierens zu Open Access (2022).md|Empfehlungen zur Transformation des wissenschaftlichen Publizierens zu Open Access (2022)]] (31.01.2022)
+> Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissenschaftskommunikation"!
+> 
 > %% END A %%
 
 # ‘The situation has become appalling’: fake scientific papers push research credibility to crisis point | Peer review and scientific publishing | The Guardian

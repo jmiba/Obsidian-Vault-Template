@@ -25,15 +25,16 @@ await dv.view("02 Dateien/Javascript/related_write")
 > %% INSERT A %%
 > #### Meine Notes
 > ##### Zum Thema "Wissensmanagement":
+> - [[Notizensammlung/Obsidian Plugin Ominvore einrichten.md|Obsidian Plugin Ominvore einrichten]] (27.02.2024)
 > - [[Wissensmanagement/Tiago Forte - Second Brain.md|Tiago Forte - Second Brain]] (21.03.2023)
 > - [[Wissensmanagement/Things Theme.md|Things Theme]] (01.06.2023)
 > - [[Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md|Vorstellung Konzept Second Brain in PI-Runde]] (19.02.2024)
+> - [[Konzepte/Micro Concepts/Note-Taking.md|Note-Taking]] (Invalid date)
 > 
 > &nbsp;
 > #### Relevante Literatur
 > ##### Zum Thema "Wissensmanagement":
-> Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissensmanagement"!
-> 
+> - [[04 Literatur-Notes/Omnivore/Tools - The Effortless Academic.md|Tools - The Effortless Academic]] (20.02.2024)
 > %% END A %%
 
 # Darum schlägt der Stift noch immer die Notiz-App
