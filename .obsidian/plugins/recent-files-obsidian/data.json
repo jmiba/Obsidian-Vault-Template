@@ -9,6 +9,10 @@
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
+      "basename": "Sport",
+      "path": "01 Datenbanken/Sport.md"
+    },
+    {
       "basename": "Fortbildung",
       "path": "01 Datenbanken/Fortbildung.md"
     },
@@ -55,10 +59,6 @@
     {
       "basename": "The Secret Power of ‘Read It Later’ Apps",
       "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
-    },
-    {
-      "basename": "Sport",
-      "path": "01 Datenbanken/Sport.md"
     },
     {
       "basename": "Obsidian-Plugin Ominvore einrichten",
