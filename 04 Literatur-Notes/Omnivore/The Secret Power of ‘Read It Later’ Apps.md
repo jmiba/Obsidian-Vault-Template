@@ -15,7 +15,7 @@ published: 2022-01-24 01:00:00
 URL: https://fortelabs.co/blog/the-secret-power-of-read-it-later-apps
 Omnivore-URL: https://omnivore.app/me/the-secret-power-of-read-it-later-apps
 related:
-  - "[[Obsidian Plugin Ominvore einrichten]]"
+  - "[[Obsidian-Plugin Ominvore einrichten]]"
 starred: true
 ---
 
