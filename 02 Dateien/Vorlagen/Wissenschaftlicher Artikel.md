@@ -3,7 +3,7 @@ topics:
 tags: 
 aliases: 
 lang: de-DE
-created: <% tp.date.now("YYYY-MM-DD, HH:mm:ss") %>
+created: <% tp.date.now("YYYY-MM-DDTHH:mm:ss") %>
 last edit: 
 bibliographic type: journalArticle
 zotero:
@@ -12,7 +12,7 @@ zotero:
   author-in-text: false
   csl-style: chicago-author-date
 status: new
-links: []
+links: 
 export file: 
-related: 
+related:
 ---

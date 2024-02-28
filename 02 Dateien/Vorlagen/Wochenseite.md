@@ -3,12 +3,12 @@ tags:
 aliases:
   - Woche {{monday:DD.MM.YY}} – {{sunday:DD.MM.YY}}
 lang: de-DE
-created: <% tp.file.creation_date("YYYY-MM-DD, HH:mm:ss") %>
+created: <% tp.file.creation_date("YYYY-MM-DDTHH:mm:ss") %>
 number headings: first-level 1, start-at 1 , max 3, auto, contents ^toc
 children:
   - "[[{{monday: YYYY-MM-DD, dd ([W]ww)}}]]"
   - "[[{{tuesday: YYYY-MM-DD, dd ([W]ww)}}]]"
-  - "[[{{wednesday: YYYY-MM-DD, dd ([W]ww)}}]]" 
+  - "[[{{wednesday: YYYY-MM-DD, dd ([W]ww)}}]]"
   - "[[{{thursday: YYYY-MM-DD, dd ([W]ww)}}]]"
   - "[[{{friday: YYYY-MM-DD, dd ([W]ww)}}]]"
   - "[[{{saturday: YYYY-MM-DD, dd ([W]ww)}}]]"

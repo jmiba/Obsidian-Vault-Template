@@ -46,7 +46,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -163,7 +164,7 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
@@ -187,7 +188,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -204,7 +205,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -216,7 +217,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -251,7 +252,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
               }
             }
           },
@@ -261,7 +262,7 @@
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "README.md"
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
               }
             }
           },
@@ -347,46 +348,46 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "6280d879b77c8594",
+  "active": "81dc4d7a1b2b8135",
   "lastOpenFiles": [
+    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Sport.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+    "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
+    "02 Dateien/Vorlagen/General Note.md",
+    "02 Dateien/Vorlagen/Tagebuchseite.md",
+    "02 Dateien/Vorlagen/Wochenseite.md",
+    "02 Dateien/Vorlagen/Notizenvorlage.md",
+    "02 Dateien/Vorlagen/Kindvorlage.md",
+    "02 Dateien/Vorlagen/ZotLit/zt-field.eta.md",
+    "02 Dateien/Vorlagen/ZotLit/Filename.md",
+    "02 Dateien/Vorlagen/ZotLit/zt-note.eta.md",
+    "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md",
+    "README.md",
     "Notizensammlung/Zertifikatskurs FDM.md",
     "01 Datenbanken/Task Panel.md",
     "Wissensmanagement/Schreibtechniken.md",
     "01 Datenbanken/Change Log.md",
-    "01 Datenbanken/Sport.md",
-    "README.md",
-    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md",
     "04 Literatur-Notes/Omnivore/Obsidian AI Summary.md",
-    "02 Dateien/Vorlagen/Kindvorlage.md",
-    "02 Dateien/Vorlagen/General Note.md",
-    "02 Dateien/Vorlagen/Wochenseite.md",
-    "02 Dateien/Vorlagen/Notizenvorlage.md",
     "04 Literatur-Notes/Omnivore/iPhone-Nutzer aufgepasst- Warum das Schließen von Apps deinem Smartphone eher schadet.md",
     "04 Literatur-Notes/Omnivore/Writing 1000 words.md",
     "Notizensammlung/Obsidian Plugin Ominvore einrichten.md",
     "Konzepte/Macro Concepts/Rolle von Bibliohteken.md",
-    "Konzepte/Macro Concepts/Publizieren.md",
-    "Konzepte/Macro Concepts/Open Access.md",
-    "Open Access - Koste es, was es wolle (2022).md",
-    "Knöchelmann.md",
-    "Konzepte/Micro Concepts/Note-Taking.md",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
     "02 Dateien/HTML-Dateien/README.html",
     "~$README.docx",
     "02 Dateien/Office-Dateien/README.docx",
-    "Test.md",
     "02 Dateien/PDFs/Zotero _ Your personal research assistant.pdf",
     "02 Dateien/Medien/Pasted image 20240227182927.png",
     "02 Dateien/Medien/LK6AKADW.png",
     "02 Dateien/Medien/DIF793R8.png",
     "02 Dateien/Medien/7XRCWY33.png",
     "02 Dateien/Medien/KX58JZPN.png",
-    "Konzepte/Micro Concepts/DEAL Postpayment.md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
     "Dashboard.canvas",
     "02 Dateien/Medien/Pasted image 20240227182847.png",
     "02 Dateien/Medien/Pasted image 20240226194331.png",

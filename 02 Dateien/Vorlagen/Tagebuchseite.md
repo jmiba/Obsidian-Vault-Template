@@ -2,7 +2,7 @@
 tags: 
 aliases: 
 lang: de-DE
-created: <% tp.file.creation_date("YYYY-MM-DD, HH:mm:ss") %>
+created: <% tp.file.creation_date("YYYY-MM-DDTHH:mm:ss") %>
 number headings: first-level 1, start-at 1 , max 3, auto, contents ^toc
 parent: "[[<% tp.date.weekday('YYYY, [W]ww (DD.MM.)', 0, tp.file.title, 'YYYY-MM-DD') %>]]"
 related:

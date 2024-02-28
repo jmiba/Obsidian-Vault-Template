@@ -1,9 +1,9 @@
 ---
-topics: []
+topics: 
 tags: 
 aliases: 
 lang: de-DE
-created: <% tp.date.now("YYYY-MM-DD, HH:mm:ss") %>
+created: <% tp.date.now("YYYY-MM-DDTHH:mm:ss") %>
 type: atomic
 status: new
 source: 

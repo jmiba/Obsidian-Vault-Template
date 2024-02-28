@@ -3,7 +3,7 @@ topics:
 tags: 
 aliases: 
 lang: de-DE
-created: <% tp.file.creation_date("DD.MM.YYYY, HH:mm:ss") %>
+created: <% tp.file.creation_date("DD.MM.YYYYTHH:mm:ss") %>
 related: 
 parent:
 ---

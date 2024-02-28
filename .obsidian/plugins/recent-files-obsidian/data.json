@@ -1,12 +1,68 @@
 {
   "recentFiles": [
     {
-      "basename": "README",
-      "path": "README.md"
-    },
-    {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+    },
+    {
+      "basename": "2024-02-19, Mo (W08)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
+    },
+    {
+      "basename": "2024-02-26, Mo (W09)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md"
+    },
+    {
+      "basename": "Sport",
+      "path": "01 Datenbanken/Sport.md"
+    },
+    {
+      "basename": "The Secret Power of ‘Read It Later’ Apps",
+      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
+    },
+    {
+      "basename": "Wissenschaftlicher Artikel",
+      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+    },
+    {
+      "basename": "General Note",
+      "path": "02 Dateien/Vorlagen/General Note.md"
+    },
+    {
+      "basename": "Tagebuchseite",
+      "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
+    },
+    {
+      "basename": "Wochenseite",
+      "path": "02 Dateien/Vorlagen/Wochenseite.md"
+    },
+    {
+      "basename": "Notizenvorlage",
+      "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
+    },
+    {
+      "basename": "Kindvorlage",
+      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
+    },
+    {
+      "basename": "zt-field.eta",
+      "path": "02 Dateien/Vorlagen/ZotLit/zt-field.eta.md"
+    },
+    {
+      "basename": "Filename",
+      "path": "02 Dateien/Vorlagen/ZotLit/Filename.md"
+    },
+    {
+      "basename": "zt-note.eta",
+      "path": "02 Dateien/Vorlagen/ZotLit/zt-note.eta.md"
+    },
+    {
+      "basename": "zt-cite2.eta",
+      "path": "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md"
+    },
+    {
+      "basename": "README",
+      "path": "README.md"
     },
     {
       "basename": "Zertifikatskurs FDM",
@@ -29,16 +85,8 @@
       "path": "01 Datenbanken/Dienstreisen.md"
     },
     {
-      "basename": "2024-02-19, Mo (W08)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
-    },
-    {
       "basename": "Fortbildung",
       "path": "01 Datenbanken/Fortbildung.md"
-    },
-    {
-      "basename": "Sport",
-      "path": "01 Datenbanken/Sport.md"
     },
     {
       "basename": "Themen",
@@ -67,10 +115,6 @@
     {
       "basename": "Things Theme",
       "path": "Wissensmanagement/Things Theme.md"
-    },
-    {
-      "basename": "The Secret Power of ‘Read It Later’ Apps",
-      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
     },
     {
       "basename": "Test mit Pandoc Reference List Plugin",
