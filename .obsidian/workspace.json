@@ -46,7 +46,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -163,7 +164,7 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
@@ -187,7 +188,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -204,7 +205,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -216,7 +217,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -239,7 +240,7 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 1.4031676796662211,
+                  "scale": 0.7138782344908602,
                   "close": true
                 }
               }
@@ -251,7 +252,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
               }
             }
           },
@@ -261,7 +262,7 @@
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "README.md"
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
               }
             }
           },
@@ -306,7 +307,7 @@
             }
           }
         ],
-        "currentTab": 9
+        "currentTab": 5
       },
       {
         "id": "463bd6bee6ee2334",
@@ -347,19 +348,23 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "6280d879b77c8594",
+  "active": "81dc4d7a1b2b8135",
   "lastOpenFiles": [
+    "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "README.md",
+    "01 Datenbanken/Sport.md",
+    "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-29, Do (W09).md",
+    "01 Datenbanken/Aufgabenerfüllung.md",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
     "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
     "02 Dateien/Pasted image 20240228154843.png",
-    "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
     "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md",
-    "01 Datenbanken/Sport.md",
-    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
     "02 Dateien/Vorlagen/General Note.md",
     "02 Dateien/Vorlagen/Tagebuchseite.md",
@@ -372,11 +377,8 @@
     "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md",
     "Notizensammlung/Zertifikatskurs FDM.md",
     "01 Datenbanken/Task Panel.md",
-    "Wissensmanagement/Schreibtechniken.md",
-    "01 Datenbanken/Change Log.md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
-    "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
     "02 Dateien/HTML-Dateien/README.html",
     "~$README.docx",
