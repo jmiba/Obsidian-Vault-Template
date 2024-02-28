@@ -46,8 +46,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -164,7 +163,7 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
@@ -188,7 +187,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -205,7 +204,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -217,7 +216,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -252,7 +251,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+                "file": "README.md"
               }
             }
           },
@@ -262,7 +261,7 @@
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+                "file": "README.md"
               }
             }
           },
@@ -348,19 +347,28 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "81dc4d7a1b2b8135",
+  "active": "6280d879b77c8594",
   "lastOpenFiles": [
-    "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Fortbildung.md",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "02 Dateien/Medien/Pasted image 20240226183307.png",
+    "02 Dateien/Medien/Pasted image 20240226182730.png",
+    "02 Dateien/Medien/Pasted image 20240226194331.png",
+    "02 Dateien/Medien/Pasted image 20240227182847.png",
+    "02 Dateien/Medien/Pasted image 20240227182927.png",
+    "02 Dateien/Medien/Pasted image 20240227214916.png",
+    "02 Dateien/Medien/Pasted image 20240228154843.png",
+    "02 Dateien/Medien/Pasted image 20240228172537.png",
+    "02 Dateien/Medien/Pasted image 20240228172739.png",
+    "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md",
     "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "README.md",
     "01 Datenbanken/Sport.md",
     "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-29, Do (W09).md",
     "01 Datenbanken/Aufgabenerfüllung.md",
-    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
     "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
-    "02 Dateien/Pasted image 20240228154843.png",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
     "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
@@ -376,7 +384,6 @@
     "02 Dateien/Vorlagen/ZotLit/zt-note.eta.md",
     "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md",
     "Notizensammlung/Zertifikatskurs FDM.md",
-    "01 Datenbanken/Task Panel.md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
@@ -384,16 +391,8 @@
     "~$README.docx",
     "02 Dateien/Office-Dateien/README.docx",
     "02 Dateien/PDFs/Zotero _ Your personal research assistant.pdf",
-    "02 Dateien/Medien/Pasted image 20240227182927.png",
     "02 Dateien/Medien/LK6AKADW.png",
-    "02 Dateien/Medien/DIF793R8.png",
-    "02 Dateien/Medien/7XRCWY33.png",
-    "02 Dateien/Medien/KX58JZPN.png",
     "Dashboard.canvas",
-    "02 Dateien/Medien/Pasted image 20240227182847.png",
-    "02 Dateien/Medien/Pasted image 20240226194331.png",
-    "02 Dateien/Medien/Pasted image 20240226183307.png",
-    "02 Dateien/Medien/Pasted image 20240226182730.png",
     "04LITE~1/Zotero",
     "02 Dateien/Vorlagen/prompts/dalle",
     "02 Dateien/Vorlagen/prompts/default",

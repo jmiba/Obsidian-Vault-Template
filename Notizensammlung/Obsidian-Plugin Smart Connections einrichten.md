@@ -39,12 +39,18 @@ await dv.view("02 Dateien/Javascript/related_write")
 > - [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
 > %% END A %%
 
+# Smart Connections
+
+"Smart Connections" berechnet für Ihre Notizen im Vault Ähnlichkeitsvektoren und zeigt Ihnen KI-gestützt, welche Notizen mit welchen zusammenhängen.: https://github.com/brianpetro/obsidian-smart-connections.
+
+Wenn Sie es benutzen wollen, müssen Sie es in den Einstellungen aktivieren: 
+![[Pasted image 20240228172537.png]]
 # API-Key
 
 Damit das Plugin „Smart Connections“ richtig funktioniert, müssen Sie sich bei [OpenAI](https://www.openai.com) ein Konto anlegen und einen API Key erstellen:
 ![[Pasted image 20240226183307.png]]
 
 Dieser Key muss dann in den Einstellungen des Obsidian-Plugins eingetragen werden:
-![[Pasted image 20240226182730.png]]
+![[Pasted image 20240228172739.png]]
 
 
