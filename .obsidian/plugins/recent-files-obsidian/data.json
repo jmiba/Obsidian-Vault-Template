@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
@@ -59,10 +63,6 @@
     {
       "basename": "zt-cite2.eta",
       "path": "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md"
-    },
-    {
-      "basename": "README",
-      "path": "README.md"
     },
     {
       "basename": "Zertifikatskurs FDM",
