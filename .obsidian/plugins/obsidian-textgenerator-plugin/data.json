@@ -1,5 +1,5 @@
 {
-  "version": "0.6.2",
+  "version": "0.7.4",
   "endpoint": "https://api.openai.com/v1",
   "models": {},
   "api_key": "",
@@ -8,13 +8,13 @@
   "max_tokens": 500,
   "temperature": 0.7,
   "frequency_penalty": 0.5,
-  "prompt": "",
   "showStatusBar": true,
   "outputToBlockQuote": false,
   "freeCursorOnStreaming": false,
   "allowJavascriptRun": false,
   "experiment": false,
   "promptsPath": "02 Dateien/Vorlagen/prompts",
+  "textGenPath": "textgenerator/",
   "prefix": "\n\n",
   "tgSelectionLimiter": "^\\*\\*\\*",
   "stream": true,
@@ -83,6 +83,7 @@
     "ImageExtractor": true
   },
   "displayErrorInEditor": false,
+  "LLMProviderProfiles": {},
   "LLMProviderOptions": {
     "whisper": {
       "base_path": "https://api.openai.com/v1"
@@ -96,6 +97,7 @@
   "LLMProviderOptionsKeysHashed": {
     "OpenAI Chat (Langchain).api_key": "__@#key_prefix#@__"
   },
+  "prompt": "",
   "api_key_encrypted": "__@#key_prefix#@__",
   "model": "gpt-4-1106-preview"
 }

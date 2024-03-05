@@ -8,6 +8,6 @@
 
 **Remember:** Always take atomic notes, because only this makes it possible to link unique ideas
 
-Go to [[2024-02-28, Mi (W09)]] and see what‘s in there.
+Go to the daily note [[2024-02-28, Mi (W09)]] and see what‘s in there.
 
 #Note_Taking #Werkzeuge #Second_Brain #Wissensmanagement 

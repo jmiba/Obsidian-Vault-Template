@@ -69,7 +69,7 @@ async function queryNotes(topics, notes, file, toRender, statement) {
             LIST created
             FLATTEN topics AS t
             WHERE t = "${topic}" AND file.name != "${file}" AND ${statement})
-            SORT created ASC
+            SORT file.ctime DESC
         `);
         if (related.successful === true) {
             if (related.value.values.length > 0) {
