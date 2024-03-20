@@ -342,15 +342,17 @@
       "obsidian-file-info-plugin:File Info Panel": false,
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-omnivore:Omnivore": false,
-      "periodic-notes:Open today": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
-      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false
+      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
+      "periodic-notes:Open today": false
     }
   },
   "active": "6280d879b77c8594",
   "lastOpenFiles": [
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Beratung.md",
     "README.md",
+    "Konzepte/Macro Concepts/Rolle von Bibliohteken.md",
     "01 Datenbanken/Sport.md",
     "01 Datenbanken/Fortbildung.md",
     "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
@@ -382,8 +384,6 @@
     "02 Dateien/Vorlagen/ZotLit/zt-field.eta.md",
     "02 Dateien/Vorlagen/ZotLit/Filename.md",
     "02 Dateien/Vorlagen/ZotLit/zt-note.eta.md",
-    "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md",
-    "Notizensammlung/Zertifikatskurs FDM.md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
