@@ -11,13 +11,26 @@ if (year && !period) {
 } else {
 	dv.header(2, `Laufen (letzte ${period} Tage ab ${year})`)
 }
-const pages = dv.pages('').where(o => o.Sport == "Laufen") //.where(d => d.file.name.includes(year))
-const allPages = dv.pages('').where(o => o.Sport != null) //.where(d => d.file.name.includes(year))
-let daysWithData = pages.map(p => p.file.name).values 
+const rPages = dv.pages('').where(o => o.Sport == "Laufen") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const hPages = dv.pages('').where(o => o.Sport == "Wandern") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const cPages = dv.pages('').where(o => o.Sport == "Rennrad" || o.Sport == "Mountainbike") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const allPages = dv.pages('').where(o => o.Sport != null) .sort(k => k.file.name, 'asc') //.where(d => d.file.name.includes(year))
+let daysWithData = rPages.map(p => p.file.name).values
+let hDaysWithData = hPages.map(p => p.file.name).values 
+let cDaysWithData = cPages.map(p => p.file.name).values
 let allDaysWithData = allPages.map(p => p.file.name).values 
-let distances = pages.map(p => p.Distanz).values
-let times = pages.map(p => p.Zeit).values
+let rDistances = rPages.map(p => p.Distanz).values
+let hDistances = hPages.map(p => p.Distanz).values
+let cDistances = cPages.map(p => p.Distanz).values
+let times = rPages.map(p => p.Zeit).values
 let calories = allPages.map(p => p.Kalorien).values
+//let types = allPages.map(p => p.Übung)
+let types = allPages.map(p => {
+    let übungArray = p.Übung ? (Array.isArray(p.Übung) ? p.Übung : [p.Übung]) : [];
+    return übungArray.filter(item => item !== null).join(', ');
+});
+//dv.paragraph(allPages.Sport)
+
 let bpm = allPages.map(p => p.Herzfrequenz).values
 let bpmMax = allPages.map(p => p.HerzfrequenzMax).values
 let reps = allPages.map(p => p.Reps).values
@@ -56,7 +69,7 @@ let paces = days.map((day) => {
   const index = daysWithData.findIndex(d => d.startsWith(day));
   if (index !== -1) {
     // If there is data available for this day
-    const distance = distances[index];
+    const distance = rDistances[index];
     const time = times[index];
     return calculatePaceForDay(distance, time);
   }
@@ -64,10 +77,10 @@ let paces = days.map((day) => {
 });
 //dv.paragraph(paces);
 
-// Update distances, times, calories and bpm arrays to include all days (even those without data)
-distances = days.map((day, index) => {
+// Update rDistances, times, calories and bpm arrays to include all days (even those without data)
+rDistances = days.map((day, index) => {
   const dataIndex = daysWithData.findIndex(d => d.startsWith(day));
-  return dataIndex !== -1 ? distances[dataIndex] : 0;
+  return dataIndex !== -1 ? rDistances[dataIndex] : 0;
 });
 
 times = days.map((day, index) => {
@@ -75,9 +88,24 @@ times = days.map((day, index) => {
   return dataIndex !== -1 ? times[dataIndex] : '0:00:00';
 });
 
+hDistances = days.map((day, index) => {
+  const dataIndex = hDaysWithData.findIndex(d => d.startsWith(day));
+  return dataIndex !== -1 ? hDistances[dataIndex] : 0;
+});
+
+cDistances = days.map((day, index) => {
+  const dataIndex = cDaysWithData.findIndex(d => d.startsWith(day));
+  return dataIndex !== -1 ? cDistances[dataIndex] : 0;
+});
+
 calories = days.map((day, index) => {
   const dataIndex = allDaysWithData.findIndex(d => d.startsWith(day));
   return dataIndex !== -1 ? calories[dataIndex] : 0;
+});
+
+types = days.map((day, index) => {
+  const dataIndex = allDaysWithData.findIndex(d => d.startsWith(day));
+  return dataIndex !== -1 ? types[dataIndex] : 0;
 });
 
 bpm = days.map((day, index) => {
@@ -94,7 +122,6 @@ reps = days.map((day, index) => {
   const dataIndex = allDaysWithData.findIndex(d => d.startsWith(day));
   return dataIndex !== -1 ? reps[dataIndex] : null;
 });
-//dv.paragraph(reps)
 
 vo2max = days.map((day, index) => {
   const dataIndex = allDaysWithData.findIndex(d => d.startsWith(day));
@@ -113,9 +140,13 @@ function sumOrReturn(value) {
 // Calculate sums for each value in the mixed dataset
 let sReps = reps.map(value => sumOrReturn(value));
 //dv.paragraph(sReps)
+
 if (period) {
   days=days.slice(-period);
-  distances=distances.slice(-period);
+  rDistances=rDistances.slice(-period);
+  hDistances=hDistances.slice(-period);
+  types=types.slice(-period);
+  cDistances=cDistances.slice(-period);
   sReps=sReps.slice(-period);
   paces=paces.slice(-period);
   calories=calories.slice(-period);
@@ -124,15 +155,15 @@ if (period) {
   vo2max=vo2max.slice(-period);
 }
 
-
 const chartData = {  
   data: { 
 	labels: days, 
 	datasets: [
 	  { 
 		type: 'bar',
-		label: 'Distanz',
-		data: distances,
+		label: 'Laufen',
+		data: rDistances,
+		types: types,
 		tension: 0.1,
 		backgroundColor: [ 'rgba(153, 51, 255, 0.2)' ], 
 		borderColor: [ 'rgba(153, 51, 255, 1)' ], 
@@ -141,14 +172,39 @@ const chartData = {
 	  },
 	  { 
 		type: 'bar',
+		label: 'Wandern',
+		data: hDistances,
+		types: types,
+		tension: 0.1,
+		backgroundColor: [ 'rgba(153, 151, 155, 0.2)' ], 
+		borderColor: [ 'rgba(153, 151, 155, 1)' ], 
+		borderWidth: 1,
+		yAxisID: 'distance',
+		xAxisID: 'x1',
+	  },
+	  { 
+		type: 'bar',
 		label: 'Kraft',
 		data: sReps,
+		types: types,
 		tension: 0.1,
 		backgroundColor: [ 'rgba(53, 51, 255, 0.2)' ], 
 		borderColor: [ 'rgba(53, 51, 255, 1)' ], 
 		borderWidth: 1,
 		yAxisID: 'reps',
 		xAxisID: 'x2',
+	  },
+	  { 
+		type: 'bar',
+		label: 'Rad',
+		data: cDistances,
+		types: types,
+		tension: 0.1,
+		backgroundColor: [ 'rgba(0, 151, 255, 0.2)' ], 
+		borderColor: [ 'rgba(0, 151, 255, 1)' ], 
+		borderWidth: 1,
+		yAxisID: 'cDistance',
+		xAxisID: 'x4',
 	  },
 	  { 
 		type: 'line',
@@ -226,6 +282,13 @@ const chartData = {
 			tooltipFormat: 'dddd, DD.MM.YYYY',
 		  },
 		},
+		x1: {
+		  display: false,
+		  type: 'time',
+		  time: {
+			tooltipFormat: 'dddd, DD.MM.YYYY',
+		  },
+		},
 		x2: {
 		  display: false,
 		  type: 'time',
@@ -234,6 +297,13 @@ const chartData = {
 		  },
 		},
 		x3: {
+		  display: false,
+		  type: 'time',
+		  time: {
+			tooltipFormat: 'dddd, DD.MM.YYYY',
+		  },
+		},
+		x4: {
 		  display: false,
 		  type: 'time',
 		  time: {
@@ -267,6 +337,15 @@ const chartData = {
 		  position: 'left',
 		  ticks: {
 			  color: [ 'rgba(153, 51, 255, 1)' ],
+		  },
+		},
+		cDistance: {
+		  display: false,
+		  title: {display: false, text:'km', color: [ 'rgba(0, 151, 255, 1)' ], align: 'end'},
+		  beginAtZero: true,
+		  position: 'left',
+		  ticks: {
+			  color: [ 'rgba(0, 151, 255, 1)' ],
 		  },
 		},
 		pace: {
@@ -310,7 +389,7 @@ const chartData = {
 	  },
 	  plugins: {
 		  legend: {
-			labels: {boxWidth: 30 },
+			labels: {boxWidth: 15 },
 			onClick: function(event, legendItem) {
 			  const index = legendItem.datasetIndex;
 			  const chart = this.chart;
@@ -345,20 +424,21 @@ const chartData = {
 			  label: function (context) {
 				const { dataset, dataIndex } = context;
 				const value = dataset.data[dataIndex];
+				const type = dataset.types[dataIndex];
 				if (dataset.label === 'Pace') {
 				  const minutes = Math.floor(value);
 				  const seconds = Math.round((value - minutes) * 60);
 				  return `Pace ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 				} else if (dataset.label === 'Kalorien'){
 				  return `${value} kcal`;
-				} else if (dataset.label === 'Distanz'){
-				  return `${myformat.format(value)} km`;
+				} else if (dataset.label === 'Laufen' || dataset.label === 'Rad' || dataset.label === 'Wandern'){
+				  return `${myformat.format(value)} km (${type})`;
 				} else if (dataset.label === 'Herz' || dataset.label === 'Herz max' ){
 				  return `${value} bpm`;
 				} else if (dataset.label === 'VO²max'){
 				  return `VO²max ${value}`;
 				} else {
-				  return `${value} Reps`;
+				  return `${value} Reps (${type})`;
 				}
 				return value;
 			  }
@@ -369,5 +449,5 @@ const chartData = {
 }
 
 window.renderChart(chartData, container) 
-const totalDistance = distances.reduce((acc, distance) => acc + distance, 0);
-dv.paragraph(period? `**Gesamtkilometer letzte ${period} Tage:** ${myformat.format(totalDistance)} km`:`**Gesamtkilometer ${year}:** ${myformat.format(totalDistance)} km`)
+const totalDistance = rDistances.reduce((acc, distance) => acc + distance, 0) + hDistances.reduce((acc, distance) => acc + distance, 0);
+dv.paragraph(period? `**Gesamtlaufkilometer letzte ${period} Tage:** ${myformat.format(totalDistance)} km`:`**Gesamtlaufkilometer ${year}:** ${myformat.format(totalDistance)} km`)

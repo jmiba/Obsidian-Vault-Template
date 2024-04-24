@@ -1894,6 +1894,9 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 .plug-tg-font-semibold {
   font-weight: 600;
 }
+.plug-tg-font-thin {
+  font-weight: 100;
+}
 .plug-tg-uppercase {
   text-transform: uppercase;
 }
@@ -2429,18 +2432,15 @@ body.react-confirm-alert-body-element {
   }
 }
 @media (min-width: 768px) {
+  .md\:plug-tg-flex-row {
+    flex-direction: row;
+  }
   .md\:plug-tg-text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
   }
 }
 @media (min-width: 1024px) {
-  .lg\:plug-tg-block {
-    display: block;
-  }
-  .lg\:plug-tg-flex {
-    display: flex;
-  }
   .lg\:plug-tg-w-1\/4 {
     width: 25%;
   }
@@ -2449,9 +2449,6 @@ body.react-confirm-alert-body-element {
   }
   .lg\:plug-tg-w-auto {
     width: auto;
-  }
-  .lg\:plug-tg-justify-between {
-    justify-content: space-between;
   }
 }
 @media (prefers-color-scheme: dark) {

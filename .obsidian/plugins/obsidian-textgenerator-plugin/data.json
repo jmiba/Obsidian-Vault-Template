@@ -1,5 +1,5 @@
 {
-  "version": "0.7.8",
+  "version": "0.7.11",
   "endpoint": "https://api.openai.com/v1",
   "models": {},
   "api_key": "",

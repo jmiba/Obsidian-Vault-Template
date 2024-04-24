@@ -9,6 +9,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -26,6 +27,3913 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+
+// node_modules/@0no-co/graphql.web/dist/graphql.web.js
+var require_graphql_web = __commonJS({
+  "node_modules/@0no-co/graphql.web/dist/graphql.web.js"(exports) {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var GraphQLError = class extends Error {
+      constructor(e2, r2, i2, n3, t2, a2, o2) {
+        super(e2);
+        this.name = "GraphQLError";
+        this.message = e2;
+        if (t2) {
+          this.path = t2;
+        }
+        if (r2) {
+          this.nodes = Array.isArray(r2) ? r2 : [r2];
+        }
+        if (i2) {
+          this.source = i2;
+        }
+        if (n3) {
+          this.positions = n3;
+        }
+        if (a2) {
+          this.originalError = a2;
+        }
+        var l3 = o2;
+        if (!l3 && a2) {
+          var u2 = a2.extensions;
+          if (u2 && typeof u2 == "object") {
+            l3 = u2;
+          }
+        }
+        this.extensions = l3 || {};
+      }
+      toJSON() {
+        return {
+          ...this,
+          message: this.message
+        };
+      }
+      toString() {
+        return this.message;
+      }
+      get [Symbol.toStringTag]() {
+        return "GraphQLError";
+      }
+    };
+    var e;
+    var r;
+    function error(e2) {
+      return new GraphQLError(`Syntax Error: Unexpected token at ${r} in ${e2}`);
+    }
+    function advance(i2) {
+      i2.lastIndex = r;
+      if (i2.test(e)) {
+        return e.slice(r, r = i2.lastIndex);
+      }
+    }
+    var i = / +(?=[^\s])/y;
+    function blockString(e2) {
+      var r2 = e2.split("\n");
+      var n3 = "";
+      var t2 = 0;
+      var a2 = 0;
+      var o2 = r2.length - 1;
+      for (var l3 = 0; l3 < r2.length; l3++) {
+        i.lastIndex = 0;
+        if (i.test(r2[l3])) {
+          if (l3 && (!t2 || i.lastIndex < t2)) {
+            t2 = i.lastIndex;
+          }
+          a2 = a2 || l3;
+          o2 = l3;
+        }
+      }
+      for (var u2 = a2; u2 <= o2; u2++) {
+        if (u2 !== a2) {
+          n3 += "\n";
+        }
+        n3 += r2[u2].slice(t2).replace(/\\"""/g, '"""');
+      }
+      return n3;
+    }
+    function ignored() {
+      for (var i2 = 0 | e.charCodeAt(r++); i2 === 9 || i2 === 10 || i2 === 13 || i2 === 32 || i2 === 35 || i2 === 44 || i2 === 65279; i2 = 0 | e.charCodeAt(r++)) {
+        if (i2 === 35) {
+          while ((i2 = e.charCodeAt(r++)) !== 10 && i2 !== 13) {
+          }
+        }
+      }
+      r--;
+    }
+    var n2 = /[_A-Za-z]\w*/y;
+    function name() {
+      var e2;
+      if (e2 = advance(n2)) {
+        return {
+          kind: "Name",
+          value: e2
+        };
+      }
+    }
+    var t = /(?:null|true|false)/y;
+    var a = /\$[_A-Za-z]\w*/y;
+    var o = /-?\d+/y;
+    var l2 = /(?:\.\d+)?[eE][+-]?\d+|\.\d+/y;
+    var u = /\\/g;
+    var v = /"""(?:"""|(?:[\s\S]*?[^\\])""")/y;
+    var d = /"(?:"|[^\r\n]*?[^\\]")/y;
+    function value(i2) {
+      var s3;
+      var c2;
+      if (c2 = advance(t)) {
+        s3 = c2 === "null" ? {
+          kind: "NullValue"
+        } : {
+          kind: "BooleanValue",
+          value: c2 === "true"
+        };
+      } else if (!i2 && (c2 = advance(a))) {
+        s3 = {
+          kind: "Variable",
+          name: {
+            kind: "Name",
+            value: c2.slice(1)
+          }
+        };
+      } else if (c2 = advance(o)) {
+        var f2 = c2;
+        if (c2 = advance(l2)) {
+          s3 = {
+            kind: "FloatValue",
+            value: f2 + c2
+          };
+        } else {
+          s3 = {
+            kind: "IntValue",
+            value: f2
+          };
+        }
+      } else if (c2 = advance(n2)) {
+        s3 = {
+          kind: "EnumValue",
+          value: c2
+        };
+      } else if (c2 = advance(v)) {
+        s3 = {
+          kind: "StringValue",
+          value: blockString(c2.slice(3, -3)),
+          block: true
+        };
+      } else if (c2 = advance(d)) {
+        s3 = {
+          kind: "StringValue",
+          value: u.test(c2) ? JSON.parse(c2) : c2.slice(1, -1),
+          block: false
+        };
+      } else if (s3 = function list(i3) {
+        var n3;
+        if (e.charCodeAt(r) === 91) {
+          r++;
+          ignored();
+          var t2 = [];
+          while (n3 = value(i3)) {
+            t2.push(n3);
+          }
+          if (e.charCodeAt(r++) !== 93) {
+            throw error("ListValue");
+          }
+          ignored();
+          return {
+            kind: "ListValue",
+            values: t2
+          };
+        }
+      }(i2) || function object(i3) {
+        if (e.charCodeAt(r) === 123) {
+          r++;
+          ignored();
+          var n3 = [];
+          var t2;
+          while (t2 = name()) {
+            ignored();
+            if (e.charCodeAt(r++) !== 58) {
+              throw error("ObjectField");
+            }
+            ignored();
+            var a2 = value(i3);
+            if (!a2) {
+              throw error("ObjectField");
+            }
+            n3.push({
+              kind: "ObjectField",
+              name: t2,
+              value: a2
+            });
+          }
+          if (e.charCodeAt(r++) !== 125) {
+            throw error("ObjectValue");
+          }
+          ignored();
+          return {
+            kind: "ObjectValue",
+            fields: n3
+          };
+        }
+      }(i2)) {
+        return s3;
+      }
+      ignored();
+      return s3;
+    }
+    function arguments_(i2) {
+      var n3 = [];
+      ignored();
+      if (e.charCodeAt(r) === 40) {
+        r++;
+        ignored();
+        var t2;
+        while (t2 = name()) {
+          ignored();
+          if (e.charCodeAt(r++) !== 58) {
+            throw error("Argument");
+          }
+          ignored();
+          var a2 = value(i2);
+          if (!a2) {
+            throw error("Argument");
+          }
+          n3.push({
+            kind: "Argument",
+            name: t2,
+            value: a2
+          });
+        }
+        if (!n3.length || e.charCodeAt(r++) !== 41) {
+          throw error("Argument");
+        }
+        ignored();
+      }
+      return n3;
+    }
+    function directives(i2) {
+      var n3 = [];
+      ignored();
+      while (e.charCodeAt(r) === 64) {
+        r++;
+        var t2 = name();
+        if (!t2) {
+          throw error("Directive");
+        }
+        ignored();
+        n3.push({
+          kind: "Directive",
+          name: t2,
+          arguments: arguments_(i2)
+        });
+      }
+      return n3;
+    }
+    function field() {
+      var i2 = name();
+      if (i2) {
+        ignored();
+        var n3;
+        if (e.charCodeAt(r) === 58) {
+          r++;
+          ignored();
+          n3 = i2;
+          if (!(i2 = name())) {
+            throw error("Field");
+          }
+          ignored();
+        }
+        return {
+          kind: "Field",
+          alias: n3,
+          name: i2,
+          arguments: arguments_(false),
+          directives: directives(false),
+          selectionSet: selectionSet()
+        };
+      }
+    }
+    function type() {
+      var i2;
+      ignored();
+      if (e.charCodeAt(r) === 91) {
+        r++;
+        ignored();
+        var n3 = type();
+        if (!n3 || e.charCodeAt(r++) !== 93) {
+          throw error("ListType");
+        }
+        i2 = {
+          kind: "ListType",
+          type: n3
+        };
+      } else if (i2 = name()) {
+        i2 = {
+          kind: "NamedType",
+          name: i2
+        };
+      } else {
+        throw error("NamedType");
+      }
+      ignored();
+      if (e.charCodeAt(r) === 33) {
+        r++;
+        ignored();
+        return {
+          kind: "NonNullType",
+          type: i2
+        };
+      } else {
+        return i2;
+      }
+    }
+    var s2 = /on/y;
+    function typeCondition() {
+      if (advance(s2)) {
+        ignored();
+        var e2 = name();
+        if (!e2) {
+          throw error("NamedType");
+        }
+        ignored();
+        return {
+          kind: "NamedType",
+          name: e2
+        };
+      }
+    }
+    var c = /\.\.\./y;
+    function fragmentSpread() {
+      if (advance(c)) {
+        ignored();
+        var e2 = r;
+        var i2;
+        if ((i2 = name()) && i2.value !== "on") {
+          return {
+            kind: "FragmentSpread",
+            name: i2,
+            directives: directives(false)
+          };
+        } else {
+          r = e2;
+          var n3 = typeCondition();
+          var t2 = directives(false);
+          var a2 = selectionSet();
+          if (!a2) {
+            throw error("InlineFragment");
+          }
+          return {
+            kind: "InlineFragment",
+            typeCondition: n3,
+            directives: t2,
+            selectionSet: a2
+          };
+        }
+      }
+    }
+    function selectionSet() {
+      var i2;
+      ignored();
+      if (e.charCodeAt(r) === 123) {
+        r++;
+        ignored();
+        var n3 = [];
+        while (i2 = fragmentSpread() || field()) {
+          n3.push(i2);
+        }
+        if (!n3.length || e.charCodeAt(r++) !== 125) {
+          throw error("SelectionSet");
+        }
+        ignored();
+        return {
+          kind: "SelectionSet",
+          selections: n3
+        };
+      }
+    }
+    var f = /fragment/y;
+    function fragmentDefinition() {
+      if (advance(f)) {
+        ignored();
+        var e2 = name();
+        if (!e2) {
+          throw error("FragmentDefinition");
+        }
+        ignored();
+        var r2 = typeCondition();
+        if (!r2) {
+          throw error("FragmentDefinition");
+        }
+        var i2 = directives(false);
+        var n3 = selectionSet();
+        if (!n3) {
+          throw error("FragmentDefinition");
+        }
+        return {
+          kind: "FragmentDefinition",
+          name: e2,
+          typeCondition: r2,
+          directives: i2,
+          selectionSet: n3
+        };
+      }
+    }
+    var p = /(?:query|mutation|subscription)/y;
+    function operationDefinition() {
+      var i2;
+      var n3;
+      var t2 = [];
+      var o2 = [];
+      if (i2 = advance(p)) {
+        ignored();
+        n3 = name();
+        t2 = function variableDefinitions() {
+          var i3;
+          var n4 = [];
+          ignored();
+          if (e.charCodeAt(r) === 40) {
+            r++;
+            ignored();
+            while (i3 = advance(a)) {
+              ignored();
+              if (e.charCodeAt(r++) !== 58) {
+                throw error("VariableDefinition");
+              }
+              var t3 = type();
+              var o3 = void 0;
+              if (e.charCodeAt(r) === 61) {
+                r++;
+                ignored();
+                if (!(o3 = value(true))) {
+                  throw error("VariableDefinition");
+                }
+              }
+              ignored();
+              n4.push({
+                kind: "VariableDefinition",
+                variable: {
+                  kind: "Variable",
+                  name: {
+                    kind: "Name",
+                    value: i3.slice(1)
+                  }
+                },
+                type: t3,
+                defaultValue: o3,
+                directives: directives(true)
+              });
+            }
+            if (e.charCodeAt(r++) !== 41) {
+              throw error("VariableDefinition");
+            }
+            ignored();
+          }
+          return n4;
+        }();
+        o2 = directives(false);
+      }
+      var l3 = selectionSet();
+      if (l3) {
+        return {
+          kind: "OperationDefinition",
+          operation: i2 || "query",
+          name: n3,
+          variableDefinitions: t2,
+          directives: o2,
+          selectionSet: l3
+        };
+      }
+    }
+    var m = {};
+    function printString(e2) {
+      return JSON.stringify(e2);
+    }
+    function printBlockString(e2) {
+      return '"""\n' + e2.replace(/"""/g, '\\"""') + '\n"""';
+    }
+    var hasItems = (e2) => !(!e2 || !e2.length);
+    var g = {
+      OperationDefinition(e2) {
+        if (e2.operation === "query" && !e2.name && !hasItems(e2.variableDefinitions) && !hasItems(e2.directives)) {
+          return g.SelectionSet(e2.selectionSet);
+        }
+        var r2 = e2.operation;
+        if (e2.name) {
+          r2 += " " + e2.name.value;
+        }
+        if (hasItems(e2.variableDefinitions)) {
+          if (!e2.name) {
+            r2 += " ";
+          }
+          r2 += "(" + e2.variableDefinitions.map(g.VariableDefinition).join(", ") + ")";
+        }
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return r2 + " " + g.SelectionSet(e2.selectionSet);
+      },
+      VariableDefinition(e2) {
+        var r2 = g.Variable(e2.variable) + ": " + print(e2.type);
+        if (e2.defaultValue) {
+          r2 += " = " + print(e2.defaultValue);
+        }
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return r2;
+      },
+      Field(e2) {
+        var r2 = (e2.alias ? e2.alias.value + ": " : "") + e2.name.value;
+        if (hasItems(e2.arguments)) {
+          var i2 = e2.arguments.map(g.Argument);
+          var n3 = r2 + "(" + i2.join(", ") + ")";
+          r2 = n3.length > 80 ? r2 + "(\n  " + i2.join("\n").replace(/\n/g, "\n  ") + "\n)" : n3;
+        }
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return e2.selectionSet ? r2 + " " + g.SelectionSet(e2.selectionSet) : r2;
+      },
+      StringValue: (e2) => e2.block ? printBlockString(e2.value) : printString(e2.value),
+      BooleanValue: (e2) => "" + e2.value,
+      NullValue: (e2) => "null",
+      IntValue: (e2) => e2.value,
+      FloatValue: (e2) => e2.value,
+      EnumValue: (e2) => e2.value,
+      Name: (e2) => e2.value,
+      Variable: (e2) => "$" + e2.name.value,
+      ListValue: (e2) => "[" + e2.values.map(print).join(", ") + "]",
+      ObjectValue: (e2) => "{" + e2.fields.map(g.ObjectField).join(", ") + "}",
+      ObjectField: (e2) => e2.name.value + ": " + print(e2.value),
+      Document: (e2) => hasItems(e2.definitions) ? e2.definitions.map(print).join("\n\n") : "",
+      SelectionSet: (e2) => "{\n  " + e2.selections.map(print).join("\n").replace(/\n/g, "\n  ") + "\n}",
+      Argument: (e2) => e2.name.value + ": " + print(e2.value),
+      FragmentSpread(e2) {
+        var r2 = "..." + e2.name.value;
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return r2;
+      },
+      InlineFragment(e2) {
+        var r2 = "...";
+        if (e2.typeCondition) {
+          r2 += " on " + e2.typeCondition.name.value;
+        }
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return r2 + " " + print(e2.selectionSet);
+      },
+      FragmentDefinition(e2) {
+        var r2 = "fragment " + e2.name.value;
+        r2 += " on " + e2.typeCondition.name.value;
+        if (hasItems(e2.directives)) {
+          r2 += " " + e2.directives.map(g.Directive).join(" ");
+        }
+        return r2 + " " + print(e2.selectionSet);
+      },
+      Directive(e2) {
+        var r2 = "@" + e2.name.value;
+        if (hasItems(e2.arguments)) {
+          r2 += "(" + e2.arguments.map(g.Argument).join(", ") + ")";
+        }
+        return r2;
+      },
+      NamedType: (e2) => e2.name.value,
+      ListType: (e2) => "[" + print(e2.type) + "]",
+      NonNullType: (e2) => print(e2.type) + "!"
+    };
+    function print(e2) {
+      return g[e2.kind] ? g[e2.kind](e2) : "";
+    }
+    function valueFromASTUntyped(e2, r2) {
+      switch (e2.kind) {
+        case "NullValue":
+          return null;
+        case "IntValue":
+          return parseInt(e2.value, 10);
+        case "FloatValue":
+          return parseFloat(e2.value);
+        case "StringValue":
+        case "EnumValue":
+        case "BooleanValue":
+          return e2.value;
+        case "ListValue":
+          var i2 = [];
+          for (var n3 = 0, t2 = e2.values; n3 < t2.length; n3 += 1) {
+            i2.push(valueFromASTUntyped(t2[n3], r2));
+          }
+          return i2;
+        case "ObjectValue":
+          var a2 = /* @__PURE__ */ Object.create(null);
+          for (var o2 = 0, l3 = e2.fields; o2 < l3.length; o2 += 1) {
+            var u2 = l3[o2];
+            a2[u2.name.value] = valueFromASTUntyped(u2.value, r2);
+          }
+          return a2;
+        case "Variable":
+          return r2 && r2[e2.name.value];
+      }
+    }
+    exports.BREAK = m;
+    exports.GraphQLError = GraphQLError;
+    exports.Kind = {
+      NAME: "Name",
+      DOCUMENT: "Document",
+      OPERATION_DEFINITION: "OperationDefinition",
+      VARIABLE_DEFINITION: "VariableDefinition",
+      SELECTION_SET: "SelectionSet",
+      FIELD: "Field",
+      ARGUMENT: "Argument",
+      FRAGMENT_SPREAD: "FragmentSpread",
+      INLINE_FRAGMENT: "InlineFragment",
+      FRAGMENT_DEFINITION: "FragmentDefinition",
+      VARIABLE: "Variable",
+      INT: "IntValue",
+      FLOAT: "FloatValue",
+      STRING: "StringValue",
+      BOOLEAN: "BooleanValue",
+      NULL: "NullValue",
+      ENUM: "EnumValue",
+      LIST: "ListValue",
+      OBJECT: "ObjectValue",
+      OBJECT_FIELD: "ObjectField",
+      DIRECTIVE: "Directive",
+      NAMED_TYPE: "NamedType",
+      LIST_TYPE: "ListType",
+      NON_NULL_TYPE: "NonNullType"
+    };
+    exports.OperationTypeNode = {
+      QUERY: "query",
+      MUTATION: "mutation",
+      SUBSCRIPTION: "subscription"
+    };
+    exports.parse = function parse4(i2, n3) {
+      e = typeof i2.body == "string" ? i2.body : i2;
+      r = 0;
+      return function document2() {
+        var e2;
+        ignored();
+        var r2 = [];
+        while (e2 = fragmentDefinition() || operationDefinition()) {
+          r2.push(e2);
+        }
+        return {
+          kind: "Document",
+          definitions: r2
+        };
+      }();
+    };
+    exports.parseType = function parseType(i2, n3) {
+      e = typeof i2.body == "string" ? i2.body : i2;
+      r = 0;
+      return type();
+    };
+    exports.parseValue = function parseValue(i2, n3) {
+      e = typeof i2.body == "string" ? i2.body : i2;
+      r = 0;
+      ignored();
+      var t2 = value(false);
+      if (!t2) {
+        throw error("ValueNode");
+      }
+      return t2;
+    };
+    exports.print = print;
+    exports.printBlockString = printBlockString;
+    exports.printString = printString;
+    exports.valueFromASTUntyped = valueFromASTUntyped;
+    exports.valueFromTypeNode = function valueFromTypeNode(e2, r2, i2) {
+      if (e2.kind === "Variable") {
+        return i2 ? valueFromTypeNode(i2[e2.name.value], r2, i2) : void 0;
+      } else if (r2.kind === "NonNullType") {
+        return e2.kind !== "NullValue" ? valueFromTypeNode(e2, r2, i2) : void 0;
+      } else if (e2.kind === "NullValue") {
+        return null;
+      } else if (r2.kind === "ListType") {
+        if (e2.kind === "ListValue") {
+          var n3 = [];
+          for (var t2 = 0, a2 = e2.values; t2 < a2.length; t2 += 1) {
+            var o2 = valueFromTypeNode(a2[t2], r2.type, i2);
+            if (o2 === void 0) {
+              return;
+            } else {
+              n3.push(o2);
+            }
+          }
+          return n3;
+        }
+      } else if (r2.kind === "NamedType") {
+        switch (r2.name.value) {
+          case "Int":
+          case "Float":
+          case "String":
+          case "Bool":
+            return r2.name.value + "Value" === e2.kind ? valueFromASTUntyped(e2, i2) : void 0;
+          default:
+            return valueFromASTUntyped(e2, i2);
+        }
+      }
+    };
+    exports.visit = function visit(e2, r2) {
+      var i2 = [];
+      var n3 = [];
+      try {
+        var t2 = function traverse(e3, t3, a2) {
+          var o2 = false;
+          var l3 = r2[e3.kind] && r2[e3.kind].enter || r2[e3.kind] || r2.enter;
+          var u2 = l3 && l3.call(r2, e3, t3, a2, n3, i2);
+          if (u2 === false) {
+            return e3;
+          } else if (u2 === null) {
+            return null;
+          } else if (u2 === m) {
+            throw m;
+          } else if (u2 && typeof u2.kind == "string") {
+            o2 = u2 !== e3;
+            e3 = u2;
+          }
+          if (a2) {
+            i2.push(a2);
+          }
+          var v2;
+          var d2 = {
+            ...e3
+          };
+          for (var s3 in e3) {
+            n3.push(s3);
+            var c2 = e3[s3];
+            if (Array.isArray(c2)) {
+              var f2 = [];
+              for (var p2 = 0; p2 < c2.length; p2++) {
+                if (c2[p2] != null && typeof c2[p2].kind == "string") {
+                  i2.push(e3);
+                  n3.push(p2);
+                  v2 = traverse(c2[p2], p2, c2);
+                  n3.pop();
+                  i2.pop();
+                  if (v2 == null) {
+                    o2 = true;
+                  } else {
+                    o2 = o2 || v2 !== c2[p2];
+                    f2.push(v2);
+                  }
+                }
+              }
+              c2 = f2;
+            } else if (c2 != null && typeof c2.kind == "string") {
+              if ((v2 = traverse(c2, s3, e3)) !== void 0) {
+                o2 = o2 || c2 !== v2;
+                c2 = v2;
+              }
+            }
+            n3.pop();
+            if (o2) {
+              d2[s3] = c2;
+            }
+          }
+          if (a2) {
+            i2.pop();
+          }
+          var g2 = r2[e3.kind] && r2[e3.kind].leave || r2.leave;
+          var h = g2 && g2.call(r2, e3, t3, a2, n3, i2);
+          if (h === m) {
+            throw m;
+          } else if (h !== void 0) {
+            return h;
+          } else if (u2 !== void 0) {
+            return o2 ? d2 : u2;
+          } else {
+            return o2 ? d2 : e3;
+          }
+        }(e2);
+        return t2 !== void 0 && t2 !== false ? t2 : e2;
+      } catch (r3) {
+        if (r3 !== m) {
+          throw r3;
+        }
+        return e2;
+      }
+    };
+  }
+});
+
+// node_modules/wonka/dist/wonka.js
+var require_wonka = __commonJS({
+  "node_modules/wonka/dist/wonka.js"(exports) {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var teardownPlaceholder = () => {
+    };
+    var e = teardownPlaceholder;
+    function start2(e2) {
+      return {
+        tag: 0,
+        0: e2
+      };
+    }
+    function push2(e2) {
+      return {
+        tag: 1,
+        0: e2
+      };
+    }
+    var asyncIteratorSymbol = () => typeof Symbol == "function" && Symbol.asyncIterator || "@@asyncIterator";
+    var observableSymbol = () => typeof Symbol == "function" && Symbol.observable || "@@observable";
+    var identity = (e2) => e2;
+    function concatMap(r2) {
+      return (t2) => (i) => {
+        var s2 = [];
+        var a = e;
+        var f = e;
+        var n2 = false;
+        var l2 = false;
+        var o = false;
+        var u = false;
+        function applyInnerSource(e2) {
+          o = true;
+          e2((e3) => {
+            if (e3 === 0) {
+              if (o) {
+                o = false;
+                if (s2.length) {
+                  applyInnerSource(r2(s2.shift()));
+                } else if (u) {
+                  i(0);
+                } else if (!n2) {
+                  n2 = true;
+                  a(0);
+                }
+              }
+            } else if (e3.tag === 0) {
+              l2 = false;
+              (f = e3[0])(0);
+            } else if (o) {
+              i(e3);
+              if (l2) {
+                l2 = false;
+              } else {
+                f(0);
+              }
+            }
+          });
+        }
+        t2((e2) => {
+          if (u) {
+          } else if (e2 === 0) {
+            u = true;
+            if (!o && !s2.length) {
+              i(0);
+            }
+          } else if (e2.tag === 0) {
+            a = e2[0];
+          } else {
+            n2 = false;
+            if (o) {
+              s2.push(e2[0]);
+            } else {
+              applyInnerSource(r2(e2[0]));
+            }
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1) {
+            if (!u) {
+              u = true;
+              a(1);
+            }
+            if (o) {
+              o = false;
+              f(1);
+            }
+          } else {
+            if (!u && !n2) {
+              n2 = true;
+              a(0);
+            }
+            if (o && !l2) {
+              l2 = true;
+              f(0);
+            }
+          }
+        }));
+      };
+    }
+    function concatAll(e2) {
+      return concatMap(identity)(e2);
+    }
+    function mergeMap(r2) {
+      return (t2) => (i) => {
+        var s2 = [];
+        var a = e;
+        var f = false;
+        var n2 = false;
+        t2((t3) => {
+          if (n2) {
+          } else if (t3 === 0) {
+            n2 = true;
+            if (!s2.length) {
+              i(0);
+            }
+          } else if (t3.tag === 0) {
+            a = t3[0];
+          } else {
+            f = false;
+            !function applyInnerSource(r3) {
+              var t4 = e;
+              r3((e2) => {
+                if (e2 === 0) {
+                  if (s2.length) {
+                    var r4 = s2.indexOf(t4);
+                    if (r4 > -1) {
+                      (s2 = s2.slice()).splice(r4, 1);
+                    }
+                    if (!s2.length) {
+                      if (n2) {
+                        i(0);
+                      } else if (!f) {
+                        f = true;
+                        a(0);
+                      }
+                    }
+                  }
+                } else if (e2.tag === 0) {
+                  s2.push(t4 = e2[0]);
+                  t4(0);
+                } else if (s2.length) {
+                  i(e2);
+                  t4(0);
+                }
+              });
+            }(r2(t3[0]));
+            if (!f) {
+              f = true;
+              a(0);
+            }
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1) {
+            if (!n2) {
+              n2 = true;
+              a(1);
+            }
+            for (var r3 = 0, t3 = s2, i2 = s2.length; r3 < i2; r3++) {
+              t3[r3](1);
+            }
+            s2.length = 0;
+          } else {
+            if (!n2 && !f) {
+              f = true;
+              a(0);
+            } else {
+              f = false;
+            }
+            for (var l2 = 0, o = s2, u = s2.length; l2 < u; l2++) {
+              o[l2](0);
+            }
+          }
+        }));
+      };
+    }
+    function mergeAll(e2) {
+      return mergeMap(identity)(e2);
+    }
+    function onPush(e2) {
+      return (r2) => (t2) => {
+        var i = false;
+        r2((r3) => {
+          if (i) {
+          } else if (r3 === 0) {
+            i = true;
+            t2(0);
+          } else if (r3.tag === 0) {
+            var s2 = r3[0];
+            t2(start2((e3) => {
+              if (e3 === 1) {
+                i = true;
+              }
+              s2(e3);
+            }));
+          } else {
+            e2(r3[0]);
+            t2(r3);
+          }
+        });
+      };
+    }
+    function share(r2) {
+      var t2 = [];
+      var i = e;
+      var s2 = false;
+      return (e2) => {
+        t2.push(e2);
+        if (t2.length === 1) {
+          r2((e3) => {
+            if (e3 === 0) {
+              for (var r3 = 0, a = t2, f = t2.length; r3 < f; r3++) {
+                a[r3](0);
+              }
+              t2.length = 0;
+            } else if (e3.tag === 0) {
+              i = e3[0];
+            } else {
+              s2 = false;
+              for (var n2 = 0, l2 = t2, o = t2.length; n2 < o; n2++) {
+                l2[n2](e3);
+              }
+            }
+          });
+        }
+        e2(start2((r3) => {
+          if (r3 === 1) {
+            var a = t2.indexOf(e2);
+            if (a > -1) {
+              (t2 = t2.slice()).splice(a, 1);
+            }
+            if (!t2.length) {
+              i(1);
+            }
+          } else if (!s2) {
+            s2 = true;
+            i(0);
+          }
+        }));
+      };
+    }
+    function switchMap(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = e;
+        var f = false;
+        var n2 = false;
+        var l2 = false;
+        var o = false;
+        t2((t3) => {
+          if (o) {
+          } else if (t3 === 0) {
+            o = true;
+            if (!l2) {
+              i(0);
+            }
+          } else if (t3.tag === 0) {
+            s2 = t3[0];
+          } else {
+            if (l2) {
+              a(1);
+              a = e;
+            }
+            if (!f) {
+              f = true;
+              s2(0);
+            } else {
+              f = false;
+            }
+            !function applyInnerSource(e2) {
+              l2 = true;
+              e2((e3) => {
+                if (!l2) {
+                } else if (e3 === 0) {
+                  l2 = false;
+                  if (o) {
+                    i(0);
+                  } else if (!f) {
+                    f = true;
+                    s2(0);
+                  }
+                } else if (e3.tag === 0) {
+                  n2 = false;
+                  (a = e3[0])(0);
+                } else {
+                  i(e3);
+                  if (!n2) {
+                    a(0);
+                  } else {
+                    n2 = false;
+                  }
+                }
+              });
+            }(r2(t3[0]));
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1) {
+            if (!o) {
+              o = true;
+              s2(1);
+            }
+            if (l2) {
+              l2 = false;
+              a(1);
+            }
+          } else {
+            if (!o && !f) {
+              f = true;
+              s2(0);
+            }
+            if (l2 && !n2) {
+              n2 = true;
+              a(0);
+            }
+          }
+        }));
+      };
+    }
+    function fromAsyncIterable(e2) {
+      return (r2) => {
+        var t2 = e2[asyncIteratorSymbol()] && e2[asyncIteratorSymbol()]() || e2;
+        var i = false;
+        var s2 = false;
+        var a = false;
+        var f;
+        r2(start2(async (e3) => {
+          if (e3 === 1) {
+            i = true;
+            if (t2.return) {
+              t2.return();
+            }
+          } else if (s2) {
+            a = true;
+          } else {
+            for (a = s2 = true; a && !i; ) {
+              if ((f = await t2.next()).done) {
+                i = true;
+                if (t2.return) {
+                  await t2.return();
+                }
+                r2(0);
+              } else {
+                try {
+                  a = false;
+                  r2(push2(f.value));
+                } catch (e4) {
+                  if (t2.throw) {
+                    if (i = !!(await t2.throw(e4)).done) {
+                      r2(0);
+                    }
+                  } else {
+                    throw e4;
+                  }
+                }
+              }
+            }
+            s2 = false;
+          }
+        }));
+      };
+    }
+    function fromIterable(e2) {
+      if (e2[Symbol.asyncIterator]) {
+        return fromAsyncIterable(e2);
+      }
+      return (r2) => {
+        var t2 = e2[Symbol.iterator]();
+        var i = false;
+        var s2 = false;
+        var a = false;
+        var f;
+        r2(start2((e3) => {
+          if (e3 === 1) {
+            i = true;
+            if (t2.return) {
+              t2.return();
+            }
+          } else if (s2) {
+            a = true;
+          } else {
+            for (a = s2 = true; a && !i; ) {
+              if ((f = t2.next()).done) {
+                i = true;
+                if (t2.return) {
+                  t2.return();
+                }
+                r2(0);
+              } else {
+                try {
+                  a = false;
+                  r2(push2(f.value));
+                } catch (e4) {
+                  if (t2.throw) {
+                    if (i = !!t2.throw(e4).done) {
+                      r2(0);
+                    }
+                  } else {
+                    throw e4;
+                  }
+                }
+              }
+            }
+            s2 = false;
+          }
+        }));
+      };
+    }
+    var r = fromIterable;
+    function make(e2) {
+      return (r2) => {
+        var t2 = false;
+        var i = e2({
+          next(e3) {
+            if (!t2) {
+              r2(push2(e3));
+            }
+          },
+          complete() {
+            if (!t2) {
+              t2 = true;
+              r2(0);
+            }
+          }
+        });
+        r2(start2((e3) => {
+          if (e3 === 1 && !t2) {
+            t2 = true;
+            i();
+          }
+        }));
+      };
+    }
+    function subscribe(r2) {
+      return (t2) => {
+        var i = e;
+        var s2 = false;
+        t2((e2) => {
+          if (e2 === 0) {
+            s2 = true;
+          } else if (e2.tag === 0) {
+            (i = e2[0])(0);
+          } else if (!s2) {
+            r2(e2[0]);
+            i(0);
+          }
+        });
+        return {
+          unsubscribe() {
+            if (!s2) {
+              s2 = true;
+              i(1);
+            }
+          }
+        };
+      };
+    }
+    var t = {
+      done: true
+    };
+    function zip(r2) {
+      var t2 = Object.keys(r2).length;
+      return (i) => {
+        var s2 = /* @__PURE__ */ new Set();
+        var a = Array.isArray(r2) ? new Array(t2).fill(e) : {};
+        var f = Array.isArray(r2) ? new Array(t2) : {};
+        var n2 = false;
+        var l2 = false;
+        var o = false;
+        var u = 0;
+        var loop = function(v2) {
+          r2[v2]((c) => {
+            if (c === 0) {
+              if (u >= t2 - 1) {
+                o = true;
+                i(0);
+              } else {
+                u++;
+              }
+            } else if (c.tag === 0) {
+              a[v2] = c[0];
+            } else if (!o) {
+              f[v2] = c[0];
+              s2.add(v2);
+              if (!n2 && s2.size < t2) {
+                if (!l2) {
+                  for (var p in r2) {
+                    if (!s2.has(p)) {
+                      (a[p] || e)(0);
+                    }
+                  }
+                } else {
+                  l2 = false;
+                }
+              } else {
+                n2 = true;
+                l2 = false;
+                i(push2(Array.isArray(f) ? f.slice() : {
+                  ...f
+                }));
+              }
+            }
+          });
+        };
+        for (var v in r2) {
+          loop(v);
+        }
+        i(start2((e2) => {
+          if (o) {
+          } else if (e2 === 1) {
+            o = true;
+            for (var r3 in a) {
+              a[r3](1);
+            }
+          } else if (!l2) {
+            l2 = true;
+            for (var t3 in a) {
+              a[t3](0);
+            }
+          }
+        }));
+      };
+    }
+    exports.buffer = function buffer(r2) {
+      return (t2) => (i) => {
+        var s2 = [];
+        var a = e;
+        var f = e;
+        var n2 = false;
+        var l2 = false;
+        t2((e2) => {
+          if (l2) {
+          } else if (e2 === 0) {
+            l2 = true;
+            f(1);
+            if (s2.length) {
+              i(push2(s2));
+            }
+            i(0);
+          } else if (e2.tag === 0) {
+            a = e2[0];
+            r2((e3) => {
+              if (l2) {
+              } else if (e3 === 0) {
+                l2 = true;
+                a(1);
+                if (s2.length) {
+                  i(push2(s2));
+                }
+                i(0);
+              } else if (e3.tag === 0) {
+                f = e3[0];
+              } else if (s2.length) {
+                var r3 = push2(s2);
+                s2 = [];
+                i(r3);
+              }
+            });
+          } else {
+            s2.push(e2[0]);
+            if (!n2) {
+              n2 = true;
+              a(0);
+              f(0);
+            } else {
+              n2 = false;
+            }
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1 && !l2) {
+            l2 = true;
+            a(1);
+            f(1);
+          } else if (!l2 && !n2) {
+            n2 = true;
+            a(0);
+            f(0);
+          }
+        }));
+      };
+    };
+    exports.combine = function combine(...e2) {
+      return zip(e2);
+    };
+    exports.concat = function concat(e2) {
+      return concatAll(r(e2));
+    };
+    exports.concatAll = concatAll;
+    exports.concatMap = concatMap;
+    exports.debounce = function debounce2(e2) {
+      return (r2) => (t2) => {
+        var i;
+        var s2 = false;
+        var a = false;
+        r2((r3) => {
+          if (a) {
+          } else if (r3 === 0) {
+            a = true;
+            if (i) {
+              s2 = true;
+            } else {
+              t2(0);
+            }
+          } else if (r3.tag === 0) {
+            var f = r3[0];
+            t2(start2((e3) => {
+              if (e3 === 1 && !a) {
+                a = true;
+                s2 = false;
+                if (i) {
+                  clearTimeout(i);
+                }
+                f(1);
+              } else if (!a) {
+                f(0);
+              }
+            }));
+          } else {
+            if (i) {
+              clearTimeout(i);
+            }
+            i = setTimeout(() => {
+              i = void 0;
+              t2(r3);
+              if (s2) {
+                t2(0);
+              }
+            }, e2(r3[0]));
+          }
+        });
+      };
+    };
+    exports.delay = function delay(e2) {
+      return (r2) => (t2) => {
+        var i = 0;
+        r2((r3) => {
+          if (r3 !== 0 && r3.tag === 0) {
+            t2(r3);
+          } else {
+            i++;
+            setTimeout(() => {
+              if (i) {
+                i--;
+                t2(r3);
+              }
+            }, e2);
+          }
+        });
+      };
+    };
+    exports.empty = (e2) => {
+      var r2 = false;
+      e2(start2((t2) => {
+        if (t2 === 1) {
+          r2 = true;
+        } else if (!r2) {
+          r2 = true;
+          e2(0);
+        }
+      }));
+    };
+    exports.filter = function filter(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        t2((e2) => {
+          if (e2 === 0) {
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+            i(e2);
+          } else if (!r2(e2[0])) {
+            s2(0);
+          } else {
+            i(e2);
+          }
+        });
+      };
+    };
+    exports.flatten = mergeAll;
+    exports.forEach = function forEach(e2) {
+      return (r2) => {
+        subscribe(e2)(r2);
+      };
+    };
+    exports.fromArray = r;
+    exports.fromAsyncIterable = fromAsyncIterable;
+    exports.fromCallbag = function fromCallbag(e2) {
+      return (r2) => {
+        e2(0, (e3, t2) => {
+          if (e3 === 0) {
+            r2(start2((e4) => {
+              t2(e4 + 1);
+            }));
+          } else if (e3 === 1) {
+            r2(push2(t2));
+          } else {
+            r2(0);
+          }
+        });
+      };
+    };
+    exports.fromDomEvent = function fromDomEvent(e2, r2) {
+      return make((t2) => {
+        e2.addEventListener(r2, t2.next);
+        return () => e2.removeEventListener(r2, t2.next);
+      });
+    };
+    exports.fromIterable = fromIterable;
+    exports.fromObservable = function fromObservable(e2) {
+      return (r2) => {
+        var t2 = (e2[observableSymbol()] ? e2[observableSymbol()]() : e2).subscribe({
+          next(e3) {
+            r2(push2(e3));
+          },
+          complete() {
+            r2(0);
+          },
+          error(e3) {
+            throw e3;
+          }
+        });
+        r2(start2((e3) => {
+          if (e3 === 1) {
+            t2.unsubscribe();
+          }
+        }));
+      };
+    };
+    exports.fromPromise = function fromPromise(e2) {
+      return make((r2) => {
+        e2.then((e3) => {
+          Promise.resolve(e3).then(() => {
+            r2.next(e3);
+            r2.complete();
+          });
+        });
+        return teardownPlaceholder;
+      });
+    };
+    exports.fromValue = function fromValue(e2) {
+      return (r2) => {
+        var t2 = false;
+        r2(start2((i) => {
+          if (i === 1) {
+            t2 = true;
+          } else if (!t2) {
+            t2 = true;
+            r2(push2(e2));
+            r2(0);
+          }
+        }));
+      };
+    };
+    exports.interval = function interval(e2) {
+      return make((r2) => {
+        var t2 = 0;
+        var i = setInterval(() => r2.next(t2++), e2);
+        return () => clearInterval(i);
+      });
+    };
+    exports.lazy = function lazy(e2) {
+      return (r2) => e2()(r2);
+    };
+    exports.make = make;
+    exports.makeSubject = function makeSubject() {
+      var e2;
+      var r2;
+      return {
+        source: share(make((t2) => {
+          e2 = t2.next;
+          r2 = t2.complete;
+          return teardownPlaceholder;
+        })),
+        next(r3) {
+          if (e2) {
+            e2(r3);
+          }
+        },
+        complete() {
+          if (r2) {
+            r2();
+          }
+        }
+      };
+    };
+    exports.map = function map(e2) {
+      return (r2) => (t2) => r2((r3) => {
+        if (r3 === 0 || r3.tag === 0) {
+          t2(r3);
+        } else {
+          t2(push2(e2(r3[0])));
+        }
+      });
+    };
+    exports.merge = function merge(e2) {
+      return mergeAll(r(e2));
+    };
+    exports.mergeAll = mergeAll;
+    exports.mergeMap = mergeMap;
+    exports.never = (r2) => {
+      r2(start2(e));
+    };
+    exports.onEnd = function onEnd(e2) {
+      return (r2) => (t2) => {
+        var i = false;
+        r2((r3) => {
+          if (i) {
+          } else if (r3 === 0) {
+            i = true;
+            t2(0);
+            e2();
+          } else if (r3.tag === 0) {
+            var s2 = r3[0];
+            t2(start2((r4) => {
+              if (r4 === 1) {
+                i = true;
+                s2(1);
+                e2();
+              } else {
+                s2(r4);
+              }
+            }));
+          } else {
+            t2(r3);
+          }
+        });
+      };
+    };
+    exports.onPush = onPush;
+    exports.onStart = function onStart(e2) {
+      return (r2) => (t2) => r2((r3) => {
+        if (r3 === 0) {
+          t2(0);
+        } else if (r3.tag === 0) {
+          t2(r3);
+          e2();
+        } else {
+          t2(r3);
+        }
+      });
+    };
+    exports.pipe = (...e2) => {
+      var r2 = e2[0];
+      for (var t2 = 1, i = e2.length; t2 < i; t2++) {
+        r2 = e2[t2](r2);
+      }
+      return r2;
+    };
+    exports.publish = function publish(e2) {
+      subscribe((e3) => {
+      })(e2);
+    };
+    exports.sample = function sample(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = e;
+        var f;
+        var n2 = false;
+        var l2 = false;
+        t2((e2) => {
+          if (l2) {
+          } else if (e2 === 0) {
+            l2 = true;
+            a(1);
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+          } else {
+            f = e2[0];
+            if (!n2) {
+              n2 = true;
+              a(0);
+              s2(0);
+            } else {
+              n2 = false;
+            }
+          }
+        });
+        r2((e2) => {
+          if (l2) {
+          } else if (e2 === 0) {
+            l2 = true;
+            s2(1);
+            i(0);
+          } else if (e2.tag === 0) {
+            a = e2[0];
+          } else if (f !== void 0) {
+            var r3 = push2(f);
+            f = void 0;
+            i(r3);
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1 && !l2) {
+            l2 = true;
+            s2(1);
+            a(1);
+          } else if (!l2 && !n2) {
+            n2 = true;
+            s2(0);
+            a(0);
+          }
+        }));
+      };
+    };
+    exports.scan = function scan2(e2, r2) {
+      return (t2) => (i) => {
+        var s2 = r2;
+        t2((r3) => {
+          if (r3 === 0) {
+            i(0);
+          } else if (r3.tag === 0) {
+            i(r3);
+          } else {
+            i(push2(s2 = e2(s2, r3[0])));
+          }
+        });
+      };
+    };
+    exports.share = share;
+    exports.skip = function skip(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = r2;
+        t2((e2) => {
+          if (e2 === 0) {
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+            i(e2);
+          } else if (a-- > 0) {
+            s2(0);
+          } else {
+            i(e2);
+          }
+        });
+      };
+    };
+    exports.skipUntil = function skipUntil(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = e;
+        var f = true;
+        var n2 = false;
+        var l2 = false;
+        t2((e2) => {
+          if (l2) {
+          } else if (e2 === 0) {
+            l2 = true;
+            if (f) {
+              a(1);
+            }
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+            r2((e3) => {
+              if (e3 === 0) {
+                if (f) {
+                  l2 = true;
+                  s2(1);
+                }
+              } else if (e3.tag === 0) {
+                (a = e3[0])(0);
+              } else {
+                f = false;
+                a(1);
+              }
+            });
+          } else if (!f) {
+            n2 = false;
+            i(e2);
+          } else if (!n2) {
+            n2 = true;
+            s2(0);
+            a(0);
+          } else {
+            n2 = false;
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1 && !l2) {
+            l2 = true;
+            s2(1);
+            if (f) {
+              a(1);
+            }
+          } else if (!l2 && !n2) {
+            n2 = true;
+            if (f) {
+              a(0);
+            }
+            s2(0);
+          }
+        }));
+      };
+    };
+    exports.skipWhile = function skipWhile(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = true;
+        t2((e2) => {
+          if (e2 === 0) {
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+            i(e2);
+          } else if (a) {
+            if (r2(e2[0])) {
+              s2(0);
+            } else {
+              a = false;
+              i(e2);
+            }
+          } else {
+            i(e2);
+          }
+        });
+      };
+    };
+    exports.subscribe = subscribe;
+    exports.switchAll = function switchAll(e2) {
+      return switchMap(identity)(e2);
+    };
+    exports.switchMap = switchMap;
+    exports.take = function take(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = false;
+        var f = 0;
+        t2((e2) => {
+          if (a) {
+          } else if (e2 === 0) {
+            a = true;
+            i(0);
+          } else if (e2.tag === 0) {
+            if (r2 <= 0) {
+              a = true;
+              i(0);
+              e2[0](1);
+            } else {
+              s2 = e2[0];
+            }
+          } else if (f++ < r2) {
+            i(e2);
+            if (!a && f >= r2) {
+              a = true;
+              i(0);
+              s2(1);
+            }
+          } else {
+            i(e2);
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1 && !a) {
+            a = true;
+            s2(1);
+          } else if (e2 === 0 && !a && f < r2) {
+            s2(0);
+          }
+        }));
+      };
+    };
+    exports.takeLast = function takeLast(t2) {
+      return (i) => (s2) => {
+        var a = [];
+        var f = e;
+        i((e2) => {
+          if (e2 === 0) {
+            r(a)(s2);
+          } else if (e2.tag === 0) {
+            if (t2 <= 0) {
+              e2[0](1);
+              r(a)(s2);
+            } else {
+              (f = e2[0])(0);
+            }
+          } else {
+            if (a.length >= t2 && t2) {
+              a.shift();
+            }
+            a.push(e2[0]);
+            f(0);
+          }
+        });
+      };
+    };
+    exports.takeUntil = function takeUntil(r2) {
+      return (t2) => (i) => {
+        var s2 = e;
+        var a = e;
+        var f = false;
+        t2((e2) => {
+          if (f) {
+          } else if (e2 === 0) {
+            f = true;
+            a(1);
+            i(0);
+          } else if (e2.tag === 0) {
+            s2 = e2[0];
+            r2((e3) => {
+              if (e3 === 0) {
+              } else if (e3.tag === 0) {
+                (a = e3[0])(0);
+              } else {
+                f = true;
+                a(1);
+                s2(1);
+                i(0);
+              }
+            });
+          } else {
+            i(e2);
+          }
+        });
+        i(start2((e2) => {
+          if (e2 === 1 && !f) {
+            f = true;
+            s2(1);
+            a(1);
+          } else if (!f) {
+            s2(0);
+          }
+        }));
+      };
+    };
+    exports.takeWhile = function takeWhile(r2, t2) {
+      return (i) => (s2) => {
+        var a = e;
+        var f = false;
+        i((e2) => {
+          if (f) {
+          } else if (e2 === 0) {
+            f = true;
+            s2(0);
+          } else if (e2.tag === 0) {
+            a = e2[0];
+            s2(e2);
+          } else if (!r2(e2[0])) {
+            f = true;
+            if (t2) {
+              s2(e2);
+            }
+            s2(0);
+            a(1);
+          } else {
+            s2(e2);
+          }
+        });
+      };
+    };
+    exports.tap = onPush;
+    exports.throttle = function throttle(e2) {
+      return (r2) => (t2) => {
+        var i = false;
+        var s2;
+        r2((r3) => {
+          if (r3 === 0) {
+            if (s2) {
+              clearTimeout(s2);
+            }
+            t2(0);
+          } else if (r3.tag === 0) {
+            var a = r3[0];
+            t2(start2((e3) => {
+              if (e3 === 1) {
+                if (s2) {
+                  clearTimeout(s2);
+                }
+                a(1);
+              } else {
+                a(0);
+              }
+            }));
+          } else if (!i) {
+            i = true;
+            if (s2) {
+              clearTimeout(s2);
+            }
+            s2 = setTimeout(() => {
+              s2 = void 0;
+              i = false;
+            }, e2(r3[0]));
+            t2(r3);
+          }
+        });
+      };
+    };
+    exports.toArray = function toArray(r2) {
+      var t2 = [];
+      var i = e;
+      var s2 = false;
+      r2((e2) => {
+        if (e2 === 0) {
+          s2 = true;
+        } else if (e2.tag === 0) {
+          (i = e2[0])(0);
+        } else {
+          t2.push(e2[0]);
+          i(0);
+        }
+      });
+      if (!s2) {
+        i(1);
+      }
+      return t2;
+    };
+    exports.toAsyncIterable = (r2) => {
+      var i = [];
+      var s2 = false;
+      var a = false;
+      var f = false;
+      var n2 = e;
+      var l2;
+      return {
+        async next() {
+          if (!a) {
+            a = true;
+            r2((e2) => {
+              if (s2) {
+              } else if (e2 === 0) {
+                if (l2) {
+                  l2 = l2(t);
+                }
+                s2 = true;
+              } else if (e2.tag === 0) {
+                f = true;
+                (n2 = e2[0])(0);
+              } else {
+                f = false;
+                if (l2) {
+                  l2 = l2({
+                    value: e2[0],
+                    done: false
+                  });
+                } else {
+                  i.push(e2[0]);
+                }
+              }
+            });
+          }
+          if (s2 && !i.length) {
+            return t;
+          } else if (!s2 && !f && i.length <= 1) {
+            f = true;
+            n2(0);
+          }
+          return i.length ? {
+            value: i.shift(),
+            done: false
+          } : new Promise((e2) => l2 = e2);
+        },
+        async return() {
+          if (!s2) {
+            l2 = n2(1);
+          }
+          s2 = true;
+          return t;
+        },
+        [asyncIteratorSymbol()]() {
+          return this;
+        }
+      };
+    };
+    exports.toCallbag = function toCallbag(e2) {
+      return (r2, t2) => {
+        if (r2 === 0) {
+          e2((e3) => {
+            if (e3 === 0) {
+              t2(2);
+            } else if (e3.tag === 0) {
+              t2(0, (r3) => {
+                if (r3 < 3) {
+                  e3[0](r3 - 1);
+                }
+              });
+            } else {
+              t2(1, e3[0]);
+            }
+          });
+        }
+      };
+    };
+    exports.toObservable = function toObservable(r2) {
+      return {
+        subscribe(t2, i, s2) {
+          var a = typeof t2 == "object" ? t2 : {
+            next: t2,
+            error: i,
+            complete: s2
+          };
+          var f = e;
+          var n2 = false;
+          r2((e2) => {
+            if (n2) {
+            } else if (e2 === 0) {
+              n2 = true;
+              if (a.complete) {
+                a.complete();
+              }
+            } else if (e2.tag === 0) {
+              (f = e2[0])(0);
+            } else {
+              a.next(e2[0]);
+              f(0);
+            }
+          });
+          var l2 = {
+            closed: false,
+            unsubscribe() {
+              l2.closed = true;
+              n2 = true;
+              f(1);
+            }
+          };
+          return l2;
+        },
+        [observableSymbol()]() {
+          return this;
+        }
+      };
+    };
+    exports.toPromise = function toPromise(r2) {
+      return new Promise((t2) => {
+        var i = e;
+        var s2;
+        r2((e2) => {
+          if (e2 === 0) {
+            Promise.resolve(s2).then(t2);
+          } else if (e2.tag === 0) {
+            (i = e2[0])(0);
+          } else {
+            s2 = e2[0];
+            i(0);
+          }
+        });
+      });
+    };
+    exports.zip = zip;
+  }
+});
+
+// node_modules/@urql/core/dist/urql-core-chunk.js
+var require_urql_core_chunk = __commonJS({
+  "node_modules/@urql/core/dist/urql-core-chunk.js"(exports) {
+    var graphql_web = require_graphql_web();
+    var wonka = require_wonka();
+    var generateErrorMessage = (networkErr, graphQlErrs) => {
+      var error = "";
+      if (networkErr)
+        return `[Network] ${networkErr.message}`;
+      if (graphQlErrs) {
+        for (var err of graphQlErrs) {
+          if (error)
+            error += "\n";
+          error += `[GraphQL] ${err.message}`;
+        }
+      }
+      return error;
+    };
+    var rehydrateGraphQlError = (error) => {
+      if (error && error.message && (error.extensions || error.name === "GraphQLError")) {
+        return error;
+      } else if (typeof error === "object" && error.message) {
+        return new graphql_web.GraphQLError(error.message, error.nodes, error.source, error.positions, error.path, error, error.extensions || {});
+      } else {
+        return new graphql_web.GraphQLError(error);
+      }
+    };
+    var CombinedError = class extends Error {
+      constructor(input) {
+        var normalizedGraphQLErrors = (input.graphQLErrors || []).map(rehydrateGraphQlError);
+        var message = generateErrorMessage(input.networkError, normalizedGraphQLErrors);
+        super(message);
+        this.name = "CombinedError";
+        this.message = message;
+        this.graphQLErrors = normalizedGraphQLErrors;
+        this.networkError = input.networkError;
+        this.response = input.response;
+      }
+      toString() {
+        return this.message;
+      }
+    };
+    var phash = (x, seed) => {
+      var h = (seed || 5381) | 0;
+      for (var i = 0, l2 = x.length | 0; i < l2; i++)
+        h = (h << 5) + h + x.charCodeAt(i);
+      return h;
+    };
+    var seen = /* @__PURE__ */ new Set();
+    var cache = /* @__PURE__ */ new WeakMap();
+    var stringify = (x) => {
+      if (x === null || seen.has(x)) {
+        return "null";
+      } else if (typeof x !== "object") {
+        return JSON.stringify(x) || "";
+      } else if (x.toJSON) {
+        return stringify(x.toJSON());
+      } else if (Array.isArray(x)) {
+        var _out = "[";
+        for (var value of x) {
+          if (_out.length > 1)
+            _out += ",";
+          _out += stringify(value) || "null";
+        }
+        _out += "]";
+        return _out;
+      } else if (FileConstructor !== NoopConstructor && x instanceof FileConstructor || BlobConstructor !== NoopConstructor && x instanceof BlobConstructor) {
+        return "null";
+      }
+      var keys = Object.keys(x).sort();
+      if (!keys.length && x.constructor && Object.getPrototypeOf(x).constructor !== Object.prototype.constructor) {
+        var key = cache.get(x) || Math.random().toString(36).slice(2);
+        cache.set(x, key);
+        return stringify({
+          __key: key
+        });
+      }
+      seen.add(x);
+      var out = "{";
+      for (var _key of keys) {
+        var _value = stringify(x[_key]);
+        if (_value) {
+          if (out.length > 1)
+            out += ",";
+          out += stringify(_key) + ":" + _value;
+        }
+      }
+      seen.delete(x);
+      out += "}";
+      return out;
+    };
+    var extract = (map, path, x) => {
+      if (x == null || typeof x !== "object" || x.toJSON || seen.has(x))
+        ;
+      else if (Array.isArray(x)) {
+        for (var i = 0, l2 = x.length; i < l2; i++)
+          extract(map, `${path}.${i}`, x[i]);
+      } else if (x instanceof FileConstructor || x instanceof BlobConstructor) {
+        map.set(path, x);
+      } else {
+        seen.add(x);
+        for (var key of Object.keys(x))
+          extract(map, `${path}.${key}`, x[key]);
+      }
+    };
+    var stringifyVariables = (x) => {
+      seen.clear();
+      return stringify(x);
+    };
+    var NoopConstructor = class {
+    };
+    var FileConstructor = typeof File !== "undefined" ? File : NoopConstructor;
+    var BlobConstructor = typeof Blob !== "undefined" ? Blob : NoopConstructor;
+    var extractFiles = (x) => {
+      var map = /* @__PURE__ */ new Map();
+      if (FileConstructor !== NoopConstructor || BlobConstructor !== NoopConstructor) {
+        seen.clear();
+        extract(map, "variables", x);
+      }
+      return map;
+    };
+    var SOURCE_NAME = "gql";
+    var GRAPHQL_STRING_RE = /("{3}[\s\S]*"{3}|"(?:\\.|[^"])*")/g;
+    var REPLACE_CHAR_RE = /(?:#[^\n\r]+)?(?:[\r\n]+|$)/g;
+    var replaceOutsideStrings = (str, idx) => idx % 2 === 0 ? str.replace(REPLACE_CHAR_RE, "\n") : str;
+    var sanitizeDocument = (node) => node.split(GRAPHQL_STRING_RE).map(replaceOutsideStrings).join("").trim();
+    var prints = /* @__PURE__ */ new Map();
+    var docs = /* @__PURE__ */ new Map();
+    var stringifyDocument = (node) => {
+      var printed;
+      if (typeof node === "string") {
+        printed = sanitizeDocument(node);
+      } else if (node.loc && docs.get(node.__key) === node) {
+        printed = node.loc.source.body;
+      } else {
+        printed = prints.get(node) || sanitizeDocument(graphql_web.print(node));
+        prints.set(node, printed);
+      }
+      if (typeof node !== "string" && !node.loc) {
+        node.loc = {
+          start: 0,
+          end: printed.length,
+          source: {
+            body: printed,
+            name: SOURCE_NAME,
+            locationOffset: {
+              line: 1,
+              column: 1
+            }
+          }
+        };
+      }
+      return printed;
+    };
+    var hashDocument = (node) => {
+      var key = phash(stringifyDocument(node));
+      if (node.definitions) {
+        var operationName = getOperationName(node);
+        if (operationName)
+          key = phash(`
+# ${operationName}`, key);
+      }
+      return key;
+    };
+    var keyDocument = (node) => {
+      var key;
+      var query;
+      if (typeof node === "string") {
+        key = hashDocument(node);
+        query = docs.get(key) || graphql_web.parse(node, {
+          noLocation: true
+        });
+      } else {
+        key = node.__key || hashDocument(node);
+        query = docs.get(key) || node;
+      }
+      if (!query.loc)
+        stringifyDocument(query);
+      query.__key = key;
+      docs.set(key, query);
+      return query;
+    };
+    var createRequest = (_query, _variables, extensions) => {
+      var variables = _variables || {};
+      var query = keyDocument(_query);
+      var printedVars = stringifyVariables(variables);
+      var key = query.__key;
+      if (printedVars !== "{}")
+        key = phash(printedVars, key);
+      return {
+        key,
+        query,
+        variables,
+        extensions
+      };
+    };
+    var getOperationName = (query) => {
+      for (var node of query.definitions) {
+        if (node.kind === graphql_web.Kind.OPERATION_DEFINITION) {
+          return node.name ? node.name.value : void 0;
+        }
+      }
+    };
+    var getOperationType = (query) => {
+      for (var node of query.definitions) {
+        if (node.kind === graphql_web.Kind.OPERATION_DEFINITION) {
+          return node.operation;
+        }
+      }
+    };
+    var makeResult = (operation, result, response) => {
+      if (!("data" in result) && (!("errors" in result) || !Array.isArray(result.errors))) {
+        throw new Error("No Content");
+      }
+      var defaultHasNext = operation.kind === "subscription";
+      return {
+        operation,
+        data: result.data,
+        error: Array.isArray(result.errors) ? new CombinedError({
+          graphQLErrors: result.errors,
+          response
+        }) : void 0,
+        extensions: result.extensions ? {
+          ...result.extensions
+        } : void 0,
+        hasNext: result.hasNext == null ? defaultHasNext : result.hasNext,
+        stale: false
+      };
+    };
+    var deepMerge = (target, source) => {
+      if (typeof target === "object" && target != null) {
+        if (!target.constructor || target.constructor === Object || Array.isArray(target)) {
+          target = Array.isArray(target) ? [...target] : {
+            ...target
+          };
+          for (var key of Object.keys(source))
+            target[key] = deepMerge(target[key], source[key]);
+          return target;
+        }
+      }
+      return source;
+    };
+    var mergeResultPatch = (prevResult, nextResult, response, pending) => {
+      var errors = prevResult.error ? prevResult.error.graphQLErrors : [];
+      var hasExtensions = !!prevResult.extensions || !!(nextResult.payload || nextResult).extensions;
+      var extensions = {
+        ...prevResult.extensions,
+        ...(nextResult.payload || nextResult).extensions
+      };
+      var incremental = nextResult.incremental;
+      if ("path" in nextResult) {
+        incremental = [nextResult];
+      }
+      var withData = {
+        data: prevResult.data
+      };
+      if (incremental) {
+        var _loop = function(patch2) {
+          if (Array.isArray(patch2.errors)) {
+            errors.push(...patch2.errors);
+          }
+          if (patch2.extensions) {
+            Object.assign(extensions, patch2.extensions);
+            hasExtensions = true;
+          }
+          var prop = "data";
+          var part = withData;
+          var path = [];
+          if (patch2.path) {
+            path = patch2.path;
+          } else if (pending) {
+            var res = pending.find((pendingRes) => pendingRes.id === patch2.id);
+            if (patch2.subPath) {
+              path = [...res.path, ...patch2.subPath];
+            } else {
+              path = res.path;
+            }
+          }
+          for (var i = 0, l2 = path.length; i < l2; prop = path[i++]) {
+            part = part[prop] = Array.isArray(part[prop]) ? [...part[prop]] : {
+              ...part[prop]
+            };
+          }
+          if (patch2.items) {
+            var startIndex = +prop >= 0 ? prop : 0;
+            for (var _i = 0, _l = patch2.items.length; _i < _l; _i++)
+              part[startIndex + _i] = deepMerge(part[startIndex + _i], patch2.items[_i]);
+          } else if (patch2.data !== void 0) {
+            part[prop] = deepMerge(part[prop], patch2.data);
+          }
+        };
+        for (var patch of incremental) {
+          _loop(patch);
+        }
+      } else {
+        withData.data = (nextResult.payload || nextResult).data || prevResult.data;
+        errors = nextResult.errors || nextResult.payload && nextResult.payload.errors || errors;
+      }
+      return {
+        operation: prevResult.operation,
+        data: withData.data,
+        error: errors.length ? new CombinedError({
+          graphQLErrors: errors,
+          response
+        }) : void 0,
+        extensions: hasExtensions ? extensions : void 0,
+        hasNext: nextResult.hasNext != null ? nextResult.hasNext : prevResult.hasNext,
+        stale: false
+      };
+    };
+    var makeErrorResult = (operation, error, response) => ({
+      operation,
+      data: void 0,
+      error: new CombinedError({
+        networkError: error,
+        response
+      }),
+      extensions: void 0,
+      hasNext: false,
+      stale: false
+    });
+    function makeFetchBody(request) {
+      var body = {
+        query: void 0,
+        documentId: void 0,
+        operationName: getOperationName(request.query),
+        variables: request.variables || void 0,
+        extensions: request.extensions
+      };
+      if ("documentId" in request.query && request.query.documentId && (!request.query.definitions || !request.query.definitions.length)) {
+        body.documentId = request.query.documentId;
+      } else if (!request.extensions || !request.extensions.persistedQuery || !!request.extensions.persistedQuery.miss) {
+        body.query = stringifyDocument(request.query);
+      }
+      return body;
+    }
+    var makeFetchURL = (operation, body) => {
+      var useGETMethod = operation.kind === "query" && operation.context.preferGetMethod;
+      if (!useGETMethod || !body)
+        return operation.context.url;
+      var urlParts = splitOutSearchParams(operation.context.url);
+      for (var key in body) {
+        var value = body[key];
+        if (value) {
+          urlParts[1].set(key, typeof value === "object" ? stringifyVariables(value) : value);
+        }
+      }
+      var finalUrl = urlParts.join("?");
+      if (finalUrl.length > 2047 && useGETMethod !== "force") {
+        operation.context.preferGetMethod = false;
+        return operation.context.url;
+      }
+      return finalUrl;
+    };
+    var splitOutSearchParams = (url) => {
+      var start2 = url.indexOf("?");
+      return start2 > -1 ? [url.slice(0, start2), new URLSearchParams(url.slice(start2 + 1))] : [url, new URLSearchParams()];
+    };
+    var serializeBody = (operation, body) => {
+      var omitBody = operation.kind === "query" && !!operation.context.preferGetMethod;
+      if (body && !omitBody) {
+        var json = stringifyVariables(body);
+        var files = extractFiles(body.variables);
+        if (files.size) {
+          var form = new FormData();
+          form.append("operations", json);
+          form.append("map", stringifyVariables({
+            ...[...files.keys()].map((value) => [value])
+          }));
+          var index = 0;
+          for (var file of files.values())
+            form.append(`${index++}`, file);
+          return form;
+        }
+        return json;
+      }
+    };
+    var isHeaders = (headers) => "has" in headers && !Object.keys(headers).length;
+    var makeFetchOptions = (operation, body) => {
+      var headers = {
+        accept: operation.kind === "subscription" ? "text/event-stream, multipart/mixed" : "application/graphql-response+json, application/graphql+json, application/json, text/event-stream, multipart/mixed"
+      };
+      var extraOptions = (typeof operation.context.fetchOptions === "function" ? operation.context.fetchOptions() : operation.context.fetchOptions) || {};
+      if (extraOptions.headers) {
+        if (isHeaders(extraOptions.headers)) {
+          extraOptions.headers.forEach((value, key2) => {
+            headers[key2] = value;
+          });
+        } else if (Array.isArray(extraOptions.headers)) {
+          extraOptions.headers.forEach((value, key2) => {
+            if (Array.isArray(value)) {
+              if (headers[value[0]]) {
+                headers[value[0]] = `${headers[value[0]]},${value[1]}`;
+              } else {
+                headers[value[0]] = value[1];
+              }
+            } else {
+              headers[key2] = value;
+            }
+          });
+        } else {
+          for (var key in extraOptions.headers) {
+            headers[key.toLowerCase()] = extraOptions.headers[key];
+          }
+        }
+      }
+      var serializedBody = serializeBody(operation, body);
+      if (typeof serializedBody === "string" && !headers["content-type"])
+        headers["content-type"] = "application/json";
+      return {
+        ...extraOptions,
+        method: serializedBody ? "POST" : "GET",
+        body: serializedBody,
+        headers
+      };
+    };
+    var decoder = typeof TextDecoder !== "undefined" ? new TextDecoder() : null;
+    var boundaryHeaderRe = /boundary="?([^=";]+)"?/i;
+    var eventStreamRe = /data: ?([^\n]+)/;
+    var toString = (input) => input.constructor.name === "Buffer" ? input.toString() : decoder.decode(input);
+    async function* streamBody(response) {
+      if (response.body[Symbol.asyncIterator]) {
+        for await (var chunk of response.body)
+          yield toString(chunk);
+      } else {
+        var reader = response.body.getReader();
+        var result;
+        try {
+          while (!(result = await reader.read()).done)
+            yield toString(result.value);
+        } finally {
+          reader.cancel();
+        }
+      }
+    }
+    async function* split(chunks, boundary) {
+      var buffer = "";
+      var boundaryIndex;
+      for await (var chunk of chunks) {
+        buffer += chunk;
+        while ((boundaryIndex = buffer.indexOf(boundary)) > -1) {
+          yield buffer.slice(0, boundaryIndex);
+          buffer = buffer.slice(boundaryIndex + boundary.length);
+        }
+      }
+    }
+    async function* parseJSON(response) {
+      yield JSON.parse(await response.text());
+    }
+    async function* parseEventStream(response) {
+      var payload;
+      for await (var chunk of split(streamBody(response), "\n\n")) {
+        var match3 = chunk.match(eventStreamRe);
+        if (match3) {
+          var _chunk = match3[1];
+          try {
+            yield payload = JSON.parse(_chunk);
+          } catch (error) {
+            if (!payload)
+              throw error;
+          }
+          if (payload && payload.hasNext === false)
+            break;
+        }
+      }
+      if (payload && payload.hasNext !== false) {
+        yield {
+          hasNext: false
+        };
+      }
+    }
+    async function* parseMultipartMixed(contentType, response) {
+      var boundaryHeader = contentType.match(boundaryHeaderRe);
+      var boundary = "--" + (boundaryHeader ? boundaryHeader[1] : "-");
+      var isPreamble = true;
+      var payload;
+      for await (var chunk of split(streamBody(response), "\r\n" + boundary)) {
+        if (isPreamble) {
+          isPreamble = false;
+          var preambleIndex = chunk.indexOf(boundary);
+          if (preambleIndex > -1) {
+            chunk = chunk.slice(preambleIndex + boundary.length);
+          } else {
+            continue;
+          }
+        }
+        try {
+          yield payload = JSON.parse(chunk.slice(chunk.indexOf("\r\n\r\n") + 4));
+        } catch (error) {
+          if (!payload)
+            throw error;
+        }
+        if (payload && payload.hasNext === false)
+          break;
+      }
+      if (payload && payload.hasNext !== false) {
+        yield {
+          hasNext: false
+        };
+      }
+    }
+    async function* parseMaybeJSON(response) {
+      var text = await response.text();
+      try {
+        var result = JSON.parse(text);
+        if (true) {
+          console.warn(`Found response with content-type "text/plain" but it had a valid "application/json" response.`);
+        }
+        yield result;
+      } catch (e) {
+        throw new Error(text);
+      }
+    }
+    async function* fetchOperation(operation, url, fetchOptions) {
+      var networkMode = true;
+      var result = null;
+      var response;
+      try {
+        yield await Promise.resolve();
+        response = await (operation.context.fetch || fetch)(url, fetchOptions);
+        var contentType = response.headers.get("Content-Type") || "";
+        var results;
+        if (/multipart\/mixed/i.test(contentType)) {
+          results = parseMultipartMixed(contentType, response);
+        } else if (/text\/event-stream/i.test(contentType)) {
+          results = parseEventStream(response);
+        } else if (!/text\//i.test(contentType)) {
+          results = parseJSON(response);
+        } else {
+          results = parseMaybeJSON(response);
+        }
+        var pending;
+        for await (var payload of results) {
+          if (payload.pending && !result) {
+            pending = payload.pending;
+          } else if (payload.pending) {
+            pending = [...pending, ...payload.pending];
+          }
+          result = result ? mergeResultPatch(result, payload, response, pending) : makeResult(operation, payload, response);
+          networkMode = false;
+          yield result;
+          networkMode = true;
+        }
+        if (!result) {
+          yield result = makeResult(operation, {}, response);
+        }
+      } catch (error) {
+        if (!networkMode) {
+          throw error;
+        }
+        yield makeErrorResult(operation, response && (response.status < 200 || response.status >= 300) && response.statusText ? new Error(response.statusText) : error, response);
+      }
+    }
+    function makeFetchSource(operation, url, fetchOptions) {
+      var abortController;
+      if (typeof AbortController !== "undefined") {
+        fetchOptions.signal = (abortController = new AbortController()).signal;
+      }
+      return wonka.onEnd(() => {
+        if (abortController)
+          abortController.abort();
+      })(wonka.filter((result) => !!result)(wonka.fromAsyncIterable(fetchOperation(operation, url, fetchOptions))));
+    }
+    exports.CombinedError = CombinedError;
+    exports.createRequest = createRequest;
+    exports.getOperationType = getOperationType;
+    exports.keyDocument = keyDocument;
+    exports.makeErrorResult = makeErrorResult;
+    exports.makeFetchBody = makeFetchBody;
+    exports.makeFetchOptions = makeFetchOptions;
+    exports.makeFetchSource = makeFetchSource;
+    exports.makeFetchURL = makeFetchURL;
+    exports.makeResult = makeResult;
+    exports.mergeResultPatch = mergeResultPatch;
+    exports.stringifyDocument = stringifyDocument;
+    exports.stringifyVariables = stringifyVariables;
+  }
+});
+
+// node_modules/@urql/core/dist/urql-core.js
+var require_urql_core = __commonJS({
+  "node_modules/@urql/core/dist/urql-core.js"(exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var graphql_web = require_graphql_web();
+    var fetchSource = require_urql_core_chunk();
+    var wonka = require_wonka();
+    var collectTypes = (obj, types) => {
+      if (Array.isArray(obj)) {
+        for (var item of obj)
+          collectTypes(item, types);
+      } else if (typeof obj === "object" && obj !== null) {
+        for (var _key in obj) {
+          if (_key === "__typename" && typeof obj[_key] === "string") {
+            types.add(obj[_key]);
+          } else {
+            collectTypes(obj[_key], types);
+          }
+        }
+      }
+      return types;
+    };
+    var collectTypenames = (response) => [...collectTypes(response, /* @__PURE__ */ new Set())];
+    var formatNode = (node) => {
+      if ("definitions" in node) {
+        var definitions = [];
+        for (var definition of node.definitions) {
+          var newDefinition = formatNode(definition);
+          definitions.push(newDefinition);
+        }
+        return {
+          ...node,
+          definitions
+        };
+      }
+      if ("directives" in node && node.directives && node.directives.length) {
+        var directives = [];
+        var _directives = {};
+        for (var directive of node.directives) {
+          var name = directive.name.value;
+          if (name[0] !== "_") {
+            directives.push(directive);
+          } else {
+            name = name.slice(1);
+          }
+          _directives[name] = directive;
+        }
+        node = {
+          ...node,
+          directives,
+          _directives
+        };
+      }
+      if ("selectionSet" in node) {
+        var selections = [];
+        var hasTypename = node.kind === graphql_web.Kind.OPERATION_DEFINITION;
+        if (node.selectionSet) {
+          for (var selection of node.selectionSet.selections || []) {
+            hasTypename = hasTypename || selection.kind === graphql_web.Kind.FIELD && selection.name.value === "__typename" && !selection.alias;
+            var newSelection = formatNode(selection);
+            selections.push(newSelection);
+          }
+          if (!hasTypename) {
+            selections.push({
+              kind: graphql_web.Kind.FIELD,
+              name: {
+                kind: graphql_web.Kind.NAME,
+                value: "__typename"
+              },
+              _generated: true
+            });
+          }
+          return {
+            ...node,
+            selectionSet: {
+              ...node.selectionSet,
+              selections
+            }
+          };
+        }
+      }
+      return node;
+    };
+    var formattedDocs = /* @__PURE__ */ new Map();
+    var formatDocument = (node) => {
+      var query = fetchSource.keyDocument(node);
+      var result = formattedDocs.get(query.__key);
+      if (!result) {
+        formattedDocs.set(query.__key, result = formatNode(query));
+        Object.defineProperty(result, "__key", {
+          value: query.__key,
+          enumerable: false
+        });
+      }
+      return result;
+    };
+    var maskTypename = (data2, isRoot) => {
+      if (!data2 || typeof data2 !== "object") {
+        return data2;
+      } else if (Array.isArray(data2)) {
+        return data2.map((d) => maskTypename(d));
+      } else if (data2 && typeof data2 === "object" && (isRoot || "__typename" in data2)) {
+        var acc = {};
+        for (var key in data2) {
+          if (key === "__typename") {
+            Object.defineProperty(acc, "__typename", {
+              enumerable: false,
+              value: data2.__typename
+            });
+          } else {
+            acc[key] = maskTypename(data2[key]);
+          }
+        }
+        return acc;
+      } else {
+        return data2;
+      }
+    };
+    function withPromise(_source$) {
+      var source$ = (sink) => _source$(sink);
+      source$.toPromise = () => wonka.toPromise(wonka.take(1)(wonka.filter((result) => !result.stale && !result.hasNext)(source$)));
+      source$.then = (onResolve, onReject) => source$.toPromise().then(onResolve, onReject);
+      source$.subscribe = (onResult) => wonka.subscribe(onResult)(source$);
+      return source$;
+    }
+    function makeOperation(kind, request, context) {
+      return {
+        ...request,
+        kind,
+        context: request.context ? {
+          ...request.context,
+          ...context
+        } : context || request.context
+      };
+    }
+    var addMetadata = (operation, meta) => {
+      return makeOperation(operation.kind, operation, {
+        meta: {
+          ...operation.context.meta,
+          ...meta
+        }
+      });
+    };
+    var noop = () => {
+    };
+    function gql(parts) {
+      var fragmentNames = /* @__PURE__ */ new Map();
+      var definitions = [];
+      var source = [];
+      var body = Array.isArray(parts) ? parts[0] : parts || "";
+      for (var i = 1; i < arguments.length; i++) {
+        var value = arguments[i];
+        if (value && value.definitions) {
+          source.push(value);
+        } else {
+          body += value;
+        }
+        body += arguments[0][i];
+      }
+      source.unshift(fetchSource.keyDocument(body));
+      for (var document2 of source) {
+        for (var definition of document2.definitions) {
+          if (definition.kind === graphql_web.Kind.FRAGMENT_DEFINITION) {
+            var name = definition.name.value;
+            var _value = fetchSource.stringifyDocument(definition);
+            if (!fragmentNames.has(name)) {
+              fragmentNames.set(name, _value);
+              definitions.push(definition);
+            } else if (fragmentNames.get(name) !== _value) {
+              console.warn("[WARNING: Duplicate Fragment] A fragment with name `" + name + "` already exists in this document.\nWhile fragment names may not be unique across your source, each name must be unique per document.");
+            }
+          } else {
+            definitions.push(definition);
+          }
+        }
+      }
+      return fetchSource.keyDocument({
+        kind: graphql_web.Kind.DOCUMENT,
+        definitions
+      });
+    }
+    var shouldSkip = ({
+      kind
+    }) => kind !== "mutation" && kind !== "query";
+    var mapTypeNames = (operation) => {
+      var query = formatDocument(operation.query);
+      if (query !== operation.query) {
+        var formattedOperation = makeOperation(operation.kind, operation);
+        formattedOperation.query = query;
+        return formattedOperation;
+      } else {
+        return operation;
+      }
+    };
+    var cacheExchange = ({
+      forward,
+      client,
+      dispatchDebug
+    }) => {
+      var resultCache = /* @__PURE__ */ new Map();
+      var operationCache = /* @__PURE__ */ new Map();
+      var isOperationCached = (operation) => operation.kind === "query" && operation.context.requestPolicy !== "network-only" && (operation.context.requestPolicy === "cache-only" || resultCache.has(operation.key));
+      return (ops$) => {
+        var cachedOps$ = wonka.map((operation) => {
+          var cachedResult = resultCache.get(operation.key);
+          true ? dispatchDebug({
+            operation,
+            ...cachedResult ? {
+              type: "cacheHit",
+              message: "The result was successfully retried from the cache"
+            } : {
+              type: "cacheMiss",
+              message: "The result could not be retrieved from the cache"
+            },
+            "source": "cacheExchange"
+          }) : void 0;
+          var result = cachedResult || fetchSource.makeResult(operation, {
+            data: null
+          });
+          result = {
+            ...result,
+            operation: true ? addMetadata(operation, {
+              cacheOutcome: cachedResult ? "hit" : "miss"
+            }) : operation
+          };
+          if (operation.context.requestPolicy === "cache-and-network") {
+            result.stale = true;
+            reexecuteOperation(client, operation);
+          }
+          return result;
+        })(wonka.filter((op) => !shouldSkip(op) && isOperationCached(op))(ops$));
+        var forwardedOps$ = wonka.tap((response) => {
+          var {
+            operation
+          } = response;
+          if (!operation)
+            return;
+          var typenames = operation.context.additionalTypenames || [];
+          if (response.operation.kind !== "subscription") {
+            typenames = collectTypenames(response.data).concat(typenames);
+          }
+          if (response.operation.kind === "mutation" || response.operation.kind === "subscription") {
+            var pendingOperations = /* @__PURE__ */ new Set();
+            true ? dispatchDebug({
+              type: "cacheInvalidation",
+              message: `The following typenames have been invalidated: ${typenames}`,
+              operation,
+              data: {
+                typenames,
+                response
+              },
+              "source": "cacheExchange"
+            }) : void 0;
+            for (var i = 0; i < typenames.length; i++) {
+              var typeName = typenames[i];
+              var operations = operationCache.get(typeName);
+              if (!operations)
+                operationCache.set(typeName, operations = /* @__PURE__ */ new Set());
+              for (var key of operations.values())
+                pendingOperations.add(key);
+              operations.clear();
+            }
+            for (var _key of pendingOperations.values()) {
+              if (resultCache.has(_key)) {
+                operation = resultCache.get(_key).operation;
+                resultCache.delete(_key);
+                reexecuteOperation(client, operation);
+              }
+            }
+          } else if (operation.kind === "query" && response.data) {
+            resultCache.set(operation.key, response);
+            for (var _i = 0; _i < typenames.length; _i++) {
+              var _typeName = typenames[_i];
+              var _operations = operationCache.get(_typeName);
+              if (!_operations)
+                operationCache.set(_typeName, _operations = /* @__PURE__ */ new Set());
+              _operations.add(operation.key);
+            }
+          }
+        })(forward(wonka.filter((op) => op.kind !== "query" || op.context.requestPolicy !== "cache-only")(wonka.map((op) => true ? addMetadata(op, {
+          cacheOutcome: "miss"
+        }) : op)(wonka.merge([wonka.map(mapTypeNames)(wonka.filter((op) => !shouldSkip(op) && !isOperationCached(op))(ops$)), wonka.filter((op) => shouldSkip(op))(ops$)])))));
+        return wonka.merge([cachedOps$, forwardedOps$]);
+      };
+    };
+    var reexecuteOperation = (client, operation) => {
+      return client.reexecuteOperation(makeOperation(operation.kind, operation, {
+        requestPolicy: "network-only"
+      }));
+    };
+    var serializeResult = (result, includeExtensions) => {
+      var serialized = {
+        data: JSON.stringify(result.data),
+        hasNext: result.hasNext
+      };
+      if (result.data !== void 0) {
+        serialized.data = JSON.stringify(result.data);
+      }
+      if (includeExtensions && result.extensions !== void 0) {
+        serialized.extensions = JSON.stringify(result.extensions);
+      }
+      if (result.error) {
+        serialized.error = {
+          graphQLErrors: result.error.graphQLErrors.map((error) => {
+            if (!error.path && !error.extensions)
+              return error.message;
+            return {
+              message: error.message,
+              path: error.path,
+              extensions: error.extensions
+            };
+          })
+        };
+        if (result.error.networkError) {
+          serialized.error.networkError = "" + result.error.networkError;
+        }
+      }
+      return serialized;
+    };
+    var deserializeResult = (operation, result, includeExtensions) => ({
+      operation,
+      data: result.data ? JSON.parse(result.data) : void 0,
+      extensions: includeExtensions && result.extensions ? JSON.parse(result.extensions) : void 0,
+      error: result.error ? new fetchSource.CombinedError({
+        networkError: result.error.networkError ? new Error(result.error.networkError) : void 0,
+        graphQLErrors: result.error.graphQLErrors
+      }) : void 0,
+      stale: false,
+      hasNext: !!result.hasNext
+    });
+    var revalidated = /* @__PURE__ */ new Set();
+    var ssrExchange = (params = {}) => {
+      var staleWhileRevalidate = !!params.staleWhileRevalidate;
+      var includeExtensions = !!params.includeExtensions;
+      var data2 = {};
+      var invalidateQueue = [];
+      var invalidate = (result) => {
+        invalidateQueue.push(result.operation.key);
+        if (invalidateQueue.length === 1) {
+          Promise.resolve().then(() => {
+            var key;
+            while (key = invalidateQueue.shift()) {
+              data2[key] = null;
+            }
+          });
+        }
+      };
+      var ssr = ({
+        client,
+        forward
+      }) => (ops$) => {
+        var isClient = params && typeof params.isClient === "boolean" ? !!params.isClient : !client.suspense;
+        var forwardedOps$ = forward(wonka.map(mapTypeNames)(wonka.filter((operation) => operation.kind === "teardown" || !data2[operation.key] || !!data2[operation.key].hasNext || operation.context.requestPolicy === "network-only")(ops$)));
+        var cachedOps$ = wonka.map((op) => {
+          var serialized = data2[op.key];
+          var cachedResult = deserializeResult(op, serialized, includeExtensions);
+          if (staleWhileRevalidate && !revalidated.has(op.key)) {
+            cachedResult.stale = true;
+            revalidated.add(op.key);
+            reexecuteOperation(client, op);
+          }
+          var result = {
+            ...cachedResult,
+            operation: true ? addMetadata(op, {
+              cacheOutcome: "hit"
+            }) : op
+          };
+          return result;
+        })(wonka.filter((operation) => operation.kind !== "teardown" && !!data2[operation.key] && operation.context.requestPolicy !== "network-only")(ops$));
+        if (!isClient) {
+          forwardedOps$ = wonka.tap((result) => {
+            var {
+              operation
+            } = result;
+            if (operation.kind !== "mutation") {
+              var serialized = serializeResult(result, includeExtensions);
+              data2[operation.key] = serialized;
+            }
+          })(forwardedOps$);
+        } else {
+          cachedOps$ = wonka.tap(invalidate)(cachedOps$);
+        }
+        return wonka.merge([forwardedOps$, cachedOps$]);
+      };
+      ssr.restoreData = (restore) => {
+        for (var _key in restore) {
+          if (data2[_key] !== null) {
+            data2[_key] = restore[_key];
+          }
+        }
+      };
+      ssr.extractData = () => {
+        var result = {};
+        for (var _key2 in data2)
+          if (data2[_key2] != null)
+            result[_key2] = data2[_key2];
+        return result;
+      };
+      if (params && params.initialState) {
+        ssr.restoreData(params.initialState);
+      }
+      return ssr;
+    };
+    var subscriptionExchange = ({
+      forwardSubscription,
+      enableAllOperations,
+      isSubscriptionOperation
+    }) => ({
+      client,
+      forward
+    }) => {
+      var createSubscriptionSource = (operation) => {
+        var observableish = forwardSubscription(fetchSource.makeFetchBody(operation), operation);
+        return wonka.make((observer) => {
+          var isComplete = false;
+          var sub;
+          var result;
+          function nextResult(value) {
+            observer.next(result = result ? fetchSource.mergeResultPatch(result, value) : fetchSource.makeResult(operation, value));
+          }
+          Promise.resolve().then(() => {
+            if (isComplete)
+              return;
+            sub = observableish.subscribe({
+              next: nextResult,
+              error(error) {
+                if (Array.isArray(error)) {
+                  nextResult({
+                    errors: error
+                  });
+                } else {
+                  observer.next(fetchSource.makeErrorResult(operation, error));
+                }
+                observer.complete();
+              },
+              complete() {
+                if (!isComplete) {
+                  isComplete = true;
+                  if (operation.kind === "subscription") {
+                    client.reexecuteOperation(makeOperation("teardown", operation, operation.context));
+                  }
+                  if (result && result.hasNext) {
+                    nextResult({
+                      hasNext: false
+                    });
+                  }
+                  observer.complete();
+                }
+              }
+            });
+          });
+          return () => {
+            isComplete = true;
+            if (sub)
+              sub.unsubscribe();
+          };
+        });
+      };
+      var isSubscriptionOperationFn = isSubscriptionOperation || ((operation) => operation.kind === "subscription" || !!enableAllOperations && (operation.kind === "query" || operation.kind === "mutation"));
+      return (ops$) => {
+        var subscriptionResults$ = wonka.mergeMap((operation) => {
+          var {
+            key
+          } = operation;
+          var teardown$ = wonka.filter((op) => op.kind === "teardown" && op.key === key)(ops$);
+          return wonka.takeUntil(teardown$)(createSubscriptionSource(operation));
+        })(wonka.filter((operation) => operation.kind !== "teardown" && isSubscriptionOperationFn(operation))(ops$));
+        var forward$ = forward(wonka.filter((operation) => operation.kind === "teardown" || !isSubscriptionOperationFn(operation))(ops$));
+        return wonka.merge([subscriptionResults$, forward$]);
+      };
+    };
+    var debugExchange = ({
+      forward
+    }) => {
+      if (false) {
+        return (ops$) => forward(ops$);
+      } else {
+        return (ops$) => wonka.tap((result) => console.log("[Exchange debug]: Completed operation: ", result))(forward(wonka.tap((op) => console.log("[Exchange debug]: Incoming operation: ", op))(ops$)));
+      }
+    };
+    var dedupExchange = ({
+      forward
+    }) => (ops$) => forward(ops$);
+    var fetchExchange = ({
+      forward,
+      dispatchDebug
+    }) => {
+      return (ops$) => {
+        var fetchResults$ = wonka.mergeMap((operation) => {
+          var body = fetchSource.makeFetchBody(operation);
+          var url = fetchSource.makeFetchURL(operation, body);
+          var fetchOptions = fetchSource.makeFetchOptions(operation, body);
+          true ? dispatchDebug({
+            type: "fetchRequest",
+            message: "A fetch request is being executed.",
+            operation,
+            data: {
+              url,
+              fetchOptions
+            },
+            "source": "fetchExchange"
+          }) : void 0;
+          var source = wonka.takeUntil(wonka.filter((op) => op.kind === "teardown" && op.key === operation.key)(ops$))(fetchSource.makeFetchSource(operation, url, fetchOptions));
+          if (true) {
+            return wonka.onPush((result) => {
+              var error = !result.data ? result.error : void 0;
+              true ? dispatchDebug({
+                type: error ? "fetchError" : "fetchSuccess",
+                message: `A ${error ? "failed" : "successful"} fetch response has been returned.`,
+                operation,
+                data: {
+                  url,
+                  fetchOptions,
+                  value: error || result
+                },
+                "source": "fetchExchange"
+              }) : void 0;
+            })(source);
+          }
+          return source;
+        })(wonka.filter((operation) => {
+          return operation.kind !== "teardown" && (operation.kind !== "subscription" || !!operation.context.fetchSubscriptions);
+        })(ops$));
+        var forward$ = forward(wonka.filter((operation) => {
+          return operation.kind === "teardown" || operation.kind === "subscription" && !operation.context.fetchSubscriptions;
+        })(ops$));
+        return wonka.merge([fetchResults$, forward$]);
+      };
+    };
+    var composeExchanges = (exchanges) => ({
+      client,
+      forward,
+      dispatchDebug
+    }) => exchanges.reduceRight((forward2, exchange) => {
+      var forwarded = false;
+      return exchange({
+        client,
+        forward(operations$) {
+          if (true) {
+            if (forwarded)
+              throw new Error("forward() must only be called once in each Exchange.");
+            forwarded = true;
+          }
+          return wonka.share(forward2(wonka.share(operations$)));
+        },
+        dispatchDebug(event) {
+          true ? dispatchDebug({
+            timestamp: Date.now(),
+            source: exchange.name,
+            ...event
+          }) : void 0;
+        }
+      });
+    }, forward);
+    var mapExchange = ({
+      onOperation,
+      onResult,
+      onError
+    }) => {
+      return ({
+        forward
+      }) => (ops$) => {
+        return wonka.mergeMap((result) => {
+          if (onError && result.error)
+            onError(result.error, result.operation);
+          var newResult = onResult && onResult(result) || result;
+          return "then" in newResult ? wonka.fromPromise(newResult) : wonka.fromValue(newResult);
+        })(forward(wonka.mergeMap((operation) => {
+          var newOperation = onOperation && onOperation(operation) || operation;
+          return "then" in newOperation ? wonka.fromPromise(newOperation) : wonka.fromValue(newOperation);
+        })(ops$)));
+      };
+    };
+    var fallbackExchange = ({
+      dispatchDebug
+    }) => (ops$) => {
+      if (true) {
+        ops$ = wonka.tap((operation) => {
+          if (operation.kind !== "teardown" && true) {
+            var message = `No exchange has handled operations of kind "${operation.kind}". Check whether you've added an exchange responsible for these operations.`;
+            true ? dispatchDebug({
+              type: "fallbackCatch",
+              message,
+              operation,
+              "source": "fallbackExchange"
+            }) : void 0;
+            console.warn(message);
+          }
+        })(ops$);
+      }
+      return wonka.filter((_x) => false)(ops$);
+    };
+    var Client = function Client2(opts) {
+      if (!opts.url) {
+        throw new Error("You are creating an urql-client without a url.");
+      }
+      var ids = 0;
+      var replays = /* @__PURE__ */ new Map();
+      var active = /* @__PURE__ */ new Map();
+      var dispatched = /* @__PURE__ */ new Set();
+      var queue = [];
+      var baseOpts = {
+        url: opts.url,
+        fetchSubscriptions: opts.fetchSubscriptions,
+        fetchOptions: opts.fetchOptions,
+        fetch: opts.fetch,
+        preferGetMethod: opts.preferGetMethod,
+        requestPolicy: opts.requestPolicy || "cache-first"
+      };
+      var operations = wonka.makeSubject();
+      function nextOperation(operation) {
+        if (operation.kind === "mutation" || operation.kind === "teardown" || !dispatched.has(operation.key)) {
+          if (operation.kind === "teardown") {
+            dispatched.delete(operation.key);
+          } else if (operation.kind !== "mutation") {
+            dispatched.add(operation.key);
+          }
+          operations.next(operation);
+        }
+      }
+      var isOperationBatchActive = false;
+      function dispatchOperation(operation) {
+        if (operation)
+          nextOperation(operation);
+        if (!isOperationBatchActive) {
+          isOperationBatchActive = true;
+          while (isOperationBatchActive && (operation = queue.shift()))
+            nextOperation(operation);
+          isOperationBatchActive = false;
+        }
+      }
+      var makeResultSource = (operation) => {
+        var result$ = wonka.takeUntil(wonka.filter((op) => op.kind === "teardown" && op.key === operation.key)(operations.source))(wonka.filter((res) => res.operation.kind === operation.kind && res.operation.key === operation.key && (!res.operation.context._instance || res.operation.context._instance === operation.context._instance))(results$));
+        if (opts.maskTypename) {
+          result$ = wonka.map((res) => ({
+            ...res,
+            data: maskTypename(res.data, true)
+          }))(result$);
+        }
+        if (operation.kind !== "query") {
+          result$ = wonka.takeWhile((result) => !!result.hasNext, true)(result$);
+        } else {
+          result$ = wonka.switchMap((result) => {
+            var value$ = wonka.fromValue(result);
+            return result.stale || result.hasNext ? value$ : wonka.merge([value$, wonka.map(() => {
+              result.stale = true;
+              return result;
+            })(wonka.take(1)(wonka.filter((op) => op.key === operation.key)(operations.source)))]);
+          })(result$);
+        }
+        if (operation.kind !== "mutation") {
+          result$ = wonka.onEnd(() => {
+            dispatched.delete(operation.key);
+            replays.delete(operation.key);
+            active.delete(operation.key);
+            isOperationBatchActive = false;
+            for (var i = queue.length - 1; i >= 0; i--)
+              if (queue[i].key === operation.key)
+                queue.splice(i, 1);
+            nextOperation(makeOperation("teardown", operation, operation.context));
+          })(wonka.onPush((result) => {
+            if (result.stale) {
+              for (var _operation of queue) {
+                if (_operation.key === result.operation.key) {
+                  dispatched.delete(_operation.key);
+                  break;
+                }
+              }
+            } else if (!result.hasNext) {
+              dispatched.delete(operation.key);
+            }
+            replays.set(operation.key, result);
+          })(result$));
+        } else {
+          result$ = wonka.onStart(() => {
+            nextOperation(operation);
+          })(result$);
+        }
+        return wonka.share(result$);
+      };
+      var instance = this instanceof Client2 ? this : Object.create(Client2.prototype);
+      var client = Object.assign(instance, {
+        suspense: !!opts.suspense,
+        operations$: operations.source,
+        reexecuteOperation(operation) {
+          if (operation.kind === "teardown") {
+            dispatchOperation(operation);
+          } else if (operation.kind === "mutation" || active.has(operation.key)) {
+            var queued = false;
+            for (var i = 0; i < queue.length; i++)
+              queued = queued || queue[i].key === operation.key;
+            if (!queued)
+              dispatched.delete(operation.key);
+            queue.push(operation);
+            Promise.resolve().then(dispatchOperation);
+          }
+        },
+        createRequestOperation(kind, request, opts2) {
+          if (!opts2)
+            opts2 = {};
+          var requestOperationType;
+          if (kind !== "teardown" && (requestOperationType = fetchSource.getOperationType(request.query)) !== kind) {
+            throw new Error(`Expected operation of type "${kind}" but found "${requestOperationType}"`);
+          }
+          return makeOperation(kind, request, {
+            _instance: kind === "mutation" ? ids = ids + 1 | 0 : void 0,
+            ...baseOpts,
+            ...opts2,
+            requestPolicy: opts2.requestPolicy || baseOpts.requestPolicy,
+            suspense: opts2.suspense || opts2.suspense !== false && client.suspense
+          });
+        },
+        executeRequestOperation(operation) {
+          if (operation.kind === "mutation") {
+            return withPromise(makeResultSource(operation));
+          }
+          return withPromise(wonka.lazy(() => {
+            var source2 = active.get(operation.key);
+            if (!source2) {
+              active.set(operation.key, source2 = makeResultSource(operation));
+            }
+            source2 = wonka.onStart(() => {
+              dispatchOperation(operation);
+            })(source2);
+            var replay = replays.get(operation.key);
+            if (operation.kind === "query" && replay && (replay.stale || replay.hasNext)) {
+              return wonka.switchMap(wonka.fromValue)(wonka.merge([source2, wonka.filter((replay2) => replay2 === replays.get(operation.key))(wonka.fromValue(replay))]));
+            } else {
+              return source2;
+            }
+          }));
+        },
+        executeQuery(query, opts2) {
+          var operation = client.createRequestOperation("query", query, opts2);
+          return client.executeRequestOperation(operation);
+        },
+        executeSubscription(query, opts2) {
+          var operation = client.createRequestOperation("subscription", query, opts2);
+          return client.executeRequestOperation(operation);
+        },
+        executeMutation(query, opts2) {
+          var operation = client.createRequestOperation("mutation", query, opts2);
+          return client.executeRequestOperation(operation);
+        },
+        readQuery(query, variables, context) {
+          var result = null;
+          wonka.subscribe((res) => {
+            result = res;
+          })(client.query(query, variables, context)).unsubscribe();
+          return result;
+        },
+        query(query, variables, context) {
+          return client.executeQuery(fetchSource.createRequest(query, variables), context);
+        },
+        subscription(query, variables, context) {
+          return client.executeSubscription(fetchSource.createRequest(query, variables), context);
+        },
+        mutation(query, variables, context) {
+          return client.executeMutation(fetchSource.createRequest(query, variables), context);
+        }
+      });
+      var dispatchDebug = noop;
+      if (true) {
+        var {
+          next,
+          source
+        } = wonka.makeSubject();
+        client.subscribeToDebugTarget = (onEvent) => wonka.subscribe(onEvent)(source);
+        dispatchDebug = next;
+      }
+      var composedExchange = composeExchanges(opts.exchanges);
+      var results$ = wonka.share(composedExchange({
+        client,
+        dispatchDebug,
+        forward: fallbackExchange({
+          dispatchDebug
+        })
+      })(operations.source));
+      wonka.publish(results$);
+      return client;
+    };
+    var createClient = Client;
+    exports.CombinedError = fetchSource.CombinedError;
+    exports.createRequest = fetchSource.createRequest;
+    exports.makeErrorResult = fetchSource.makeErrorResult;
+    exports.makeResult = fetchSource.makeResult;
+    exports.mergeResultPatch = fetchSource.mergeResultPatch;
+    exports.stringifyDocument = fetchSource.stringifyDocument;
+    exports.stringifyVariables = fetchSource.stringifyVariables;
+    exports.Client = Client;
+    exports.cacheExchange = cacheExchange;
+    exports.composeExchanges = composeExchanges;
+    exports.createClient = createClient;
+    exports.debugExchange = debugExchange;
+    exports.dedupExchange = dedupExchange;
+    exports.errorExchange = mapExchange;
+    exports.fetchExchange = fetchExchange;
+    exports.formatDocument = formatDocument;
+    exports.gql = gql;
+    exports.makeOperation = makeOperation;
+    exports.mapExchange = mapExchange;
+    exports.maskTypename = maskTypename;
+    exports.ssrExchange = ssrExchange;
+    exports.subscriptionExchange = subscriptionExchange;
+  }
+});
+
+// node_modules/@omnivore-app/api/dist/src/errors.js
+var require_errors = __commonJS({
+  "node_modules/@omnivore-app/api/dist/src/errors.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.isOmnivoreError = exports.buildOmnivoreError = exports.OmnivoreErrorCode = void 0;
+    var OmnivoreErrorCode;
+    (function(OmnivoreErrorCode2) {
+      OmnivoreErrorCode2["GraphQLError"] = "GRAPHQL_ERROR";
+      OmnivoreErrorCode2["NetworkError"] = "NETWORK_ERROR";
+      OmnivoreErrorCode2["UnknownError"] = "UNKNOWN_ERROR";
+    })(OmnivoreErrorCode || (exports.OmnivoreErrorCode = OmnivoreErrorCode = {}));
+    var OmnivoreErrorBase = class extends Error {
+    };
+    var GraphQLError = class extends OmnivoreErrorBase {
+      constructor(messages) {
+        super(messages?.join(", "));
+        __publicField(this, "messages");
+        __publicField(this, "code", OmnivoreErrorCode.GraphQLError);
+        this.messages = messages;
+      }
+    };
+    var NetworkError = class extends OmnivoreErrorBase {
+      constructor(message) {
+        super(message);
+        __publicField(this, "message");
+        __publicField(this, "code", OmnivoreErrorCode.NetworkError);
+        this.message = message;
+      }
+    };
+    var UnknownError = class extends OmnivoreErrorBase {
+      constructor(message) {
+        super(message);
+        __publicField(this, "message");
+        __publicField(this, "code", OmnivoreErrorCode.UnknownError);
+        this.message = message;
+      }
+    };
+    var buildOmnivoreError = (data2, error) => {
+      if (error) {
+        if (error.graphQLErrors.length > 0) {
+          return new GraphQLError(error.graphQLErrors.map((e) => e.message));
+        }
+        if (error.networkError) {
+          return new NetworkError(error.networkError.message);
+        }
+      }
+      if (!data2) {
+        return new UnknownError("No data returned");
+      }
+      return new GraphQLError(data2.errorCodes);
+    };
+    exports.buildOmnivoreError = buildOmnivoreError;
+    var isOmnivoreError = (error) => {
+      return error instanceof GraphQLError || error instanceof NetworkError || error instanceof UnknownError;
+    };
+    exports.isOmnivoreError = isOmnivoreError;
+  }
+});
+
+// node_modules/gql.tada/dist/gql-tada.js
+var require_gql_tada = __commonJS({
+  "node_modules/gql.tada/dist/gql-tada.js"(exports) {
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var r = require_graphql_web();
+    function initGraphQLTada() {
+      function graphql(e2, n2) {
+        var a = r.parse(e2).definitions;
+        var i = /* @__PURE__ */ new Set();
+        for (var t of n2 || []) {
+          for (var s2 of t.definitions) {
+            if (s2.kind === r.Kind.FRAGMENT_DEFINITION && !i.has(s2)) {
+              a.push(s2);
+              i.add(s2);
+            }
+          }
+        }
+        if (a[0].kind === r.Kind.FRAGMENT_DEFINITION && a[0].directives) {
+          a[0].directives = a[0].directives.filter((r2) => r2.name.value !== "_unmask");
+        }
+        return {
+          kind: r.Kind.DOCUMENT,
+          definitions: a
+        };
+      }
+      graphql.scalar = function scalar(r2, e2) {
+        return e2;
+      };
+      graphql.persisted = function persisted(e2) {
+        return {
+          kind: r.Kind.DOCUMENT,
+          definitions: [],
+          documentId: e2
+        };
+      };
+      return graphql;
+    }
+    var e = initGraphQLTada();
+    exports.graphql = e;
+    exports.initGraphQLTada = initGraphQLTada;
+    exports.maskFragments = function maskFragments(r2, e2) {
+      return e2;
+    };
+    exports.parse = function parse4(e2) {
+      return r.parse(e2);
+    };
+    exports.readFragment = function readFragment(r2, e2) {
+      return e2;
+    };
+    exports.unsafe_readResult = function unsafe_readResult(r2, e2) {
+      return e2;
+    };
+  }
+});
+
+// node_modules/@omnivore-app/api/dist/src/graphql.js
+var require_graphql = __commonJS({
+  "node_modules/@omnivore-app/api/dist/src/graphql.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.saveByURLMutation = exports.DeleteMutation = exports.UpdatesSinceQuery = exports.SearchQuery = void 0;
+    var gql_tada_1 = require_gql_tada();
+    var graphql = (0, gql_tada_1.initGraphQLTada)();
+    var PageInfoFragment = graphql(`
+  fragment PageInfoFragment on PageInfo @_unmask {
+    hasNextPage
+    hasPreviousPage
+    startCursor
+    endCursor
+    totalCount
+  }
+`);
+    var LabelFragment = graphql(`
+  fragment LabelFragment on Label @_unmask {
+    name
+    color
+    createdAt
+    id
+    internal
+    source
+    description
+  }
+`);
+    var HighlightFragment = graphql(`
+    fragment HighlightFragment on Highlight @_unmask {
+      id
+      quote
+      annotation
+      patch
+      updatedAt
+      labels {
+        ...LabelFragment
+      }
+      type
+      highlightPositionPercent
+      color
+      highlightPositionAnchorIndex
+      prefix
+      suffix
+      createdAt
+    }
+  `, [LabelFragment]);
+    var SearchItemFragment = graphql(`
+    fragment SearchItemFragment on SearchItem @_unmask {
+      id
+      title
+      siteName
+      originalArticleUrl
+      author
+      description
+      slug
+      labels {
+        ...LabelFragment
+      }
+      highlights {
+        ...HighlightFragment
+      }
+      updatedAt
+      savedAt
+      pageType
+      content
+      publishedAt
+      url
+      image
+      readAt
+      wordsCount
+      readingProgressPercent
+      isArchived
+      archivedAt
+      contentReader
+    }
+  `, [LabelFragment, HighlightFragment]);
+    exports.SearchQuery = graphql(`
+    query Search(
+      $after: String
+      $first: Int
+      $format: String
+      $includeContent: Boolean
+      $query: String
+    ) {
+      search(
+        after: $after
+        first: $first
+        format: $format
+        includeContent: $includeContent
+        query: $query
+      ) {
+        __typename
+        ... on SearchSuccess {
+          edges {
+            node {
+              ...SearchItemFragment
+            }
+          }
+          pageInfo {
+            ...PageInfoFragment
+          }
+        }
+        ... on SearchError {
+          errorCodes
+        }
+      }
+    }
+  `, [SearchItemFragment, PageInfoFragment]);
+    exports.UpdatesSinceQuery = graphql(`
+    query UpdatesSince($since: Date!) {
+      updatesSince(since: $since) {
+        __typename
+        ... on UpdatesSinceSuccess {
+          edges {
+            itemID
+            updateReason
+            node {
+              ...SearchItemFragment
+            }
+          }
+          pageInfo {
+            ...PageInfoFragment
+          }
+        }
+        ... on UpdatesSinceError {
+          errorCodes
+        }
+      }
+    }
+  `, [SearchItemFragment, PageInfoFragment]);
+    exports.DeleteMutation = graphql(`
+  mutation Delete($input: SetBookmarkArticleInput!) {
+    setBookmarkArticle(input: $input) {
+      __typename
+      ... on SetBookmarkArticleSuccess {
+        bookmarkedArticle {
+          id
+        }
+      }
+      ... on SetBookmarkArticleError {
+        errorCodes
+      }
+    }
+  }
+`);
+    exports.saveByURLMutation = graphql(`
+  mutation SaveByURL($input: SaveUrlInput!) {
+    saveUrl(input: $input) {
+      __typename
+      ... on SaveSuccess {
+        clientRequestId
+      }
+      ... on SaveError {
+        errorCodes
+      }
+    }
+  }
+`);
+  }
+});
+
+// node_modules/@omnivore-app/api/dist/src/client.js
+var require_client = __commonJS({
+  "node_modules/@omnivore-app/api/dist/src/client.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Omnivore = void 0;
+    var core_1 = require_urql_core();
+    var errors_1 = require_errors();
+    var graphql_1 = require_graphql();
+    var Omnivore2 = class {
+      constructor(clientOptions) {
+        __publicField(this, "client");
+        __publicField(this, "items", {
+          search: async (params) => {
+            const { data: data2, error } = await this.client.query(graphql_1.SearchQuery, {
+              ...params,
+              after: params.after ? String(params.after) : void 0
+            }).toPromise();
+            const search = data2?.search;
+            if (error || !search || search.__typename === "SearchError") {
+              const err = (0, errors_1.buildOmnivoreError)(search, error);
+              console.error("Search error", err);
+              throw err;
+            }
+            return search;
+          },
+          updates: async (params) => {
+            const { data: data2, error } = await this.client.query(graphql_1.UpdatesSinceQuery, params).toPromise();
+            const updatesSince = data2?.updatesSince;
+            if (error || !updatesSince || updatesSince.__typename === "UpdatesSinceError") {
+              const err = (0, errors_1.buildOmnivoreError)(updatesSince, error);
+              console.error("UpdatesSince error", err);
+              throw err;
+            }
+            return updatesSince;
+          },
+          delete: async (params) => {
+            const { data: data2, error } = await this.client.mutation(graphql_1.DeleteMutation, {
+              input: { articleID: params.id, bookmark: false }
+            }).toPromise();
+            const deleteArticle = data2?.setBookmarkArticle;
+            if (error || !deleteArticle || deleteArticle.__typename === "SetBookmarkArticleError") {
+              const err = (0, errors_1.buildOmnivoreError)(deleteArticle, error);
+              console.error("Delete error", err);
+              throw err;
+            }
+            return { id: deleteArticle.bookmarkedArticle.id };
+          },
+          saveByUrl: async (params) => {
+            const { data: data2, error } = await this.client.mutation(graphql_1.saveByURLMutation, {
+              input: {
+                ...params,
+                source: params.source || "API-Client",
+                clientRequestId: params.clientRequestId || ""
+              }
+            }).toPromise();
+            const saveUrl = data2?.saveUrl;
+            if (error || !saveUrl || saveUrl.__typename === "SaveError") {
+              const err = (0, errors_1.buildOmnivoreError)(saveUrl, error);
+              console.error("SaveByURL error", err);
+              throw err;
+            }
+            return { id: saveUrl.clientRequestId };
+          }
+        });
+        this.client = new core_1.Client({
+          url: `${clientOptions.baseUrl || "https://api-prod.omnivore.app"}/api/graphql`,
+          exchanges: [core_1.fetchExchange],
+          fetchOptions: () => ({
+            headers: {
+              Authorization: clientOptions.authToken
+            },
+            timeout: clientOptions.timeoutMs || 0
+          })
+        });
+      }
+    };
+    exports.Omnivore = Omnivore2;
+  }
+});
+
+// node_modules/@omnivore-app/api/dist/src/index.js
+var require_src = __commonJS({
+  "node_modules/@omnivore-app/api/dist/src/index.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.isOmnivoreError = exports.OmnivoreErrorCode = exports.Omnivore = void 0;
+    var client_1 = require_client();
+    Object.defineProperty(exports, "Omnivore", { enumerable: true, get: function() {
+      return client_1.Omnivore;
+    } });
+    var errors_1 = require_errors();
+    Object.defineProperty(exports, "OmnivoreErrorCode", { enumerable: true, get: function() {
+      return errors_1.OmnivoreErrorCode;
+    } });
+    Object.defineProperty(exports, "isOmnivoreError", { enumerable: true, get: function() {
+      return errors_1.isOmnivoreError;
+    } });
+  }
+});
 
 // node_modules/lodash/lodash.js
 var require_lodash = __commonJS({
@@ -730,7 +4638,7 @@ var require_lodash = __commonJS({
         var objectCtorString = funcToString.call(Object2);
         var oldDash = root._;
         var reIsNative = RegExp2("^" + funcToString.call(hasOwnProperty2).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
-        var Buffer2 = moduleExports ? context.Buffer : undefined2, Symbol = context.Symbol, Uint8Array2 = context.Uint8Array, allocUnsafe = Buffer2 ? Buffer2.allocUnsafe : undefined2, getPrototype = overArg(Object2.getPrototypeOf, Object2), objectCreate = Object2.create, propertyIsEnumerable = objectProto.propertyIsEnumerable, splice = arrayProto.splice, spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined2, symIterator = Symbol ? Symbol.iterator : undefined2, symToStringTag = Symbol ? Symbol.toStringTag : undefined2;
+        var Buffer2 = moduleExports ? context.Buffer : undefined2, Symbol2 = context.Symbol, Uint8Array2 = context.Uint8Array, allocUnsafe = Buffer2 ? Buffer2.allocUnsafe : undefined2, getPrototype = overArg(Object2.getPrototypeOf, Object2), objectCreate = Object2.create, propertyIsEnumerable = objectProto.propertyIsEnumerable, splice = arrayProto.splice, spreadableSymbol = Symbol2 ? Symbol2.isConcatSpreadable : undefined2, symIterator = Symbol2 ? Symbol2.iterator : undefined2, symToStringTag = Symbol2 ? Symbol2.toStringTag : undefined2;
         var defineProperty = function() {
           try {
             var func = getNative(Object2, "defineProperty");
@@ -741,11 +4649,11 @@ var require_lodash = __commonJS({
         }();
         var ctxClearTimeout = context.clearTimeout !== root.clearTimeout && context.clearTimeout, ctxNow = Date2 && Date2.now !== root.Date.now && Date2.now, ctxSetTimeout = context.setTimeout !== root.setTimeout && context.setTimeout;
         var nativeCeil = Math2.ceil, nativeFloor = Math2.floor, nativeGetSymbols = Object2.getOwnPropertySymbols, nativeIsBuffer = Buffer2 ? Buffer2.isBuffer : undefined2, nativeIsFinite = context.isFinite, nativeJoin = arrayProto.join, nativeKeys = overArg(Object2.keys, Object2), nativeMax = Math2.max, nativeMin = Math2.min, nativeNow = Date2.now, nativeParseInt = context.parseInt, nativeRandom = Math2.random, nativeReverse = arrayProto.reverse;
-        var DataView = getNative(context, "DataView"), Map2 = getNative(context, "Map"), Promise2 = getNative(context, "Promise"), Set2 = getNative(context, "Set"), WeakMap = getNative(context, "WeakMap"), nativeCreate = getNative(Object2, "create");
-        var metaMap = WeakMap && new WeakMap();
+        var DataView = getNative(context, "DataView"), Map2 = getNative(context, "Map"), Promise2 = getNative(context, "Promise"), Set2 = getNative(context, "Set"), WeakMap2 = getNative(context, "WeakMap"), nativeCreate = getNative(Object2, "create");
+        var metaMap = WeakMap2 && new WeakMap2();
         var realNames = {};
-        var dataViewCtorString = toSource(DataView), mapCtorString = toSource(Map2), promiseCtorString = toSource(Promise2), setCtorString = toSource(Set2), weakMapCtorString = toSource(WeakMap);
-        var symbolProto = Symbol ? Symbol.prototype : undefined2, symbolValueOf = symbolProto ? symbolProto.valueOf : undefined2, symbolToString = symbolProto ? symbolProto.toString : undefined2;
+        var dataViewCtorString = toSource(DataView), mapCtorString = toSource(Map2), promiseCtorString = toSource(Promise2), setCtorString = toSource(Set2), weakMapCtorString = toSource(WeakMap2);
+        var symbolProto = Symbol2 ? Symbol2.prototype : undefined2, symbolValueOf = symbolProto ? symbolProto.valueOf : undefined2, symbolToString = symbolProto ? symbolProto.toString : undefined2;
         function lodash(value) {
           if (isObjectLike(value) && !isArray2(value) && !(value instanceof LazyWrapper)) {
             if (value instanceof LodashWrapper) {
@@ -1199,7 +5107,7 @@ var require_lodash = __commonJS({
           if (typeof func != "function") {
             throw new TypeError2(FUNC_ERROR_TEXT);
           }
-          return setTimeout(function() {
+          return setTimeout2(function() {
             func.apply(undefined2, args);
           }, wait);
         }
@@ -1979,7 +5887,7 @@ var require_lodash = __commonJS({
           end2 = end2 === undefined2 ? length : end2;
           return !start2 && end2 >= length ? array : baseSlice(array, start2, end2);
         }
-        var clearTimeout = ctxClearTimeout || function(id) {
+        var clearTimeout2 = ctxClearTimeout || function(id) {
           return root.clearTimeout(id);
         };
         function cloneBuffer(buffer, isDeep) {
@@ -2588,10 +6496,10 @@ var require_lodash = __commonJS({
             case stringTag:
               return object == other + "";
             case mapTag:
-              var convert2 = mapToArray;
+              var convert = mapToArray;
             case setTag:
               var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
-              convert2 || (convert2 = setToArray);
+              convert || (convert = setToArray);
               if (object.size != other.size && !isPartial) {
                 return false;
               }
@@ -2601,7 +6509,7 @@ var require_lodash = __commonJS({
               }
               bitmask |= COMPARE_UNORDERED_FLAG;
               stack.set(object, other);
-              var result2 = equalArrays(convert2(object), convert2(other), bitmask, customizer, equalFunc, stack);
+              var result2 = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
               stack["delete"](object);
               return result2;
             case symbolTag:
@@ -2736,7 +6644,7 @@ var require_lodash = __commonJS({
           return result2;
         };
         var getTag = baseGetTag;
-        if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag || Map2 && getTag(new Map2()) != mapTag || Promise2 && getTag(Promise2.resolve()) != promiseTag || Set2 && getTag(new Set2()) != setTag || WeakMap && getTag(new WeakMap()) != weakMapTag) {
+        if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag || Map2 && getTag(new Map2()) != mapTag || Promise2 && getTag(Promise2.resolve()) != promiseTag || Set2 && getTag(new Set2()) != setTag || WeakMap2 && getTag(new WeakMap2()) != weakMapTag) {
           getTag = function(value) {
             var result2 = baseGetTag(value), Ctor = result2 == objectTag ? value.constructor : undefined2, ctorString = Ctor ? toSource(Ctor) : "";
             if (ctorString) {
@@ -3008,7 +6916,7 @@ var require_lodash = __commonJS({
           return object[key];
         }
         var setData = shortOut(baseSetData);
-        var setTimeout = ctxSetTimeout || function(func, wait) {
+        var setTimeout2 = ctxSetTimeout || function(func, wait) {
           return root.setTimeout(func, wait);
         };
         var setToString = shortOut(baseSetToString);
@@ -3800,7 +7708,7 @@ var require_lodash = __commonJS({
           }
           function leadingEdge(time) {
             lastInvokeTime = time;
-            timerId = setTimeout(timerExpired, wait);
+            timerId = setTimeout2(timerExpired, wait);
             return leading ? invokeFunc(time) : result2;
           }
           function remainingWait(time) {
@@ -3816,7 +7724,7 @@ var require_lodash = __commonJS({
             if (shouldInvoke(time)) {
               return trailingEdge(time);
             }
-            timerId = setTimeout(timerExpired, remainingWait(time));
+            timerId = setTimeout2(timerExpired, remainingWait(time));
           }
           function trailingEdge(time) {
             timerId = undefined2;
@@ -3828,7 +7736,7 @@ var require_lodash = __commonJS({
           }
           function cancel() {
             if (timerId !== undefined2) {
-              clearTimeout(timerId);
+              clearTimeout2(timerId);
             }
             lastInvokeTime = 0;
             lastArgs = lastCallTime = lastThis = timerId = undefined2;
@@ -3846,13 +7754,13 @@ var require_lodash = __commonJS({
                 return leadingEdge(lastCallTime);
               }
               if (maxing) {
-                clearTimeout(timerId);
-                timerId = setTimeout(timerExpired, wait);
+                clearTimeout2(timerId);
+                timerId = setTimeout2(timerExpired, wait);
                 return invokeFunc(lastCallTime);
               }
             }
             if (timerId === undefined2) {
-              timerId = setTimeout(timerExpired, wait);
+              timerId = setTimeout2(timerExpired, wait);
             }
             return result2;
           }
@@ -7273,6 +11181,16 @@ function systemLocale() {
     return sysLocaleCache;
   }
 }
+var weekInfoCache = {};
+function getCachedWeekInfo(locString) {
+  let data2 = weekInfoCache[locString];
+  if (!data2) {
+    const locale = new Intl.Locale(locString);
+    data2 = "getWeekInfo" in locale ? locale.getWeekInfo() : locale.weekInfo;
+    weekInfoCache[locString] = data2;
+  }
+  return data2;
+}
 function parseLocaleString(localeStr) {
   const xIndex = localeStr.indexOf("-x-");
   if (xIndex !== -1) {
@@ -7315,7 +11233,7 @@ function intlConfigString(localeStr, numberingSystem, outputCalendar) {
 function mapMonths(f) {
   const ms = [];
   for (let i = 1; i <= 12; i++) {
-    const dt = DateTime.utc(2016, i, 1);
+    const dt = DateTime.utc(2009, i, 1);
     ms.push(f(dt));
   }
   return ms;
@@ -7328,8 +11246,8 @@ function mapWeekdays(f) {
   }
   return ms;
 }
-function listStuff(loc, length, defaultOK, englishFn, intlFn) {
-  const mode = loc.listingMode(defaultOK);
+function listStuff(loc, length, englishFn, intlFn) {
+  const mode = loc.listingMode();
   if (mode === "error") {
     return null;
   } else if (mode === "en") {
@@ -7451,16 +11369,22 @@ var PolyRelFormatter = class {
     }
   }
 };
+var fallbackWeekSettings = {
+  firstDay: 1,
+  minimalDays: 4,
+  weekend: [6, 7]
+};
 var Locale = class {
   static fromOpts(opts) {
-    return Locale.create(opts.locale, opts.numberingSystem, opts.outputCalendar, opts.defaultToEN);
+    return Locale.create(opts.locale, opts.numberingSystem, opts.outputCalendar, opts.weekSettings, opts.defaultToEN);
   }
-  static create(locale, numberingSystem, outputCalendar, defaultToEN = false) {
+  static create(locale, numberingSystem, outputCalendar, weekSettings, defaultToEN = false) {
     const specifiedLocale = locale || Settings.defaultLocale;
     const localeR = specifiedLocale || (defaultToEN ? "en-US" : systemLocale());
     const numberingSystemR = numberingSystem || Settings.defaultNumberingSystem;
     const outputCalendarR = outputCalendar || Settings.defaultOutputCalendar;
-    return new Locale(localeR, numberingSystemR, outputCalendarR, specifiedLocale);
+    const weekSettingsR = validateWeekSettings(weekSettings) || Settings.defaultWeekSettings;
+    return new Locale(localeR, numberingSystemR, outputCalendarR, weekSettingsR, specifiedLocale);
   }
   static resetCache() {
     sysLocaleCache = null;
@@ -7468,14 +11392,15 @@ var Locale = class {
     intlNumCache = {};
     intlRelCache = {};
   }
-  static fromObject({ locale, numberingSystem, outputCalendar } = {}) {
-    return Locale.create(locale, numberingSystem, outputCalendar);
+  static fromObject({ locale, numberingSystem, outputCalendar, weekSettings } = {}) {
+    return Locale.create(locale, numberingSystem, outputCalendar, weekSettings);
   }
-  constructor(locale, numbering, outputCalendar, specifiedLocale) {
+  constructor(locale, numbering, outputCalendar, weekSettings, specifiedLocale) {
     const [parsedLocale, parsedNumberingSystem, parsedOutputCalendar] = parseLocaleString(locale);
     this.locale = parsedLocale;
     this.numberingSystem = numbering || parsedNumberingSystem || null;
     this.outputCalendar = outputCalendar || parsedOutputCalendar || null;
+    this.weekSettings = weekSettings;
     this.intl = intlConfigString(this.locale, this.numberingSystem, this.outputCalendar);
     this.weekdaysCache = { format: {}, standalone: {} };
     this.monthsCache = { format: {}, standalone: {} };
@@ -7499,7 +11424,7 @@ var Locale = class {
     if (!alts || Object.getOwnPropertyNames(alts).length === 0) {
       return this;
     } else {
-      return Locale.create(alts.locale || this.specifiedLocale, alts.numberingSystem || this.numberingSystem, alts.outputCalendar || this.outputCalendar, alts.defaultToEN || false);
+      return Locale.create(alts.locale || this.specifiedLocale, alts.numberingSystem || this.numberingSystem, alts.outputCalendar || this.outputCalendar, validateWeekSettings(alts.weekSettings) || this.weekSettings, alts.defaultToEN || false);
     }
   }
   redefaultToEN(alts = {}) {
@@ -7508,8 +11433,8 @@ var Locale = class {
   redefaultToSystem(alts = {}) {
     return this.clone({ ...alts, defaultToEN: false });
   }
-  months(length, format = false, defaultOK = true) {
-    return listStuff(this, length, defaultOK, months, () => {
+  months(length, format = false) {
+    return listStuff(this, length, months, () => {
       const intl = format ? { month: length, day: "numeric" } : { month: length }, formatStr = format ? "format" : "standalone";
       if (!this.monthsCache[formatStr][length]) {
         this.monthsCache[formatStr][length] = mapMonths((dt) => this.extract(dt, intl, "month"));
@@ -7517,8 +11442,8 @@ var Locale = class {
       return this.monthsCache[formatStr][length];
     });
   }
-  weekdays(length, format = false, defaultOK = true) {
-    return listStuff(this, length, defaultOK, weekdays, () => {
+  weekdays(length, format = false) {
+    return listStuff(this, length, weekdays, () => {
       const intl = format ? { weekday: length, year: "numeric", month: "long", day: "numeric" } : { weekday: length }, formatStr = format ? "format" : "standalone";
       if (!this.weekdaysCache[formatStr][length]) {
         this.weekdaysCache[formatStr][length] = mapWeekdays((dt) => this.extract(dt, intl, "weekday"));
@@ -7526,8 +11451,8 @@ var Locale = class {
       return this.weekdaysCache[formatStr][length];
     });
   }
-  meridiems(defaultOK = true) {
-    return listStuff(this, void 0, defaultOK, () => meridiems, () => {
+  meridiems() {
+    return listStuff(this, void 0, () => meridiems, () => {
       if (!this.meridiemCache) {
         const intl = { hour: "numeric", hourCycle: "h12" };
         this.meridiemCache = [DateTime.utc(2016, 11, 13, 9), DateTime.utc(2016, 11, 13, 19)].map((dt) => this.extract(dt, intl, "dayperiod"));
@@ -7535,8 +11460,8 @@ var Locale = class {
       return this.meridiemCache;
     });
   }
-  eras(length, defaultOK = true) {
-    return listStuff(this, length, defaultOK, eras, () => {
+  eras(length) {
+    return listStuff(this, length, eras, () => {
       const intl = { era: length };
       if (!this.eraCache[length]) {
         this.eraCache[length] = [DateTime.utc(-40, 1, 1), DateTime.utc(2017, 1, 1)].map((dt) => this.extract(dt, intl, "era"));
@@ -7562,6 +11487,24 @@ var Locale = class {
   }
   isEnglish() {
     return this.locale === "en" || this.locale.toLowerCase() === "en-us" || new Intl.DateTimeFormat(this.intl).resolvedOptions().locale.startsWith("en-us");
+  }
+  getWeekSettings() {
+    if (this.weekSettings) {
+      return this.weekSettings;
+    } else if (!hasLocaleWeekInfo()) {
+      return fallbackWeekSettings;
+    } else {
+      return getCachedWeekInfo(this.locale);
+    }
+  }
+  getStartOfWeek() {
+    return this.getWeekSettings().firstDay;
+  }
+  getMinDaysInFirstWeek() {
+    return this.getWeekSettings().minimalDays;
+  }
+  getWeekendDays() {
+    return this.getWeekSettings().weekend;
   }
   equals(other) {
     return this.locale === other.locale && this.numberingSystem === other.numberingSystem && this.outputCalendar === other.outputCalendar;
@@ -7677,7 +11620,7 @@ function normalizeZone(input, defaultZone2) {
       return FixedOffsetZone.parseSpecifier(lowered) || IANAZone.create(input);
   } else if (isNumber(input)) {
     return FixedOffsetZone.instance(input);
-  } else if (typeof input === "object" && input.offset && typeof input.offset === "number") {
+  } else if (typeof input === "object" && "offset" in input && typeof input.offset === "function") {
     return input;
   } else {
     return new InvalidZone(input);
@@ -7692,6 +11635,7 @@ var defaultNumberingSystem = null;
 var defaultOutputCalendar = null;
 var twoDigitCutoffYear = 60;
 var throwOnInvalid;
+var defaultWeekSettings = null;
 var Settings = class {
   static get now() {
     return now;
@@ -7723,6 +11667,12 @@ var Settings = class {
   static set defaultOutputCalendar(outputCalendar) {
     defaultOutputCalendar = outputCalendar;
   }
+  static get defaultWeekSettings() {
+    return defaultWeekSettings;
+  }
+  static set defaultWeekSettings(weekSettings) {
+    defaultWeekSettings = validateWeekSettings(weekSettings);
+  }
   static get twoDigitCutoffYear() {
     return twoDigitCutoffYear;
   }
@@ -7740,6 +11690,154 @@ var Settings = class {
     IANAZone.resetCache();
   }
 };
+
+// node_modules/luxon/src/impl/invalid.js
+var Invalid = class {
+  constructor(reason, explanation) {
+    this.reason = reason;
+    this.explanation = explanation;
+  }
+  toMessage() {
+    if (this.explanation) {
+      return `${this.reason}: ${this.explanation}`;
+    } else {
+      return this.reason;
+    }
+  }
+};
+
+// node_modules/luxon/src/impl/conversions.js
+var nonLeapLadder = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+var leapLadder = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+function unitOutOfRange(unit, value) {
+  return new Invalid("unit out of range", `you specified ${value} (of type ${typeof value}) as a ${unit}, which is invalid`);
+}
+function dayOfWeek(year, month, day) {
+  const d = new Date(Date.UTC(year, month - 1, day));
+  if (year < 100 && year >= 0) {
+    d.setUTCFullYear(d.getUTCFullYear() - 1900);
+  }
+  const js = d.getUTCDay();
+  return js === 0 ? 7 : js;
+}
+function computeOrdinal(year, month, day) {
+  return day + (isLeapYear(year) ? leapLadder : nonLeapLadder)[month - 1];
+}
+function uncomputeOrdinal(year, ordinal) {
+  const table = isLeapYear(year) ? leapLadder : nonLeapLadder, month0 = table.findIndex((i) => i < ordinal), day = ordinal - table[month0];
+  return { month: month0 + 1, day };
+}
+function isoWeekdayToLocal(isoWeekday, startOfWeek) {
+  return (isoWeekday - startOfWeek + 7) % 7 + 1;
+}
+function gregorianToWeek(gregObj, minDaysInFirstWeek = 4, startOfWeek = 1) {
+  const { year, month, day } = gregObj, ordinal = computeOrdinal(year, month, day), weekday = isoWeekdayToLocal(dayOfWeek(year, month, day), startOfWeek);
+  let weekNumber = Math.floor((ordinal - weekday + 14 - minDaysInFirstWeek) / 7), weekYear;
+  if (weekNumber < 1) {
+    weekYear = year - 1;
+    weekNumber = weeksInWeekYear(weekYear, minDaysInFirstWeek, startOfWeek);
+  } else if (weekNumber > weeksInWeekYear(year, minDaysInFirstWeek, startOfWeek)) {
+    weekYear = year + 1;
+    weekNumber = 1;
+  } else {
+    weekYear = year;
+  }
+  return { weekYear, weekNumber, weekday, ...timeObject(gregObj) };
+}
+function weekToGregorian(weekData, minDaysInFirstWeek = 4, startOfWeek = 1) {
+  const { weekYear, weekNumber, weekday } = weekData, weekdayOfJan4 = isoWeekdayToLocal(dayOfWeek(weekYear, 1, minDaysInFirstWeek), startOfWeek), yearInDays = daysInYear(weekYear);
+  let ordinal = weekNumber * 7 + weekday - weekdayOfJan4 - 7 + minDaysInFirstWeek, year;
+  if (ordinal < 1) {
+    year = weekYear - 1;
+    ordinal += daysInYear(year);
+  } else if (ordinal > yearInDays) {
+    year = weekYear + 1;
+    ordinal -= daysInYear(weekYear);
+  } else {
+    year = weekYear;
+  }
+  const { month, day } = uncomputeOrdinal(year, ordinal);
+  return { year, month, day, ...timeObject(weekData) };
+}
+function gregorianToOrdinal(gregData) {
+  const { year, month, day } = gregData;
+  const ordinal = computeOrdinal(year, month, day);
+  return { year, ordinal, ...timeObject(gregData) };
+}
+function ordinalToGregorian(ordinalData) {
+  const { year, ordinal } = ordinalData;
+  const { month, day } = uncomputeOrdinal(year, ordinal);
+  return { year, month, day, ...timeObject(ordinalData) };
+}
+function usesLocalWeekValues(obj, loc) {
+  const hasLocaleWeekData = !isUndefined(obj.localWeekday) || !isUndefined(obj.localWeekNumber) || !isUndefined(obj.localWeekYear);
+  if (hasLocaleWeekData) {
+    const hasIsoWeekData = !isUndefined(obj.weekday) || !isUndefined(obj.weekNumber) || !isUndefined(obj.weekYear);
+    if (hasIsoWeekData) {
+      throw new ConflictingSpecificationError("Cannot mix locale-based week fields with ISO-based week fields");
+    }
+    if (!isUndefined(obj.localWeekday))
+      obj.weekday = obj.localWeekday;
+    if (!isUndefined(obj.localWeekNumber))
+      obj.weekNumber = obj.localWeekNumber;
+    if (!isUndefined(obj.localWeekYear))
+      obj.weekYear = obj.localWeekYear;
+    delete obj.localWeekday;
+    delete obj.localWeekNumber;
+    delete obj.localWeekYear;
+    return {
+      minDaysInFirstWeek: loc.getMinDaysInFirstWeek(),
+      startOfWeek: loc.getStartOfWeek()
+    };
+  } else {
+    return { minDaysInFirstWeek: 4, startOfWeek: 1 };
+  }
+}
+function hasInvalidWeekData(obj, minDaysInFirstWeek = 4, startOfWeek = 1) {
+  const validYear = isInteger(obj.weekYear), validWeek = integerBetween(obj.weekNumber, 1, weeksInWeekYear(obj.weekYear, minDaysInFirstWeek, startOfWeek)), validWeekday = integerBetween(obj.weekday, 1, 7);
+  if (!validYear) {
+    return unitOutOfRange("weekYear", obj.weekYear);
+  } else if (!validWeek) {
+    return unitOutOfRange("week", obj.weekNumber);
+  } else if (!validWeekday) {
+    return unitOutOfRange("weekday", obj.weekday);
+  } else
+    return false;
+}
+function hasInvalidOrdinalData(obj) {
+  const validYear = isInteger(obj.year), validOrdinal = integerBetween(obj.ordinal, 1, daysInYear(obj.year));
+  if (!validYear) {
+    return unitOutOfRange("year", obj.year);
+  } else if (!validOrdinal) {
+    return unitOutOfRange("ordinal", obj.ordinal);
+  } else
+    return false;
+}
+function hasInvalidGregorianData(obj) {
+  const validYear = isInteger(obj.year), validMonth = integerBetween(obj.month, 1, 12), validDay = integerBetween(obj.day, 1, daysInMonth(obj.year, obj.month));
+  if (!validYear) {
+    return unitOutOfRange("year", obj.year);
+  } else if (!validMonth) {
+    return unitOutOfRange("month", obj.month);
+  } else if (!validDay) {
+    return unitOutOfRange("day", obj.day);
+  } else
+    return false;
+}
+function hasInvalidTimeData(obj) {
+  const { hour, minute, second, millisecond } = obj;
+  const validHour = integerBetween(hour, 0, 23) || hour === 24 && minute === 0 && second === 0 && millisecond === 0, validMinute = integerBetween(minute, 0, 59), validSecond = integerBetween(second, 0, 59), validMillisecond = integerBetween(millisecond, 0, 999);
+  if (!validHour) {
+    return unitOutOfRange("hour", hour);
+  } else if (!validMinute) {
+    return unitOutOfRange("minute", minute);
+  } else if (!validSecond) {
+    return unitOutOfRange("second", second);
+  } else if (!validMillisecond) {
+    return unitOutOfRange("millisecond", millisecond);
+  } else
+    return false;
+}
 
 // node_modules/luxon/src/impl/util.js
 function isUndefined(o) {
@@ -7760,6 +11858,13 @@ function isDate(o) {
 function hasRelative() {
   try {
     return typeof Intl !== "undefined" && !!Intl.RelativeTimeFormat;
+  } catch (e) {
+    return false;
+  }
+}
+function hasLocaleWeekInfo() {
+  try {
+    return typeof Intl !== "undefined" && !!Intl.Locale && ("weekInfo" in Intl.Locale.prototype || "getWeekInfo" in Intl.Locale.prototype);
   } catch (e) {
     return false;
   }
@@ -7790,6 +11895,22 @@ function pick(obj, keys) {
 }
 function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+function validateWeekSettings(settings) {
+  if (settings == null) {
+    return null;
+  } else if (typeof settings !== "object") {
+    throw new InvalidArgumentError("Week settings must be an object");
+  } else {
+    if (!integerBetween(settings.firstDay, 1, 7) || !integerBetween(settings.minimalDays, 1, 7) || !Array.isArray(settings.weekend) || settings.weekend.some((v) => !integerBetween(v, 1, 7))) {
+      throw new InvalidArgumentError("Invalid week settings");
+    }
+    return {
+      firstDay: settings.firstDay,
+      minimalDays: settings.minimalDays,
+      weekend: Array.from(settings.weekend)
+    };
+  }
 }
 function integerBetween(thing, bottom2, top2) {
   return isInteger(thing) && thing >= bottom2 && thing <= top2;
@@ -7855,9 +11976,14 @@ function objToLocalTS(obj) {
   }
   return +d;
 }
-function weeksInWeekYear(weekYear) {
-  const p1 = (weekYear + Math.floor(weekYear / 4) - Math.floor(weekYear / 100) + Math.floor(weekYear / 400)) % 7, last = weekYear - 1, p2 = (last + Math.floor(last / 4) - Math.floor(last / 100) + Math.floor(last / 400)) % 7;
-  return p1 === 4 || p2 === 3 ? 53 : 52;
+function firstWeekOffset(year, minDaysInFirstWeek, startOfWeek) {
+  const fwdlw = isoWeekdayToLocal(dayOfWeek(year, 1, minDaysInFirstWeek), startOfWeek);
+  return -fwdlw + minDaysInFirstWeek - 1;
+}
+function weeksInWeekYear(weekYear, minDaysInFirstWeek = 4, startOfWeek = 1) {
+  const weekOffset = firstWeekOffset(weekYear, minDaysInFirstWeek, startOfWeek);
+  const weekOffsetNext = firstWeekOffset(weekYear + 1, minDaysInFirstWeek, startOfWeek);
+  return (daysInYear(weekYear) - weekOffset + weekOffsetNext) / 7;
 }
 function untruncateYear(year) {
   if (year > 99) {
@@ -8133,21 +12259,21 @@ var Formatter = class {
     const df = this.systemLoc.dtFormatter(dt, { ...this.opts, ...opts });
     return df.format();
   }
-  formatDateTime(dt, opts = {}) {
-    const df = this.loc.dtFormatter(dt, { ...this.opts, ...opts });
-    return df.format();
+  dtFormatter(dt, opts = {}) {
+    return this.loc.dtFormatter(dt, { ...this.opts, ...opts });
   }
-  formatDateTimeParts(dt, opts = {}) {
-    const df = this.loc.dtFormatter(dt, { ...this.opts, ...opts });
-    return df.formatToParts();
+  formatDateTime(dt, opts) {
+    return this.dtFormatter(dt, opts).format();
   }
-  formatInterval(interval, opts = {}) {
-    const df = this.loc.dtFormatter(interval.start, { ...this.opts, ...opts });
+  formatDateTimeParts(dt, opts) {
+    return this.dtFormatter(dt, opts).formatToParts();
+  }
+  formatInterval(interval, opts) {
+    const df = this.dtFormatter(interval.start, opts);
     return df.dtf.formatRange(interval.start.toJSDate(), interval.end.toJSDate());
   }
-  resolvedOptions(dt, opts = {}) {
-    const df = this.loc.dtFormatter(dt, { ...this.opts, ...opts });
-    return df.resolvedOptions();
+  resolvedOptions(dt, opts) {
+    return this.dtFormatter(dt, opts).resolvedOptions();
   }
   num(n2, p = 0) {
     if (this.opts.forceSimple) {
@@ -8275,6 +12401,14 @@ var Formatter = class {
           return this.num(dt.weekNumber);
         case "WW":
           return this.num(dt.weekNumber, 2);
+        case "n":
+          return this.num(dt.localWeekNumber);
+        case "nn":
+          return this.num(dt.localWeekNumber, 2);
+        case "ii":
+          return this.num(dt.localWeekYear.toString().slice(-2), 2);
+        case "iiii":
+          return this.num(dt.localWeekYear, 4);
         case "o":
           return this.num(dt.ordinal);
         case "ooo":
@@ -8324,21 +12458,6 @@ var Formatter = class {
       }
     }, tokens = Formatter.parseFormat(fmt), realTokens = tokens.reduce((found, { literal, val }) => literal ? found : found.concat(val), []), collapsed = dur.shiftTo(...realTokens.map(tokenToField).filter((t) => t));
     return stringifyTokens(tokens, tokenToString(collapsed));
-  }
-};
-
-// node_modules/luxon/src/impl/invalid.js
-var Invalid = class {
-  constructor(reason, explanation) {
-    this.reason = reason;
-    this.explanation = explanation;
-  }
-  toMessage() {
-    if (this.explanation) {
-      return `${this.reason}: ${this.explanation}`;
-    } else {
-      return this.reason;
-    }
   }
 };
 
@@ -8638,19 +12757,37 @@ function clone(dur, alts, clear = false) {
   };
   return new Duration(conf);
 }
-function antiTrunc(n2) {
-  return n2 < 0 ? Math.floor(n2) : Math.ceil(n2);
-}
-function convert(matrix, fromMap, fromUnit, toMap, toUnit) {
-  const conv = matrix[toUnit][fromUnit], raw = fromMap[fromUnit] / conv, sameSign = Math.sign(raw) === Math.sign(toMap[toUnit]), added = !sameSign && toMap[toUnit] !== 0 && Math.abs(raw) <= 1 ? antiTrunc(raw) : Math.trunc(raw);
-  toMap[toUnit] += added;
-  fromMap[fromUnit] -= added * conv;
+function durationToMillis(matrix, vals) {
+  let sum = vals.milliseconds ?? 0;
+  for (const unit of reverseUnits.slice(1)) {
+    if (vals[unit]) {
+      sum += vals[unit] * matrix[unit]["milliseconds"];
+    }
+  }
+  return sum;
 }
 function normalizeValues(matrix, vals) {
-  reverseUnits.reduce((previous, current) => {
+  const factor = durationToMillis(matrix, vals) < 0 ? -1 : 1;
+  orderedUnits.reduceRight((previous, current) => {
     if (!isUndefined(vals[current])) {
       if (previous) {
-        convert(matrix, vals, previous, vals, current);
+        const previousVal = vals[previous] * factor;
+        const conv = matrix[current][previous];
+        const rollUp = Math.floor(previousVal / conv);
+        vals[current] += rollUp * factor;
+        vals[previous] -= rollUp * conv * factor;
+      }
+      return current;
+    } else {
+      return previous;
+    }
+  }, null);
+  orderedUnits.reduce((previous, current) => {
+    if (!isUndefined(vals[current])) {
+      if (previous) {
+        const fraction = vals[previous] % 1;
+        vals[previous] -= fraction;
+        vals[current] += fraction * matrix[previous][current];
       }
       return current;
     } else {
@@ -8775,6 +12912,8 @@ var Duration = class {
     return this.isValid ? Formatter.create(this.loc, fmtOpts).formatDurationFromString(this, fmt) : INVALID;
   }
   toHuman(opts = {}) {
+    if (!this.isValid)
+      return INVALID;
     const l2 = orderedUnits.map((unit) => {
       const val = this.values[unit];
       if (isUndefined(val)) {
@@ -8824,21 +12963,11 @@ var Duration = class {
       suppressSeconds: false,
       includePrefix: false,
       format: "extended",
-      ...opts
+      ...opts,
+      includeOffset: false
     };
-    const value = this.shiftTo("hours", "minutes", "seconds", "milliseconds");
-    let fmt = opts.format === "basic" ? "hhmm" : "hh:mm";
-    if (!opts.suppressSeconds || value.seconds !== 0 || value.milliseconds !== 0) {
-      fmt += opts.format === "basic" ? "ss" : ":ss";
-      if (!opts.suppressMilliseconds || value.milliseconds !== 0) {
-        fmt += ".SSS";
-      }
-    }
-    let str = value.toFormat(fmt);
-    if (opts.includePrefix) {
-      str = "T" + str;
-    }
-    return str;
+    const dateTime = DateTime.fromMillis(millis, { zone: "UTC" });
+    return dateTime.toISOTime(opts);
   }
   toJSON() {
     return this.toISO();
@@ -8846,8 +12975,17 @@ var Duration = class {
   toString() {
     return this.toISO();
   }
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    if (this.isValid) {
+      return `Duration { values: ${JSON.stringify(this.values)} }`;
+    } else {
+      return `Duration { Invalid, reason: ${this.invalidReason} }`;
+    }
+  }
   toMillis() {
-    return this.as("milliseconds");
+    if (!this.isValid)
+      return NaN;
+    return durationToMillis(this.matrix, this.values);
   }
   valueOf() {
     return this.toMillis();
@@ -8931,11 +13069,6 @@ var Duration = class {
         const i = Math.trunc(own);
         built[k] = i;
         accumulated[k] = (own * 1e3 - i * 1e3) / 1e3;
-        for (const down in vals) {
-          if (orderedUnits.indexOf(down) > orderedUnits.indexOf(k)) {
-            convert(this.matrix, vals, down, built, k);
-          }
-        }
       } else if (isNumber(vals[k])) {
         accumulated[k] = vals[k];
       }
@@ -8945,7 +13078,8 @@ var Duration = class {
         built[lastUnit] += key === lastUnit ? accumulated[key] : accumulated[key] / this.matrix[lastUnit][key];
       }
     }
-    return clone(this, { values: built }, true).normalize();
+    normalizeValues(this.matrix, built);
+    return clone(this, { values: built }, true);
   }
   shiftToAll() {
     if (!this.isValid)
@@ -9124,10 +13258,17 @@ var Interval = class {
   length(unit = "milliseconds") {
     return this.isValid ? this.toDuration(...[unit]).get(unit) : NaN;
   }
-  count(unit = "milliseconds") {
+  count(unit = "milliseconds", opts) {
     if (!this.isValid)
       return NaN;
-    const start2 = this.start.startOf(unit), end2 = this.end.startOf(unit);
+    const start2 = this.start.startOf(unit, opts);
+    let end2;
+    if (opts?.useLocaleWeeks) {
+      end2 = this.end.reconfigure({ locale: start2.locale });
+    } else {
+      end2 = this.end;
+    }
+    end2 = end2.startOf(unit, opts);
     return Math.floor(end2.diff(start2, unit).get(unit)) + (end2.valueOf() !== this.end.valueOf());
   }
   hasSame(unit) {
@@ -9159,7 +13300,7 @@ var Interval = class {
   splitAt(...dateTimes) {
     if (!this.isValid)
       return [];
-    const sorted = dateTimes.map(friendlyDateTime).filter((d) => this.contains(d)).sort(), results = [];
+    const sorted = dateTimes.map(friendlyDateTime).filter((d) => this.contains(d)).sort((a, b) => a.toMillis() - b.toMillis()), results = [];
     let { s: s2 } = this, i = 0;
     while (s2 < this.e) {
       const added = sorted[i] || this.e, next = +added > +this.e ? this.e : added;
@@ -9272,6 +13413,13 @@ var Interval = class {
       return INVALID2;
     return `[${this.s.toISO()} \u2013 ${this.e.toISO()})`;
   }
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    if (this.isValid) {
+      return `Interval { start: ${this.s.toISO()}, end: ${this.e.toISO()} }`;
+    } else {
+      return `Interval { Invalid, reason: ${this.invalidReason} }`;
+    }
+  }
   toLocaleString(formatOpts = DATE_SHORT, opts = {}) {
     return this.isValid ? Formatter.create(this.s.loc.clone(opts), formatOpts).formatInterval(this) : INVALID2;
   }
@@ -9318,6 +13466,15 @@ var Info = class {
   static normalizeZone(input) {
     return normalizeZone(input, Settings.defaultZone);
   }
+  static getStartOfWeek({ locale = null, locObj = null } = {}) {
+    return (locObj || Locale.create(locale)).getStartOfWeek();
+  }
+  static getMinimumDaysInFirstWeek({ locale = null, locObj = null } = {}) {
+    return (locObj || Locale.create(locale)).getMinDaysInFirstWeek();
+  }
+  static getWeekendWeekdays({ locale = null, locObj = null } = {}) {
+    return (locObj || Locale.create(locale)).getWeekendDays().slice();
+  }
   static months(length = "long", { locale = null, numberingSystem = null, locObj = null, outputCalendar = "gregory" } = {}) {
     return (locObj || Locale.create(locale, numberingSystem, outputCalendar)).months(length);
   }
@@ -9337,7 +13494,7 @@ var Info = class {
     return Locale.create(locale, null, "gregory").eras(length);
   }
   static features() {
-    return { relative: hasRelative() };
+    return { relative: hasRelative(), localeWeek: hasLocaleWeekInfo() };
   }
 };
 
@@ -9371,6 +13528,11 @@ function highOrderDiffs(cursor, later, units) {
       if (highWater > later) {
         results[unit]--;
         cursor = earlier.plus(results);
+        if (cursor > later) {
+          highWater = cursor;
+          results[unit]--;
+          cursor = earlier.plus(results);
+        }
       } else {
         cursor = highWater;
       }
@@ -9510,9 +13672,9 @@ function unitForToken(token, loc) {
     }
     switch (t.val) {
       case "G":
-        return oneOf(loc.eras("short", false), 0);
+        return oneOf(loc.eras("short"), 0);
       case "GG":
-        return oneOf(loc.eras("long", false), 0);
+        return oneOf(loc.eras("long"), 0);
       case "y":
         return intUnit(oneToSix);
       case "yy":
@@ -9528,17 +13690,17 @@ function unitForToken(token, loc) {
       case "MM":
         return intUnit(two);
       case "MMM":
-        return oneOf(loc.months("short", true, false), 1);
+        return oneOf(loc.months("short", true), 1);
       case "MMMM":
-        return oneOf(loc.months("long", true, false), 1);
+        return oneOf(loc.months("long", true), 1);
       case "L":
         return intUnit(oneOrTwo);
       case "LL":
         return intUnit(two);
       case "LLL":
-        return oneOf(loc.months("short", false, false), 1);
+        return oneOf(loc.months("short", false), 1);
       case "LLLL":
-        return oneOf(loc.months("long", false, false), 1);
+        return oneOf(loc.months("long", false), 1);
       case "d":
         return intUnit(oneOrTwo);
       case "dd":
@@ -9591,13 +13753,13 @@ function unitForToken(token, loc) {
       case "c":
         return intUnit(one);
       case "EEE":
-        return oneOf(loc.weekdays("short", false, false), 1);
+        return oneOf(loc.weekdays("short", false), 1);
       case "EEEE":
-        return oneOf(loc.weekdays("long", false, false), 1);
+        return oneOf(loc.weekdays("long", false), 1);
       case "ccc":
-        return oneOf(loc.weekdays("short", true, false), 1);
+        return oneOf(loc.weekdays("short", true), 1);
       case "cccc":
-        return oneOf(loc.weekdays("long", true, false), 1);
+        return oneOf(loc.weekdays("long", true), 1);
       case "Z":
       case "ZZ":
         return offset(new RegExp(`([+-]${oneOrTwo.source})(?::(${two.source}))?`), 2);
@@ -9638,9 +13800,13 @@ var partTypeStyleToTokenVal = {
   },
   dayperiod: "a",
   dayPeriod: "a",
-  hour: {
+  hour12: {
     numeric: "h",
     "2-digit": "hh"
+  },
+  hour24: {
+    numeric: "H",
+    "2-digit": "HH"
   },
   minute: {
     numeric: "m",
@@ -9655,7 +13821,7 @@ var partTypeStyleToTokenVal = {
     short: "ZZZ"
   }
 };
-function tokenForPart(part, formatOpts) {
+function tokenForPart(part, formatOpts, resolvedOpts) {
   const { type, value } = part;
   if (type === "literal") {
     const isSpace = /^\s+$/.test(value);
@@ -9665,7 +13831,21 @@ function tokenForPart(part, formatOpts) {
     };
   }
   const style = formatOpts[type];
-  let val = partTypeStyleToTokenVal[type];
+  let actualType = type;
+  if (type === "hour") {
+    if (formatOpts.hour12 != null) {
+      actualType = formatOpts.hour12 ? "hour12" : "hour24";
+    } else if (formatOpts.hourCycle != null) {
+      if (formatOpts.hourCycle === "h11" || formatOpts.hourCycle === "h12") {
+        actualType = "hour12";
+      } else {
+        actualType = "hour24";
+      }
+    } else {
+      actualType = resolvedOpts.hour12 ? "hour12" : "hour24";
+    }
+  }
+  let val = partTypeStyleToTokenVal[actualType];
   if (typeof val === "object") {
     val = val[style];
   }
@@ -9812,114 +13992,10 @@ function formatOptsToTokens(formatOpts, locale) {
     return null;
   }
   const formatter = Formatter.create(locale, formatOpts);
-  const parts = formatter.formatDateTimeParts(getDummyDateTime());
-  return parts.map((p) => tokenForPart(p, formatOpts));
-}
-
-// node_modules/luxon/src/impl/conversions.js
-var nonLeapLadder = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-var leapLadder = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
-function unitOutOfRange(unit, value) {
-  return new Invalid("unit out of range", `you specified ${value} (of type ${typeof value}) as a ${unit}, which is invalid`);
-}
-function dayOfWeek(year, month, day) {
-  const d = new Date(Date.UTC(year, month - 1, day));
-  if (year < 100 && year >= 0) {
-    d.setUTCFullYear(d.getUTCFullYear() - 1900);
-  }
-  const js = d.getUTCDay();
-  return js === 0 ? 7 : js;
-}
-function computeOrdinal(year, month, day) {
-  return day + (isLeapYear(year) ? leapLadder : nonLeapLadder)[month - 1];
-}
-function uncomputeOrdinal(year, ordinal) {
-  const table = isLeapYear(year) ? leapLadder : nonLeapLadder, month0 = table.findIndex((i) => i < ordinal), day = ordinal - table[month0];
-  return { month: month0 + 1, day };
-}
-function gregorianToWeek(gregObj) {
-  const { year, month, day } = gregObj, ordinal = computeOrdinal(year, month, day), weekday = dayOfWeek(year, month, day);
-  let weekNumber = Math.floor((ordinal - weekday + 10) / 7), weekYear;
-  if (weekNumber < 1) {
-    weekYear = year - 1;
-    weekNumber = weeksInWeekYear(weekYear);
-  } else if (weekNumber > weeksInWeekYear(year)) {
-    weekYear = year + 1;
-    weekNumber = 1;
-  } else {
-    weekYear = year;
-  }
-  return { weekYear, weekNumber, weekday, ...timeObject(gregObj) };
-}
-function weekToGregorian(weekData) {
-  const { weekYear, weekNumber, weekday } = weekData, weekdayOfJan4 = dayOfWeek(weekYear, 1, 4), yearInDays = daysInYear(weekYear);
-  let ordinal = weekNumber * 7 + weekday - weekdayOfJan4 - 3, year;
-  if (ordinal < 1) {
-    year = weekYear - 1;
-    ordinal += daysInYear(year);
-  } else if (ordinal > yearInDays) {
-    year = weekYear + 1;
-    ordinal -= daysInYear(weekYear);
-  } else {
-    year = weekYear;
-  }
-  const { month, day } = uncomputeOrdinal(year, ordinal);
-  return { year, month, day, ...timeObject(weekData) };
-}
-function gregorianToOrdinal(gregData) {
-  const { year, month, day } = gregData;
-  const ordinal = computeOrdinal(year, month, day);
-  return { year, ordinal, ...timeObject(gregData) };
-}
-function ordinalToGregorian(ordinalData) {
-  const { year, ordinal } = ordinalData;
-  const { month, day } = uncomputeOrdinal(year, ordinal);
-  return { year, month, day, ...timeObject(ordinalData) };
-}
-function hasInvalidWeekData(obj) {
-  const validYear = isInteger(obj.weekYear), validWeek = integerBetween(obj.weekNumber, 1, weeksInWeekYear(obj.weekYear)), validWeekday = integerBetween(obj.weekday, 1, 7);
-  if (!validYear) {
-    return unitOutOfRange("weekYear", obj.weekYear);
-  } else if (!validWeek) {
-    return unitOutOfRange("week", obj.week);
-  } else if (!validWeekday) {
-    return unitOutOfRange("weekday", obj.weekday);
-  } else
-    return false;
-}
-function hasInvalidOrdinalData(obj) {
-  const validYear = isInteger(obj.year), validOrdinal = integerBetween(obj.ordinal, 1, daysInYear(obj.year));
-  if (!validYear) {
-    return unitOutOfRange("year", obj.year);
-  } else if (!validOrdinal) {
-    return unitOutOfRange("ordinal", obj.ordinal);
-  } else
-    return false;
-}
-function hasInvalidGregorianData(obj) {
-  const validYear = isInteger(obj.year), validMonth = integerBetween(obj.month, 1, 12), validDay = integerBetween(obj.day, 1, daysInMonth(obj.year, obj.month));
-  if (!validYear) {
-    return unitOutOfRange("year", obj.year);
-  } else if (!validMonth) {
-    return unitOutOfRange("month", obj.month);
-  } else if (!validDay) {
-    return unitOutOfRange("day", obj.day);
-  } else
-    return false;
-}
-function hasInvalidTimeData(obj) {
-  const { hour, minute, second, millisecond } = obj;
-  const validHour = integerBetween(hour, 0, 23) || hour === 24 && minute === 0 && second === 0 && millisecond === 0, validMinute = integerBetween(minute, 0, 59), validSecond = integerBetween(second, 0, 59), validMillisecond = integerBetween(millisecond, 0, 999);
-  if (!validHour) {
-    return unitOutOfRange("hour", hour);
-  } else if (!validMinute) {
-    return unitOutOfRange("minute", minute);
-  } else if (!validSecond) {
-    return unitOutOfRange("second", second);
-  } else if (!validMillisecond) {
-    return unitOutOfRange("millisecond", millisecond);
-  } else
-    return false;
+  const df = formatter.dtFormatter(getDummyDateTime());
+  const parts = df.formatToParts();
+  const resolvedOpts = df.resolvedOptions();
+  return parts.map((p) => tokenForPart(p, formatOpts, resolvedOpts));
 }
 
 // node_modules/luxon/src/datetime.js
@@ -9933,6 +14009,12 @@ function possiblyCachedWeekData(dt) {
     dt.weekData = gregorianToWeek(dt.c);
   }
   return dt.weekData;
+}
+function possiblyCachedLocalWeekData(dt) {
+  if (dt.localWeekData === null) {
+    dt.localWeekData = gregorianToWeek(dt.c, dt.loc.getMinDaysInFirstWeek(), dt.loc.getStartOfWeek());
+  }
+  return dt.localWeekData;
 }
 function clone2(inst, alts) {
   const current = {
@@ -10039,13 +14121,13 @@ function toISOTime(o, extended, suppressSeconds, suppressMilliseconds, includeOf
   if (extended) {
     c += ":";
     c += padStart(o.c.minute);
-    if (o.c.second !== 0 || !suppressSeconds) {
+    if (o.c.millisecond !== 0 || o.c.second !== 0 || !suppressSeconds) {
       c += ":";
     }
   } else {
     c += padStart(o.c.minute);
   }
-  if (o.c.second !== 0 || !suppressSeconds) {
+  if (o.c.millisecond !== 0 || o.c.second !== 0 || !suppressSeconds) {
     c += padStart(o.c.second);
     if (o.c.millisecond !== 0 || !suppressMilliseconds) {
       c += ".";
@@ -10137,6 +14219,21 @@ function normalizeUnit(unit) {
     throw new InvalidUnitError(unit);
   return normalized;
 }
+function normalizeUnitWithLocalWeeks(unit) {
+  switch (unit.toLowerCase()) {
+    case "localweekday":
+    case "localweekdays":
+      return "localWeekday";
+    case "localweeknumber":
+    case "localweeknumbers":
+      return "localWeekNumber";
+    case "localweekyear":
+    case "localweekyears":
+      return "localWeekYear";
+    default:
+      return normalizeUnit(unit);
+  }
+}
 function quickDT(obj, opts) {
   const zone = normalizeZone(opts.zone, Settings.defaultZone), loc = Locale.fromObject(opts), tsNow = Settings.now();
   let ts, o;
@@ -10215,6 +14312,7 @@ var DateTime = class {
     this.loc = config.loc || Locale.create();
     this.invalid = invalid;
     this.weekData = null;
+    this.localWeekData = null;
     this.c = c;
     this.o = o;
     this.isLuxonDateTime = true;
@@ -10276,7 +14374,10 @@ var DateTime = class {
     if (!zoneToUse.isValid) {
       return DateTime.invalid(unsupportedZone(zoneToUse));
     }
-    const tsNow = Settings.now(), offsetProvis = !isUndefined(opts.specificOffset) ? opts.specificOffset : zoneToUse.offset(tsNow), normalized = normalizeObject(obj, normalizeUnit), containsOrdinal = !isUndefined(normalized.ordinal), containsGregorYear = !isUndefined(normalized.year), containsGregorMD = !isUndefined(normalized.month) || !isUndefined(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber, loc = Locale.fromObject(opts);
+    const loc = Locale.fromObject(opts);
+    const normalized = normalizeObject(obj, normalizeUnitWithLocalWeeks);
+    const { minDaysInFirstWeek, startOfWeek } = usesLocalWeekValues(normalized, loc);
+    const tsNow = Settings.now(), offsetProvis = !isUndefined(opts.specificOffset) ? opts.specificOffset : zoneToUse.offset(tsNow), containsOrdinal = !isUndefined(normalized.ordinal), containsGregorYear = !isUndefined(normalized.year), containsGregorMD = !isUndefined(normalized.month) || !isUndefined(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber;
     if ((containsGregor || containsOrdinal) && definiteWeekDef) {
       throw new ConflictingSpecificationError("Can't mix weekYear/weekNumber units with year/month/day or ordinals");
     }
@@ -10288,7 +14389,7 @@ var DateTime = class {
     if (useWeekData) {
       units = orderedWeekUnits;
       defaultValues = defaultWeekUnitValues;
-      objNow = gregorianToWeek(objNow);
+      objNow = gregorianToWeek(objNow, minDaysInFirstWeek, startOfWeek);
     } else if (containsOrdinal) {
       units = orderedOrdinalUnits;
       defaultValues = defaultOrdinalUnitValues;
@@ -10308,11 +14409,11 @@ var DateTime = class {
         normalized[u] = objNow[u];
       }
     }
-    const higherOrderInvalid = useWeekData ? hasInvalidWeekData(normalized) : containsOrdinal ? hasInvalidOrdinalData(normalized) : hasInvalidGregorianData(normalized), invalid = higherOrderInvalid || hasInvalidTimeData(normalized);
+    const higherOrderInvalid = useWeekData ? hasInvalidWeekData(normalized, minDaysInFirstWeek, startOfWeek) : containsOrdinal ? hasInvalidOrdinalData(normalized) : hasInvalidGregorianData(normalized), invalid = higherOrderInvalid || hasInvalidTimeData(normalized);
     if (invalid) {
       return DateTime.invalid(invalid);
     }
-    const gregorian = useWeekData ? weekToGregorian(normalized) : containsOrdinal ? ordinalToGregorian(normalized) : normalized, [tsFinal, offsetFinal] = objToTS(gregorian, offsetProvis, zoneToUse), inst = new DateTime({
+    const gregorian = useWeekData ? weekToGregorian(normalized, minDaysInFirstWeek, startOfWeek) : containsOrdinal ? ordinalToGregorian(normalized) : normalized, [tsFinal, offsetFinal] = objToTS(gregorian, offsetProvis, zoneToUse), inst = new DateTime({
       ts: tsFinal,
       zone: zoneToUse,
       o: offsetFinal,
@@ -10439,6 +14540,18 @@ var DateTime = class {
   get weekday() {
     return this.isValid ? possiblyCachedWeekData(this).weekday : NaN;
   }
+  get isWeekend() {
+    return this.isValid && this.loc.getWeekendDays().includes(this.weekday);
+  }
+  get localWeekday() {
+    return this.isValid ? possiblyCachedLocalWeekData(this).weekday : NaN;
+  }
+  get localWeekNumber() {
+    return this.isValid ? possiblyCachedLocalWeekData(this).weekNumber : NaN;
+  }
+  get localWeekYear() {
+    return this.isValid ? possiblyCachedLocalWeekData(this).weekYear : NaN;
+  }
   get ordinal() {
     return this.isValid ? gregorianToOrdinal(this.c).ordinal : NaN;
   }
@@ -10487,6 +14600,29 @@ var DateTime = class {
       return this.offset > this.set({ month: 1, day: 1 }).offset || this.offset > this.set({ month: 5 }).offset;
     }
   }
+  getPossibleOffsets() {
+    if (!this.isValid || this.isOffsetFixed) {
+      return [this];
+    }
+    const dayMs = 864e5;
+    const minuteMs = 6e4;
+    const localTS = objToLocalTS(this.c);
+    const oEarlier = this.zone.offset(localTS - dayMs);
+    const oLater = this.zone.offset(localTS + dayMs);
+    const o1 = this.zone.offset(localTS - oEarlier * minuteMs);
+    const o2 = this.zone.offset(localTS - oLater * minuteMs);
+    if (o1 === o2) {
+      return [this];
+    }
+    const ts1 = localTS - o1 * minuteMs;
+    const ts2 = localTS - o2 * minuteMs;
+    const c1 = tsToObj(ts1, o1);
+    const c2 = tsToObj(ts2, o2);
+    if (c1.hour === c2.hour && c1.minute === c2.minute && c1.second === c2.second && c1.millisecond === c2.millisecond) {
+      return [clone2(this, { ts: ts1 }), clone2(this, { ts: ts2 })];
+    }
+    return [this];
+  }
   get isInLeapYear() {
     return isLeapYear(this.year);
   }
@@ -10498,6 +14634,9 @@ var DateTime = class {
   }
   get weeksInWeekYear() {
     return this.isValid ? weeksInWeekYear(this.weekYear) : NaN;
+  }
+  get weeksInLocalWeekYear() {
+    return this.isValid ? weeksInWeekYear(this.localWeekYear, this.loc.getMinDaysInFirstWeek(), this.loc.getStartOfWeek()) : NaN;
   }
   resolvedLocaleOptions(opts = {}) {
     const { locale, numberingSystem, calendar } = Formatter.create(this.loc.clone(opts), opts).resolvedOptions(this);
@@ -10535,7 +14674,9 @@ var DateTime = class {
   set(values) {
     if (!this.isValid)
       return this;
-    const normalized = normalizeObject(values, normalizeUnit), settingWeekStuff = !isUndefined(normalized.weekYear) || !isUndefined(normalized.weekNumber) || !isUndefined(normalized.weekday), containsOrdinal = !isUndefined(normalized.ordinal), containsGregorYear = !isUndefined(normalized.year), containsGregorMD = !isUndefined(normalized.month) || !isUndefined(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber;
+    const normalized = normalizeObject(values, normalizeUnitWithLocalWeeks);
+    const { minDaysInFirstWeek, startOfWeek } = usesLocalWeekValues(normalized, this.loc);
+    const settingWeekStuff = !isUndefined(normalized.weekYear) || !isUndefined(normalized.weekNumber) || !isUndefined(normalized.weekday), containsOrdinal = !isUndefined(normalized.ordinal), containsGregorYear = !isUndefined(normalized.year), containsGregorMD = !isUndefined(normalized.month) || !isUndefined(normalized.day), containsGregor = containsGregorYear || containsGregorMD, definiteWeekDef = normalized.weekYear || normalized.weekNumber;
     if ((containsGregor || containsOrdinal) && definiteWeekDef) {
       throw new ConflictingSpecificationError("Can't mix weekYear/weekNumber units with year/month/day or ordinals");
     }
@@ -10544,7 +14685,7 @@ var DateTime = class {
     }
     let mixed;
     if (settingWeekStuff) {
-      mixed = weekToGregorian({ ...gregorianToWeek(this.c), ...normalized });
+      mixed = weekToGregorian({ ...gregorianToWeek(this.c, minDaysInFirstWeek, startOfWeek), ...normalized }, minDaysInFirstWeek, startOfWeek);
     } else if (!isUndefined(normalized.ordinal)) {
       mixed = ordinalToGregorian({ ...gregorianToOrdinal(this.c), ...normalized });
     } else {
@@ -10568,7 +14709,7 @@ var DateTime = class {
     const dur = Duration.fromDurationLike(duration).negate();
     return clone2(this, adjustTime(this, dur));
   }
-  startOf(unit) {
+  startOf(unit, { useLocaleWeeks = false } = {}) {
     if (!this.isValid)
       return this;
     const o = {}, normalizedUnit = Duration.normalizeUnit(unit);
@@ -10592,7 +14733,16 @@ var DateTime = class {
         break;
     }
     if (normalizedUnit === "weeks") {
-      o.weekday = 1;
+      if (useLocaleWeeks) {
+        const startOfWeek = this.loc.getStartOfWeek();
+        const { weekday } = this;
+        if (weekday < startOfWeek) {
+          o.weekNumber = this.weekNumber - 1;
+        }
+        o.weekday = startOfWeek;
+      } else {
+        o.weekday = 1;
+      }
     }
     if (normalizedUnit === "quarters") {
       const q = Math.ceil(this.month / 3);
@@ -10600,8 +14750,8 @@ var DateTime = class {
     }
     return this.set(o);
   }
-  endOf(unit) {
-    return this.isValid ? this.plus({ [unit]: 1 }).startOf(unit).minus(1) : this;
+  endOf(unit, opts) {
+    return this.isValid ? this.plus({ [unit]: 1 }).startOf(unit, opts).minus(1) : this;
   }
   toFormat(fmt, opts = {}) {
     return this.isValid ? Formatter.create(this.loc.redefaultToEN(opts)).formatDateTimeFromString(this, fmt) : INVALID3;
@@ -10686,6 +14836,13 @@ var DateTime = class {
   toString() {
     return this.isValid ? this.toISO() : INVALID3;
   }
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    if (this.isValid) {
+      return `DateTime { ts: ${this.toISO()}, zone: ${this.zone.name}, locale: ${this.locale} }`;
+    } else {
+      return `DateTime { Invalid, reason: ${this.invalidReason} }`;
+    }
+  }
   valueOf() {
     return this.toMillis();
   }
@@ -10732,12 +14889,12 @@ var DateTime = class {
   until(otherDateTime) {
     return this.isValid ? Interval.fromDateTimes(this, otherDateTime) : this;
   }
-  hasSame(otherDateTime, unit) {
+  hasSame(otherDateTime, unit, opts) {
     if (!this.isValid)
       return false;
     const inputMs = otherDateTime.valueOf();
     const adjustedToZone = this.setZone(otherDateTime.zone, { keepLocalTime: true });
-    return adjustedToZone.startOf(unit) <= inputMs && inputMs <= adjustedToZone.endOf(unit);
+    return adjustedToZone.startOf(unit, opts) <= inputMs && inputMs <= adjustedToZone.endOf(unit, opts);
   }
   equals(other) {
     return this.isValid && other.isValid && this.valueOf() === other.valueOf() && this.zone.equals(other.zone) && this.loc.equals(other.loc);
@@ -10875,117 +15032,31 @@ function friendlyDateTime(dateTimeish) {
 var import_obsidian6 = require("obsidian");
 
 // src/api.ts
-var import_obsidian = require("obsidian");
-var requestHeaders = (apiKey) => ({
-  "Content-Type": "application/json",
-  authorization: apiKey,
-  "X-OmnivoreClient": "obsidian-plugin"
-});
-var loadArticles = async (endpoint, apiKey, after = 0, first = 10, updatedAt = "", query = "", includeContent = false, format = "html") => {
-  const res = await (0, import_obsidian.requestUrl)({
-    url: endpoint,
-    headers: requestHeaders(apiKey),
-    body: JSON.stringify({
-      query: `
-        query Search($after: String, $first: Int, $query: String, $includeContent: Boolean, $format: String) {
-          search(first: $first, after: $after, query: $query, includeContent: $includeContent, format: $format) {
-            ... on SearchSuccess {
-              edges {
-                node {
-                  id
-                  title
-                  slug
-                  siteName
-                  originalArticleUrl
-                  url
-                  image
-                  author
-                  updatedAt
-                  description
-                  savedAt
-                  pageType
-                  content
-                  publishedAt
-                  readAt
-                  wordsCount
-                  isArchived
-                  readingProgressPercent
-                  archivedAt
-                  contentReader
-                  highlights {
-                    id
-                    quote
-                    annotation
-                    patch
-                    updatedAt
-                    type
-                    highlightPositionPercent
-                    highlightPositionAnchorIndex
-                    labels {
-                      name
-                    }
-                    color
-                  }
-                  labels {
-                    name
-                  }
-                }
-              }
-              pageInfo {
-                hasNextPage
-              }
-            }
-            ... on SearchError {
-              errorCodes
-            }
-          }
-        }`,
-      variables: {
-        after: `${after}`,
-        first,
-        query: `${updatedAt ? "updated:" + updatedAt : ""} sort:saved-asc ${query}`,
-        includeContent,
-        format
-      }
-    }),
-    method: "POST"
+var import_api = __toESM(require_src());
+var getItems = async (endpoint, apiKey, after = 0, first = 10, updatedAt = "", query = "", includeContent = false, format = "html") => {
+  const omnivore = new import_api.Omnivore({
+    authToken: apiKey,
+    baseUrl: endpoint,
+    timeoutMs: 1e4
   });
-  const jsonRes = res.json;
-  const articles = jsonRes.data.search.edges.map((e) => e.node);
-  return [articles, jsonRes.data.search.pageInfo.hasNextPage];
+  const response = await omnivore.items.search({
+    after,
+    first,
+    query: `${updatedAt ? "updated:" + updatedAt : ""} sort:saved-asc ${query}`,
+    includeContent,
+    format
+  });
+  const articles = response.edges.map((e) => e.node);
+  return [articles, response.pageInfo.hasNextPage];
 };
-var deleteArticleById = async (endpoint, apiKey, articleId) => {
-  const res = await (0, import_obsidian.requestUrl)({
-    url: endpoint,
-    headers: requestHeaders(apiKey),
-    body: JSON.stringify({
-      query: `
-              mutation SetBookmarkArticle($input: SetBookmarkArticleInput!) {
-                  setBookmarkArticle(input: $input) {
-                      ... on SetBookmarkArticleSuccess {
-                          bookmarkedArticle {
-                              id
-                          }
-                      }
-                      ... on SetBookmarkArticleError {
-                          errorCodes
-                      }
-                  }
-              }`,
-      variables: {
-        input: {
-          articleID: articleId,
-          bookmark: false
-        }
-      }
-    }),
-    method: "POST"
+var deleteItem = async (endpoint, apiKey, articleId) => {
+  const omnivore = new import_api.Omnivore({
+    authToken: apiKey,
+    baseUrl: endpoint,
+    timeoutMs: 1e4
   });
-  const jsonRes = res.json;
-  if (jsonRes.data.setBookmarkArticle.bookmarkedArticle.id === articleId) {
-    return true;
-  }
-  return false;
+  await omnivore.items.delete({ id: articleId });
+  return true;
 };
 
 // src/settings/template.ts
@@ -11446,12 +15517,12 @@ mustache.Writer = Writer;
 var mustache_default = mustache;
 
 // src/settings/template.ts
-var import_obsidian3 = require("obsidian");
+var import_obsidian2 = require("obsidian");
 
 // src/util.ts
 var import_diff_match_patch = __toESM(require_diff_match_patch());
 var import_markdown_escape = __toESM(require_markdown_escape());
-var import_obsidian2 = require("obsidian");
+var import_obsidian = require("obsidian");
 
 // node_modules/out-of-character/builds/out-of-character.mjs
 var require$$0 = [
@@ -11507,6 +15578,16 @@ var require$$0 = [
     actualUnicodeChar: "\x85",
     codeEscaped: "\\u0085",
     url: "https://www.compart.com/en/unicode/U+0085"
+  },
+  {
+    type: "Whitespace",
+    name: "NO-BREAK SPACE",
+    code: "U+00A0",
+    escapeChar: "",
+    replaceWith: " ",
+    actualUnicodeChar: "\xA0",
+    codeEscaped: "\\u00A0",
+    url: "https://www.compart.com/en/unicode/U+00A0"
   },
   {
     type: "Separators",
@@ -11969,7 +16050,7 @@ var require$$0 = [
     url: "https://www.compart.com/en/unicode/U+206F"
   },
   {
-    type: "Whitepace",
+    type: "Whitespace",
     name: "IDEOGRAPHIC SPACE",
     code: "U+3000",
     escapeChar: "",
@@ -11979,7 +16060,7 @@ var require$$0 = [
     url: "https://www.compart.com/en/unicode/U+3000"
   },
   {
-    type: "Whitepace",
+    type: "Whitespace",
     name: "BRAILLE PATTERN BLANK",
     code: "U+2800",
     escapeChar: "",
@@ -11989,7 +16070,7 @@ var require$$0 = [
     url: "https://www.compart.com/en/unicode/U+2800"
   },
   {
-    type: "Whitepace",
+    type: "Whitespace",
     name: "HANGUL FILLER",
     code: "U+3164",
     escapeChar: "",
@@ -12250,7 +16331,8 @@ var out_of_character_default = src;
 var DATE_FORMAT_W_OUT_SECONDS = "yyyy-MM-dd'T'HH:mm";
 var DATE_FORMAT = `${DATE_FORMAT_W_OUT_SECONDS}:ss`;
 var REPLACEMENT_CHAR = "-";
-var ILLEGAL_CHAR_REGEX = /[<>:"/\\|?*\u0000-\u001F]/g;
+var ILLEGAL_CHAR_REGEX_FILE = /[<>:"/\\|?*\u0000-\u001F]/g;
+var ILLEGAL_CHAR_REGEX_FOLDER = /[<>:"\\|?*\u0000-\u001F]/g;
 var getHighlightLocation = (patch) => {
   if (!patch) {
     return 0;
@@ -12287,8 +16369,11 @@ var parseDateTime = (str) => {
 var wrapAround = (value, size) => {
   return (value % size + size) % size;
 };
-var replaceIllegalChars = (str) => {
-  return removeInvisibleChars(str.replace(ILLEGAL_CHAR_REGEX, REPLACEMENT_CHAR));
+var replaceIllegalCharsFile = (str) => {
+  return removeInvisibleChars(str.replace(ILLEGAL_CHAR_REGEX_FILE, REPLACEMENT_CHAR));
+};
+var replaceIllegalCharsFolder = (str) => {
+  return removeInvisibleChars(str.replace(ILLEGAL_CHAR_REGEX_FOLDER, REPLACEMENT_CHAR));
 };
 function formatDate(date, format) {
   if (isNaN(Date.parse(date))) {
@@ -12313,17 +16398,36 @@ var getQueryFromFilter = (filter) => {
 var siteNameFromUrl = (originalArticleUrl) => {
   try {
     return new URL(originalArticleUrl).hostname.replace(/^www\./, "");
-  } catch (e) {
+  } catch {
     return "";
   }
 };
-var formatHighlightQuote = (quote, template) => {
+var wrapHighlightMarkup = (quote, highlightRenderOption) => {
+  const { highlightManagerId, highlightColor } = highlightRenderOption;
+  const markupRender = (content) => {
+    if (content.trim().length === 0) {
+      return "";
+    }
+    if (highlightManagerId == "hltr" /* HIGHLIGHTR */) {
+      return `<mark class="${highlightManagerId}-${highlightColor}">${content}</mark>`;
+    } else {
+      return `<mark class="${highlightManagerId} ${highlightManagerId}-${highlightColor}">${content}</mark>`;
+    }
+  };
+  return quote.replaceAll(/(>)?(.+)$/gm, (_, g1, g2) => {
+    return (g1 ?? "") + markupRender(g2);
+  });
+};
+var formatHighlightQuote = (quote, template, highlightRenderOption) => {
   if (!quote) {
     return "";
   }
   const regex = /{{#highlights}}(\n)*>/gm;
   if (regex.test(template)) {
     quote = quote.replaceAll("&gt;", ">").replaceAll(/\n/gm, "\n> ");
+  }
+  if (highlightRenderOption != null) {
+    quote = wrapHighlightMarkup(quote, highlightRenderOption);
   }
   return quote;
 };
@@ -12335,7 +16439,7 @@ var parseFrontMatterFromContent = (content) => {
   if (!frontMatter) {
     return void 0;
   }
-  return (0, import_obsidian2.parseYaml)(frontMatter[1]);
+  return (0, import_obsidian.parseYaml)(frontMatter[1]);
 };
 var removeFrontMatterFromContent = (content) => {
   const frontMatterRegex = /^---.*?---\n*/s;
@@ -12344,6 +16448,12 @@ var removeFrontMatterFromContent = (content) => {
 var snakeToCamelCase = (str) => str.replace(/(_[a-z])/g, (group) => group.toUpperCase().replace("_", ""));
 var removeInvisibleChars = (str) => {
   return out_of_character_default.replace(str);
+};
+var setOrUpdateHighlightColors = (colorSetting) => {
+  const root = document.documentElement;
+  Object.entries(colorSetting).forEach(([k, v]) => {
+    root.style.setProperty(`--omni-${k}`, v);
+  });
 };
 
 // src/settings/template.ts
@@ -12365,12 +16475,12 @@ var DEFAULT_TEMPLATE = `# {{{title}}}
 
 {{/highlights}}
 {{/highlights.length}}`;
-var getArticleState = (article) => {
-  if (article.isArchived) {
+var getItemState = (item) => {
+  if (item.isArchived) {
     return "ARCHIVED" /* Archived */;
   }
-  if (article.readingProgressPercent > 0) {
-    return article.readingProgressPercent === 100 ? "COMPLETED" /* Completed */ : "READING" /* Reading */;
+  if (item.readingProgressPercent > 0) {
+    return item.readingProgressPercent === 100 ? "COMPLETED" /* Completed */ : "READING" /* Reading */;
   }
   return "INBOX" /* Inbox */;
 };
@@ -12406,27 +16516,26 @@ var functionMap = {
   upperCaseFirst,
   formatDate: formatDateFunc
 };
-var getOmnivoreUrl = (article) => {
-  return `https://omnivore.app/me/${article.slug}`;
+var getOmnivoreUrl = (item) => {
+  return `https://omnivore.app/me/${item.slug}`;
 };
-var renderFilename = (article, filename, dateFormat) => {
-  const renderedFilename = render3(article, filename, dateFormat);
+var renderFilename = (item, filename, dateFormat) => {
+  const renderedFilename = render3(item, filename, dateFormat);
   return (0, import_lodash.truncate)(renderedFilename, {
     length: 100
   });
 };
 var renderLabels = (labels) => {
-  return labels == null ? void 0 : labels.map((l2) => ({
+  return labels?.map((l2) => ({
     name: l2.name.replaceAll(" ", "_")
   }));
 };
-var renderArticleContnet = async (article, template, highlightOrder, dateHighlightedFormat, dateSavedFormat, isSingleFile, frontMatterVariables, frontMatterTemplate, fileAttachment) => {
-  var _a, _b, _c;
-  const articleHighlights = ((_a = article.highlights) == null ? void 0 : _a.filter((h) => h.type === "HIGHLIGHT" /* Highlight */)) || [];
+var renderItemContent = async (item, template, highlightOrder, highlightManagerId, dateHighlightedFormat, dateSavedFormat, isSingleFile, frontMatterVariables, frontMatterTemplate, fileAttachment) => {
+  const itemHighlights = item.highlights?.filter((h) => h.type === "HIGHLIGHT") || [];
   if (highlightOrder === "LOCATION") {
-    articleHighlights.sort((a, b) => {
+    itemHighlights.sort((a, b) => {
       try {
-        if (article.pageType === "FILE" /* File */) {
+        if (item.pageType === "FILE") {
           return compareHighlightsInFile(a, b);
         }
         return getHighlightLocation(a.patch) - getHighlightLocation(b.patch);
@@ -12436,60 +16545,64 @@ var renderArticleContnet = async (article, template, highlightOrder, dateHighlig
       }
     });
   }
-  const highlights = articleHighlights.map((highlight) => {
-    var _a2, _b2;
+  const highlights = itemHighlights.map((highlight) => {
+    const highlightColor = highlight.color ?? "yellow";
+    const highlightRenderOption = highlightManagerId ? {
+      highlightColor,
+      highlightManagerId
+    } : null;
     return {
-      text: formatHighlightQuote(highlight.quote, template),
-      highlightUrl: `https://omnivore.app/me/${article.slug}#${highlight.id}`,
+      text: formatHighlightQuote(highlight.quote, template, highlightRenderOption),
+      highlightUrl: `https://omnivore.app/me/${item.slug}#${highlight.id}`,
       highlightID: highlight.id.slice(0, 8),
-      dateHighlighted: formatDate(highlight.updatedAt, dateHighlightedFormat),
-      note: (_a2 = highlight.annotation) != null ? _a2 : void 0,
-      labels: renderLabels(highlight.labels),
-      color: (_b2 = highlight.color) != null ? _b2 : "yellow",
-      positionPercent: highlight.highlightPositionPercent,
-      positionAnchorIndex: highlight.highlightPositionAnchorIndex + 1
+      dateHighlighted: highlight.updatedAt ? formatDate(highlight.updatedAt, dateHighlightedFormat) : void 0,
+      note: highlight.annotation ?? void 0,
+      labels: renderLabels(highlight.labels || void 0),
+      color: highlightColor,
+      positionPercent: highlight.highlightPositionPercent || 0,
+      positionAnchorIndex: highlight.highlightPositionAnchorIndex ? highlight.highlightPositionAnchorIndex + 1 : 0
     };
   });
-  const dateSaved = formatDate(article.savedAt, dateSavedFormat);
-  const siteName = article.siteName || siteNameFromUrl(article.originalArticleUrl);
-  const publishedAt = article.publishedAt;
+  const dateSaved = formatDate(item.savedAt, dateSavedFormat);
+  const siteName = item.siteName || siteNameFromUrl(item.originalArticleUrl || item.url);
+  const publishedAt = item.publishedAt;
   const datePublished = publishedAt ? formatDate(publishedAt, dateSavedFormat).trim() : void 0;
-  const articleNote = (_b = article.highlights) == null ? void 0 : _b.find((h) => h.type === "NOTE" /* Note */);
-  const dateRead = article.readAt ? formatDate(article.readAt, dateSavedFormat).trim() : void 0;
-  const wordsCount = article.wordsCount;
+  const articleNote = item.highlights?.find((h) => h.type === "NOTE");
+  const dateRead = item.readAt ? formatDate(item.readAt, dateSavedFormat).trim() : void 0;
+  const wordsCount = item.wordsCount;
   const readLength = wordsCount ? Math.round(Math.max(1, wordsCount / 235)) : void 0;
   const articleView = {
-    id: article.id,
-    title: article.title,
-    omnivoreUrl: `https://omnivore.app/me/${article.slug}`,
+    id: item.id,
+    title: item.title,
+    omnivoreUrl: `https://omnivore.app/me/${item.slug}`,
     siteName,
-    originalUrl: article.originalArticleUrl,
-    author: article.author,
-    labels: renderLabels(article.labels),
+    originalUrl: item.originalArticleUrl || item.url,
+    author: item.author || "unknown",
+    labels: renderLabels(item.labels || void 0),
     dateSaved,
     highlights,
-    content: article.contentReader === "WEB" ? article.content : void 0,
+    content: item.contentReader === "WEB" ? item.content || void 0 : void 0,
     datePublished,
     fileAttachment,
-    description: article.description,
-    note: (_c = articleNote == null ? void 0 : articleNote.annotation) != null ? _c : void 0,
-    type: article.pageType,
+    description: item.description || void 0,
+    note: articleNote?.annotation ?? void 0,
+    type: item.pageType,
     dateRead,
-    wordsCount,
+    wordsCount: item.wordsCount || void 0,
     readLength,
-    state: getArticleState(article),
-    dateArchived: article.archivedAt,
-    image: article.image,
-    updatedAt: article.updatedAt,
+    state: getItemState(item),
+    dateArchived: item.archivedAt || void 0,
+    image: item.image || void 0,
+    updatedAt: item.updatedAt || void 0,
     ...functionMap
   };
   let frontMatter = {
-    id: article.id
+    id: item.id
   };
   if (frontMatterTemplate) {
     const frontMatterTemplateRendered = mustache_default.render(frontMatterTemplate, articleView);
     try {
-      const frontMatterParsed = (0, import_obsidian3.parseYaml)(frontMatterTemplateRendered);
+      const frontMatterParsed = (0, import_obsidian2.parseYaml)(frontMatterTemplateRendered);
       frontMatter = {
         ...frontMatterParsed,
         ...frontMatter
@@ -12502,8 +16615,8 @@ var renderArticleContnet = async (article, template, highlightOrder, dateHighlig
       };
     }
   } else {
-    for (const item of frontMatterVariables) {
-      const aliasedVariables = item.split("::");
+    for (const item2 of frontMatterVariables) {
+      const aliasedVariables = item2.split("::");
       const variable = aliasedVariables[0];
       const articleVariable = snakeToCamelCase(variable);
       const key = aliasedVariables[1] || variable;
@@ -12519,14 +16632,14 @@ var renderArticleContnet = async (article, template, highlightOrder, dateHighlig
   }
   const content = mustache_default.render(template, articleView);
   let contentWithoutFrontMatter = removeFrontMatterFromContent(content);
-  let frontMatterYaml = (0, import_obsidian3.stringifyYaml)(frontMatter);
+  let frontMatterYaml = (0, import_obsidian2.stringifyYaml)(frontMatter);
   if (isSingleFile) {
-    const sectionStart = `%%${article.id}_start%%`;
-    const sectionEnd = `%%${article.id}_end%%`;
+    const sectionStart = `%%${item.id}_start%%`;
+    const sectionEnd = `%%${item.id}_end%%`;
     contentWithoutFrontMatter = `${sectionStart}
 ${contentWithoutFrontMatter}
 ${sectionEnd}`;
-    frontMatterYaml = (0, import_obsidian3.stringifyYaml)([frontMatter]);
+    frontMatterYaml = (0, import_obsidian2.stringifyYaml)([frontMatter]);
   }
   const frontMatterStr = `---
 ${frontMatterYaml}---`;
@@ -12534,23 +16647,24 @@ ${frontMatterYaml}---`;
 
 ${contentWithoutFrontMatter}`;
 };
-var render3 = (article, template, dateFormat) => {
-  const dateSaved = formatDate(article.savedAt, dateFormat);
-  const datePublished = article.publishedAt ? formatDate(article.publishedAt, dateFormat).trim() : void 0;
-  const dateArchived = article.archivedAt ? formatDate(article.archivedAt, dateFormat).trim() : void 0;
-  const dateRead = article.readAt ? formatDate(article.readAt, dateFormat).trim() : void 0;
+var render3 = (item, template, dateFormat) => {
+  const dateSaved = formatDate(item.savedAt, dateFormat);
+  const datePublished = item.publishedAt ? formatDate(item.publishedAt, dateFormat).trim() : void 0;
+  const dateArchived = item.archivedAt ? formatDate(item.archivedAt, dateFormat).trim() : void 0;
+  const dateRead = item.readAt ? formatDate(item.readAt, dateFormat).trim() : void 0;
   const view = {
-    ...article,
-    author: article.author || "unknown-author",
-    omnivoreUrl: getOmnivoreUrl(article),
-    originalUrl: article.originalArticleUrl,
+    ...item,
+    siteName: item.siteName || siteNameFromUrl(item.originalArticleUrl || item.url),
+    author: item.author || "unknown",
+    omnivoreUrl: getOmnivoreUrl(item),
+    originalUrl: item.originalArticleUrl || item.url,
     date: dateSaved,
     dateSaved,
     datePublished,
     dateArchived,
     dateRead,
-    type: article.pageType,
-    state: getArticleState(article),
+    type: item.pageType,
+    state: getItemState(item),
     ...functionMap
   };
   return mustache_default.render(template, view);
@@ -12579,6 +16693,18 @@ var FRONT_MATTER_VARIABLES = [
   "date_archived",
   "image"
 ];
+var Filter = /* @__PURE__ */ ((Filter2) => {
+  Filter2["ALL"] = "Sync all the items";
+  Filter2["LIBRARY"] = "Sync only the library items";
+  Filter2["ARCHIVED"] = "Sync only the archived items";
+  Filter2["HIGHLIGHTS"] = "Sync only the highlighted items";
+  return Filter2;
+})(Filter || {});
+var HighlightOrder = /* @__PURE__ */ ((HighlightOrder2) => {
+  HighlightOrder2["LOCATION"] = "the location of highlights in the article";
+  HighlightOrder2["TIME"] = "the time that highlights are updated";
+  return HighlightOrder2;
+})(HighlightOrder || {});
 var DEFAULT_SETTINGS = {
   dateHighlightedFormat: "yyyy-MM-dd HH:mm:ss",
   dateSavedFormat: "yyyy-MM-dd HH:mm:ss",
@@ -12601,23 +16727,22 @@ var DEFAULT_SETTINGS = {
   intervalId: 0,
   frontMatterVariables: [],
   frontMatterTemplate: "",
-  syncOnStart: true
+  syncOnStart: true,
+  enableHighlightColorRender: false,
+  highlightManagerId: "omni" /* OMNIVORE */,
+  highlightColorMapping: {
+    ["yellow" /* Yellow */]: "#fff3a3",
+    ["red" /* Red */]: "#ff5582",
+    ["blue" /* Blue */]: "#adccff",
+    ["green" /* Green */]: "#bbfabb"
+  }
 };
-var Filter = /* @__PURE__ */ ((Filter2) => {
-  Filter2["ALL"] = "Sync all the items";
-  Filter2["LIBRARY"] = "Sync only the library items";
-  Filter2["ARCHIVED"] = "Sync only the archived items";
-  Filter2["HIGHLIGHTS"] = "Sync only the highlighted items";
-  return Filter2;
-})(Filter || {});
-var HighlightOrder = /* @__PURE__ */ ((HighlightOrder2) => {
-  HighlightOrder2["LOCATION"] = "the location of highlights in the article";
-  HighlightOrder2["TIME"] = "the time that highlights are updated";
-  return HighlightOrder2;
-})(HighlightOrder || {});
+
+// src/settingsTab.ts
+var import_obsidian5 = require("obsidian");
 
 // src/settings/file-suggest.ts
-var import_obsidian5 = require("obsidian");
+var import_obsidian4 = require("obsidian");
 
 // node_modules/@popperjs/core/lib/enums.js
 var top = "top";
@@ -14048,7 +18173,7 @@ var createPopper = /* @__PURE__ */ popperGenerator({
 });
 
 // src/settings/suggest.ts
-var import_obsidian4 = require("obsidian");
+var import_obsidian3 = require("obsidian");
 var Suggest = class {
   constructor(owner, containerEl, scope) {
     this.owner = owner;
@@ -14106,8 +18231,8 @@ var Suggest = class {
     const normalizedIndex = wrapAround(selectedIndex, this.suggestions.length);
     const prevSelectedSuggestion = this.suggestions[this.selectedItem];
     const selectedSuggestion = this.suggestions[normalizedIndex];
-    prevSelectedSuggestion == null ? void 0 : prevSelectedSuggestion.removeClass("is-selected");
-    selectedSuggestion == null ? void 0 : selectedSuggestion.addClass("is-selected");
+    prevSelectedSuggestion?.removeClass("is-selected");
+    selectedSuggestion?.addClass("is-selected");
     this.selectedItem = normalizedIndex;
     if (scrollIntoView) {
       selectedSuggestion.scrollIntoView(false);
@@ -14115,10 +18240,10 @@ var Suggest = class {
   }
 };
 var TextInputSuggest = class {
-  constructor(app2, inputEl) {
-    this.app = app2;
+  constructor(app, inputEl) {
+    this.app = app;
     this.inputEl = inputEl;
-    this.scope = new import_obsidian4.Scope();
+    this.scope = new import_obsidian3.Scope();
     this.suggestEl = createDiv("suggestion-container");
     const suggestion = this.suggestEl.createDiv("suggestion");
     this.suggest = new Suggest(this, suggestion, this.scope);
@@ -14178,7 +18303,7 @@ var FolderSuggest = class extends TextInputSuggest {
     const folders = [];
     const lowerCaseInputStr = inputStr.toLowerCase();
     abstractFiles.forEach((folder) => {
-      if (folder instanceof import_obsidian5.TFolder && folder.path.toLowerCase().contains(lowerCaseInputStr)) {
+      if (folder instanceof import_obsidian4.TFolder && folder.path.toLowerCase().contains(lowerCaseInputStr)) {
         folders.push(folder);
       }
     });
@@ -14191,6 +18316,264 @@ var FolderSuggest = class extends TextInputSuggest {
     this.inputEl.value = file.path;
     this.inputEl.trigger("input");
     this.close();
+  }
+};
+
+// src/settingsTab.ts
+var OmnivoreSettingTab = class extends import_obsidian5.PluginSettingTab {
+  constructor(app, plugin) {
+    super(app, plugin);
+    this.plugin = plugin;
+  }
+  display() {
+    const { containerEl } = this;
+    containerEl.empty();
+    new import_obsidian5.Setting(containerEl).setName("API Key").setDesc(createFragment((fragment) => {
+      fragment.append("You can create an API key at ", fragment.createEl("a", {
+        text: "https://omnivore.app/settings/api",
+        href: "https://omnivore.app/settings/api"
+      }));
+    })).addText((text) => text.setPlaceholder("Enter your Omnivore Api Key").setValue(this.plugin.settings.apiKey).onChange(async (value) => {
+      this.plugin.settings.apiKey = value;
+      await this.plugin.saveSettings();
+    }));
+    containerEl.createEl("h3", { text: "Query" });
+    new import_obsidian5.Setting(containerEl).setName("Filter").setDesc("Select an Omnivore search filter type. Changing this would update the 'Custom Query' accordingly and reset the 'Last sync' timestamp").addDropdown((dropdown) => {
+      dropdown.addOptions(Filter);
+      dropdown.setValue(this.plugin.settings.filter).onChange(async (value) => {
+        this.plugin.settings.filter = value;
+        this.plugin.settings.customQuery = getQueryFromFilter(value);
+        this.plugin.settings.syncAt = "";
+        await this.plugin.saveSettings();
+        this.display();
+      });
+    });
+    new import_obsidian5.Setting(containerEl).setName("Custom Query").setDesc(createFragment((fragment) => {
+      fragment.append("See ", fragment.createEl("a", {
+        text: "https://docs.omnivore.app/using/search",
+        href: "https://docs.omnivore.app/using/search"
+      }), " for more info on search query syntax. Changing this would reset the 'Last Sync' timestamp");
+    })).addText((text) => text.setPlaceholder("Enter an Omnivore custom search query if advanced filter is selected").setValue(this.plugin.settings.customQuery).onChange(async (value) => {
+      this.plugin.settings.customQuery = value;
+      this.plugin.settings.syncAt = "";
+      await this.plugin.saveSettings();
+    }));
+    containerEl.createEl("h3", { text: "Sync" });
+    new import_obsidian5.Setting(containerEl).setName("Sync on startup").setDesc("Check this box if you want to sync with Omnivore when the app is loaded").addToggle((toggle) => toggle.setValue(this.plugin.settings.syncOnStart).onChange(async (value) => {
+      this.plugin.settings.syncOnStart = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Frequency").setDesc("Enter the frequency in minutes to sync with Omnivore automatically. 0 means manual sync").addText((text) => text.setPlaceholder("Enter the frequency").setValue(this.plugin.settings.frequency.toString()).onChange(async (value) => {
+      const frequency = parseInt(value);
+      if (isNaN(frequency)) {
+        new import_obsidian5.Notice("Frequency must be a positive integer");
+        return;
+      }
+      this.plugin.settings.frequency = frequency;
+      await this.plugin.saveSettings();
+      this.plugin.scheduleSync();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Last Sync").setDesc("Last time the plugin synced with Omnivore. The 'Sync' command fetches articles updated after this timestamp").addMomentFormat((momentFormat) => momentFormat.setPlaceholder("Last Sync").setValue(this.plugin.settings.syncAt).setDefaultFormat("yyyy-MM-dd'T'HH:mm:ss").onChange(async (value) => {
+      this.plugin.settings.syncAt = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Is Single File").setDesc("Check this box if you want to save all articles in a single file").addToggle((toggle) => toggle.setValue(this.plugin.settings.isSingleFile).onChange(async (value) => {
+      this.plugin.settings.isSingleFile = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Folder").setDesc("Enter the folder where the data will be stored. {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the folder name").addSearch((search) => {
+      new FolderSuggest(this.app, search.inputEl);
+      search.setPlaceholder("Enter the folder").setValue(this.plugin.settings.folder).onChange(async (value) => {
+        this.plugin.settings.folder = value;
+        await this.plugin.saveSettings();
+      });
+    });
+    new import_obsidian5.Setting(containerEl).setName("Folder Date Format").setDesc(createFragment((fragment) => {
+      fragment.append("If date is used as part of folder name, specify the format date for use. Format ", fragment.createEl("a", {
+        text: "reference",
+        href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens"
+      }));
+    })).addText((text) => text.setPlaceholder("yyyy-MM-dd").setValue(this.plugin.settings.folderDateFormat).onChange(async (value) => {
+      this.plugin.settings.folderDateFormat = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Attachment Folder").setDesc("Enter the folder where the attachment will be downloaded to. {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the folder name").addSearch((search) => {
+      new FolderSuggest(this.app, search.inputEl);
+      search.setPlaceholder("Enter the attachment folder").setValue(this.plugin.settings.attachmentFolder).onChange(async (value) => {
+        this.plugin.settings.attachmentFolder = value;
+        await this.plugin.saveSettings();
+      });
+    });
+    new import_obsidian5.Setting(containerEl).setName("Filename").setDesc("Enter the filename where the data will be stored. {{id}}, {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the filename").addText((text) => text.setPlaceholder("Enter the filename").setValue(this.plugin.settings.filename).onChange(async (value) => {
+      this.plugin.settings.filename = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Filename Date Format").setDesc(createFragment((fragment) => {
+      fragment.append("If date is used as part of file name, specify the format date for use. Format ", fragment.createEl("a", {
+        text: "reference",
+        href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens"
+      }));
+    })).addText((text) => text.setPlaceholder("yyyy-MM-dd").setValue(this.plugin.settings.filenameDateFormat).onChange(async (value) => {
+      this.plugin.settings.filenameDateFormat = value;
+      await this.plugin.saveSettings();
+    }));
+    containerEl.createEl("h3", { text: "Article" });
+    new import_obsidian5.Setting(containerEl).setName("Front Matter").setDesc(createFragment((fragment) => {
+      fragment.append("Enter the metadata to be used in your note separated by commas. You can also use custom aliases in the format of metatdata::alias, e.g. date_saved::date. ", fragment.createEl("br"), fragment.createEl("br"), "Available metadata can be found at ", fragment.createEl("a", {
+        text: "Reference",
+        href: "https://docs.omnivore.app/integrations/obsidian.html#front-matter"
+      }), fragment.createEl("br"), fragment.createEl("br"), "If you want to use a custom front matter template, you can enter it below under the advanced settings");
+    })).addTextArea((text) => {
+      text.setPlaceholder("Enter the metadata").setValue(this.plugin.settings.frontMatterVariables.join(",")).onChange(async (value) => {
+        this.plugin.settings.frontMatterVariables = value.split(",").map((v) => v.trim()).filter((v, i2, a) => FRONT_MATTER_VARIABLES.includes(v.split("::")[0]) && a.indexOf(v) === i2);
+        await this.plugin.saveSettings();
+      });
+      text.inputEl.setAttr("rows", 4);
+      text.inputEl.setAttr("cols", 30);
+    });
+    new import_obsidian5.Setting(containerEl).setName("Article Template").setDesc(createFragment((fragment) => {
+      fragment.append("Enter template to render articles with ", fragment.createEl("a", {
+        text: "Reference",
+        href: "https://docs.omnivore.app/integrations/obsidian.html#controlling-the-layout-of-the-data-imported-to-obsidian"
+      }), fragment.createEl("br"), fragment.createEl("br"), "If you want to use a custom front matter template, you can enter it below under the advanced settings");
+    })).addTextArea((text) => {
+      text.setPlaceholder("Enter the template").setValue(this.plugin.settings.template).onChange(async (value) => {
+        this.plugin.settings.template = value ? value : DEFAULT_SETTINGS.template;
+        await this.plugin.saveSettings();
+      });
+      text.inputEl.setAttr("rows", 25);
+      text.inputEl.setAttr("cols", 50);
+    }).addExtraButton((button) => {
+      button.setIcon("reset").setTooltip("Reset template").onClick(async () => {
+        this.plugin.settings.template = DEFAULT_SETTINGS.template;
+        await this.plugin.saveSettings();
+        this.display();
+        new import_obsidian5.Notice("Template reset");
+      });
+    });
+    new import_obsidian5.Setting(containerEl).setName("Date Saved Format").setDesc("Enter the date format for dateSaved variable in rendered template").addText((text) => text.setPlaceholder("yyyy-MM-dd'T'HH:mm:ss").setValue(this.plugin.settings.dateSavedFormat).onChange(async (value) => {
+      this.plugin.settings.dateSavedFormat = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(containerEl).setName("Date Highlighted Format").setDesc("Enter the date format for dateHighlighted variable in rendered template").addText((text) => text.setPlaceholder("Date Highlighted Format").setValue(this.plugin.settings.dateHighlightedFormat).onChange(async (value) => {
+      this.plugin.settings.dateHighlightedFormat = value;
+      await this.plugin.saveSettings();
+    }));
+    containerEl.createEl("h4", { text: "Highlights" });
+    new import_obsidian5.Setting(containerEl).setName("Highlight Order").setDesc("Select the order in which highlights are applied").addDropdown((dropdown) => {
+      dropdown.addOptions(HighlightOrder);
+      dropdown.setValue(this.plugin.settings.highlightOrder).onChange(async (value) => {
+        this.plugin.settings.highlightOrder = value;
+        await this.plugin.saveSettings();
+      });
+    });
+    new import_obsidian5.Setting(containerEl).setName("Render Highlight Color").setDesc("Check this box if you want to render highlights with color used in the Omnivore App").addToggle((toggle) => toggle.setValue(this.plugin.settings.enableHighlightColorRender).onChange(async (value) => {
+      this.plugin.settings.enableHighlightColorRender = value;
+      await this.plugin.saveSettings();
+      this.displayBlock(renderHighlightConfigContainer, value);
+    }));
+    const renderHighlightConfigContainer = containerEl.createEl("div");
+    this.displayBlock(renderHighlightConfigContainer, this.plugin.settings.enableHighlightColorRender);
+    new import_obsidian5.Setting(renderHighlightConfigContainer).setName("Use Highlightr for Highlight styling").setDesc(createFragment((fragment) => {
+      fragment.append(fragment.createEl("a", {
+        text: "Highlightr",
+        href: "https://github.com/chetachiezikeuzor/Highlightr-Plugin"
+      }), " is a community plugin for managing highlight style and hotkeys", fragment.createEl("br"), "Check this if you'd like to delegate configuration of highlight color and styling to it", fragment.createEl("br"), 'Ensure to select "css-class" as the highlight-method in the highlightr plugin');
+    })).addToggle((toggle) => toggle.setValue(this.plugin.settings.highlightManagerId == "hltr" /* HIGHLIGHTR */).onChange(async (value) => {
+      this.plugin.settings.highlightManagerId = value ? "hltr" /* HIGHLIGHTR */ : "omni" /* OMNIVORE */;
+      await this.plugin.saveSettings();
+      this.displayBlock(omnivoreHighlightConfigContainer, !value);
+    }));
+    const omnivoreHighlightConfigContainer = renderHighlightConfigContainer.createEl("div", {
+      cls: "omnivore-highlight-config-container"
+    });
+    this.displayBlock(omnivoreHighlightConfigContainer, this.plugin.settings.highlightManagerId == "omni" /* OMNIVORE */);
+    const highlighterSetting = new import_obsidian5.Setting(omnivoreHighlightConfigContainer);
+    const colorPickers = {};
+    highlighterSetting.setName("Configure highlight colors").setDesc("Configure how the highlight colors in Omnivore should render in notes").addButton((button) => {
+      button.setButtonText("Save");
+      button.setTooltip("Save highlight color setting");
+      button.setClass("omnivore-btn");
+      button.setClass("omnivore-btn-primary");
+      button.onClick(async (e) => {
+        const highlightColorMapping = this.plugin.settings.highlightColorMapping;
+        Object.entries(colorPickers).forEach(([color, picker]) => {
+          highlightColorMapping[color] = picker.getValue();
+        });
+        setOrUpdateHighlightColors(highlightColorMapping);
+        await this.plugin.saveSettings();
+        new import_obsidian5.Notice("Saved highlight color settings");
+      });
+    });
+    const getPenIcon = (hexCode) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${hexCode} stroke=${hexCode} stroke-width="0" stroke-linecap="round" stroke-linejoin="round"><path d="M20.707 5.826l-3.535-3.533a.999.999 0 0 0-1.408-.006L7.096 10.82a1.01 1.01 0 0 0-.273.488l-1.024 4.437L4 18h2.828l1.142-1.129l3.588-.828c.18-.042.345-.133.477-.262l8.667-8.535a1 1 0 0 0 .005-1.42zm-9.369 7.833l-2.121-2.12l7.243-7.131l2.12 2.12l-7.242 7.131zM4 20h16v2H4z"/></svg>`;
+    const colorMap = this.plugin.settings.highlightColorMapping;
+    Object.entries(colorMap).forEach(([colorName, hexCode]) => {
+      let penIcon = getPenIcon(hexCode);
+      const settingItem = omnivoreHighlightConfigContainer.createEl("div");
+      settingItem.addClass("omnivore-highlight-setting-item");
+      const colorIcon = settingItem.createEl("span");
+      colorIcon.addClass("omnivore-highlight-setting-icon");
+      colorIcon.innerHTML = penIcon;
+      const colorSetting = new import_obsidian5.Setting(settingItem).setName(colorName).setDesc(hexCode);
+      colorSetting.addColorPicker((colorPicker) => {
+        colorPicker.setValue(hexCode);
+        colorPickers[colorName] = colorPicker;
+        colorPicker.onChange((v) => {
+          penIcon = getPenIcon(v);
+          colorIcon.innerHTML = penIcon;
+          colorSetting.setDesc(v);
+        });
+      });
+    });
+    containerEl.createEl("h3", {
+      cls: "omnivore-collapsible",
+      text: "Advanced Settings"
+    });
+    const advancedSettings = containerEl.createEl("div", {
+      cls: "omnivore-content"
+    });
+    new import_obsidian5.Setting(advancedSettings).setName("API Endpoint").setDesc("Enter the Omnivore server's API endpoint").addText((text) => text.setPlaceholder("API endpoint").setValue(this.plugin.settings.endpoint).onChange(async (value) => {
+      this.plugin.settings.endpoint = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian5.Setting(advancedSettings).setName("Front Matter Template").setDesc(createFragment((fragment) => {
+      fragment.append("Enter YAML template to render the front matter with ", fragment.createEl("a", {
+        text: "Reference",
+        href: "https://docs.omnivore.app/integrations/obsidian.html#front-matter-template"
+      }), fragment.createEl("br"), fragment.createEl("br"), "We recommend you to use Front Matter section under the basic settings to define the metadata.", fragment.createEl("br"), fragment.createEl("br"), "If this template is set, it will override the Front Matter so please make sure your template is a valid YAML.");
+    })).addTextArea((text) => {
+      text.setPlaceholder("Enter the template").setValue(this.plugin.settings.frontMatterTemplate).onChange(async (value) => {
+        this.plugin.settings.frontMatterTemplate = value;
+        await this.plugin.saveSettings();
+      });
+      text.inputEl.setAttr("rows", 10);
+      text.inputEl.setAttr("cols", 30);
+    }).addExtraButton((button) => {
+      button.setIcon("reset").setTooltip("Reset front matter template").onClick(async () => {
+        this.plugin.settings.frontMatterTemplate = DEFAULT_SETTINGS.frontMatterTemplate;
+        await this.plugin.saveSettings();
+        this.display();
+        new import_obsidian5.Notice("Front matter template reset");
+      });
+    });
+    const help = containerEl.createEl("p");
+    help.innerHTML = `For more information, please visit our <a href="https://github.com/omnivore-app/obsidian-omnivore">GitHub page</a>, email us at <a href="mailto:feedback@omnivore.app">feedback@omnivore.app</a> or join our <a href="https://discord.gg/h2z5rppzz9">Discord server</a>.`;
+    const coll = document.getElementsByClassName("omnivore-collapsible");
+    let i;
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("omnivore-active");
+        const content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = "fit-content";
+        }
+      });
+    }
+  }
+  displayBlock(block, display) {
+    block.style.display = display ? "block" : "none";
   }
 };
 
@@ -14221,7 +18604,7 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
       id: "deleteArticle",
       name: "Delete Current Article from Omnivore",
       callback: async () => {
-        await this.deleteCurrentArticle(this.app.workspace.getActiveFile());
+        await this.deleteCurrentItem(this.app.workspace.getActiveFile());
       }
     });
     this.addCommand({
@@ -14242,7 +18625,7 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
     this.addSettingTab(new OmnivoreSettingTab(this.app, this));
     this.scheduleSync();
     if (this.settings.syncOnStart) {
-      await this.fetchOmnivore();
+      await this.fetchOmnivore(false);
     }
   }
   onunload() {
@@ -14262,6 +18645,7 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
       console.log(`obsidian-omnivore: custom query is set to ${this.settings.customQuery}`);
       this.saveSettings();
     }
+    setOrUpdateHighlightColors(this.settings.highlightColorMapping);
   }
   async saveSettings() {
     await this.saveData(this.settings);
@@ -14280,21 +18664,21 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
       this.registerInterval(intervalId);
     }
   }
-  async downloadFileAsAttachment(article) {
-    const url = article.url;
+  async downloadFileAsAttachment(item) {
+    const url = item.url;
     const response = await (0, import_obsidian6.requestUrl)({
       url,
       contentType: "application/pdf"
     });
-    const folderName = (0, import_obsidian6.normalizePath)(render3(article, this.settings.attachmentFolder, this.settings.folderDateFormat));
-    const folder = app.vault.getAbstractFileByPath(folderName);
+    const folderName = (0, import_obsidian6.normalizePath)(render3(item, this.settings.attachmentFolder, this.settings.folderDateFormat));
+    const folder = this.app.vault.getAbstractFileByPath(folderName);
     if (!(folder instanceof import_obsidian6.TFolder)) {
-      await app.vault.createFolder(folderName);
+      await this.app.vault.createFolder(folderName);
     }
-    const fileName = (0, import_obsidian6.normalizePath)(`${folderName}/${article.id}.pdf`);
-    const file = app.vault.getAbstractFileByPath(fileName);
+    const fileName = (0, import_obsidian6.normalizePath)(`${folderName}/${item.id}.pdf`);
+    const file = this.app.vault.getAbstractFileByPath(fileName);
     if (!(file instanceof import_obsidian6.TFile)) {
-      const newFile = await app.vault.createBinary(fileName, response.arrayBuffer);
+      const newFile = await this.app.vault.createBinary(fileName, response.arrayBuffer);
       return newFile.path;
     }
     return file.path;
@@ -14325,24 +18709,23 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
     await this.saveSettings();
     try {
       console.log(`obsidian-omnivore starting sync since: '${syncAt}'`);
-      manualSync && new import_obsidian6.Notice("\u{1F680} Fetching articles ...");
+      manualSync && new import_obsidian6.Notice("\u{1F680} Fetching items ...");
       frontMatterTemplate && preParseTemplate(frontMatterTemplate);
       const templateSpans = preParseTemplate(template);
       const includeContent = templateSpans.some((templateSpan) => templateSpan[1] === "content");
       const includeFileAttachment = templateSpans.some((templateSpan) => templateSpan[1] === "fileAttachment");
-      const size = 50;
-      for (let hasNextPage = true, articles = [], after = 0; hasNextPage; after += size) {
-        ;
-        [articles, hasNextPage] = await loadArticles(this.settings.endpoint, apiKey, after, size, parseDateTime(syncAt).toISO() || void 0, customQuery, includeContent, "highlightedMarkdown");
-        for (const article of articles) {
-          const folderName = (0, import_obsidian6.normalizePath)(render3(article, folder, this.settings.folderDateFormat));
+      const size = 15;
+      for (let after = 0; ; after += size) {
+        const [items, hasNextPage] = await getItems(this.settings.endpoint, apiKey, after, size, parseDateTime(syncAt).toISO() || void 0, customQuery, includeContent, "highlightedMarkdown");
+        for (const item of items) {
+          const folderName = replaceIllegalCharsFolder((0, import_obsidian6.normalizePath)(render3(item, folder, this.settings.folderDateFormat)));
           const omnivoreFolder = this.app.vault.getAbstractFileByPath(folderName);
           if (!(omnivoreFolder instanceof import_obsidian6.TFolder)) {
             await this.app.vault.createFolder(folderName);
           }
-          const fileAttachment = article.pageType === "FILE" /* File */ && includeFileAttachment ? await this.downloadFileAsAttachment(article) : void 0;
-          const content = await renderArticleContnet(article, template, highlightOrder, this.settings.dateHighlightedFormat, this.settings.dateSavedFormat, isSingleFile, frontMatterVariables, frontMatterTemplate, fileAttachment);
-          const customFilename = replaceIllegalChars(renderFilename(article, filename, this.settings.filenameDateFormat));
+          const fileAttachment = item.pageType === "FILE" && includeFileAttachment ? await this.downloadFileAsAttachment(item) : void 0;
+          const content = await renderItemContent(item, template, highlightOrder, this.settings.enableHighlightColorRender ? this.settings.highlightManagerId : void 0, this.settings.dateHighlightedFormat, this.settings.dateSavedFormat, isSingleFile, frontMatterVariables, frontMatterTemplate, fileAttachment);
+          const customFilename = replaceIllegalCharsFile(renderFilename(item, filename, this.settings.filenameDateFormat));
           const pageName = `${folderName}/${customFilename}.md`;
           const normalizedPath = (0, import_obsidian6.normalizePath)(pageName);
           const omnivoreFile = this.app.vault.getAbstractFileByPath(normalizedPath);
@@ -14360,10 +18743,10 @@ var OmnivorePlugin = class extends import_obsidian6.Plugin {
                 throw new Error("Front matter does not exist in the template");
               }
               let newContentWithoutFrontMatter;
-              const frontMatterIdx = findFrontMatterIndex(existingFrontMatter, article.id);
+              const frontMatterIdx = findFrontMatterIndex(existingFrontMatter, item.id);
               if (frontMatterIdx >= 0) {
-                const sectionStart = `%%${article.id}_start%%`;
-                const sectionEnd = `%%${article.id}_end%%`;
+                const sectionStart = `%%${item.id}_start%%`;
+                const sectionEnd = `%%${item.id}_end%%`;
                 const existingContentRegex = new RegExp(`${sectionStart}.*?${sectionEnd}`, "s");
                 newContentWithoutFrontMatter = existingContentWithoutFrontmatter.replace(existingContentRegex, contentWithoutFrontmatter);
                 existingFrontMatter[frontMatterIdx] = newFrontMatter[0];
@@ -14382,8 +18765,8 @@ ${newContentWithoutFrontMatter}`);
             }
             await this.app.fileManager.processFrontMatter(omnivoreFile, async (frontMatter) => {
               const id = frontMatter.id;
-              if (id && id !== article.id) {
-                const newPageName = `${folderName}/${customFilename}-${article.id}.md`;
+              if (id && id !== item.id) {
+                const newPageName = `${folderName}/${customFilename}-${item.id}.md`;
                 const newNormalizedPath = (0, import_obsidian6.normalizePath)(newPageName);
                 const newOmnivoreFile = this.app.vault.getAbstractFileByPath(newNormalizedPath);
                 if (newOmnivoreFile instanceof import_obsidian6.TFile) {
@@ -14413,28 +18796,31 @@ ${newContentWithoutFrontMatter}`);
             }
           }
         }
+        this.settings.syncAt = DateTime.local().toFormat(DATE_FORMAT);
+        if (!hasNextPage) {
+          break;
+        }
       }
-      manualSync && new import_obsidian6.Notice("\u{1F516} Articles fetched");
-      this.settings.syncAt = DateTime.local().toFormat(DATE_FORMAT);
+      console.log("obsidian-omnivore sync completed", this.settings.syncAt);
+      manualSync && new import_obsidian6.Notice("\u{1F389} Sync completed");
     } catch (e) {
-      new import_obsidian6.Notice("Failed to fetch articles");
+      new import_obsidian6.Notice("Failed to fetch items");
       console.error(e);
     } finally {
       this.settings.syncing = false;
       await this.saveSettings();
     }
   }
-  async deleteCurrentArticle(file) {
-    var _a, _b;
+  async deleteCurrentItem(file) {
     if (!file) {
       return;
     }
-    const articleId = (_b = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter) == null ? void 0 : _b.id;
-    if (!articleId) {
+    const itemId = this.app.metadataCache.getFileCache(file)?.frontmatter?.id;
+    if (!itemId) {
       new import_obsidian6.Notice("Failed to delete article: article id not found");
     }
     try {
-      const isDeleted = deleteArticleById(this.settings.endpoint, this.settings.apiKey, articleId);
+      const isDeleted = deleteItem(this.settings.endpoint, this.settings.apiKey, itemId);
       if (!isDeleted) {
         new import_obsidian6.Notice("Failed to delete article in Omnivore");
       }
@@ -14448,198 +18834,6 @@ ${newContentWithoutFrontMatter}`);
     this.settings.syncing = false;
     this.settings.intervalId = 0;
     await this.saveSettings();
-  }
-};
-var OmnivoreSettingTab = class extends import_obsidian6.PluginSettingTab {
-  constructor(app2, plugin) {
-    super(app2, plugin);
-    this.plugin = plugin;
-  }
-  display() {
-    const { containerEl } = this;
-    containerEl.empty();
-    containerEl.createEl("h2", { text: "Settings for Omnivore plugin" });
-    new import_obsidian6.Setting(containerEl).setName("API Key").setDesc(createFragment((fragment) => {
-      fragment.append("You can create an API key at ", fragment.createEl("a", {
-        text: "https://omnivore.app/settings/api",
-        href: "https://omnivore.app/settings/api"
-      }));
-    })).addText((text) => text.setPlaceholder("Enter your Omnivore Api Key").setValue(this.plugin.settings.apiKey).onChange(async (value) => {
-      this.plugin.settings.apiKey = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Filter").setDesc("Select an Omnivore search filter type. Changing this would update the 'Custom Query' accordingly and reset the 'Last sync' timestamp").addDropdown((dropdown) => {
-      dropdown.addOptions(Filter);
-      dropdown.setValue(this.plugin.settings.filter).onChange(async (value) => {
-        this.plugin.settings.filter = value;
-        this.plugin.settings.customQuery = getQueryFromFilter(value);
-        this.plugin.settings.syncAt = "";
-        await this.plugin.saveSettings();
-        this.display();
-      });
-    });
-    new import_obsidian6.Setting(containerEl).setName("Custom Query").setDesc(createFragment((fragment) => {
-      fragment.append("See ", fragment.createEl("a", {
-        text: "https://docs.omnivore.app/using/search",
-        href: "https://docs.omnivore.app/using/search"
-      }), " for more info on search query syntax. Changing this would reset the 'Last Sync' timestamp");
-    })).addText((text) => text.setPlaceholder("Enter an Omnivore custom search query if advanced filter is selected").setValue(this.plugin.settings.customQuery).onChange(async (value) => {
-      this.plugin.settings.customQuery = value;
-      this.plugin.settings.syncAt = "";
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Last Sync").setDesc("Last time the plugin synced with Omnivore. The 'Sync' command fetches articles updated after this timestamp").addMomentFormat((momentFormat) => momentFormat.setPlaceholder("Last Sync").setValue(this.plugin.settings.syncAt).setDefaultFormat("yyyy-MM-dd'T'HH:mm:ss").onChange(async (value) => {
-      this.plugin.settings.syncAt = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Highlight Order").setDesc("Select the order in which highlights are applied").addDropdown((dropdown) => {
-      dropdown.addOptions(HighlightOrder);
-      dropdown.setValue(this.plugin.settings.highlightOrder).onChange(async (value) => {
-        this.plugin.settings.highlightOrder = value;
-        await this.plugin.saveSettings();
-      });
-    });
-    new import_obsidian6.Setting(containerEl).setName("Front Matter").setDesc(createFragment((fragment) => {
-      fragment.append("Enter the metadata to be used in your note separated by commas. You can also use custom aliases in the format of metatdata::alias, e.g. date_saved::date. ", fragment.createEl("br"), fragment.createEl("br"), "Available metadata can be found at ", fragment.createEl("a", {
-        text: "Reference",
-        href: "https://docs.omnivore.app/integrations/obsidian.html#front-matter"
-      }), fragment.createEl("br"), fragment.createEl("br"), "If you want to use a custom front matter template, you can enter it below under the advanced settings");
-    })).addTextArea((text) => {
-      text.setPlaceholder("Enter the metadata").setValue(this.plugin.settings.frontMatterVariables.join(",")).onChange(async (value) => {
-        this.plugin.settings.frontMatterVariables = value.split(",").map((v) => v.trim()).filter((v, i2, a) => FRONT_MATTER_VARIABLES.includes(v.split("::")[0]) && a.indexOf(v) === i2);
-        await this.plugin.saveSettings();
-      });
-      text.inputEl.setAttr("rows", 4);
-      text.inputEl.setAttr("cols", 30);
-    });
-    new import_obsidian6.Setting(containerEl).setName("Article Template").setDesc(createFragment((fragment) => {
-      fragment.append("Enter template to render articles with ", fragment.createEl("a", {
-        text: "Reference",
-        href: "https://docs.omnivore.app/integrations/obsidian.html#controlling-the-layout-of-the-data-imported-to-obsidian"
-      }), fragment.createEl("br"), fragment.createEl("br"), "If you want to use a custom front matter template, you can enter it below under the advanced settings");
-    })).addTextArea((text) => {
-      text.setPlaceholder("Enter the template").setValue(this.plugin.settings.template).onChange(async (value) => {
-        this.plugin.settings.template = value ? value : DEFAULT_SETTINGS.template;
-        await this.plugin.saveSettings();
-      });
-      text.inputEl.setAttr("rows", 25);
-      text.inputEl.setAttr("cols", 50);
-    }).addExtraButton((button) => {
-      button.setIcon("reset").setTooltip("Reset template").onClick(async () => {
-        this.plugin.settings.template = DEFAULT_SETTINGS.template;
-        await this.plugin.saveSettings();
-        this.display();
-        new import_obsidian6.Notice("Template reset");
-      });
-    });
-    new import_obsidian6.Setting(containerEl).setName("Sync on Start").setDesc("Check this box if you want to sync with Omnivore when the app is loaded").addToggle((toggle) => toggle.setValue(this.plugin.settings.syncOnStart).onChange(async (value) => {
-      this.plugin.settings.syncOnStart = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Frequency").setDesc("Enter the frequency in minutes to sync with Omnivore automatically. 0 means manual sync").addText((text) => text.setPlaceholder("Enter the frequency").setValue(this.plugin.settings.frequency.toString()).onChange(async (value) => {
-      const frequency = parseInt(value);
-      if (isNaN(frequency)) {
-        new import_obsidian6.Notice("Frequency must be a positive integer");
-        return;
-      }
-      this.plugin.settings.frequency = frequency;
-      await this.plugin.saveSettings();
-      this.plugin.scheduleSync();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Folder").setDesc("Enter the folder where the data will be stored. {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the folder name").addSearch((search) => {
-      new FolderSuggest(this.app, search.inputEl);
-      search.setPlaceholder("Enter the folder").setValue(this.plugin.settings.folder).onChange(async (value) => {
-        this.plugin.settings.folder = value;
-        await this.plugin.saveSettings();
-      });
-    });
-    new import_obsidian6.Setting(containerEl).setName("Attachment Folder").setDesc("Enter the folder where the attachment will be downloaded to. {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the folder name").addSearch((search) => {
-      new FolderSuggest(this.app, search.inputEl);
-      search.setPlaceholder("Enter the attachment folder").setValue(this.plugin.settings.attachmentFolder).onChange(async (value) => {
-        this.plugin.settings.attachmentFolder = value;
-        await this.plugin.saveSettings();
-      });
-    });
-    new import_obsidian6.Setting(containerEl).setName("Is Single File").setDesc("Check this box if you want to save all articles in a single file").addToggle((toggle) => toggle.setValue(this.plugin.settings.isSingleFile).onChange(async (value) => {
-      this.plugin.settings.isSingleFile = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Filename").setDesc("Enter the filename where the data will be stored. {{id}}, {{{title}}}, {{{dateSaved}}} and {{{datePublished}}} could be used in the filename").addText((text) => text.setPlaceholder("Enter the filename").setValue(this.plugin.settings.filename).onChange(async (value) => {
-      this.plugin.settings.filename = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Filename Date Format").setDesc(createFragment((fragment) => {
-      fragment.append("Enter the format date for use in rendered filename. Format ", fragment.createEl("a", {
-        text: "reference",
-        href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens"
-      }));
-    })).addText((text) => text.setPlaceholder("yyyy-MM-dd").setValue(this.plugin.settings.filenameDateFormat).onChange(async (value) => {
-      this.plugin.settings.filenameDateFormat = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Folder Date Format").setDesc(createFragment((fragment) => {
-      fragment.append("Enter the format date for use in rendered folder name. Format ", fragment.createEl("a", {
-        text: "reference",
-        href: "https://moment.github.io/luxon/#/formatting?id=table-of-tokens"
-      }));
-    })).addText((text) => text.setPlaceholder("yyyy-MM-dd").setValue(this.plugin.settings.folderDateFormat).onChange(async (value) => {
-      this.plugin.settings.folderDateFormat = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Date Saved Format").setDesc("Enter the date format for dateSaved variable in rendered template").addText((text) => text.setPlaceholder("yyyy-MM-dd'T'HH:mm:ss").setValue(this.plugin.settings.dateSavedFormat).onChange(async (value) => {
-      this.plugin.settings.dateSavedFormat = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(containerEl).setName("Date Highlighted Format").setDesc("Enter the date format for dateHighlighted variable in rendered template").addText((text) => text.setPlaceholder("Date Highlighted Format").setValue(this.plugin.settings.dateHighlightedFormat).onChange(async (value) => {
-      this.plugin.settings.dateHighlightedFormat = value;
-      await this.plugin.saveSettings();
-    }));
-    containerEl.createEl("h5", {
-      cls: "omnivore-collapsible",
-      text: "Advanced Settings"
-    });
-    const advancedSettings = containerEl.createEl("div", {
-      cls: "omnivore-content"
-    });
-    new import_obsidian6.Setting(advancedSettings).setName("API Endpoint").setDesc("Enter the Omnivore server's API endpoint").addText((text) => text.setPlaceholder("API endpoint").setValue(this.plugin.settings.endpoint).onChange(async (value) => {
-      this.plugin.settings.endpoint = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian6.Setting(advancedSettings).setName("Front Matter Template").setDesc(createFragment((fragment) => {
-      fragment.append("Enter YAML template to render the front matter with ", fragment.createEl("a", {
-        text: "Reference",
-        href: "https://docs.omnivore.app/integrations/obsidian.html#front-matter-template"
-      }), fragment.createEl("br"), fragment.createEl("br"), "We recommend you to use Front Matter section under the basic settings to define the metadata.", fragment.createEl("br"), fragment.createEl("br"), "If this template is set, it will override the Front Matter so please make sure your template is a valid YAML.");
-    })).addTextArea((text) => {
-      text.setPlaceholder("Enter the template").setValue(this.plugin.settings.frontMatterTemplate).onChange(async (value) => {
-        this.plugin.settings.frontMatterTemplate = value;
-        await this.plugin.saveSettings();
-      });
-      text.inputEl.setAttr("rows", 10);
-      text.inputEl.setAttr("cols", 30);
-    }).addExtraButton((button) => {
-      button.setIcon("reset").setTooltip("Reset front matter template").onClick(async () => {
-        this.plugin.settings.frontMatterTemplate = DEFAULT_SETTINGS.frontMatterTemplate;
-        await this.plugin.saveSettings();
-        this.display();
-        new import_obsidian6.Notice("Front matter template reset");
-      });
-    });
-    const help = containerEl.createEl("p");
-    help.innerHTML = `For more information, please visit our <a href="https://github.com/omnivore-app/obsidian-omnivore">GitHub page</a>, email us at <a href="mailto:feedback@omnivore.app">feedback@omnivore.app</a> or join our <a href="https://discord.gg/h2z5rppzz9">Discord server</a>.`;
-    const coll = document.getElementsByClassName("omnivore-collapsible");
-    let i;
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("omnivore-active");
-        const content = this.nextElementSibling;
-        if (content.style.maxHeight) {
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = "fit-content";
-        }
-      });
-    }
   }
 };
 /*!

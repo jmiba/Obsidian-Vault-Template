@@ -14,11 +14,19 @@
   "filename": "{{{title}}}",
   "filenameDateFormat": "yyyy-MM-dd",
   "attachmentFolder": "02 Dateien/Omnivore-Attachments",
-  "version": "1.9.4",
+  "version": "1.10.2",
   "isSingleFile": false,
   "frequency": 0,
   "intervalId": 0,
   "frontMatterVariables": [],
   "frontMatterTemplate": "id: {{{id}}}\ntitle: >\n  {{{title}}}\n{{#author}}\nauthor: >\n  {{{author}}}\n{{/author}}\ntopics: \naliases: \n{{#labels.length}}\ntags:\n{{#labels}} - {{{name}}}\n{{/labels}}\n{{/labels.length}}\ncreated: {{{dateSaved}}}\n{{#datePublished}}\npublished: {{{datePublished}}}\n{{/datePublished}}\nURL: {{{originalUrl}}}\nOmnivore-URL: {{{omnivoreUrl}}}\nrelated:\nstarred: ",
-  "syncOnStart": true
+  "syncOnStart": false,
+  "enableHighlightColorRender": false,
+  "highlightManagerId": "omni",
+  "highlightColorMapping": {
+    "yellow": "#fff3a3",
+    "red": "#ff5582",
+    "blue": "#adccff",
+    "green": "#bbfabb"
+  }
 }
