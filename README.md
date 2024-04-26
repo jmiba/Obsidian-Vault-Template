@@ -18,15 +18,15 @@ Go to the daily note [[2024-02-28, Mi (W09)]] and see what‘s in there.
 
 2. Download the ZIP file of this vault by clicking on the Code button and selecting „Download ZIP“; unpack to a directory of your choice.
 
-![[Pasted image 20240426085007.png]]
+![](/02%20Dateien/Medien/Pasted%20image%2020240426085007.png)
   
   3. Open Obsidian and click on „Open“ to select your vault directory. In the selection dialogue, make sure to move inside your vault directory before clicking on the „select directory“ button. 
 
-![[Pasted image 20240426085616.png]]
+![](/02%20Dateien/Medien/Pasted%20image%2020240426085616.png)
 
 4. The vault comes with a number of external community plugins pre-installed. Enable them by clicking on „Trust author and enable plugins“.
 
-![[Pasted image 20240426090424.png]]
+![](/02%20Dateien/Medien/Pasted%20image%2020240426090424.png)
 
 5. Configure your plugins → cf. [[2024-02-28, Mi (W09)#3 Themen heute `BUTTON[makeNote]`|Daily note for 2024-02-28, Themen heute]]
 
