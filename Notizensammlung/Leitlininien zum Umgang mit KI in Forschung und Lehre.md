@@ -7,10 +7,10 @@ aliases:
 lang: de-DE
 created: 2024-02-19, 14:05:38
 type: atomic
-status: new
+status: 
 source: 
 links: 
-action: false 
+action: false
 parent: "[[2024-02-19, Mo (W08)]]"
 related:
   - "[[Six Ways the AI Revolution is Unfolding]]"
