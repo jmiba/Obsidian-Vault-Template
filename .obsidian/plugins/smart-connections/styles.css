@@ -25,20 +25,49 @@
   width: 100%;
 }
 
-div[data-type="smart-connections-view"] {
+div[data-type^="smart-connections-"] {
   > .view-content {
     display: flex;
     flex-direction: column;
-    #settings {
+    #settings, /* DEPRECATED v2.2 */
+    .sc-overlay {
       background-color: var(--background-primary-alt);
       max-width: 100%;
-      max-height: 50%;
+      max-height: 42%;
       &:has(.setting-component){
+        overflow-y: auto;
+        height: 100%;
+        min-height: 42%;
         padding: var(--size-4-4);
       }
       .setting-item {
         flex-direction: column;
         align-items: flex-start;
+      }
+      .sc-search-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .sc-search-input {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          > textarea {
+            border-radius: 1.5rem;
+            margin-right: -4rem;
+            flex-grow: 1;
+            height: 4lh;
+            padding: 1rem 3rem 1rem 1rem;
+          }
+          > button {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 99999px;
+            margin: auto;
+            margin-right: 1rem;
+          }
+        }
+
       }
     }
   }
@@ -142,7 +171,6 @@ div[data-type="smart-connections-view"] {
   align-items: center;
   justify-content: flex-end;
   height: 100%;
-  padding: 10px;
   background-color: var(--background-primary-alt);
 }
 .sc-chat-box {
@@ -164,7 +192,7 @@ div[data-type="smart-connections-view"] {
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .sc-message {
   max-width: 90ch;
@@ -215,7 +243,7 @@ div[data-type="smart-connections-view"] {
     border-radius: 1.5rem;
     resize: none;
     height: auto;
-    min-height: 4lh;
+    min-height: 4.2lh;
     max-height: 100%;
     background-color: var(--background-primary);
     color: var(--text-normal);
@@ -394,4 +422,3 @@ div[data-type="smart-connections-view"] {
   }
 
 }
-

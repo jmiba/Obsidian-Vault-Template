@@ -5,8 +5,20 @@
       "path": "README.md"
     },
     {
+      "basename": "2024-02-28, Mi (W09)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
+    },
+    {
       "basename": "The Secret Power of ‘Read It Later’ Apps",
       "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
+    },
+    {
+      "basename": "Change Log",
+      "path": "01 Datenbanken/Change Log.md"
+    },
+    {
+      "basename": "Tagebuchseite",
+      "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
     },
     {
       "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
@@ -15,10 +27,6 @@
     {
       "basename": "Obsidian-Plugin ZotLit konfigurieren",
       "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
-    },
-    {
-      "basename": "2024-02-28, Mi (W09)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
       "basename": "Fortbildung",
@@ -105,10 +113,6 @@
       "path": "02 Dateien/Vorlagen/General Note.md"
     },
     {
-      "basename": "Tagebuchseite",
-      "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
-    },
-    {
       "basename": "Wochenseite",
       "path": "02 Dateien/Vorlagen/Wochenseite.md"
     },
@@ -143,10 +147,6 @@
     {
       "basename": "Schreibtechniken",
       "path": "Wissensmanagement/Schreibtechniken.md"
-    },
-    {
-      "basename": "Change Log",
-      "path": "01 Datenbanken/Change Log.md"
     },
     {
       "basename": "Dienstreisen",

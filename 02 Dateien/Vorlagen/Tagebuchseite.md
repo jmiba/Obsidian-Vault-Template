@@ -85,7 +85,7 @@ Reps::
 Distanz:: 
 Zeit:: 
 Kalorien:: 
-Anstieg: 
+Anstieg:: 
 Herzfrequenz:: 
 HerzfrequenzMax:: 
 VO2max:: 
