@@ -5,6 +5,18 @@
       "path": "README.md"
     },
     {
+      "basename": "Kindvorlage",
+      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
+    },
+    {
+      "basename": "Wissenschaftlicher Artikel",
+      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+    },
+    {
+      "basename": "Notizenvorlage",
+      "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
+    },
+    {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
@@ -105,24 +117,12 @@
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md"
     },
     {
-      "basename": "Wissenschaftlicher Artikel",
-      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
-    },
-    {
       "basename": "General Note",
       "path": "02 Dateien/Vorlagen/General Note.md"
     },
     {
       "basename": "Wochenseite",
       "path": "02 Dateien/Vorlagen/Wochenseite.md"
-    },
-    {
-      "basename": "Notizenvorlage",
-      "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
-    },
-    {
-      "basename": "Kindvorlage",
-      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
     },
     {
       "basename": "zt-field.eta",

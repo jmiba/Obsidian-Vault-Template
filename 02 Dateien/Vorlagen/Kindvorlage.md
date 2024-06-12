@@ -9,7 +9,7 @@ status: new
 source: 
 links: 
 action: false
-parent: <% tp.frontmatter.parent %>¶
+parent: 
 related:
 ---
 
