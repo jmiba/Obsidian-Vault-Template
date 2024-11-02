@@ -15075,7 +15075,7 @@ var fetchContentForItems = async (endpoint, apiKey, items) => {
     }
     item.content = await Promise.race([
       downloadFromUrl(c.downloadUrl),
-      new Promise((_, reject) => setTimeout(() => reject("Timeout"), 6e4))
+      new Promise((_, reject) => setTimeout(() => reject("Timeout"), 6e5))
     ]);
   }));
 };
@@ -18901,3 +18901,5 @@ ${newContentWithoutFrontMatter}`);
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
+
+/* nosourcemap */

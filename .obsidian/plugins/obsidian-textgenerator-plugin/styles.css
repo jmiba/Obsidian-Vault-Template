@@ -1541,6 +1541,14 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 .plug-tg-animate-pulse {
   animation: plug-tg-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+@keyframes plug-tg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.plug-tg-animate-spin {
+  animation: plug-tg-spin 1s linear infinite;
+}
 .plug-tg-cursor-not-allowed {
   cursor: not-allowed;
 }
@@ -1734,6 +1742,9 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 .plug-tg-bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+.plug-tg-bg-gray-400\/10 {
+  background-color: rgb(156 163 175 / 0.1);
 }
 .plug-tg-bg-green-500 {
   --tw-bg-opacity: 1;
@@ -1988,6 +1999,9 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 .plug-tg-outline {
   outline-style: solid;
 }
+.plug-tg-outline-1 {
+  outline-width: 1px;
+}
 .plug-tg-outline-2 {
   outline-width: 2px;
 }
@@ -2004,6 +2018,9 @@ details.plug-tg-collapse summary::-webkit-details-marker {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.plug-tg-duration-700 {
+  transition-duration: 700ms;
+}
 @keyframes enter {
   from {
     opacity: var(--tw-enter-opacity, 1);
@@ -2016,6 +2033,9 @@ details.plug-tg-collapse summary::-webkit-details-marker {
     transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0) scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1)) rotate(var(--tw-exit-rotate, 0));
   }
 }
+.plug-tg-duration-700 {
+  animation-duration: 700ms;
+}
 :root,
 [data-theme] {
   background-color: inherit;
@@ -2026,7 +2046,7 @@ details.plug-tg-collapse summary::-webkit-details-marker {
   margin-left: 25px;
 }
 .plug-tg-packageManager {
-  width: 800px;
+  /* @apply plug-tg-w-[800px]; */
 }
 .plug-tg-upsidedown {
   transform: rotate(-90deg);
@@ -2058,7 +2078,7 @@ details.plug-tg-collapse summary::-webkit-details-marker {
   }
 }
 /* ---  --- */
-.cm-embed-block:hover > .plug-tg-tgmenu {
+.cm-embed-block:hover>.plug-tg-tgmenu {
   opacity: 1;
 }
 .plug-tg-tgmenu {
@@ -2078,10 +2098,10 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 .callout[data-callout="ai"] {
   --callout-icon: bot;
 }
-.callout[data-callout="ai"] > .callout-title {
+.callout[data-callout="ai"]>.callout-title {
   margin-left: -1rem;
 }
-.callout[data-callout="ai"] > .callout-content {
+.callout[data-callout="ai"]>.callout-content {
   margin-left: 2rem;
 }
 .plug-tg-summary {
@@ -2166,10 +2186,10 @@ body.react-confirm-alert-body-element {
   top: 0;
   left: 0;
 }
-.react-confirm-alert-body > h1 {
+.react-confirm-alert-body>h1 {
   margin-top: 0;
 }
-.react-confirm-alert-body > h3 {
+.react-confirm-alert-body>h3 {
   margin: 0;
   font-size: 16px;
 }
@@ -2181,7 +2201,7 @@ body.react-confirm-alert-body-element {
   justify-content: flex-start;
   margin-top: 20px;
 }
-.react-confirm-alert-button-group > button {
+.react-confirm-alert-button-group>button {
   outline: none;
   background: #333;
   border: none;

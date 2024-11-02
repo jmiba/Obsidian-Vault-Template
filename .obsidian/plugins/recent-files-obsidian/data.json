@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Test mit Pandoc Reference List Plugin",
+      "path": "Test mit Pandoc Reference List Plugin.md"
+    },
+    {
       "basename": "README",
       "path": "README.md"
     },
@@ -169,15 +173,12 @@
       "path": "Wissensmanagement/Things Theme.md"
     },
     {
-      "basename": "Test mit Pandoc Reference List Plugin",
-      "path": "Test mit Pandoc Reference List Plugin.md"
-    },
-    {
       "basename": "‘The situation has become appalling’- fake scientific papers push research credibility to crisis ...",
       "path": "04 Literatur-Notes/Omnivore/‘The situation has become appalling’- fake scientific papers push research credibility to crisis ....md"
     }
   ],
   "omittedPaths": [],
+  "omittedTags": [],
   "maxLength": null,
   "openType": "tab"
 }

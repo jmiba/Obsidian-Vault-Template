@@ -58,8 +58,7 @@
       "repo": "text-gen/gpt-3-prompt-templates",
       "folderName": "testExtension",
       "price": 20,
-      "installed": false,
-      "downloads": 0
+      "installed": false
     },
     "testTemplate": {
       "packageId": "default",

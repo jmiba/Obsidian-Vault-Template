@@ -1,4 +1,5 @@
-.sc-brand {
+/* deprecated positioning, use bottom bar instead */
+.view-content > .sc-brand {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -18,12 +19,6 @@
     color: var(--text-muted);
   }
 }
-.sc-context {
-  color: var(--nav-item-color);
-  font-size: var(--nav-item-size);
-  margin: 0.5em 0.5em 1em;
-  width: 100%;
-}
 
 div[data-type^="smart-connections-"] {
   > .view-content {
@@ -36,9 +31,10 @@ div[data-type^="smart-connections-"] {
       max-height: 42%;
       &:has(.setting-component){
         overflow-y: auto;
-        height: 100%;
-        min-height: 42%;
+        /* height: 100%; */
+        /* min-height: 42%; */
         padding: var(--size-4-4);
+        flex: none;
       }
       .setting-item {
         flex-direction: column;
@@ -153,6 +149,12 @@ div[data-type^="smart-connections-"] {
     width: calc(100% - var(--size-4-8));
     margin: 4px auto;
   }
+  .sc-context {
+    color: var(--nav-item-color);
+    font-size: var(--nav-item-size);
+    margin: 0.5em 0.5em 1em;
+    width: 100%;
+  }
 }
 
 /* Chat */
@@ -177,11 +179,11 @@ div[data-type^="smart-connections-"] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end;
   height: 100%;
   width: 100%;
   overflow: hidden;
   user-select: text;
+  overflow-y: auto;
 }
 .sc-message-container {
   border: 1px solid var(--divider-color);
@@ -421,4 +423,65 @@ div[data-type^="smart-connections-"] {
     margin-top: 0.37em;
   }
 
+}
+
+/* settings */
+.vertical-tab-content:has(> .sc-supporters){
+  .setting-item-control{
+    > select {
+      max-width: 500px;
+    }
+  }
+}
+
+.sc-bottom-bar{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--titlebar-background);
+  padding: 0 0.5rem;
+  .sc-brand{
+    flex-shrink: 0;
+  }
+  .sc-context{
+    flex-grow: 1;
+    font-size: var(--font-smallest);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.setting-component[data-setting*="/"][data-setting*="api_key"] {
+  display: none;
+}
+.setting-component[data-setting*="gpu"]:not([data-setting*="/"]) {
+  display: none;
+}
+
+/* SINCE COMPONENT PATTERN SETTINGS */
+.setting-component[data-setting="is_obsidian_vault"]{
+  display: none;
+}
+.setting-component[data-setting="smart_change.active"]{
+  display: none;
+}
+.group-header{
+  display: flex;
+  text-wrap: nowrap;
+  flex-wrap: wrap;
+  align-items: baseline;
+  > h3 {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  > * {
+    flex-grow: 1;
+    margin-bottom: 10px;
+  }
 }
