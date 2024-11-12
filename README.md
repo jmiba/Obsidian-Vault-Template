@@ -30,6 +30,6 @@ Go to the daily note [[2024-02-28, Mi (W09)]] and see what‘s in there.
 
 5. Configure your plugins → cf. [[2024-02-28, Mi (W09)#3 Themen heute `BUTTON[makeNote]`|Daily note for 2024-02-28, Themen heute]]
 
-6. Install and configure complementary apps and web services (e.g. the open-source reference manager [Zotero](https://www.zotero.org), the read-it-later app [Omnivore](https://omnivore.app/)) and connect them with your vault.
+6. Install and configure complementary apps and web services (e.g. the open-source reference manager [Zotero](https://www.zotero.org)) and connect them with your vault.
 
 7. Explore and learn how to use Obsidian. You can use an abundance of online tutorials and blogs on note taking, eg. [Obsidian Rocks](https://obsidian.rocks) (see their [Get Started](https://obsidian.rocks/getting-started-with-obsidian-a-beginners-guide/))

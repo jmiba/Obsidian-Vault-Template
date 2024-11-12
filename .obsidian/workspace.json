@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2024-02-28, Mi (W09)"
+              "title": "Obsidian-Plugin Pocket einrichten"
             }
           },
           {
@@ -365,13 +365,15 @@
   },
   "active": "6280d879b77c8594",
   "lastOpenFiles": [
-    "Test mit Pandoc Reference List Plugin.md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "README.md",
+    "02 Dateien/Pasted image 20241112161125.png",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "Test mit Pandoc Reference List Plugin.md",
     "02 Dateien/Vorlagen/Kindvorlage.md",
     "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
     "02 Dateien/Vorlagen/Notizenvorlage.md",
-    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "01 Datenbanken/Change Log.md",
     "smart-chats/UNTITLED CHAT 2024-05-08 09 57 40.md",
     "smart-chats/UNTITLED CHAT 2024-05-08 09 57 08.md",
@@ -385,7 +387,6 @@
     "01 Datenbanken/Beratung.md",
     "Notizensammlung/Zertifikatskurs FDM.md",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
-    "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md",
     "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
     "02 Dateien/Medien/Pasted image 20240426090424.png",
     "02 Dateien/Medien/Pasted image 20240426085616.png",
@@ -398,10 +399,8 @@
     "02 Dateien/Medien/Pasted image 20240226194331.png",
     "02 Dateien/Medien/Pasted image 20240227182847.png",
     "02 Dateien/Medien/Pasted image 20240227182927.png",
-    "02 Dateien/Medien/Pasted image 20240227214916.png",
     "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-29, Do (W09).md",
-    "01 Datenbanken/Aufgabenerfüllung.md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",

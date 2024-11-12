@@ -24,7 +24,6 @@ await dv.view("02 Dateien/Javascript/related_write")
 > #### Meine Notes
 > ##### Zum Thema "Wissensmanagement":
 > - [[Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md|Obsidian-Plugin ZotLit konfigurieren]] (28.02.2024)
-> - [[Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md|Vorstellung Konzept Second Brain in PI-Runde]] (19.02.2024)
 > - [[Wissensmanagement/Things Theme.md|Things Theme]] (01.06.2023)
 > - [[Wissensmanagement/Tiago Forte - Second Brain.md|Tiago Forte - Second Brain]] (21.03.2023)
 > 
@@ -35,15 +34,12 @@ await dv.view("02 Dateien/Javascript/related_write")
 > - [[04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md|Darum schlägt der Stift noch immer die Notiz-App]] (19.02.2024)
 > %% END A %%
 
-# Omnivore
+# Pocket
 
-[Omnivore](https://omnivore.app) ist eine hervorragende App zum Sammeln von interessanten Webseiten. Es kann außerdem als RSS-Feed Reader benutzt werden. Es existiert ein Plugin für Obsidian, das den Import der gespeicherten Webseiten in das Obsidian Vault ermöglicht. Alle Notizen an einem Ort zu haben und sie miteinander verlinken zu können, ist ein Desiderat für den Digital Scholar.
+[Pocket](https://getpocket.com/de/home) ist eine App zum Sammeln von interessanten Webseiten. Es existiert ein Plugin für Obsidian, das den Import der gespeicherten Webseiten in das Obsidian Vault ermöglicht. Alle Notizen an einem Ort zu haben und sie miteinander verlinken zu können, ist ein Desiderat für den Digital Scholar.
 
 
 # Plugin einrichten
 
-Nach dem Anlegen eines Benutzerkontos bei Omnivore und dem Erzeugen eines API Keys:
-![[Pasted image 20240227182927.png]]
-
-muss dieser API Key in den Obsidian-Plugin-Einstellungen eingetragen werden:
-![[Pasted image 20240227182847.png]]
+Nach dem Anlegen eines Benutzerkontos bei Pocket muss man in den Obsidian-Plugin-Einstellungen eine Verbindung zum Pocket-Konto herstellen:
+![[Pasted image 20241112161125.png]]

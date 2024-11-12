@@ -189,9 +189,9 @@
           "icon": "book"
         },
         {
-          "id": "obsidian-omnivore:sync",
-          "name": "Omnivore: Sync new changes",
-          "icon": "<svg width='16' height='16' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.416 11.046v-4.599c0 -0.397 0.462 -0.616 0.764 -0.344l1.422 2.068c0.29 0.243 0.699 0.243 0.99 0l1.387 -2.05c0.308 -0.255 0.77 -0.053 0.77 0.344V8.889c0 1.179 0.782 2.139 1.961 2.139h0.036c1.007 0 1.879 -0.687 2.121 -1.659 0.119 -0.51 0.219 -1.043 0.219 -1.452 -0.018 -4.018 -3.419 -7.058 -7.484 -6.785C4.148 1.369 1.363 4.154 1.126 7.609c-0.273 4.065 2.939 7.467 6.969 7.467' stroke='currentColor' stroke-miterlimit='10' stroke-width='1.5' fill='none' class='layer'/></svg>"
+          "id": "obsidian-pocket:sync-pocket-list",
+          "name": "Pocket: Sync Pocket list",
+          "icon": "pocket"
         },
         {
           "id": "obsidian-zotero-desktop-connector:zdc-exp-Zotero Import",
@@ -239,5 +239,6 @@
   "custom_fc2": "#DE7802",
   "custom_fc3": "#245BDB",
   "custom_fc4": "#6425D0",
-  "custom_fc5": "#646A73"
+  "custom_fc5": "#646A73",
+  "isLoadOnMobile": false
 }
