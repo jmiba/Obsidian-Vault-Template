@@ -53,7 +53,7 @@ await dv.view("02 Dateien/Javascript/dv_insert", { target: "A", msg: toRender})
 > %% INSERT A %%
 > ##### Zum Thema "Statistik":
 > 
-> - [[01 Datenbanken/Sport.md|Sport]] (26.04.2024)
+> - [[01 Datenbanken/Sport.md|Sport]] (17.03.2025)
 > - [[01 Datenbanken/Dienstreisen.md|Dienstreisen]] (12.11.2023)
 > - [[01 Datenbanken/Beratung.md|Beratung]] (13.11.2023)
 > - [[01 Datenbanken/Themen.md|Themen]] (23.12.2023)

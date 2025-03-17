@@ -11,10 +11,11 @@ if (year && !period) {
 } else {
 	dv.header(2, `Laufen (letzte ${period} Tage ab ${year})`)
 }
-const rPages = dv.pages('').where(o => o.Sport == "Laufen") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
-const hPages = dv.pages('').where(o => o.Sport == "Wandern") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
-const cPages = dv.pages('').where(o => o.Sport == "Rennrad" || o.Sport == "Mountainbike") .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const rPages = dv.pages('').where(o => o.Sport && (o.Sport.includes("Laufen") || o.Sport.includes("Run"))) .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const hPages = dv.pages('').where(o => o.Sport && (o.Sport.includes("Wandern") || o.Sport.includes("Hike"))) .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
+const cPages = dv.pages('').where(o => o.Sport && (o.Sport.includes("Rennrad") || o.Sport.includes("Mountainbike") || o.Sport.includes("Ride"))) .sort(k => k.file.name, 'asc')//.where(d => d.file.name.includes(year))
 const allPages = dv.pages('').where(o => o.Sport != null) .sort(k => k.file.name, 'asc') //.where(d => d.file.name.includes(year))
+console.log(allPages.Sport);
 let daysWithData = rPages.map(p => p.file.name).values
 let hDaysWithData = hPages.map(p => p.file.name).values 
 let cDaysWithData = cPages.map(p => p.file.name).values
@@ -210,6 +211,7 @@ const chartData = {
 		type: 'line',
 		label: 'Pace',
 		data: paces,
+		types: types,
 		cubicInterpolationMode: 'default',
 		spanGaps: true,
 		tension: 0.5,
@@ -222,6 +224,7 @@ const chartData = {
 		type: 'line',
 		label: 'VO²max',
 		data: vo2max,
+		types: types,
 		cubicInterpolationMode: 'default',
 		spanGaps: true,
 		tension: 0.5,
@@ -234,6 +237,7 @@ const chartData = {
 		type: 'bar',
 		label: 'Kalorien',
 		data: calories,
+		types: types,
 		tension: 0.1,
 		backgroundColor: [ 'rgba(255, 209, 26, 0.2)' ], 
 		borderColor: [ 'rgba(255, 209, 26, 1)' ], 
@@ -246,6 +250,7 @@ const chartData = {
 		type: 'line',
 		label: 'Herz',
 		data: bpm,
+		types: types,
 		cubicInterpolationMode: 'default',
 		spanGaps: true,
 		tension: 0.25,
@@ -259,6 +264,7 @@ const chartData = {
 		type: 'line',
 		label: 'Herz max',
 		data: bpmMax,
+		types: types,
 		cubicInterpolationMode: 'default',
 		spanGaps: true,
 		tension: 0.25,
@@ -271,6 +277,14 @@ const chartData = {
 	],
   },
   options: {
+	  onHover: function (event, elements) {
+		// Check if the mouse is over an element (bar)
+		if (elements && elements.length) {
+		  event.native.target.style.cursor = 'pointer';
+		} else {
+		  event.native.target.style.cursor = 'default';
+		}
+	  },
 	  scales: {
 		xAxis: { 
 		  type: 'time',
@@ -433,8 +447,10 @@ const chartData = {
 				  return `${value} kcal`;
 				} else if (dataset.label === 'Laufen' || dataset.label === 'Rad' || dataset.label === 'Wandern'){
 				  return `${myformat.format(value)} km (${type})`;
-				} else if (dataset.label === 'Herz' || dataset.label === 'Herz max' ){
-				  return `${value} bpm`;
+				} else if (dataset.label === 'Herz'){
+				  return `Herz Ø ${value} bpm`;
+				} else if (dataset.label === 'Herz max' ){
+				  return `Herz max ${value} bpm`;
 				} else if (dataset.label === 'VO²max'){
 				  return `VO²max ${value}`;
 				} else {
@@ -448,6 +464,22 @@ const chartData = {
 	}
 }
 
-window.renderChart(chartData, container) 
+// Make sure to attach `onclick` to the canvas, **not** the chart instance
+const myChart = window.renderChart(chartData, container);
+myChart.canvas.onclick = (evt) => {
+  const res = myChart.getElementsAtEventForMode(
+    evt,
+    'nearest',
+    { intersect: true },
+    true
+  );
+  // If didn't click on a bar, `res` will be an empty array
+  if (res.length === 0) {
+    return;
+  }
+  const note = moment(myChart.data.labels[res[0].index]).format("YYYY-MM-DD, dd ([W]ww)");
+  console.log(`You clicked on [[${note}]]`);
+  window.open(`obsidian://open?file=${note}`);
+};
 const totalDistance = rDistances.reduce((acc, distance) => acc + distance, 0) + hDistances.reduce((acc, distance) => acc + distance, 0);
 dv.paragraph(period? `**Gesamtlaufkilometer letzte ${period} Tage:** ${myformat.format(totalDistance)} km`:`**Gesamtlaufkilometer ${year}:** ${myformat.format(totalDistance)} km`)

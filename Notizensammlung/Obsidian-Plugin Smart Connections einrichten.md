@@ -1,6 +1,6 @@
 ---
 topics:
-  - Künstliche Intelligenz
+  - "[[Künstliche Intelligenz]]"
 tags:
   - Technologie/KI
   - Werkzeuge
@@ -18,9 +18,11 @@ parent: "[[2024-02-28, Mi (W09)]]"
 related:
 ---
 
+
 ```dataviewjs
-await dv.view("02 Dateien/Javascript/related_write")
+await dv.view("02 Dateien/Javascript/related_list")
 ```
+
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
 > #### Meine Notes

@@ -7,7 +7,7 @@ tags:
   - ChatGPT
 lang: de
 topics:
-  - Künstliche Intelligenz
+  - "[[Künstliche Intelligenz]]"
 created: 2024-02-19T13:39:00
 ---
 

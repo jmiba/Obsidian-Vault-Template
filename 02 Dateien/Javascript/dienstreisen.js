@@ -3,13 +3,14 @@ const myformat = new Intl.NumberFormat('de', {
     minimumFractionDigits: 2
 });
 dv.header(1, "Dienstreisen " + year);
-dv.table(["Datum", "Dienstreise", "Ticketpreis"], dv.pages()
+dv.table(["Datum", "Dienstreise", "Abgerechnet", "Ticketpreis"], dv.pages()
     .where(d => d.file.name.includes(year))
     .where(b => b.Ticket)
     .sort(b => b.file.link)
     .map(b => [
         b.file.link,
         b.Zweck,
+		b.Abgerechnet==true? "ja": "nein",
         dv.span(
             Array.isArray(b.Ticket)? b.Ticket.map(ticketValue => myformat.format(ticketValue) + " €"): myformat.format(b.Ticket) + " €", // Formatting multiple or single Ticket values
             { attr: { class: "number-right" } }

@@ -1,6 +1,6 @@
 ---
 topics:
-  - Digitalisierung
+  - "[[Digitalisierung]]"
 tags:
   - Technologie/KI
 aliases: 
@@ -17,21 +17,8 @@ related:
 ---
 
 ```dataviewjs
-await dv.view("02 Dateien/Javascript/related_write")
+await dv.view("02 Dateien/Javascript/related_list")
 ```
-> [!example]- In diesem Zusammenhang:
-> %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Digitalisierung":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Digitalisierung"!
-> 
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Digitalisierung":
-> Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Digitalisierung"!
-> 
-> %% END A %%
 
 # Einrichtungen mit entsprechenden Leitlininien
 

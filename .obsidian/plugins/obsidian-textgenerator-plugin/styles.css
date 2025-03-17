@@ -1652,7 +1652,7 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 }
 .plug-tg-divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-divide-opacity));
+  border-color: rgb(229 231 235 / var(--tw-divide-opacity, 1));
 }
 .plug-tg-overflow-hidden {
   overflow: hidden;
@@ -1702,15 +1702,15 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 }
 .plug-tg-border-gray-300 {
   --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 .plug-tg-border-red-500 {
   --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 .plug-tg-border-red-700 {
   --tw-border-opacity: 1;
-  border-color: rgb(185 28 28 / var(--tw-border-opacity));
+  border-color: rgb(185 28 28 / var(--tw-border-opacity, 1));
 }
 .plug-tg-bg-\[var\(--background-modifier-form-field\)\] {
   background-color: var(--background-modifier-form-field);
@@ -1723,48 +1723,48 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 }
 .plug-tg-bg-blue-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-gray-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-gray-100\/10 {
   background-color: rgb(243 244 246 / 0.1);
 }
 .plug-tg-bg-gray-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-gray-200\/25 {
   background-color: rgb(229 231 235 / 0.25);
 }
 .plug-tg-bg-gray-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-gray-400\/10 {
   background-color: rgb(156 163 175 / 0.1);
 }
 .plug-tg-bg-green-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-primary {
   --tw-bg-opacity: 1;
-  background-color: hsl(var(--p) / var(--tw-bg-opacity));
+  background-color: hsl(var(--p) / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-red-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-red-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-red-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 .plug-tg-bg-transparent {
   background-color: transparent;
@@ -1922,47 +1922,47 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 }
 .plug-tg-text-black {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-blue-300 {
   --tw-text-opacity: 1;
-  color: rgb(147 197 253 / var(--tw-text-opacity));
+  color: rgb(147 197 253 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-blue-700 {
   --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-gray-300 {
   --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-gray-700 {
   --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-gray-900 {
   --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-primary {
   --tw-text-opacity: 1;
-  color: hsl(var(--p) / var(--tw-text-opacity));
+  color: hsl(var(--p) / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-red-300 {
   --tw-text-opacity: 1;
-  color: rgb(252 165 165 / var(--tw-text-opacity));
+  color: rgb(252 165 165 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-red-500 {
   --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-red-950 {
   --tw-text-opacity: 1;
-  color: rgb(69 10 10 / var(--tw-text-opacity));
+  color: rgb(69 10 10 / var(--tw-text-opacity, 1));
 }
 .plug-tg-text-white {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 .plug-tg-opacity-100 {
   opacity: 1;
@@ -2125,23 +2125,23 @@ details.plug-tg-collapse summary::-webkit-details-marker {
 /* -------------------- React json input css ---------------------------- */
 .mantine-1fzet7j {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 @media (prefers-color-scheme: dark) {
   .mantine-1fzet7j {
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   }
 }
 .mantine-hgcj3k {
   background-color: var(--background-modifier-form-field);
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 @media (prefers-color-scheme: dark) {
   .mantine-hgcj3k {
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   }
 }
 /* -------------------- React confirm css ---------------------------- */
@@ -2370,52 +2370,52 @@ body.react-confirm-alert-body-element {
 }
 .focus-within\:plug-tg-ring-red-300:focus-within {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity, 1));
 }
 .hover\:plug-tg-bg-blue-600:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-bg-blue-700:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-bg-gray-100\/10:hover {
   background-color: rgb(243 244 246 / 0.1);
 }
 .hover\:plug-tg-bg-gray-500:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-bg-green-600:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-bg-primary\/90:hover {
   background-color: hsl(var(--p) / 0.9);
 }
 .hover\:plug-tg-bg-red-600:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-bg-red-700:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
 .hover\:plug-tg-text-blue-300:hover {
   --tw-text-opacity: 1;
-  color: rgb(147 197 253 / var(--tw-text-opacity));
+  color: rgb(147 197 253 / var(--tw-text-opacity, 1));
 }
 .hover\:plug-tg-opacity-100:hover {
   opacity: 1;
 }
 .focus\:plug-tg-border-blue-500:focus {
   --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 .focus\:plug-tg-border-primary:focus {
   --tw-border-opacity: 1;
-  border-color: hsl(var(--p) / var(--tw-border-opacity));
+  border-color: hsl(var(--p) / var(--tw-border-opacity, 1));
 }
 .focus\:plug-tg-outline-none:focus {
   outline: 2px solid transparent;
@@ -2474,7 +2474,7 @@ body.react-confirm-alert-body-element {
 @media (prefers-color-scheme: dark) {
   .dark\:plug-tg-divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
     --tw-divide-opacity: 1;
-    border-color: rgb(55 65 81 / var(--tw-divide-opacity));
+    border-color: rgb(55 65 81 / var(--tw-divide-opacity, 1));
   }
   .dark\:plug-tg-bg-gray-300\/25 {
     background-color: rgb(209 213 219 / 0.25);
@@ -2484,10 +2484,10 @@ body.react-confirm-alert-body-element {
   }
   .dark\:plug-tg-text-blue-300 {
     --tw-text-opacity: 1;
-    color: rgb(147 197 253 / var(--tw-text-opacity));
+    color: rgb(147 197 253 / var(--tw-text-opacity, 1));
   }
   .dark\:plug-tg-text-white {
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   }
 }

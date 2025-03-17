@@ -1,6 +1,6 @@
 ---
 topics:
-  - Wissensmanagement
+  - "[[Wissensmanagement]]"
 tags:
   - obsidian
   - note_taking

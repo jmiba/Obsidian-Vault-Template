@@ -16,7 +16,7 @@
   "folder_templates": [
     {
       "folder": "/",
-      "template": "02 Dateien/Vorlagen/General Note.md"
+      "template": "02 Dateien/Vorlagen/Use Template.md"
     },
     {
       "folder": "05 Tagebuch/Tägliche Notiz",
@@ -25,6 +25,13 @@
     {
       "folder": "05 Tagebuch/Wöchentliche Notes",
       "template": "02 Dateien/Vorlagen/Wochenseite.md"
+    }
+  ],
+  "enable_file_templates": false,
+  "file_templates": [
+    {
+      "regex": ".*",
+      "template": ""
     }
   ],
   "syntax_highlighting": true,

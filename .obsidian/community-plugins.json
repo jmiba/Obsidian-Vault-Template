@@ -1,6 +1,5 @@
 [
   "tag-wrangler",
-  "obsidian-system-dark-mode",
   "obsidian-frontmatter-tag-suggest",
   "templater-obsidian",
   "calendar",
@@ -8,7 +7,6 @@
   "recent-files-obsidian",
   "obsidian-simple-mention",
   "simple-embeds",
-  "obsidian-wordnet-plugin",
   "obsidian-icon-folder",
   "editing-toolbar",
   "obsidian-smart-typography",
@@ -23,7 +21,6 @@
   "obsidian-kindle-plugin",
   "better-word-count",
   "obsidian-textgenerator-plugin",
-  "auto-note-mover",
   "zotlit",
   "obsidian-pandoc-reference-list",
   "obsidian-pandoc",

@@ -13,10 +13,8 @@ related:
 ---
 
 ```dataviewjs
-await dv.view("02 Dateien/Javascript/related_write")
+await dv.view("02 Dateien/Javascript/related_list")
 ```
-> [!example]- In diesem Zusammenhang:
-> %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
 
 # 
+<% tp.file.move("Notizensammlung/" + tp.file.title) %>

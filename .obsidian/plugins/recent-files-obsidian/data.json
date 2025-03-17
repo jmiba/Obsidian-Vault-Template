@@ -1,40 +1,24 @@
 {
   "recentFiles": [
     {
-      "basename": "Test mit Pandoc Reference List Plugin",
-      "path": "Test mit Pandoc Reference List Plugin.md"
-    },
-    {
-      "basename": "README",
-      "path": "README.md"
-    },
-    {
-      "basename": "Kindvorlage",
-      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
-    },
-    {
-      "basename": "Wissenschaftlicher Artikel",
-      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+      "basename": "2024-02-28, Mi (W09)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
       "basename": "Notizenvorlage",
       "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
     },
     {
-      "basename": "2024-02-28, Mi (W09)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
-    },
-    {
-      "basename": "The Secret Power of ‘Read It Later’ Apps",
-      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
-    },
-    {
-      "basename": "Change Log",
-      "path": "01 Datenbanken/Change Log.md"
-    },
-    {
       "basename": "Tagebuchseite",
       "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
+    },
+    {
+      "basename": "Künstliche Intelligenz",
+      "path": "Notizensammlung/Themen/Künstliche Intelligenz.md"
+    },
+    {
+      "basename": "Obsidian-Plugin Smart Connections einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
     },
     {
       "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
@@ -45,6 +29,50 @@
       "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
     },
     {
+      "basename": "Digitalisierung",
+      "path": "Notizensammlung/Themen/Digitalisierung.md"
+    },
+    {
+      "basename": "Obsidian-Plugin Pocket einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+    },
+    {
+      "basename": "Wissensmanagement",
+      "path": "Notizensammlung/Themen/Wissensmanagement.md"
+    },
+    {
+      "basename": "Use Template",
+      "path": "02 Dateien/Vorlagen/Use Template.md"
+    },
+    {
+      "basename": "Second Brain mit KI",
+      "path": "Wissensmanagement/Second Brain mit KI.md"
+    },
+    {
+      "basename": "Things Theme",
+      "path": "Wissensmanagement/Things Theme.md"
+    },
+    {
+      "basename": "Tiago Forte - Second Brain",
+      "path": "Wissensmanagement/Tiago Forte - Second Brain.md"
+    },
+    {
+      "basename": "Schreibtechniken",
+      "path": "Wissensmanagement/Schreibtechniken.md"
+    },
+    {
+      "basename": "Obsidian-Plugin Textgenerator einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md"
+    },
+    {
+      "basename": "Kindvorlage",
+      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
+    },
+    {
+      "basename": "Sport",
+      "path": "01 Datenbanken/Sport.md"
+    },
+    {
       "basename": "Fortbildung",
       "path": "01 Datenbanken/Fortbildung.md"
     },
@@ -53,20 +81,32 @@
       "path": "01 Datenbanken/Beratung.md"
     },
     {
-      "basename": "Obsidian-Plugin Textgenerator einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md"
+      "basename": "Dienstreisen",
+      "path": "01 Datenbanken/Dienstreisen.md"
+    },
+    {
+      "basename": "Change Log",
+      "path": "01 Datenbanken/Change Log.md"
+    },
+    {
+      "basename": "Test mit Pandoc Reference List Plugin",
+      "path": "Test mit Pandoc Reference List Plugin.md"
+    },
+    {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
+      "basename": "Wissenschaftlicher Artikel",
+      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+    },
+    {
+      "basename": "The Secret Power of ‘Read It Later’ Apps",
+      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
     },
     {
       "basename": "Obsidian-Plugin Ominvore einrichten",
       "path": "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md"
-    },
-    {
-      "basename": "Obsidian-Plugin Smart Connections einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
-    },
-    {
-      "basename": "Sport",
-      "path": "01 Datenbanken/Sport.md"
     },
     {
       "basename": "Pasted image 20240226183307",
@@ -149,14 +189,6 @@
       "path": "01 Datenbanken/Task Panel.md"
     },
     {
-      "basename": "Schreibtechniken",
-      "path": "Wissensmanagement/Schreibtechniken.md"
-    },
-    {
-      "basename": "Dienstreisen",
-      "path": "01 Datenbanken/Dienstreisen.md"
-    },
-    {
       "basename": "Themen",
       "path": "01 Datenbanken/Themen.md"
     },
@@ -167,18 +199,12 @@
     {
       "basename": "Darum schlägt der Stift noch immer die Notiz-App",
       "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
-    },
-    {
-      "basename": "Things Theme",
-      "path": "Wissensmanagement/Things Theme.md"
-    },
-    {
-      "basename": "‘The situation has become appalling’- fake scientific papers push research credibility to crisis ...",
-      "path": "04 Literatur-Notes/Omnivore/‘The situation has become appalling’- fake scientific papers push research credibility to crisis ....md"
     }
   ],
   "omittedPaths": [],
   "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false,
   "maxLength": null,
   "openType": "tab"
 }

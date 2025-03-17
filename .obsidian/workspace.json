@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "mode": "source",
-                "backlinks": false,
-                "source": false
+                "source": false,
+                "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "2024-02-28, Mi (W09)"
             }
           },
           {
@@ -71,7 +71,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "byModifiedTime"
+                "sortOrder": "byModifiedTime",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Dateiexplorer"
@@ -113,8 +114,17 @@
               "state": {
                 "file": "01 Datenbanken/Change Log.md",
                 "mode": "preview",
+                "source": false,
                 "backlinks": true,
-                "source": false
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "pinned": true,
               "icon": "lucide-file",
@@ -211,7 +221,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Test mit Pandoc Reference List Plugin.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -221,7 +231,7 @@
                 "unlinkedCollapsed": false
               },
               "icon": "links-coming-in",
-              "title": "Rückverweise für Test mit Pandoc Reference List Plugin"
+              "title": "Rückverweise für 2024-02-28, Mi (W09)"
             }
           },
           {
@@ -244,10 +254,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Gliederung von README"
+              "title": "Gliederung von 2024-02-28, Mi (W09)"
             }
           },
           {
@@ -266,7 +279,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -294,7 +307,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Graph von README"
+              "title": "Graph von 2024-02-28, Mi (W09)"
             }
           },
           {
@@ -358,59 +371,59 @@
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
       "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
-      "obsidian-omnivore:Omnivore": false,
       "templater-obsidian:Templater": false,
       "periodic-notes:Open today": false
     }
   },
-  "active": "6280d879b77c8594",
+  "active": "6cd0862f6492f624",
   "lastOpenFiles": [
-    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
-    "README.md",
-    "02 Dateien/Pasted image 20241112161125.png",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-    "Test mit Pandoc Reference List Plugin.md",
-    "02 Dateien/Vorlagen/Kindvorlage.md",
-    "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
     "02 Dateien/Vorlagen/Notizenvorlage.md",
-    "01 Datenbanken/Change Log.md",
-    "smart-chats/UNTITLED CHAT 2024-05-08 09 57 40.md",
-    "smart-chats/UNTITLED CHAT 2024-05-08 09 57 08.md",
-    "smart-chats/UNTITLED CHAT 2024-05-08 09 57 43.md",
     "02 Dateien/Vorlagen/Tagebuchseite.md",
-    "smart-chats",
+    "Notizensammlung/Themen/Künstliche Intelligenz.md",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "00 Archiv/Künstliche Intelligenz.md",
     "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
     "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
-    "Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md",
-    "01 Datenbanken/Fortbildung.md",
-    "01 Datenbanken/Beratung.md",
-    "Notizensammlung/Zertifikatskurs FDM.md",
+    "Notizensammlung/Themen/Digitalisierung.md",
+    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
+    "Notizensammlung/Themen/Wissensmanagement.md",
+    "Notizensammlung/Themen",
+    "02 Dateien/Vorlagen/Use Template.md",
+    "Wissensmanagement/Second Brain mit KI.md",
+    "Wissensmanagement/Things Theme.md",
+    "Wissensmanagement/Tiago Forte - Second Brain.md",
+    "Wissensmanagement/Schreibtechniken.md",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
-    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "02 Dateien/Vorlagen/Topic.md",
+    "02 Dateien/Vorlagen/Kindvorlage.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Sport.md",
+    "01 Datenbanken/Fortbildung.md",
+    "02 Dateien/Javascript/related_list.js",
+    "02 Dateien/Javascript/related.js",
+    "02 Dateien/Javascript/erschließung.js",
+    "01 Datenbanken/Beratung.md",
+    "01 Datenbanken/Dienstreisen.md",
+    "01 Datenbanken/Change Log.md",
+    "README.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+    "02 Dateien/Medien/Pasted image 20241112161125.png",
+    "smart-chats",
     "02 Dateien/Medien/Pasted image 20240426090424.png",
     "02 Dateien/Medien/Pasted image 20240426085616.png",
     "02 Dateien/Medien/Pasted image 20240426085430.png",
     "02 Dateien/Medien/Pasted image 20240426085007.png",
-    "Konzepte/Macro Concepts/Rolle von Bibliohteken.md",
-    "01 Datenbanken/Sport.md",
     "02 Dateien/Medien/Pasted image 20240226183307.png",
     "02 Dateien/Medien/Pasted image 20240226182730.png",
     "02 Dateien/Medien/Pasted image 20240226194331.png",
     "02 Dateien/Medien/Pasted image 20240227182847.png",
     "02 Dateien/Medien/Pasted image 20240227182927.png",
-    "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-29, Do (W09).md",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
     "02 Dateien/HTML-Dateien/README.html",
     "~$README.docx",
-    "02 Dateien/Office-Dateien/README.docx",
-    "02 Dateien/PDFs/Zotero _ Your personal research assistant.pdf",
     "Dashboard.canvas",
-    "04LITE~1/Zotero",
-    "02 Dateien/Vorlagen/prompts/dalle",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
     "Untitled.canvas",

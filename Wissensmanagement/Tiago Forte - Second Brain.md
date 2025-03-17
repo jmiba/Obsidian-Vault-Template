@@ -1,6 +1,6 @@
 ---
 topics:
-  - Wissensmanagement
+  - "[[Wissensmanagement]]"
 tags:
   - Wissensmanagement
   - Second_Brain

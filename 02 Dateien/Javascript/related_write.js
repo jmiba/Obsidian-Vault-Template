@@ -10,7 +10,7 @@
          * Retrieves topics from the current file's frontmatter or defaults to an empty array.
          */
         const topics = currentFile.frontmatter.topics ?? [];
-        //console.log("Topics: " + "isArray = " + Array.isArray(topics) + ", Werte = " + topics)
+        console.log("Topics: " + "isArray = " + Array.isArray(topics) + ", Werte = " + topics)
 
         /**
          * Retrieves the current file name.
@@ -49,12 +49,12 @@
         if (topics != null && topics != undefined && topics != '') {
             const query1 = await queryNotes(topics, notes1, file, toRender, excludeStatement);
             const query2 = await queryNotes(topics, notes2, file, toRender, includeStatement);
-            toRender = `> #### ${notes1}\n${query1}\n&nbsp;\n#### ${notes2}\n${query2}`;
+            toRender = `# ${notes1}\n${query1}\n# ${notes2}\n${query2}`;
         } else {
-            toRender = "Noch kein Thema in Frontmatter `topics` definiert!";
+            toRender = "Noch kein Thema in Frontmatter `topics` definiert!\n";
         }
 
-        toRender = toRender.replace(/\n/g, '\n> ');
+       //toRender = toRender.replace(/\n/g, '\n> ');
 
         /**
          * Renders the accumulated notes using the dv_insert view.
@@ -72,13 +72,14 @@
          * @returns {string} - Updated toRender string.
          */
         async function queryNotes(topics, notes, file, toRender, statement) {
-            for (const topic of topics) {
-                toRender += `##### Zum Thema "${topic}":\n`;
+            for (let topic of topics) {
+                topic = topic.replace(/[\[\]]/g,''); //Remove the Wikilink brackets
+                toRender += `## Zum Thema "${topic}":\n\n`;
                 const related = await dv.query(`
                     LIST created
                     FLATTEN topics AS t
-                    WHERE t = "${topic}" AND file.name != "${file}" AND ${statement})
-                    SORT file.ctime DESC
+                    WHERE t = [[${topic}]] AND file.name != "${file}" AND ${statement})
+                    SORT file.frontmatter.created DESC
                 `);
                 if (related.successful === true) {
                     if (related.value.values.length > 0) {

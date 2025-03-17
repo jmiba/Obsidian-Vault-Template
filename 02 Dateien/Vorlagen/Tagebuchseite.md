@@ -92,3 +92,5 @@ VO2max::
 Link:: 
 
 → s. [[Sport]]
+
+<% tp.file.move("05 Tagebuch/Tägliche Notiz/" + tp.file.title) %>

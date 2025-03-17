@@ -81,7 +81,8 @@
     "iconsInLinksEnabled": true,
     "debugMode": false,
     "iconInTitlePosition": "above",
-    "lucideIconPackType": "native"
+    "lucideIconPackType": "native",
+    "useInternalPlugins": false
   },
   "00 Archiv": "FasBoxArchive",
   "02 Dateien": "LiFiles",
