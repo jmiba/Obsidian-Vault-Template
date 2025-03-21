@@ -18,7 +18,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # dbv Diversität, Antidiskriminierung, Intersektionalität – was steckt hinter diesen Begriffen und warum sind sie wichtig für Bibliotheken?
 

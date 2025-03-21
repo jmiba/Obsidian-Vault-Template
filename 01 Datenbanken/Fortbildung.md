@@ -1,6 +1,6 @@
 ---
 topics:
-  - Statistik
+  - "[[Statistik]]"
 tags:
   - statistik
   - fortbildung
@@ -51,13 +51,7 @@ await dv.view("02 Dateien/Javascript/dv_insert", { target: "A", msg: toRender})
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> ##### Zum Thema "Statistik":
-> 
-> - [[01 Datenbanken/Sport.md|Sport]] (17.03.2025)
-> - [[01 Datenbanken/Dienstreisen.md|Dienstreisen]] (12.11.2023)
-> - [[01 Datenbanken/Beratung.md|Beratung]] (13.11.2023)
-> - [[01 Datenbanken/Themen.md|Themen]] (23.12.2023)
-> %% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
 
 ```dataviewjs
 const year= 2024;

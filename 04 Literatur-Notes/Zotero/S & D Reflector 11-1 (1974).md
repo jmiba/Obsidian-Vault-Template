@@ -9,7 +9,7 @@ creators:
   - S & D
 bibliographic type: journalArticle
 topics:
-  - Steamboatin'
+  - "[[Steamboatin']]"
 aliases:
   - S & D Reflector 11-1
   - s&d1974

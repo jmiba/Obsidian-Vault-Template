@@ -1,6 +1,6 @@
 ---
 topics:
-  - Statistik
+  - "[[Statistik]]"
 tags:
   - statistik
   - gesundheit
@@ -9,7 +9,7 @@ aliases:
   - Statistik Sport
 lang: de-DE
 created: 2024-01-08T09:45:02
-related: []
+related: 
 days: 30
 year:
 ---

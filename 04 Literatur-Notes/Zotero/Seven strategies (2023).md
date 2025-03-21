@@ -8,7 +8,8 @@ published: 2023
 creators:
   - Sheila Corrall
 bibliographic type: blogPost
-topics: []
+topics:
+  - "[[Bibliothekskonzepte]]"
 aliases:
   - 7 strategies
 URL: https://www.timeshighereducation.com/campus/seven-strategies-turn-academic-libraries-social-organisations

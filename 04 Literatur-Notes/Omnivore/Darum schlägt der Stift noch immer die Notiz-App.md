@@ -5,7 +5,7 @@ title: |
 author: |
   Kim Rixecker
 topics:
-  - Wissensmanagement
+  - "[[Wissensmanagement]]"
 aliases: 
 tags:
   - Second_Brain
@@ -23,19 +23,21 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Wissensmanagement":
-> - [[Obsidian-Plugin Pocket einrichten|Obsidian-Plugin Pocket einrichten]] (27.02.2024)
-> - [[Wissensmanagement/Tiago Forte - Second Brain.md|Tiago Forte - Second Brain]] (21.03.2023)
-> - [[Wissensmanagement/Things Theme.md|Things Theme]] (01.06.2023)
-> - [[Notizensammlung/Vorstellung Konzept Second Brain in PI-Runde.md|Vorstellung Konzept Second Brain in PI-Runde]] (19.02.2024)
-> - [[Konzepte/Micro Concepts/Note-Taking.md|Note-Taking]] (Invalid date)
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Wissensmanagement":
-> - [[04 Literatur-Notes/Omnivore/Tools - The Effortless Academic.md|Tools - The Effortless Academic]] (20.02.2024)
-> %% END A %%
+# Meine Notes
+## Zum Thema "Wissensmanagement":
+
+- [[Notizensammlung/Themen/Wissensmanagement.md|Wissensmanagement]] (17.03.2025)
+- [[Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md|Obsidian-Plugin ZotLit konfigurieren]] (28.02.2024)
+- [[Notizensammlung/Obsidian-Plugin Pocket einrichten.md|Obsidian-Plugin Pocket einrichten]] (27.02.2024)
+- [[Wissensmanagement/Things Theme.md|Things Theme]] (01.06.2023)
+- [[Wissensmanagement/Tiago Forte - Second Brain.md|Tiago Forte - Second Brain]] (21.03.2023)
+
+# Relevante Literatur
+## Zum Thema "Wissensmanagement":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissensmanagement"!
+
+%% END A %%
 
 # Darum schlägt der Stift noch immer die Notiz-App
 

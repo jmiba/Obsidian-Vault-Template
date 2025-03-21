@@ -9,7 +9,7 @@ creators:
   - dbv
 bibliographic type: book
 topics:
-  - Bibliothekskonzepte
+  - "[[Bibliothekskonzepte]]"
 aliases:
   - Bericht 2022/23
 tags:

@@ -10,7 +10,7 @@ creators:
   - Kevin Crisman
 bibliographic type: journalArticle
 topics:
-  - Steamboatin'
+  - "[[Steamboatin']]"
 aliases:
   - "The Western River Steamboat Heroine, 1832-1838, Oklahoma, USA: propulsion machinery"
   - grieco2015

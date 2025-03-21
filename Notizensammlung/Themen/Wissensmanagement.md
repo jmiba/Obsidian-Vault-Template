@@ -24,6 +24,6 @@ await dv.view("02 Dateien/Javascript/related_write")
 # Relevante Literatur
 ## Zum Thema "Wissensmanagement":
 
-Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissensmanagement"!
-
+- [[04 Literatur-Notes/Omnivore/Tools - The Effortless Academic.md|Tools - The Effortless Academic]] (20.02.2024)
+- [[04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md|Darum schlägt der Stift noch immer die Notiz-App]] (19.02.2024)
 %% END A %%

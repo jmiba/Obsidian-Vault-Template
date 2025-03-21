@@ -5,7 +5,7 @@ title: |
 author: |
   Ilya Shabanov
 topics:
-  - Wissenschaftliches Arbeiten
+  - "[[Wissenschaftliches Arbeiten]]"
 aliases: 
 tags:
   - Obsidian
@@ -24,17 +24,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Wissenschaftliches Arbeiten":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Wissenschaftliches Arbeiten"!
-> 
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Wissenschaftliches Arbeiten":
-> - [[04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md|KI-Textgeneratoren- Die 10 besten Programme]] (23.01.2024)
-> - [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
-> %% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # Writing 1000 words
 

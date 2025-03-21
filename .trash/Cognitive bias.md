@@ -20,16 +20,18 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Mitarbeiterangelegenheiten":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Mitarbeiterangelegenheiten"!
-> 
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Mitarbeiterangelegenheiten":
-> - [[04 Literatur-Notes/Omnivore/Dramadreieck – Wikipedia.md|Dramadreieck – Wikipedia]] (10.02.2024)
-> %% END A %%
+# Meine Notes
+## Zum Thema "Mitarbeiterangelegenheiten":
+
+Noch keine Zusammenhänge in "Meine Notes" für das Thema "Mitarbeiterangelegenheiten"!
+
+
+# Relevante Literatur
+## Zum Thema "Mitarbeiterangelegenheiten":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Mitarbeiterangelegenheiten"!
+
+%% END A %%
 
 # Cognitive bias
 

@@ -3,7 +3,7 @@ id: 7c31ce7d-19a9-42fe-b147-f51b4f25562f
 title: |
   MIT OpenCourseWare | Free Online Course Materials
 topics:
-  - Open Science
+  - "[[Open Science]]"
 aliases: 
 tags:
   - Lernen
@@ -20,17 +20,16 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Open Science":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Open Science"!
-> 
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Open Science":
-> - [[04 Literatur-Notes/Zotero/Publizieren als Grundlage der Wissenschaftbewertung (2022).md|Publizieren als Grundlage der Wissenschaftbewertung (2022)]] (19.05.2022)
-> - [[04 Literatur-Notes/Omnivore/Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog.md|Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog]] (26.01.2024)
-> %% END A %%
+# Meine Notes
+## Zum Thema "Open Science":
+
+- [[Notizensammlung/Themen/Open Science.md|Open Science]] (21.03.2025)
+
+# Relevante Literatur
+## Zum Thema "Open Science":
+
+- [[04 Literatur-Notes/Zotero/Publizieren als Grundlage der Wissenschaftbewertung (2022).md|Publizieren als Grundlage der Wissenschaftbewertung (2022)]] (19.05.2022)
+%% END A %%
 
 # MIT OpenCourseWare | Free Online Course Materials
 

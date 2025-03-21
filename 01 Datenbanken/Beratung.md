@@ -1,6 +1,6 @@
 ---
 topics:
-  - Statistik
+  - "[[Statistik]]"
 tags:
   - statistik
   - berater

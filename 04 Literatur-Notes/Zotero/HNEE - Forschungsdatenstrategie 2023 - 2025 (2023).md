@@ -9,7 +9,7 @@ creators:
   - Ian Wolff
 bibliographic type: document
 topics:
-  - Open Science Policies und Leitlinien
+  - "[[Open Science Policies und Leitlinien]]"
 aliases:
   - Hochschule für nachhaltige Entwicklung Eberswalde - Forschungsdatenstrategie 2023 - 2025
   - wolff2023

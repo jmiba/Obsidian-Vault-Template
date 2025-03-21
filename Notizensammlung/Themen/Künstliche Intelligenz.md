@@ -26,6 +26,9 @@ await dv.view("02 Dateien/Javascript/related_write")
 # Relevante Literatur
 ## Zum Thema "Künstliche Intelligenz":
 
-Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Künstliche Intelligenz"!
-
+- [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
+- [[04 Literatur-Notes/Omnivore/Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog.md|Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog]] (26.01.2024)
+- [[04 Literatur-Notes/Omnivore/Six Ways the AI Revolution is Unfolding.md|Six Ways the AI Revolution is Unfolding]] (25.01.2024)
+- [[04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md|Comparing LangChain and LlamaIndex with 4 tasks]] (25.01.2024)
+- [[04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md|KI-Textgeneratoren- Die 10 besten Programme]] (23.01.2024)
 %% END A %%

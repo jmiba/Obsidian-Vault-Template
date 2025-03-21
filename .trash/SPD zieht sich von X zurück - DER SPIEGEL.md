@@ -21,19 +21,18 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Populismus, Nationalismus, Extremismus":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Populismus, Nationalismus, Extremismus"!
-> 
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Populismus, Nationalismus, Extremismus":
-> - [[04 Literatur-Notes/Pocket/Ian McEwan criticises hiring of ‘sensitivity readers’ looking for offensive material in manuscripts.md|Ian McEwan criticises hiring of ‘sensitivity readers’ looking for offensive material in manuscripts]] (11.10.2023)
-> - [[04 Literatur-Notes/Pocket/Stochastischer Terrorismus.md|Stochastischer Terrorismus]] (11.10.2023)
-> - [[04 Literatur-Notes/Pocket/Warum nur.md|Warum nur]] (11.10.2023)
-> - [[04 Literatur-Notes/Pocket/Landtagswahl in Sachsen  AfD liegt in Umfragen deutlich vor der CDU, SPD muss um Einzug bangen.md|Landtagswahl in Sachsen  AfD liegt in Umfragen deutlich vor der CDU, SPD muss um Einzug bangen]] (03.01.2024)
-> %% END A %%
+# Meine Notes
+## Zum Thema "Populismus, Nationalismus, Extremismus":
+
+Noch keine Zusammenhänge in "Meine Notes" für das Thema "Populismus, Nationalismus, Extremismus"!
+
+
+# Relevante Literatur
+## Zum Thema "Populismus, Nationalismus, Extremismus":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Populismus, Nationalismus, Extremismus"!
+
+%% END A %%
 
 # SPD zieht sich von X zurück - DER SPIEGEL
 

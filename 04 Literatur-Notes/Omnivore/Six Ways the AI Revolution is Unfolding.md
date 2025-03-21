@@ -5,7 +5,7 @@ title: |
 author: |
   MIT IDE
 topics:
-  - Künstliche Intelligenz
+  - "[[Künstliche Intelligenz]]"
 aliases: 
 tags:
   - Technologie/KI
@@ -25,36 +25,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Künstliche Intelligenz":
-> - [[Herausgebertätigkeit/BFP 49-2/BFP 49-2.md|BFP 49-2]] (04.05.2023)
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Künstliche Intelligenz":
-> - [[04 Literatur-Notes/Pocket/Prompting  Angst macht KI schlau.md|Prompting  Angst macht KI schlau]] (12.11.2023)
-> - [[04 Literatur-Notes/Pocket/OpenAI Custom GPT.md|OpenAI Custom GPT]] (12.11.2023)
-> - [[04 Literatur-Notes/Pocket/OpenIndex.ai - AI-powered autonomous agents, tools and document embeddings.md|OpenIndex.ai - AI-powered autonomous agents, tools and document embeddings]] (16.11.2023)
-> - [[04 Literatur-Notes/Pocket/Workshopreihe  GPT und Prompt Engineering für die (digitalen) Geisteswissenschaften .md|Workshopreihe  GPT und Prompt Engineering für die (digitalen) Geisteswissenschaften ]] (21.11.2023)
-> - [[04 Literatur-Notes/Pocket/ChatGPT und OpenAI-API in Unternehmen.md|ChatGPT und OpenAI-API in Unternehmen]] (30.11.2023)
-> - [[04 Literatur-Notes/Pocket/Unbelievable! Run 70B LLM Inference on a Single 4GB GPU with This NEW Technique.md|Unbelievable! Run 70B LLM Inference on a Single 4GB GPU with This NEW Technique]] (30.11.2023)
-> - [[04 Literatur-Notes/Pocket/ChatGPT von OpenAI für die sichere Nutzung in Ihrem Unternehmen..md|ChatGPT von OpenAI für die sichere Nutzung in Ihrem Unternehmen.]] (30.11.2023)
-> - [[04 Literatur-Notes/Pocket/microsoft AI-For-Beginners.md|microsoft AI-For-Beginners]] (04.12.2023)
-> - [[04 Literatur-Notes/Pocket/Building An OpenAI GPT with Your API  A Step-by-Step Guide.md|Building An OpenAI GPT with Your API  A Step-by-Step Guide]] (04.12.2023)
-> - [[04 Literatur-Notes/Pocket/Creating Automatic Knowledge Graphs from Pre-trained Language Models.md|Creating Automatic Knowledge Graphs from Pre-trained Language Models]] (04.12.2023)
-> - [[04 Literatur-Notes/Pocket/How to Create Your Own GPT Voice Assistant with Infinite Chat Memory in Python.md|How to Create Your Own GPT Voice Assistant with Infinite Chat Memory in Python]] (04.12.2023)
-> - [[04 Literatur-Notes/Pocket/Wegen ChatGPT  An dieser Uni müssen Studenten keine Bachelorarbeit mehr einreichen.md|Wegen ChatGPT  An dieser Uni müssen Studenten keine Bachelorarbeit mehr einreichen]] (04.12.2023)
-> - [[04 Literatur-Notes/Pocket/Krea AI.md|Krea AI]] (13.12.2023)
-> - [[04 Literatur-Notes/Pocket/Künstliche Intelligenz  War’s das mit meiner Intelligenz .md|Künstliche Intelligenz  War’s das mit meiner Intelligenz ]] (13.12.2023)
-> - [[04 Literatur-Notes/Pocket/How ChatGPT can help you do archival research — but never replace archivists.md|How ChatGPT can help you do archival research — but never replace archivists]] (13.12.2023)
-> - [[04 Literatur-Notes/Pocket/GPT für die Hochschule.md|GPT für die Hochschule]] (21.12.2023)
-> - [[04 Literatur-Notes/Pocket/Getting Started with OpenAI API in JavaScript.md|Getting Started with OpenAI API in JavaScript]] (21.12.2023)
-> - [[04 Literatur-Notes/Pocket/ChatGPT Voice ist jetzt kostenlos  So unterhältst du dich mit dem Bot.md|ChatGPT Voice ist jetzt kostenlos  So unterhältst du dich mit dem Bot]] (03.01.2024)
-> - [[04 Literatur-Notes/Pocket/Das sind die 5 größten Gefahren durch KI – laut Cyber­sicherheits­experte.md|Das sind die 5 größten Gefahren durch KI – laut Cyber­sicherheits­experte]] (03.01.2024)
-> - [[04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md|KI-Textgeneratoren- Die 10 besten Programme]] (23.01.2024)
-> - [[04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md|Taking your RAG pipelines to a next level ! LangGraphs ]] (25.01.2024)
-> - [[04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md|Comparing LangChain and LlamaIndex with 4 tasks]] (25.01.2024)
-> %% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # Six Ways the AI Revolution is Unfolding
 

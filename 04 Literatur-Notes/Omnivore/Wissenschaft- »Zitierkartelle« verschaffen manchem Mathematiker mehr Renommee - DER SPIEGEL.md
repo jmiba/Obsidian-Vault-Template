@@ -4,7 +4,8 @@ title: |
   Wissenschaft: »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL
 author: |
   DER SPIEGEL
-topics: 
+topics:
+  - "[[Wissenschaftliches Arbeiten]]"
 aliases: 
 tags:
   - Wissenschaft/Ethik
@@ -13,7 +14,7 @@ created: 2024-02-22 12:20:34
 published: 2024-02-20 12:32:00
 URL: https://www.spiegel.de/wissenschaft/mensch/wissenschaft-zitierkartelle-verschaffen-manchem-mathematiker-mehr-renommee-a-84b952f0-b895-428d-8176-5f9172ee1723
 Omnivore-URL: https://omnivore.app/me/wissenschaft-zitierkartelle-verschaffen-manchem-mathematiker-meh-18dd08bb9eb
-related: 
+related:
 ---
 
 ```dataviewjs
@@ -21,7 +22,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # Wissenschaft: »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL
 

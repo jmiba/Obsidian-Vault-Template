@@ -1,13 +1,13 @@
 ---
 topics:
-  - Statistik
+  - "[[Statistik]]"
 tags:
   - finanzen
 aliases:
   - Aufstellung Dienstreisen
 lang: de
 created: 2023-11-12, 12:36:19
-related: []
+related:
 ---
 **Achtung:** Zahlungsnachweis (Kontoauszug) Bahncard bei Abrechnung mit einreichen!
 

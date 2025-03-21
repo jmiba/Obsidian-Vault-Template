@@ -4,7 +4,8 @@ title: |
   Mein perfekter Chef (den ich nie hatte) - intrinsify.de
 author: |
   Lars Vollmer
-topics: 
+topics:
+  - "[[Führung]]"
 aliases: 
 tags:
   - Führung
@@ -13,14 +14,25 @@ created: 2024-02-01 16:37:06
 published: 2024-02-01 08:15:43
 URL: https://intrinsify.de/mein-perfekter-chef-den-ich-nie-hatte/
 Omnivore-URL: https://omnivore.app/me/mein-perfekter-chef-den-ich-nie-hatte-intrinsify-de-18d655112e6
-related: 
+related:
 ---
 
 ```dataviewjs
 await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
-> %% INSERT A %%%% END A %%
+> %% INSERT A %%
+# Meine Notes
+## Zum Thema "Führung":
+
+- [[Notizensammlung/Themen/Führung.md|Führung]] (21.03.2025)
+
+# Relevante Literatur
+## Zum Thema "Führung":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Führung"!
+
+%% END A %%
 
 # Mein perfekter Chef (den ich nie hatte) - intrinsify.de
 

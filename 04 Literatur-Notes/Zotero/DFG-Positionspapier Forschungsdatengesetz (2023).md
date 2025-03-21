@@ -9,7 +9,7 @@ creators:
   - DFG
 bibliographic type: document
 topics:
-  - Bibliotheksrecht
+  - "[[Bibliotheksrecht]]"
 aliases:
   - Die Wissenschaft braucht ein Forschungsdatengesetz! Positionierung der Deutschen Forschungsgemeinschaft (DFG)
   - dfg2023

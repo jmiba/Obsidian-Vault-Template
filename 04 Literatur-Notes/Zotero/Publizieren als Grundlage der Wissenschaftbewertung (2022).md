@@ -9,8 +9,8 @@ creators:
   - AG Publikationswesen der DFG
 bibliographic type: report
 topics:
-  - Alternatives OA-Publizieren
-  - Open Science
+  - "[[Alternatives OA-Publizieren]]"
+  - "[[Open Science]]"
 aliases:
   - Publizieren als Grundlage der Wissenschaftbewertung
 URL: https://zenodo.org/record/6538163

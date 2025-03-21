@@ -9,8 +9,8 @@ creators:
   - Ulf-Daniel Ehlers
 bibliographic type: book
 topics:
-  - Informationskompetenz
-  - Future Skills
+  - "[[Informationskompetenz]]"
+  - "[[Future Skills]]"
 aliases:
   - Future Skills
 URL: https://link.springer.com/book/10.1007/978-3-658-29297-3

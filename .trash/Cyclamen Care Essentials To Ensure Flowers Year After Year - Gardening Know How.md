@@ -19,7 +19,9 @@ related:
 await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
-> %% INSERT A %%%% END A %%
+> %% INSERT A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # Cyclamen Care Essentials To Ensure Flowers Year After Year | Gardening Know How
 

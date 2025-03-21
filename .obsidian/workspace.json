@@ -8,6 +8,21 @@
         "type": "tabs",
         "children": [
           {
+            "id": "f7eea69b80bb8315",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          },
+          {
             "id": "6280d879b77c8594",
             "type": "leaf",
             "state": {
@@ -23,21 +38,6 @@
             }
           },
           {
-            "id": "81dc4d7a1b2b8135",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-                "mode": "source",
-                "backlinks": false,
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Obsidian-Plugin Pocket einrichten"
-            }
-          },
-          {
             "id": "6d146a6f67b4fb67",
             "type": "leaf",
             "state": {
@@ -45,11 +45,21 @@
               "state": {
                 "file": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
                 "mode": "source",
-                "backlinks": false,
-                "source": false
+                "source": false,
+                "backlinks": false
               },
               "icon": "lucide-file",
               "title": "The Secret Power of ‘Read It Later’ Apps"
+            }
+          },
+          {
+            "id": "2cd16407ce0253b8",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graphansicht"
             }
           }
         ]
@@ -184,7 +194,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-archive",
-              "title": "All properties"
+              "title": "Alle Eigenschaften"
             }
           },
           {
@@ -279,7 +289,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -307,7 +317,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Graph von 2024-02-28, Mi (W09)"
+              "title": "Graph von README"
             }
           },
           {
@@ -366,7 +376,6 @@
       "command-palette:Befehlspalette öffnen": false,
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
-      "obsidian-wordnet-plugin:WordNet Dictionary": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
@@ -375,38 +384,39 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "6cd0862f6492f624",
+  "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
-    "02 Dateien/Vorlagen/Notizenvorlage.md",
-    "02 Dateien/Vorlagen/Tagebuchseite.md",
-    "Notizensammlung/Themen/Künstliche Intelligenz.md",
     "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
-    "00 Archiv/Künstliche Intelligenz.md",
-    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
-    "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
-    "Notizensammlung/Themen/Digitalisierung.md",
-    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-    "Notizensammlung/Themen/Wissensmanagement.md",
-    "Notizensammlung/Themen",
-    "02 Dateien/Vorlagen/Use Template.md",
-    "Wissensmanagement/Second Brain mit KI.md",
-    "Wissensmanagement/Things Theme.md",
-    "Wissensmanagement/Tiago Forte - Second Brain.md",
-    "Wissensmanagement/Schreibtechniken.md",
-    "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
-    "02 Dateien/Vorlagen/Topic.md",
-    "02 Dateien/Vorlagen/Kindvorlage.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-    "01 Datenbanken/Sport.md",
-    "01 Datenbanken/Fortbildung.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+    "01 Datenbanken/Themen.md",
+    "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
+    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
+    "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
+    "Notizensammlung/Themen/Hellhaus Moritzburg.md",
+    "04 Literatur-Notes/Zotero/Moritzburg im Friedewald (1937).md",
+    "04 Literatur-Notes/Omnivore/Cyclamen Care Essentials To Ensure Flowers Year After Year - Gardening Know How.md",
+    "04 Literatur-Notes/Omnivore/Mein perfekter Chef (den ich nie hatte) - intrinsify.de.md",
+    "Test mit Pandoc Reference List Plugin.md",
+    "04 Literatur-Notes/Omnivore/iPhone-Nutzer aufgepasst- Warum das Schließen von Apps deinem Smartphone eher schadet.md",
+    "04 Literatur-Notes/Omnivore/dbv Diversität, Antidiskriminierung, Intersektionalität – was steckt hinter diesen Begriffen und ....md",
+    "04 Literatur-Notes/Omnivore/Hohe Renditen für wenig Geld- Was sind aktive ETFs-.md",
+    "Notizensammlung/Themen/Führung.md",
+    "04 Literatur-Notes/Omnivore/Muskelaufbau ohne Geräte- Trainingsplan Übungen mit Körpergewicht 1-2.md",
+    "Notizensammlung/Themen/Bibliothekskonzepte.md",
+    "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
+    "Notizensammlung/Themen/Wissenschaftliches Arbeiten.md",
+    "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md",
+    "04 Literatur-Notes/Omnivore/Bibliothekar-in (w-m-d) für die Hauptsachbearbeitung Erwerbung, Erschließung & Fernleihe - Filmun....md",
+    "Notizensammlung/Themen/Steamboatin'.md",
+    "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md",
+    "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md",
+    "02 Dateien/Javascript/topics.json",
+    "Notizensammlung/Themen",
     "02 Dateien/Javascript/related_list.js",
     "02 Dateien/Javascript/related.js",
     "02 Dateien/Javascript/erschließung.js",
-    "01 Datenbanken/Beratung.md",
-    "01 Datenbanken/Dienstreisen.md",
-    "01 Datenbanken/Change Log.md",
-    "README.md",
-    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "02 Dateien/Medien/Pasted image 20241112161125.png",
     "smart-chats",
     "02 Dateien/Medien/Pasted image 20240426090424.png",
@@ -422,7 +432,6 @@
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
     "02 Dateien/HTML-Dateien/README.html",
-    "~$README.docx",
     "Dashboard.canvas",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",

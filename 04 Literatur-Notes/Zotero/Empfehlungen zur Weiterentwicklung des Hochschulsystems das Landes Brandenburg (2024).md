@@ -8,7 +8,7 @@ published: 2024
 creators: []
 bibliographic type: report
 topics:
-  - Wissenschaftspolitik
+  - "[[Wissenschaftspolitik]]"
 aliases:
   - Empfehlungen zur Weiterentwicklung des Hochschulsystems das Landes Brandenburg
   - wissenschaftsrat2024

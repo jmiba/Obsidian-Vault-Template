@@ -11,7 +11,7 @@ creators:
   - Nadin Weiß
 bibliographic type: report
 topics:
-  - FDM, IDs, FIS, Datenerfassung
+  - "[[FDM, IDs, FIS, Datenerfassung]]"
 aliases:
   - RISE-DE – Referenzmodell für Strategieprozesse im institutionellen Forschungsdatenmanagement
   - hartmann2019

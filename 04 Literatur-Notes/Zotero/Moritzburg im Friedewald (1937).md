@@ -9,7 +9,7 @@ creators:
   - Rolf Naumann
 bibliographic type: book
 topics:
-  - Hellhaus Moritzburg
+  - "[[Hellhaus Moritzburg]]"
 aliases:
   - Moritzburg im Friedewald
   - naumann1937

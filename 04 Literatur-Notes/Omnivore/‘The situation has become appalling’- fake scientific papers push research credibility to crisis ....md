@@ -5,8 +5,8 @@ title: |
 author: |
   Robin McKie
 topics:
-  - Open Access Transformation
-  - Wissenschaftskommunikation
+  - "[[Open Access Transformation]]"
+  - "[[Wissenschaftskommunikation]]"
 aliases: 
 tags:
   - Wissenschaft
@@ -24,22 +24,24 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-> #### Meine Notes
-> ##### Zum Thema "Open Access Transformation":
-> Noch keine Zusammenhänge in "Meine Notes" für das Thema "Open Access Transformation"!
-> 
-> ##### Zum Thema "Wissenschaftskommunikation":
-> - [[Konzepte/Macro Concepts/Publizieren.md|Publizieren]] (25.04.2023)
-> 
-> &nbsp;
-> #### Relevante Literatur
-> ##### Zum Thema "Open Access Transformation":
-> Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Open Access Transformation"!
-> 
-> ##### Zum Thema "Wissenschaftskommunikation":
-> Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissenschaftskommunikation"!
-> 
-> %% END A %%
+# Meine Notes
+## Zum Thema "Open Access Transformation":
+
+- [[Notizensammlung/Themen/Open Access Transformation.md|Open Access Transformation]] (21.03.2025)
+## Zum Thema "Wissenschaftskommunikation":
+
+- [[Notizensammlung/Themen/Wissenschaftskommunikation.md|Wissenschaftskommunikation]] (21.03.2025)
+
+# Relevante Literatur
+## Zum Thema "Open Access Transformation":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Open Access Transformation"!
+
+## Zum Thema "Wissenschaftskommunikation":
+
+Noch keine Zusammenhänge in "Relevante Literatur" für das Thema "Wissenschaftskommunikation"!
+
+%% END A %%
 
 # ‘The situation has become appalling’: fake scientific papers push research credibility to crisis point | Peer review and scientific publishing | The Guardian
 

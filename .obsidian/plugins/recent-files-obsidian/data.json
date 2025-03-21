@@ -1,72 +1,100 @@
 {
   "recentFiles": [
     {
-      "basename": "2024-02-28, Mi (W09)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
-    },
-    {
-      "basename": "Notizenvorlage",
-      "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
-    },
-    {
-      "basename": "Tagebuchseite",
-      "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
-    },
-    {
-      "basename": "Künstliche Intelligenz",
-      "path": "Notizensammlung/Themen/Künstliche Intelligenz.md"
+      "basename": "README",
+      "path": "README.md"
     },
     {
       "basename": "Obsidian-Plugin Smart Connections einrichten",
       "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
     },
     {
-      "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
-      "path": "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md"
+      "basename": "2024-02-28, Mi (W09)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
-      "basename": "Obsidian-Plugin ZotLit konfigurieren",
-      "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
+      "basename": "The Secret Power of ‘Read It Later’ Apps",
+      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
     },
     {
-      "basename": "Digitalisierung",
-      "path": "Notizensammlung/Themen/Digitalisierung.md"
-    },
-    {
-      "basename": "Obsidian-Plugin Pocket einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
-    },
-    {
-      "basename": "Wissensmanagement",
-      "path": "Notizensammlung/Themen/Wissensmanagement.md"
-    },
-    {
-      "basename": "Use Template",
-      "path": "02 Dateien/Vorlagen/Use Template.md"
-    },
-    {
-      "basename": "Second Brain mit KI",
-      "path": "Wissensmanagement/Second Brain mit KI.md"
-    },
-    {
-      "basename": "Things Theme",
-      "path": "Wissensmanagement/Things Theme.md"
-    },
-    {
-      "basename": "Tiago Forte - Second Brain",
-      "path": "Wissensmanagement/Tiago Forte - Second Brain.md"
-    },
-    {
-      "basename": "Schreibtechniken",
-      "path": "Wissensmanagement/Schreibtechniken.md"
+      "basename": "Themen",
+      "path": "01 Datenbanken/Themen.md"
     },
     {
       "basename": "Obsidian-Plugin Textgenerator einrichten",
       "path": "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md"
     },
     {
-      "basename": "Kindvorlage",
-      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
+      "basename": "Obsidian-Plugin Pocket einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+    },
+    {
+      "basename": "Obsidian-Plugin ZotLit konfigurieren",
+      "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
+    },
+    {
+      "basename": "Hellhaus Moritzburg",
+      "path": "Notizensammlung/Themen/Hellhaus Moritzburg.md"
+    },
+    {
+      "basename": "Moritzburg im Friedewald (1937)",
+      "path": "04 Literatur-Notes/Zotero/Moritzburg im Friedewald (1937).md"
+    },
+    {
+      "basename": "Test mit Pandoc Reference List Plugin",
+      "path": "Test mit Pandoc Reference List Plugin.md"
+    },
+    {
+      "basename": "Führung",
+      "path": "Notizensammlung/Themen/Führung.md"
+    },
+    {
+      "basename": "Bibliothekskonzepte",
+      "path": "Notizensammlung/Themen/Bibliothekskonzepte.md"
+    },
+    {
+      "basename": "Seven strategies (2023)",
+      "path": "04 Literatur-Notes/Zotero/Seven strategies (2023).md"
+    },
+    {
+      "basename": "Wissenschaftliches Arbeiten",
+      "path": "Notizensammlung/Themen/Wissenschaftliches Arbeiten.md"
+    },
+    {
+      "basename": "Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL",
+      "path": "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md"
+    },
+    {
+      "basename": "Steamboatin'",
+      "path": "Notizensammlung/Themen/Steamboatin'.md"
+    },
+    {
+      "basename": "Steamboat Heroine propulsion (2015)",
+      "path": "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md"
+    },
+    {
+      "basename": "S & D Reflector 12-3 (1975)",
+      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md"
+    },
+    {
+      "basename": "S & D Reflector 12-2 (1975)",
+      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md"
+    },
+    {
+      "basename": "S & D Reflector 12-1 (1975)",
+      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-1 (1975).md"
+    },
+    {
+      "basename": "S & D Reflector 11-1 (1974)",
+      "path": "04 Literatur-Notes/Zotero/S & D Reflector 11-1 (1974).md"
+    },
+    {
+      "basename": "Statistik",
+      "path": "Notizensammlung/Themen/Statistik.md"
+    },
+    {
+      "basename": "Dienstreisen",
+      "path": "01 Datenbanken/Dienstreisen.md"
     },
     {
       "basename": "Sport",
@@ -81,124 +109,96 @@
       "path": "01 Datenbanken/Beratung.md"
     },
     {
-      "basename": "Dienstreisen",
-      "path": "01 Datenbanken/Dienstreisen.md"
+      "basename": "Wissenschaftspolitik",
+      "path": "Notizensammlung/Themen/Wissenschaftspolitik.md"
     },
     {
-      "basename": "Change Log",
-      "path": "01 Datenbanken/Change Log.md"
+      "basename": "Empfehlungen zur Weiterentwicklung des Hochschulsystems das Landes Brandenburg (2024)",
+      "path": "04 Literatur-Notes/Zotero/Empfehlungen zur Weiterentwicklung des Hochschulsystems das Landes Brandenburg (2024).md"
     },
     {
-      "basename": "Test mit Pandoc Reference List Plugin",
-      "path": "Test mit Pandoc Reference List Plugin.md"
+      "basename": "Open Science Policies und Leitlinien",
+      "path": "Notizensammlung/Themen/Open Science Policies und Leitlinien.md"
     },
     {
-      "basename": "README",
-      "path": "README.md"
+      "basename": "HNEE - Forschungsdatenstrategie 2023 - 2025 (2023)",
+      "path": "04 Literatur-Notes/Zotero/HNEE - Forschungsdatenstrategie 2023 - 2025 (2023).md"
     },
     {
-      "basename": "Wissenschaftlicher Artikel",
-      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+      "basename": "Future Skills",
+      "path": "Notizensammlung/Themen/Future Skills.md"
     },
     {
-      "basename": "The Secret Power of ‘Read It Later’ Apps",
-      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
+      "basename": "Future Skills - Lernen der Zukunft - Hochschule der Zukunft (2020)",
+      "path": "04 Literatur-Notes/Zotero/Future Skills - Lernen der Zukunft - Hochschule der Zukunft (2020).md"
     },
     {
-      "basename": "Obsidian-Plugin Ominvore einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Ominvore einrichten.md"
+      "basename": "Wissensmanagement",
+      "path": "Notizensammlung/Themen/Wissensmanagement.md"
     },
     {
-      "basename": "Pasted image 20240226183307",
-      "path": "02 Dateien/Medien/Pasted image 20240226183307.png"
-    },
-    {
-      "basename": "Pasted image 20240226194331",
-      "path": "02 Dateien/Medien/Pasted image 20240226194331.png"
-    },
-    {
-      "basename": "Pasted image 20240227182847",
-      "path": "02 Dateien/Medien/Pasted image 20240227182847.png"
-    },
-    {
-      "basename": "Pasted image 20240227182927",
-      "path": "02 Dateien/Medien/Pasted image 20240227182927.png"
-    },
-    {
-      "basename": "Pasted image 20240227214916",
-      "path": "02 Dateien/Medien/Pasted image 20240227214916.png"
-    },
-    {
-      "basename": "Pasted image 20240228154843",
-      "path": "02 Dateien/Medien/Pasted image 20240228154843.png"
-    },
-    {
-      "basename": "Pasted image 20240228172537",
-      "path": "02 Dateien/Medien/Pasted image 20240228172537.png"
-    },
-    {
-      "basename": "Pasted image 20240228172739",
-      "path": "02 Dateien/Medien/Pasted image 20240228172739.png"
-    },
-    {
-      "basename": "2024, W09 (26.02.)",
-      "path": "05 Tagebuch/Wöchentliche Notes/2024, W09 (26.02.).md"
-    },
-    {
-      "basename": "2024-02-29, Do (W09)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-29, Do (W09).md"
-    },
-    {
-      "basename": "Aufgabenerfüllung",
-      "path": "01 Datenbanken/Aufgabenerfüllung.md"
-    },
-    {
-      "basename": "2024-02-19, Mo (W08)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
-    },
-    {
-      "basename": "2024-02-26, Mo (W09)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-26, Mo (W09).md"
-    },
-    {
-      "basename": "General Note",
-      "path": "02 Dateien/Vorlagen/General Note.md"
-    },
-    {
-      "basename": "Wochenseite",
-      "path": "02 Dateien/Vorlagen/Wochenseite.md"
-    },
-    {
-      "basename": "zt-field.eta",
-      "path": "02 Dateien/Vorlagen/ZotLit/zt-field.eta.md"
-    },
-    {
-      "basename": "Filename",
-      "path": "02 Dateien/Vorlagen/ZotLit/Filename.md"
-    },
-    {
-      "basename": "zt-note.eta",
-      "path": "02 Dateien/Vorlagen/ZotLit/zt-note.eta.md"
-    },
-    {
-      "basename": "zt-cite2.eta",
-      "path": "02 Dateien/Vorlagen/ZotLit/zt-cite2.eta.md"
-    },
-    {
-      "basename": "Task Panel",
-      "path": "01 Datenbanken/Task Panel.md"
-    },
-    {
-      "basename": "Themen",
-      "path": "01 Datenbanken/Themen.md"
-    },
-    {
-      "basename": "Zweig - Maria Stuart",
-      "path": "04 Literatur-Notes/Kindle/Zweig - Maria Stuart.md"
+      "basename": "Tools - The Effortless Academic",
+      "path": "04 Literatur-Notes/Omnivore/Tools - The Effortless Academic.md"
     },
     {
       "basename": "Darum schlägt der Stift noch immer die Notiz-App",
       "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
+    },
+    {
+      "basename": "Writing 1000 words",
+      "path": "04 Literatur-Notes/Omnivore/Writing 1000 words.md"
+    },
+    {
+      "basename": "Forschungsevaluation, Qualitätssicherung",
+      "path": "Notizensammlung/Themen/Forschungsevaluation, Qualitätssicherung.md"
+    },
+    {
+      "basename": "DORA (2013)",
+      "path": "04 Literatur-Notes/Zotero/DORA (2013).md"
+    },
+    {
+      "basename": "FDM, IDs, FIS, Datenerfassung",
+      "path": "Notizensammlung/Themen/FDM, IDs, FIS, Datenerfassung.md"
+    },
+    {
+      "basename": "RISE-DE (2019)",
+      "path": "04 Literatur-Notes/Zotero/RISE-DE (2019).md"
+    },
+    {
+      "basename": "Programmieren",
+      "path": "Notizensammlung/Themen/Programmieren.md"
+    },
+    {
+      "basename": "Taking your RAG pipelines to a next level ! LangGraphs ",
+      "path": "04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md"
+    },
+    {
+      "basename": "Künstliche Intelligenz",
+      "path": "Notizensammlung/Themen/Künstliche Intelligenz.md"
+    },
+    {
+      "basename": "Six Ways the AI Revolution is Unfolding",
+      "path": "04 Literatur-Notes/Omnivore/Six Ways the AI Revolution is Unfolding.md"
+    },
+    {
+      "basename": "KI-Textgeneratoren- Die 10 besten Programme",
+      "path": "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md"
+    },
+    {
+      "basename": "Comparing LangChain and LlamaIndex with 4 tasks",
+      "path": "04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md"
+    },
+    {
+      "basename": "Bibliotheksrecht",
+      "path": "Notizensammlung/Themen/Bibliotheksrecht.md"
+    },
+    {
+      "basename": "DFG-Positionspapier Forschungsdatengesetz (2023)",
+      "path": "04 Literatur-Notes/Zotero/DFG-Positionspapier Forschungsdatengesetz (2023).md"
+    },
+    {
+      "basename": "Bericht 2022_23",
+      "path": "04 Literatur-Notes/Zotero/Bericht 2022_23.md"
     }
   ],
   "omittedPaths": [],
