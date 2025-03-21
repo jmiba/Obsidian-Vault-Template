@@ -5,6 +5,18 @@
       "path": "README.md"
     },
     {
+      "basename": "Change Log",
+      "path": "01 Datenbanken/Change Log.md"
+    },
+    {
+      "basename": "Themen",
+      "path": "01 Datenbanken/Themen.md"
+    },
+    {
+      "basename": "Bibliothekskonzepte",
+      "path": "Notizensammlung/Themen/Bibliothekskonzepte.md"
+    },
+    {
       "basename": "Obsidian-Plugin Smart Connections einrichten",
       "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
     },
@@ -15,10 +27,6 @@
     {
       "basename": "The Secret Power of ‘Read It Later’ Apps",
       "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
-    },
-    {
-      "basename": "Themen",
-      "path": "01 Datenbanken/Themen.md"
     },
     {
       "basename": "Obsidian-Plugin Textgenerator einrichten",
@@ -47,10 +55,6 @@
     {
       "basename": "Führung",
       "path": "Notizensammlung/Themen/Führung.md"
-    },
-    {
-      "basename": "Bibliothekskonzepte",
-      "path": "Notizensammlung/Themen/Bibliothekskonzepte.md"
     },
     {
       "basename": "Seven strategies (2023)",
@@ -195,10 +199,6 @@
     {
       "basename": "DFG-Positionspapier Forschungsdatengesetz (2023)",
       "path": "04 Literatur-Notes/Zotero/DFG-Positionspapier Forschungsdatengesetz (2023).md"
-    },
-    {
-      "basename": "Bericht 2022_23",
-      "path": "04 Literatur-Notes/Zotero/Bericht 2022_23.md"
     }
   ],
   "omittedPaths": [],
