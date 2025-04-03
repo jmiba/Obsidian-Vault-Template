@@ -111,8 +111,8 @@
             "state": {
               "type": "recent-files",
               "state": {},
-              "icon": "clock",
-              "title": "Recent Files"
+              "icon": "lucide-file",
+              "title": "Erweiterung ist nicht mehr aktiv"
             }
           },
           {
@@ -279,8 +279,8 @@
             "state": {
               "type": "ReferenceListView",
               "state": {},
-              "icon": "quote-glyph",
-              "title": "References"
+              "icon": "lucide-file",
+              "title": "Erweiterung ist nicht mehr aktiv"
             }
           },
           {
@@ -339,7 +339,7 @@
               "type": "tlfItemView",
               "state": {},
               "icon": "lucide-file",
-              "title": "File Info View"
+              "title": "Erweiterung ist nicht mehr aktiv"
             }
           }
         ],
@@ -376,12 +376,12 @@
       "command-palette:Befehlspalette öffnen": false,
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
+      "templater-obsidian:Templater": false,
+      "periodic-notes:Open today": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
-      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
-      "templater-obsidian:Templater": false,
-      "periodic-notes:Open today": false
+      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false
     }
   },
   "active": "bfde98f95a7d34fa",
