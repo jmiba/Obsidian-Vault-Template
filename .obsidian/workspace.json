@@ -377,11 +377,11 @@
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
-      "periodic-notes:Open today": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
-      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false
+      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
+      "periodic-notes:Open today": false
     }
   },
   "active": "bfde98f95a7d34fa",
