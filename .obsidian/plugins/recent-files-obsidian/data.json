@@ -5,6 +5,30 @@
       "path": "README.md"
     },
     {
+      "basename": "KI-Textgeneratoren- Die 10 besten Programme",
+      "path": "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md"
+    },
+    {
+      "basename": "Was ist LangChain-",
+      "path": "04 Literatur-Notes/Omnivore/Was ist LangChain-.md"
+    },
+    {
+      "basename": "Wer bei der Arbeit faul ist, ist erfolgreicher und glücklicher",
+      "path": "04 Literatur-Notes/Omnivore/Wer bei der Arbeit faul ist, ist erfolgreicher und glücklicher.md"
+    },
+    {
+      "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
+      "path": "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md"
+    },
+    {
+      "basename": "Obsidian-Plugin ZotLit konfigurieren",
+      "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
+    },
+    {
+      "basename": "Test mit Pandoc Reference List Plugin",
+      "path": "Test mit Pandoc Reference List Plugin.md"
+    },
+    {
       "basename": "Change Log",
       "path": "01 Datenbanken/Change Log.md"
     },
@@ -37,20 +61,12 @@
       "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
     },
     {
-      "basename": "Obsidian-Plugin ZotLit konfigurieren",
-      "path": "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md"
-    },
-    {
       "basename": "Hellhaus Moritzburg",
       "path": "Notizensammlung/Themen/Hellhaus Moritzburg.md"
     },
     {
       "basename": "Moritzburg im Friedewald (1937)",
       "path": "04 Literatur-Notes/Zotero/Moritzburg im Friedewald (1937).md"
-    },
-    {
-      "basename": "Test mit Pandoc Reference List Plugin",
-      "path": "Test mit Pandoc Reference List Plugin.md"
     },
     {
       "basename": "Führung",
@@ -179,26 +195,6 @@
     {
       "basename": "Künstliche Intelligenz",
       "path": "Notizensammlung/Themen/Künstliche Intelligenz.md"
-    },
-    {
-      "basename": "Six Ways the AI Revolution is Unfolding",
-      "path": "04 Literatur-Notes/Omnivore/Six Ways the AI Revolution is Unfolding.md"
-    },
-    {
-      "basename": "KI-Textgeneratoren- Die 10 besten Programme",
-      "path": "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md"
-    },
-    {
-      "basename": "Comparing LangChain and LlamaIndex with 4 tasks",
-      "path": "04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md"
-    },
-    {
-      "basename": "Bibliotheksrecht",
-      "path": "Notizensammlung/Themen/Bibliotheksrecht.md"
-    },
-    {
-      "basename": "DFG-Positionspapier Forschungsdatengesetz (2023)",
-      "path": "04 Literatur-Notes/Zotero/DFG-Positionspapier Forschungsdatengesetz (2023).md"
     }
   ],
   "omittedPaths": [],

@@ -81,8 +81,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "byModifiedTime",
-                "autoReveal": false
+                "sortOrder": "alphabetical",
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "Dateiexplorer"
@@ -94,7 +94,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "[status:new]",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": true,
                 "collapseAll": true,
@@ -312,12 +312,22 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 0.7722213815356723,
+                  "scale": 0.7748350348704072,
                   "close": true
                 }
               },
               "icon": "lucide-git-fork",
               "title": "Graph von README"
+            }
+          },
+          {
+            "id": "ebba1ff22ae02083",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {},
+              "icon": "smart-connections",
+              "title": "Smart Connections"
             }
           },
           {
@@ -339,11 +349,11 @@
               "type": "tlfItemView",
               "state": {},
               "icon": "lucide-file",
-              "title": "Erweiterung ist nicht mehr aktiv"
+              "title": "File Info View"
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       },
       {
         "id": "463bd6bee6ee2334",
@@ -381,37 +391,39 @@
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
       "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
-      "periodic-notes:Open today": false
+      "periodic-notes:Open today": false,
+      "smart-connections:Open: Smart Chat": false,
+      "smart-connections:Open: View Smart Connections": false
     }
   },
-  "active": "bfde98f95a7d34fa",
+  "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
+    "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md",
+    "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme [Anzeige].md",
+    "04 Literatur-Notes/Omnivore/Was ist LangChain-.md",
+    "04 Literatur-Notes/Omnivore/Wer bei der Arbeit faul ist, ist erfolgreicher und glücklicher.md",
+    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
+    "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
+    "README.md",
+    "Test mit Pandoc Reference List Plugin.md",
     "01 Datenbanken/Change Log.md",
     "01 Datenbanken/Themen.md",
     "Notizensammlung/Themen/Bibliothekskonzepte.md",
-    "README.md",
     "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
     "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-    "Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md",
     "Notizensammlung/Themen/Hellhaus Moritzburg.md",
     "04 Literatur-Notes/Zotero/Moritzburg im Friedewald (1937).md",
     "04 Literatur-Notes/Omnivore/Cyclamen Care Essentials To Ensure Flowers Year After Year - Gardening Know How.md",
     "04 Literatur-Notes/Omnivore/Mein perfekter Chef (den ich nie hatte) - intrinsify.de.md",
-    "Test mit Pandoc Reference List Plugin.md",
     "04 Literatur-Notes/Omnivore/iPhone-Nutzer aufgepasst- Warum das Schließen von Apps deinem Smartphone eher schadet.md",
     "04 Literatur-Notes/Omnivore/dbv Diversität, Antidiskriminierung, Intersektionalität – was steckt hinter diesen Begriffen und ....md",
     "04 Literatur-Notes/Omnivore/Hohe Renditen für wenig Geld- Was sind aktive ETFs-.md",
     "Notizensammlung/Themen/Führung.md",
     "04 Literatur-Notes/Omnivore/Muskelaufbau ohne Geräte- Trainingsplan Übungen mit Körpergewicht 1-2.md",
     "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
-    "Notizensammlung/Themen/Wissenschaftliches Arbeiten.md",
-    "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md",
-    "04 Literatur-Notes/Omnivore/Bibliothekar-in (w-m-d) für die Hauptsachbearbeitung Erwerbung, Erschließung & Fernleihe - Filmun....md",
-    "Notizensammlung/Themen/Steamboatin'.md",
-    "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md",
     "02 Dateien/Javascript/topics.json",
     "Notizensammlung/Themen",
     "02 Dateien/Javascript/related_list.js",

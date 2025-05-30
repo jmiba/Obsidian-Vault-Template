@@ -14,7 +14,6 @@
   "obsidian-contextual-typography",
   "obsidian-style-settings",
   "dataview",
-  "obsidian-csv-table",
   "nldates-obsidian",
   "supercharged-links-obsidian",
   "obsidian-charts",
@@ -26,5 +25,6 @@
   "obsidian-pandoc",
   "obsidian-meta-bind-plugin",
   "number-headings-obsidian",
-  "obsidian-pocket"
+  "obsidian-pocket",
+  "smart-connections"
 ]

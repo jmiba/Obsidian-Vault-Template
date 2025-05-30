@@ -25,14 +25,29 @@ await dv.view("02 Dateien/Javascript/related_write")
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
 # Meine Notes
+## Zum Thema "Künstliche Intelligenz":
+
+- [[Notizensammlung/Themen/Künstliche Intelligenz.md|Künstliche Intelligenz]] (17.03.2025)
+- [[Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md|Obsidian-Plugin Textgenerator einrichten]] (26.02.2024)
+- [[Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md|Obsidian-Plugin Smart Connections einrichten]] (26.02.2024)
+- [[Wissensmanagement/Second Brain mit KI.md|Second Brain mit KI]] (19.02.2024)
 ## Zum Thema "Wissenschaftliches Arbeiten":
 
 - [[Notizensammlung/Themen/Wissenschaftliches Arbeiten.md|Wissenschaftliches Arbeiten]] (21.03.2025)
 
 # Relevante Literatur
-## Zum Thema "Wissenschaftliches Arbeiten":
+## Zum Thema "Künstliche Intelligenz":
 
 - [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
+- [[04 Literatur-Notes/Omnivore/Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog.md|Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog]] (26.01.2024)
+- [[04 Literatur-Notes/Omnivore/Six Ways the AI Revolution is Unfolding.md|Six Ways the AI Revolution is Unfolding]] (25.01.2024)
+- [[04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md|Comparing LangChain and LlamaIndex with 4 tasks]] (25.01.2024)
+- [[04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md|Taking your RAG pipelines to a next level ! LangGraphs ]] (25.01.2024)
+## Zum Thema "Wissenschaftliches Arbeiten":
+
+- [[04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md|Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL]] (22.02.2024)
+- [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
+- [[04 Literatur-Notes/Omnivore/Writing 1000 words.md|Writing 1000 words]] (25.01.2024)
 %% END A %%
 
 # KI-Textgeneratoren: Die 10 besten Programme
