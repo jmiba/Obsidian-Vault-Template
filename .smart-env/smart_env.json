@@ -21,16 +21,19 @@
   "smart_view_filter": {
     "render_markdown": true,
     "show_full_path": false,
+    "expanded_view": false,
     "results_limit": "20"
   },
-  "smart_notices": {
-    "muted": {}
-  },
+  "excluded_headings": "",
+  "language": "en",
+  "new_user": false,
   "smart_chat_threads": {
-    "active_thread_key": "",
     "chat_model": {
+      "adapter": "ollama",
+      "ollama": {},
       "platform_key": "openai"
     },
+    "active_thread_key": "",
     "system_prompt": "",
     "detect_self_referential": true,
     "review_context": true,
@@ -39,5 +42,8 @@
     "modifier_key_to_send": "shift",
     "use_tool_calls": true
   },
-  "excluded_headings": ""
+  "smart_notices": {
+    "muted": {}
+  },
+  "version": ""
 }
