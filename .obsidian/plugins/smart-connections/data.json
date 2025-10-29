@@ -1,5 +1,4 @@
 {
-  "new_user": false,
   "chat_folder": "smart chat",
   "smart_notes_embed_model": "text-embedding-ada-002",
   "smart_blocks_embed_model": "text-embedding-ada-002",
@@ -34,5 +33,7 @@
   "view_open": true,
   "results_count": 30,
   "failed_files": [],
-  "best_new_plugin": false
+  "best_new_plugin": false,
+  "last_version": "3.0.80",
+  "installed_at": 1749756421000
 }

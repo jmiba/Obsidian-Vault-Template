@@ -1,10 +1,10 @@
 {
-  "version": "0.7.47",
+  "version": "0.7.52",
   "endpoint": "https://api.openai.com/v1",
   "models": {},
   "api_key": "",
   "encrypt_keys": false,
-  "selectedProvider": "OpenAI Chat (Langchain)",
+  "selectedProvider": "Ollama (Langchain)",
   "max_tokens": 500,
   "temperature": 0.7,
   "frequency_penalty": 0.5,
@@ -59,6 +59,7 @@
   "autoSuggestOptions": {
     "customInstructEnabled": false,
     "customInstruct": "continue the follwing text:\n{{query}}",
+    "systemPrompt": "",
     "isEnabled": true,
     "allowInNewLine": false,
     "delay": 300,
@@ -92,6 +93,10 @@
       "basePath": "https://api.openai.com/v1",
       "api_key": "",
       "model": "gpt-4-1106-preview"
+    },
+    "Ollama (Langchain)": {
+      "basePath": "http://localhost:11434",
+      "model": "llama3.2"
     }
   },
   "LLMProviderOptionsKeysHashed": {

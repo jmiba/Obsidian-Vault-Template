@@ -22,25 +22,6 @@ related:
 ```dataviewjs
 await dv.view("02 Dateien/Javascript/related_write")
 ```
-> [!example]- In diesem Zusammenhang:
-> %% INSERT A %%
-# Meine Notes
-## Zum Thema "Künstliche Intelligenz":
-
-- [[Notizensammlung/Themen/Künstliche Intelligenz.md|Künstliche Intelligenz]] (17.03.2025)
-- [[Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md|Obsidian-Plugin Textgenerator einrichten]] (26.02.2024)
-- [[Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md|Obsidian-Plugin Smart Connections einrichten]] (26.02.2024)
-- [[Wissensmanagement/Second Brain mit KI.md|Second Brain mit KI]] (19.02.2024)
-
-# Relevante Literatur
-## Zum Thema "Künstliche Intelligenz":
-
-- [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
-- [[04 Literatur-Notes/Omnivore/Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog.md|Warum Hochschulen jetzt eigene Sprachmodelle hosten sollten - Wiarda-Blog]] (26.01.2024)
-- [[04 Literatur-Notes/Omnivore/Six Ways the AI Revolution is Unfolding.md|Six Ways the AI Revolution is Unfolding]] (25.01.2024)
-- [[04 Literatur-Notes/Omnivore/Comparing LangChain and LlamaIndex with 4 tasks.md|Comparing LangChain and LlamaIndex with 4 tasks]] (25.01.2024)
-- [[04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md|KI-Textgeneratoren- Die 10 besten Programme]] (23.01.2024)
-%% END A %%
 
 # Taking your RAG pipelines to a next level ! LangGraphs 
 
@@ -52,7 +33,7 @@ await dv.view("02 Dateien/Javascript/related_write")
 
 ## Inhalt
 
-![](https://proxy-prod.omnivore-image-cache.app/700x700,sN9DWw0G9QaLqzfWYld2DYV2tZCPj0PMdn2HhRTV1cdU/https://miro.medium.com/v2/resize:fit:1400/1*Kwr0jvNCyU0bQRqfZlijtg.jpeg)
+![[Pasted image 20250612092914.png]]
 
 Well hey there my fellow companion on data journey, If you’ve landed on this article then this means that you’ve taken amazing steps and now you’re well familiarized with RAG pipelines are are dwelling in the world of Generative AI. If that is true then one of the bridges you must’ve crossed is langchain itself. But guess what?In the latest release of langchain, they have introduced langGraphs which take this entire framework to a whole new level and that is what we’ll be diving into today. Also in this article we’ll see how LangGraphs can engance your langChain based RAG pipelines.
 
@@ -156,5 +137,3 @@ response = generate_response(query, documents)
 In essence, LangGraph doesn’t just enhance RAG pipelines; it revolutionizes them by infusing a layer of cognitive iteration and evaluation. It elevates the pipeline from a mere sequential process to an intelligent, adaptive system capable of introspection and refinement. This is particularly crucial in complex AI domains where the first response is not necessarily the best response, and iterative refinement can significantly amplify the accuracy and relevance of the solution. With that I really hope your data journey goes amazing.
 
 While we’re talking about amazing things, check out [TensorLabs](https://tensorlabs.io/) and the amazing waves we’re making in the domain of AI. [TensorLabs](https://pk.linkedin.com/company/tensor-labs) group of exceptionally talented AI Engineers and Developers who transformed five concepts from mere ideas to MVPs and then to fully operational products just within 2023, want to discuss your ideas with us? Feel free to reach out and happy AI.
-
-![](https://proxy-prod.omnivore-image-cache.app/700x725,sc7KA6M-RSRHut7c20Nb7rrDvNPH4gHdeVd-hfN6Gzek/https://miro.medium.com/v2/resize:fit:1400/1*-x-R-KNT2U6cNcL8t3eMBg.png)

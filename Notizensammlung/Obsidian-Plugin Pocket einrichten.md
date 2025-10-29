@@ -24,8 +24,10 @@ await dv.view("02 Dateien/Javascript/related_list")
 
 [Pocket](https://getpocket.com/de/home) ist eine App zum Sammeln von interessanten Webseiten. Es existiert ein Plugin für Obsidian, das den Import der gespeicherten Webseiten in das Obsidian Vault ermöglicht. Alle Notizen an einem Ort zu haben und sie miteinander verlinken zu können, ist ein Desiderat für den Digital Scholar.
 
+**Hinweis:** Der Webdienst Pocket wurde 2025 eingestellt (s. https://support.mozilla.org/de/kb/Zukunft-von-Pocket). Erwägen Sie das hervorragende Browser-Plugin [Obsidian Web Clipper](https://obsidian.md/clipper) für Read-It-Later-Funktionalität.
 
 # Plugin einrichten
 
 Nach dem Anlegen eines Benutzerkontos bei Pocket muss man in den Obsidian-Plugin-Einstellungen eine Verbindung zum Pocket-Konto herstellen:
+
 ![[Pasted image 20241112161125.png]]

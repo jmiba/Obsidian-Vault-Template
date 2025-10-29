@@ -24,7 +24,17 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!
+# Meine Notes
+## Zum Thema "Wissenschaftliches Arbeiten":
+
+- [[Notizensammlung/Themen/Wissenschaftliches Arbeiten.md|Wissenschaftliches Arbeiten]] (21.03.2025)
+
+# Relevante Literatur
+## Zum Thema "Wissenschaftliches Arbeiten":
+
+- [[04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md|Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL]] (22.02.2024)
+- [[04 Literatur-Notes/Omnivore/Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib.md|Einsatz von KI-Systemen beim wissenschaftlichen Schreiben – netbib]] (06.02.2024)
+- [[04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md|KI-Textgeneratoren- Die 10 besten Programme]] (23.01.2024)
 %% END A %%
 
 # Writing 1000 words

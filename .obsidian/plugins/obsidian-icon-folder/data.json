@@ -116,5 +116,6 @@
   "03 Personen/Kontakte": "FasUserGear",
   "00 Archiv/Tagebuch/Tägliche Notiz": "FasCalendarDay",
   "05 Tagebuch/Wöchentliche Notes": "FasCalendarWeek",
-  "01 Datenbanken/Sport.md": "LiBike"
+  "01 Datenbanken/Sport.md": "LiBike",
+  "04 Literatur-Notes/Web Clippings": "LiPaperclip"
 }

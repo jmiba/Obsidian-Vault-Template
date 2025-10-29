@@ -48,14 +48,18 @@ actions:
 
 ```
 
-# API-Key
+# Embedding
 
 Das Plugin „Smart Connections“ nutzt standardmäßig ein lokales Embedding-Modell. Das hat den Vorteil, dass Ihre Daten auf Ihrem lokalen Rechner bleiben und nicht an einen Webservice übertragen werden.  
 
-Gute Ergebnisse können aber durchaus auch mit Embeddingmodellen von OpenAI erziel werden. Um sie zu nutzen, müssen Sie sich bei [OpenAI](https://www.openai.com) ein Konto anlegen und einen API Key erstellen:
+Gute Ergebnisse können aber durchaus auch mit lokalen Embedding-Modellen, die über [ollama](https://ollama.com) oder [LM Studio](https://lmstudio.ai) angesprochen werden, erzielt werden. Empfehlenswert ist zum Beispiel das Modell [EmbeddingGemma](https://huggingface.co/unsloth/embeddinggemma-300m-GGUF).
+
+Falls Sie Embedding-Modelle von OpenAI nutzen wollen (*Vorsicht: Datenschutz!*), müssen Sie sich bei [OpenAI](https://www.openai.com) ein Konto anlegen und einen API Key erstellen:
+
 ![[Pasted image 20240226183307.png]]
 
 Dieser Key muss dann in den Einstellungen des Obsidian-Plugins eingetragen werden:
+
 ![[Pasted image 20240228172739.png]]
 
 

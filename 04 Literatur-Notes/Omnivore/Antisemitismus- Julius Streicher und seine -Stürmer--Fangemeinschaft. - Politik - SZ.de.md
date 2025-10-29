@@ -1,7 +1,6 @@
 ---
 id: 3bb8f313-7596-4d7a-bca8-5ae7d63090d6
-title: |
-  Antisemitismus: Julius Streicher und seine "Stürmer"-Fangemeinschaft. - Politik - SZ.de
+title: 'Antisemitismus: Julius Streicher und seine "Stürmer"-Fangemeinschaft. - Politik - SZ.de'
 author: |
   Robert Probst
 topics: 
@@ -15,14 +14,16 @@ created: 2024-01-21 17:44:56
 published: 2024-01-21 14:31:58
 URL: https://www.sueddeutsche.de/politik/antisemitismus-julius-streicher-nsdap-der-stuermer-und-seine-leser-melanie-wager-rezension-1.6335751
 Omnivore-URL: https://omnivore.app/me/antisemitismus-julius-streicher-und-seine-sturmer-fangemeinschaf-18d2ce92fea
-related: 
+related:
 ---
 
 ```dataviewjs
 await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
-> %% INSERT A %%%% END A %%
+> %% INSERT A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # Antisemitismus: Julius Streicher und seine "Stürmer"-Fangemeinschaft. - Politik - SZ.de
 

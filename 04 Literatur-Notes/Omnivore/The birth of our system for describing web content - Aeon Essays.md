@@ -21,7 +21,8 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 
 # The birth of our system for describing web content | Aeon Essays
 

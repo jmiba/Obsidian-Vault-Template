@@ -9,12 +9,48 @@
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
+      "basename": "Obsidian-Plugin Pocket einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+    },
+    {
       "basename": "Obsidian-Plugin Smart Connections einrichten",
       "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
     },
     {
-      "basename": "Obsidian-Plugin Pocket einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
+      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
+    },
+    {
+      "basename": "Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de",
+      "path": "04 Literatur-Notes/Omnivore/Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de.md"
+    },
+    {
+      "basename": "Writing 1000 words",
+      "path": "04 Literatur-Notes/Omnivore/Writing 1000 words.md"
+    },
+    {
+      "basename": "Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL",
+      "path": "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md"
+    },
+    {
+      "basename": "How GraphRAG Works Step-by-Step",
+      "path": "04 Literatur-Notes/Web Clippings/How GraphRAG Works Step-by-Step.md"
+    },
+    {
+      "basename": "The birth of our system for describing web content - Aeon Essays",
+      "path": "04 Literatur-Notes/Omnivore/The birth of our system for describing web content - Aeon Essays.md"
+    },
+    {
+      "basename": "Taking your RAG pipelines to a next level ! LangGraphs ",
+      "path": "04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md"
+    },
+    {
+      "basename": "Programmieren",
+      "path": "Notizensammlung/Themen/Programmieren.md"
+    },
+    {
+      "basename": "My newest AI workflow finds the key papers",
+      "path": "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md"
     },
     {
       "basename": "Test mit Pandoc Reference List Plugin",
@@ -79,10 +115,6 @@
     {
       "basename": "Wissenschaftliches Arbeiten",
       "path": "Notizensammlung/Themen/Wissenschaftliches Arbeiten.md"
-    },
-    {
-      "basename": "Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL",
-      "path": "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md"
     },
     {
       "basename": "Steamboatin'",
@@ -161,40 +193,12 @@
       "path": "04 Literatur-Notes/Omnivore/Tools - The Effortless Academic.md"
     },
     {
-      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
-      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
-    },
-    {
-      "basename": "Writing 1000 words",
-      "path": "04 Literatur-Notes/Omnivore/Writing 1000 words.md"
-    },
-    {
       "basename": "Forschungsevaluation, Qualitätssicherung",
       "path": "Notizensammlung/Themen/Forschungsevaluation, Qualitätssicherung.md"
     },
     {
       "basename": "DORA (2013)",
       "path": "04 Literatur-Notes/Zotero/DORA (2013).md"
-    },
-    {
-      "basename": "FDM, IDs, FIS, Datenerfassung",
-      "path": "Notizensammlung/Themen/FDM, IDs, FIS, Datenerfassung.md"
-    },
-    {
-      "basename": "RISE-DE (2019)",
-      "path": "04 Literatur-Notes/Zotero/RISE-DE (2019).md"
-    },
-    {
-      "basename": "Programmieren",
-      "path": "Notizensammlung/Themen/Programmieren.md"
-    },
-    {
-      "basename": "Taking your RAG pipelines to a next level ! LangGraphs ",
-      "path": "04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md"
-    },
-    {
-      "basename": "Künstliche Intelligenz",
-      "path": "Notizensammlung/Themen/Künstliche Intelligenz.md"
     }
   ],
   "omittedPaths": [],

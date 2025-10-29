@@ -36,6 +36,21 @@
               "icon": "lucide-file",
               "title": "2024-02-28, Mi (W09)"
             }
+          },
+          {
+            "id": "116760bb9e60cfed",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Darum schlägt der Stift noch immer die Notiz-App"
+            }
           }
         ]
       }
@@ -86,8 +101,8 @@
             "state": {
               "type": "recent-files",
               "state": {},
-              "icon": "lucide-file",
-              "title": "Erweiterung ist nicht mehr aktiv"
+              "icon": "lucide-ghost",
+              "title": "recent-files"
             }
           },
           {
@@ -183,8 +198,8 @@
                 "attachmentId": -1,
                 "follow": "zt-reader"
               },
-              "icon": "lucide-file",
-              "title": "Erweiterung ist nicht mehr aktiv"
+              "icon": "lucide-ghost",
+              "title": "zotero-annotation-view"
             }
           },
           {
@@ -234,6 +249,43 @@
             }
           },
           {
+            "id": "121b5292f04bfa40",
+            "type": "leaf",
+            "state": {
+              "type": "localgraph",
+              "state": {
+                "file": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
+                "options": {
+                  "collapse-filter": true,
+                  "search": "",
+                  "localJumps": 1,
+                  "localBacklinks": true,
+                  "localForelinks": true,
+                  "localInterlinks": false,
+                  "showTags": false,
+                  "showAttachments": false,
+                  "hideUnresolved": false,
+                  "collapse-color-groups": true,
+                  "colorGroups": [],
+                  "collapse-display": true,
+                  "showArrow": false,
+                  "textFadeMultiplier": 0,
+                  "nodeSizeMultiplier": 1,
+                  "lineSizeMultiplier": 1,
+                  "collapse-forces": true,
+                  "centerStrength": 0.518713248970312,
+                  "repelStrength": 10,
+                  "linkStrength": 1,
+                  "linkDistance": 250,
+                  "scale": 2.0538181374136752,
+                  "close": false
+                }
+              },
+              "icon": "lucide-git-fork",
+              "title": "Graph von Darum schlägt der Stift noch immer die Notiz-App"
+            }
+          },
+          {
             "id": "f5569bb653c5c0c0",
             "type": "leaf",
             "state": {
@@ -254,45 +306,8 @@
             "state": {
               "type": "ReferenceListView",
               "state": {},
-              "icon": "lucide-file",
-              "title": "Erweiterung ist nicht mehr aktiv"
-            }
-          },
-          {
-            "id": "6cd0862f6492f624",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "README.md",
-                "options": {
-                  "collapse-filter": true,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": true,
-                  "colorGroups": [],
-                  "collapse-display": false,
-                  "showArrow": true,
-                  "textFadeMultiplier": 0,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1.0771676300578,
-                  "collapse-forces": true,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 0.7748350348704072,
-                  "close": true
-                }
-              },
-              "icon": "lucide-git-fork",
-              "title": "Graph von README"
+              "icon": "lucide-ghost",
+              "title": "ReferenceListView"
             }
           },
           {
@@ -302,7 +317,7 @@
               "type": "smart-connections-view",
               "state": {},
               "icon": "smart-connections",
-              "title": "Smart Connections"
+              "title": "Connections"
             }
           },
           {
@@ -323,8 +338,8 @@
             "state": {
               "type": "tlfItemView",
               "state": {},
-              "icon": "lucide-file",
-              "title": "File Info View"
+              "icon": "lucide-ghost",
+              "title": "tlfItemView"
             }
           }
         ],
@@ -353,8 +368,9 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "graph:Graph-Ansicht öffnen": false,
+      "bases:Create new base": false,
       "switcher:Schnellauswahl öffnen": false,
-      "graph:Graphen-Ansicht öffnen": false,
       "canvas:Neuen Canvas erstellen": false,
       "daily-notes:Heutige Notiz öffnen": false,
       "templates:Vorlage einfügen": false,
@@ -362,23 +378,36 @@
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
+      "periodic-notes:Open today": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "obsidian-kindle-plugin:Sync your Kindle highlights": false,
       "obsidian-textgenerator-plugin:Generate Text!": false,
       "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
       "smart-connections:Open: Smart Chat": false,
       "smart-connections:Open: View Smart Connections": false,
-      "periodic-notes:Open today": false
+      "smart-connections:Smart Connections: Open connections view": false,
+      "smart-connections:Smart Connections: Open random connection": true
     }
   },
   "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
     "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
+    "04 Literatur-Notes/Omnivore/Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de.md",
+    "README.md",
+    "04 Literatur-Notes/Omnivore/Writing 1000 words.md",
+    "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md",
+    "04 Literatur-Notes/Web Clippings/How GraphRAG Works Step-by-Step.md",
+    "04 Literatur-Notes/Omnivore/The birth of our system for describing web content - Aeon Essays.md",
+    "04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md",
+    "02 Dateien/Pasted image 20250612092914.png",
+    "Notizensammlung/Themen/Programmieren.md",
+    "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md",
+    "04 Literatur-Notes/Web Clippings",
     "Test mit Pandoc Reference List Plugin.md",
     "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
-    "README.md",
     "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme.md",
     "04 Literatur-Notes/Omnivore/KI-Textgeneratoren- Die 10 besten Programme [Anzeige].md",
     "04 Literatur-Notes/Omnivore/Was ist LangChain-.md",
@@ -390,15 +419,6 @@
     "Notizensammlung/Themen/Bibliothekskonzepte.md",
     "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
     "Notizensammlung/Themen/Hellhaus Moritzburg.md",
-    "04 Literatur-Notes/Zotero/Moritzburg im Friedewald (1937).md",
-    "04 Literatur-Notes/Omnivore/Cyclamen Care Essentials To Ensure Flowers Year After Year - Gardening Know How.md",
-    "04 Literatur-Notes/Omnivore/Mein perfekter Chef (den ich nie hatte) - intrinsify.de.md",
-    "04 Literatur-Notes/Omnivore/iPhone-Nutzer aufgepasst- Warum das Schließen von Apps deinem Smartphone eher schadet.md",
-    "04 Literatur-Notes/Omnivore/dbv Diversität, Antidiskriminierung, Intersektionalität – was steckt hinter diesen Begriffen und ....md",
-    "04 Literatur-Notes/Omnivore/Hohe Renditen für wenig Geld- Was sind aktive ETFs-.md",
-    "Notizensammlung/Themen/Führung.md",
-    "04 Literatur-Notes/Omnivore/Muskelaufbau ohne Geräte- Trainingsplan Übungen mit Körpergewicht 1-2.md",
-    "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
     "02 Dateien/Javascript/topics.json",
     "Notizensammlung/Themen",
     "02 Dateien/Javascript/related_list.js",
@@ -414,11 +434,9 @@
     "02 Dateien/Medien/Pasted image 20240226182730.png",
     "02 Dateien/Medien/Pasted image 20240226194331.png",
     "02 Dateien/Medien/Pasted image 20240227182847.png",
-    "02 Dateien/Medien/Pasted image 20240227182927.png",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
     "02 Dateien/Bibliographie/Meine Bibliothek.json",
-    "02 Dateien/HTML-Dateien/README.html",
     "Dashboard.canvas",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
