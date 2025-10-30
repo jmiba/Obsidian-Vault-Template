@@ -1,5 +1,5 @@
 ---
-tags: 
+tags:
 aliases:
   - Woche {{monday:DD.MM.YY}} – {{sunday:DD.MM.YY}}
 lang: de-DE

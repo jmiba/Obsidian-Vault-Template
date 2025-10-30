@@ -1,0 +1,20 @@
+filters:
+  and:
+    - file.ext != "md"
+    - file.ext != "base"
+    - file.ext != "canvas"
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.ext != "md"
+    order:
+      - file.name
+      - file.backlinks
+      - file.mtime
+    sort:
+      - property: file.backlinks
+        direction: ASC
+    columnSize:
+      file.name: 264

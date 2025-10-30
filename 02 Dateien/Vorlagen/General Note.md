@@ -13,5 +13,6 @@ await dv.view("02 Dateien/Javascript/related_write")
 ```
 > [!example]- In diesem Zusammenhang:
 > %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!%% END A %%
+Noch kein Thema in Frontmatter `topics` definiert!
+%% END A %%
 

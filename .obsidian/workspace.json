@@ -102,8 +102,8 @@
             "state": {
               "type": "recent-files",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "recent-files"
+              "icon": "clock",
+              "title": "Recent Files"
             }
           },
           {
@@ -141,8 +141,17 @@
               "state": {
                 "file": "01 Datenbanken/Task Panel.md",
                 "mode": "preview",
+                "source": false,
                 "backlinks": true,
-                "source": false
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "pinned": true,
               "icon": "lucide-file",
@@ -194,13 +203,13 @@
             "state": {
               "type": "zotero-annotation-view",
               "state": {
-                "file": "README.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "itemId": -1,
                 "attachmentId": -1,
                 "follow": "zt-reader"
               },
-              "icon": "lucide-ghost",
-              "title": "zotero-annotation-view"
+              "icon": "highlighter",
+              "title": "Zotero Annotations"
             }
           },
           {
@@ -255,7 +264,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
+                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -283,7 +292,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Graph von Darum schlägt der Stift noch immer die Notiz-App"
+              "title": "Graph von 2024-02-28, Mi (W09)"
             }
           },
           {
@@ -307,8 +316,8 @@
             "state": {
               "type": "ReferenceListView",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "ReferenceListView"
+              "icon": "quote-glyph",
+              "title": "References"
             }
           },
           {
@@ -339,8 +348,8 @@
             "state": {
               "type": "tlfItemView",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "tlfItemView"
+              "icon": "lucide-file",
+              "title": "File Info View"
             }
           }
         ],
@@ -380,23 +389,41 @@
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
       "obsidian-file-info-plugin:File Info Panel": false,
-      "obsidian-kindle-plugin:Sync your Kindle highlights": false,
-      "obsidian-textgenerator-plugin:Generate Text!": false,
-      "obsidian-textgenerator-plugin:Text Generator: Templates Packages Manager": false,
       "smart-connections:Open: Smart Chat": false,
       "smart-connections:Smart Connections: Open connections view": false,
       "smart-connections:Smart Connections: Open random connection": true,
       "periodic-notes:Open today": false
     }
   },
-  "active": "5888709be6063032",
+  "active": "ebba1ff22ae02083",
   "lastOpenFiles": [
-    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-    "Test mit Pandoc Reference List Plugin.md",
+    "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
+    "01 Datenbanken/Task Panel.md",
+    "01 Datenbanken/Attachments.base",
+    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
     "Wissensmanagement/Things Theme.md",
     "Wissensmanagement/Second Brain mit KI.md",
     "Wissensmanagement/Schreibtechniken.md",
+    "01 Datenbanken/Change Log.md",
+    "02 Dateien/Vorlagen/Wochenseite.md",
+    "02 Dateien/Vorlagen/prompts/dalle-2/art3D.md",
+    "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
+    "02 Dateien/Vorlagen/Use Template.md",
+    "02 Dateien/Vorlagen/Topic.md",
+    "02 Dateien/Vorlagen/Tagebuchseite.md",
+    "02 Dateien/Vorlagen/Person.md",
+    "02 Dateien/Vorlagen/Notizenvorlage.md",
+    "02 Dateien/Vorlagen/Kindvorlage.md",
+    "02 Dateien/Vorlagen/General Note.md",
+    "01 Datenbanken/topics.md",
+    "01 Datenbanken/Themen.md",
+    "01 Datenbanken/Aufgabenerfüllung.md",
+    "01 Datenbanken/Beratung.md",
+    "01 Datenbanken/Broken Links.md",
+    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
     "02 Dateien/Medien/Z99VS7EC.png",
     "02 Dateien/Medien/VWNP3I52.png",
     "02 Dateien/Medien/VR8I52KL.png",
@@ -407,27 +434,7 @@
     "02 Dateien/Medien/Pasted image 20240426085616.png",
     "02 Dateien/Medien/Pasted image 20240426085430.png",
     "02 Dateien/Medien/Pasted image 20240426085007.png",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-    "Notizensammlung/defaultName.md",
-    "README.md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 11-1 (1974).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-1 (1975).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md",
-    "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md",
-    "04 Literatur-Notes/Zotero/Seven strategies (2023).md",
-    "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md",
-    "04 Literatur-Notes/Zotero/Bericht 2022_23.md",
-    "04 Literatur-Notes/Kindle/Whitehead - Harlem Shuffle.md",
-    "04 Literatur-Notes/Kindle/Zola - Die Beute.md",
     "Dashboard.canvas",
-    "Notizensammlung/Obsidian-Plugin Textgenerator einrichten.md",
-    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
-    "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
-    "04 Literatur-Notes/Omnivore/Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de.md",
-    "04 Literatur-Notes/Omnivore/Writing 1000 words.md",
-    "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md",
-    "04 Literatur-Notes/Web Clippings/How GraphRAG Works Step-by-Step.md",
-    "04 Literatur-Notes/Omnivore/The birth of our system for describing web content - Aeon Essays.md",
     "04 Literatur-Notes/Web Clippings",
     "02 Dateien/Javascript/topics.json",
     "Notizensammlung/Themen",
@@ -437,7 +444,6 @@
     "smart-chats",
     "Obsidian-Vault-Template/LICENSE",
     "Obsidian-Vault-Template",
-    "02 Dateien/Bibliographie/Meine Bibliothek.json",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
     "Untitled.canvas",

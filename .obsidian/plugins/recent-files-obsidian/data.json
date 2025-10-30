@@ -5,16 +5,28 @@
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
-      "basename": "Obsidian-Plugin Pocket einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
+      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
     },
     {
-      "basename": "Test mit Pandoc Reference List Plugin",
-      "path": "Test mit Pandoc Reference List Plugin.md"
+      "basename": "2024-02-19, Mo (W08)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
     },
     {
       "basename": "Tiago Forte - Second Brain",
       "path": "Wissensmanagement/Tiago Forte - Second Brain.md"
+    },
+    {
+      "basename": "Task Panel",
+      "path": "01 Datenbanken/Task Panel.md"
+    },
+    {
+      "basename": "Attachments",
+      "path": "01 Datenbanken/Attachments.base"
+    },
+    {
+      "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
+      "path": "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md"
     },
     {
       "basename": "Things Theme",
@@ -27,6 +39,74 @@
     {
       "basename": "Schreibtechniken",
       "path": "Wissensmanagement/Schreibtechniken.md"
+    },
+    {
+      "basename": "Change Log",
+      "path": "01 Datenbanken/Change Log.md"
+    },
+    {
+      "basename": "Wochenseite",
+      "path": "02 Dateien/Vorlagen/Wochenseite.md"
+    },
+    {
+      "basename": "Wissenschaftlicher Artikel",
+      "path": "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md"
+    },
+    {
+      "basename": "Use Template",
+      "path": "02 Dateien/Vorlagen/Use Template.md"
+    },
+    {
+      "basename": "Topic",
+      "path": "02 Dateien/Vorlagen/Topic.md"
+    },
+    {
+      "basename": "Tagebuchseite",
+      "path": "02 Dateien/Vorlagen/Tagebuchseite.md"
+    },
+    {
+      "basename": "Person",
+      "path": "02 Dateien/Vorlagen/Person.md"
+    },
+    {
+      "basename": "Notizenvorlage",
+      "path": "02 Dateien/Vorlagen/Notizenvorlage.md"
+    },
+    {
+      "basename": "Kindvorlage",
+      "path": "02 Dateien/Vorlagen/Kindvorlage.md"
+    },
+    {
+      "basename": "General Note",
+      "path": "02 Dateien/Vorlagen/General Note.md"
+    },
+    {
+      "basename": "topics",
+      "path": "01 Datenbanken/topics.md"
+    },
+    {
+      "basename": "Themen",
+      "path": "01 Datenbanken/Themen.md"
+    },
+    {
+      "basename": "Aufgabenerfüllung",
+      "path": "01 Datenbanken/Aufgabenerfüllung.md"
+    },
+    {
+      "basename": "Beratung",
+      "path": "01 Datenbanken/Beratung.md"
+    },
+    {
+      "basename": "Broken Links",
+      "path": "01 Datenbanken/Broken Links.md"
+    },
+    {
+      "basename": "Obsidian-Plugin Pocket einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
+    },
+    {
+      "basename": "Test mit Pandoc Reference List Plugin",
+      "path": "Test mit Pandoc Reference List Plugin.md"
     },
     {
       "basename": "Z99VS7EC",
@@ -119,86 +199,6 @@
     {
       "basename": "7PKLIJL7",
       "path": "02 Dateien/Medien/7PKLIJL7.png"
-    },
-    {
-      "basename": "README",
-      "path": "README.md"
-    },
-    {
-      "basename": "S & D Reflector 11-1 (1974)",
-      "path": "04 Literatur-Notes/Zotero/S & D Reflector 11-1 (1974).md"
-    },
-    {
-      "basename": "S & D Reflector 12-1 (1975)",
-      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-1 (1975).md"
-    },
-    {
-      "basename": "S & D Reflector 12-2 (1975)",
-      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-2 (1975).md"
-    },
-    {
-      "basename": "S & D Reflector 12-3 (1975)",
-      "path": "04 Literatur-Notes/Zotero/S & D Reflector 12-3 (1975).md"
-    },
-    {
-      "basename": "Seven strategies (2023)",
-      "path": "04 Literatur-Notes/Zotero/Seven strategies (2023).md"
-    },
-    {
-      "basename": "Steamboat Heroine propulsion (2015)",
-      "path": "04 Literatur-Notes/Zotero/Steamboat Heroine propulsion (2015).md"
-    },
-    {
-      "basename": "Bericht 2022_23",
-      "path": "04 Literatur-Notes/Zotero/Bericht 2022_23.md"
-    },
-    {
-      "basename": "Dashboard",
-      "path": "Dashboard.canvas"
-    },
-    {
-      "basename": "Obsidian-Plugin Smart Connections einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
-    },
-    {
-      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
-      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
-    },
-    {
-      "basename": "Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de",
-      "path": "04 Literatur-Notes/Omnivore/Antisemitismus- Julius Streicher und seine -Stürmer--Fangemeinschaft. - Politik - SZ.de.md"
-    },
-    {
-      "basename": "Writing 1000 words",
-      "path": "04 Literatur-Notes/Omnivore/Writing 1000 words.md"
-    },
-    {
-      "basename": "Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL",
-      "path": "04 Literatur-Notes/Omnivore/Wissenschaft- »Zitierkartelle« verschaffen manchem Mathematiker mehr Renommee - DER SPIEGEL.md"
-    },
-    {
-      "basename": "How GraphRAG Works Step-by-Step",
-      "path": "04 Literatur-Notes/Web Clippings/How GraphRAG Works Step-by-Step.md"
-    },
-    {
-      "basename": "The birth of our system for describing web content - Aeon Essays",
-      "path": "04 Literatur-Notes/Omnivore/The birth of our system for describing web content - Aeon Essays.md"
-    },
-    {
-      "basename": "Taking your RAG pipelines to a next level ! LangGraphs ",
-      "path": "04 Literatur-Notes/Omnivore/Taking your RAG pipelines to a next level ! LangGraphs .md"
-    },
-    {
-      "basename": "Programmieren",
-      "path": "Notizensammlung/Themen/Programmieren.md"
-    },
-    {
-      "basename": "My newest AI workflow finds the key papers",
-      "path": "04 Literatur-Notes/Omnivore/My newest AI workflow finds the key papers.md"
-    },
-    {
-      "basename": "The Secret Power of ‘Read It Later’ Apps",
-      "path": "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md"
     }
   ],
   "omittedPaths": [],
