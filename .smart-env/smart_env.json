@@ -45,7 +45,7 @@
   "re_import_wait_time": 13,
   "smart_chat_threads": {
     "chat_model": {
-      "adapter": "ollama",
+      "adapter": "lm_studio",
       "ollama": {
         "model_key": "undefined",
         "host": "http://localhost:11434",
@@ -108,9 +108,110 @@
           }
         }
       },
-      "platform_key": "openai"
+      "platform_key": "openai",
+      "lm_studio": {
+        "model_key": "openai/gpt-oss-20b",
+        "models": {
+          "text-embedding-embeddinggemma-300m": {
+            "id": "text-embedding-embeddinggemma-300m",
+            "model_name": "text-embedding-embeddinggemma-300m",
+            "description": "LM Studio model: text-embedding-embeddinggemma-300m",
+            "multimodal": false
+          },
+          "dreamomni2-7.6b": {
+            "id": "dreamomni2-7.6b",
+            "model_name": "dreamomni2-7.6b",
+            "description": "LM Studio model: dreamomni2-7.6b",
+            "multimodal": false
+          },
+          "qwen/qwen3-vl-8b": {
+            "id": "qwen/qwen3-vl-8b",
+            "model_name": "qwen/qwen3-vl-8b",
+            "description": "LM Studio model: qwen/qwen3-vl-8b",
+            "multimodal": false
+          },
+          "text-embedding-qwen3-embedding-0.6b": {
+            "id": "text-embedding-qwen3-embedding-0.6b",
+            "model_name": "text-embedding-qwen3-embedding-0.6b",
+            "description": "LM Studio model: text-embedding-qwen3-embedding-0.6b",
+            "multimodal": false
+          },
+          "text-embedding-nomic-embed-text-v2-moe": {
+            "id": "text-embedding-nomic-embed-text-v2-moe",
+            "model_name": "text-embedding-nomic-embed-text-v2-moe",
+            "description": "LM Studio model: text-embedding-nomic-embed-text-v2-moe",
+            "multimodal": false
+          },
+          "google/gemma-3-27b": {
+            "id": "google/gemma-3-27b",
+            "model_name": "google/gemma-3-27b",
+            "description": "LM Studio model: google/gemma-3-27b",
+            "multimodal": false
+          },
+          "text-embedding-multilingual-e5-large-instruct": {
+            "id": "text-embedding-multilingual-e5-large-instruct",
+            "model_name": "text-embedding-multilingual-e5-large-instruct",
+            "description": "LM Studio model: text-embedding-multilingual-e5-large-instruct",
+            "multimodal": false
+          },
+          "text-embedding-nomic-embed-text-v1.5": {
+            "id": "text-embedding-nomic-embed-text-v1.5",
+            "model_name": "text-embedding-nomic-embed-text-v1.5",
+            "description": "LM Studio model: text-embedding-nomic-embed-text-v1.5",
+            "multimodal": false
+          },
+          "opengvlab_internvl3_5-38b": {
+            "id": "opengvlab_internvl3_5-38b",
+            "model_name": "opengvlab_internvl3_5-38b",
+            "description": "LM Studio model: opengvlab_internvl3_5-38b",
+            "multimodal": false
+          },
+          "deepseek/deepseek-r1-0528-qwen3-8b": {
+            "id": "deepseek/deepseek-r1-0528-qwen3-8b",
+            "model_name": "deepseek/deepseek-r1-0528-qwen3-8b",
+            "description": "LM Studio model: deepseek/deepseek-r1-0528-qwen3-8b",
+            "multimodal": false
+          },
+          "openai/gpt-oss-20b": {
+            "id": "openai/gpt-oss-20b",
+            "model_name": "openai/gpt-oss-20b",
+            "description": "LM Studio model: openai/gpt-oss-20b",
+            "multimodal": false
+          },
+          "llama-3-groq-8b-tool-use": {
+            "id": "llama-3-groq-8b-tool-use",
+            "model_name": "llama-3-groq-8b-tool-use",
+            "description": "LM Studio model: llama-3-groq-8b-tool-use",
+            "multimodal": false
+          },
+          "text-embedding-granite-embedding-278m-multilingual": {
+            "id": "text-embedding-granite-embedding-278m-multilingual",
+            "model_name": "text-embedding-granite-embedding-278m-multilingual",
+            "description": "LM Studio model: text-embedding-granite-embedding-278m-multilingual",
+            "multimodal": false
+          },
+          "google/gemma-3-12b": {
+            "id": "google/gemma-3-12b",
+            "model_name": "google/gemma-3-12b",
+            "description": "LM Studio model: google/gemma-3-12b",
+            "multimodal": false
+          },
+          "qwen/qwen3-14b": {
+            "id": "qwen/qwen3-14b",
+            "model_name": "qwen/qwen3-14b",
+            "description": "LM Studio model: qwen/qwen3-14b",
+            "multimodal": false
+          },
+          "deepseek-coder-v2-lite-instruct": {
+            "id": "deepseek-coder-v2-lite-instruct",
+            "model_name": "deepseek-coder-v2-lite-instruct",
+            "description": "LM Studio model: deepseek-coder-v2-lite-instruct",
+            "multimodal": false
+          }
+        }
+      }
     },
-    "active_thread_key": "",
+    "active_thread_key": "Untitled Chat 2025-11-02 11-38-34",
     "system_prompt": "You are an expert knowledge worker with an extensive academic background in the role of a helpful assistant and productivity coach. You use information found in the files in {{folders_top}}.",
     "detect_self_referential": true,
     "review_context": true,

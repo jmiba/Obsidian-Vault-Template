@@ -51,6 +51,16 @@
               "icon": "lucide-file",
               "title": "Darum schlägt der Stift noch immer die Notiz-App"
             }
+          },
+          {
+            "id": "b66c099f41b8a7eb",
+            "type": "leaf",
+            "state": {
+              "type": "smart-chat-view",
+              "state": {},
+              "icon": "smart-chat",
+              "title": "Smart Chat"
+            }
           }
         ],
         "currentTab": 1
@@ -287,8 +297,8 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 2.0538181374136752,
-                  "close": false
+                  "scale": 1.2754245006257954,
+                  "close": true
                 }
               },
               "icon": "lucide-git-fork",
@@ -316,8 +326,8 @@
             "state": {
               "type": "ReferenceListView",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "ReferenceListView"
+              "icon": "quote-glyph",
+              "title": "References"
             }
           },
           {
@@ -353,7 +363,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 5
       },
       {
         "id": "463bd6bee6ee2334",
@@ -388,18 +398,18 @@
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
-      "periodic-notes:Open today": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "smart-connections:Open: Smart Chat": false,
       "smart-connections:Smart Connections: Open connections view": false,
-      "smart-connections:Smart Connections: Open random connection": true
+      "smart-connections:Smart Connections: Open random connection": true,
+      "periodic-notes:Open today": false
     }
   },
-  "active": "ebba1ff22ae02083",
+  "active": "121b5292f04bfa40",
   "lastOpenFiles": [
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
     "01 Datenbanken/Task Panel.md",
     "01 Datenbanken/Attachments.base",
