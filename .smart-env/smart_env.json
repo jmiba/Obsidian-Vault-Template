@@ -46,11 +46,72 @@
   "smart_chat_threads": {
     "chat_model": {
       "adapter": "ollama",
-      "ollama": {},
+      "ollama": {
+        "model_key": "undefined",
+        "host": "http://localhost:11434",
+        "models": {
+          "embeddinggemma:latest": {
+            "model_name": "embeddinggemma:latest",
+            "id": "embeddinggemma:latest",
+            "multimodal": false,
+            "max_input_tokens": 2048,
+            "can_use_tools": true
+          },
+          "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M": {
+            "model_name": "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M",
+            "id": "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M",
+            "multimodal": false,
+            "max_input_tokens": 512,
+            "can_use_tools": true
+          },
+          "granite-embedding-278m-multilingual-IQ3_M:latest": {
+            "model_name": "granite-embedding-278m-multilingual-IQ3_M:latest",
+            "id": "granite-embedding-278m-multilingual-IQ3_M:latest",
+            "multimodal": false,
+            "max_input_tokens": 512,
+            "can_use_tools": true
+          },
+          "mxbai-embed-large:latest": {
+            "model_name": "mxbai-embed-large:latest",
+            "id": "mxbai-embed-large:latest",
+            "multimodal": false,
+            "max_input_tokens": 512,
+            "can_use_tools": true
+          },
+          "bge-m3:latest": {
+            "model_name": "bge-m3:latest",
+            "id": "bge-m3:latest",
+            "multimodal": false,
+            "max_input_tokens": 8192,
+            "can_use_tools": true
+          },
+          "jina/jina-embeddings-v2-base-de:latest": {
+            "model_name": "jina/jina-embeddings-v2-base-de:latest",
+            "id": "jina/jina-embeddings-v2-base-de:latest",
+            "multimodal": false,
+            "max_input_tokens": 8192,
+            "can_use_tools": true
+          },
+          "snowflake-arctic-embed2:latest": {
+            "model_name": "snowflake-arctic-embed2:latest",
+            "id": "snowflake-arctic-embed2:latest",
+            "multimodal": false,
+            "max_input_tokens": 8192,
+            "can_use_tools": true
+          },
+          "llama3.2:latest": {
+            "model_name": "llama3.2:latest",
+            "id": "llama3.2:latest",
+            "multimodal": false,
+            "max_input_tokens": 131072,
+            "can_use_tools": true
+          }
+        }
+      },
       "platform_key": "openai"
     },
     "active_thread_key": "",
-    "system_prompt": "",
+    "system_prompt": "You are an expert knowledge worker with an extensive academic background in the role of a helpful assistant and productivity coach. You use information found in the files in {{folders_top}}.",
     "detect_self_referential": true,
     "review_context": true,
     "stream": true,

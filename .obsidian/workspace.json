@@ -102,8 +102,8 @@
             "state": {
               "type": "recent-files",
               "state": {},
-              "icon": "clock",
-              "title": "Recent Files"
+              "icon": "lucide-ghost",
+              "title": "recent-files"
             }
           },
           {
@@ -208,8 +208,8 @@
                 "attachmentId": -1,
                 "follow": "zt-reader"
               },
-              "icon": "highlighter",
-              "title": "Zotero Annotations"
+              "icon": "lucide-ghost",
+              "title": "zotero-annotation-view"
             }
           },
           {
@@ -316,8 +316,8 @@
             "state": {
               "type": "ReferenceListView",
               "state": {},
-              "icon": "quote-glyph",
-              "title": "References"
+              "icon": "lucide-ghost",
+              "title": "ReferenceListView"
             }
           },
           {
@@ -348,8 +348,8 @@
             "state": {
               "type": "tlfItemView",
               "state": {},
-              "icon": "lucide-file",
-              "title": "File Info View"
+              "icon": "lucide-ghost",
+              "title": "tlfItemView"
             }
           }
         ],
@@ -388,11 +388,11 @@
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
+      "periodic-notes:Open today": false,
       "obsidian-file-info-plugin:File Info Panel": false,
       "smart-connections:Open: Smart Chat": false,
       "smart-connections:Smart Connections: Open connections view": false,
-      "smart-connections:Smart Connections: Open random connection": true,
-      "periodic-notes:Open today": false
+      "smart-connections:Smart Connections: Open random connection": true
     }
   },
   "active": "ebba1ff22ae02083",
