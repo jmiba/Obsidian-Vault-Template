@@ -1,4 +1,6 @@
 # Obsidian Vault Template
+
+[![DOI](https://zenodo.org/badge/764291474.svg)](https://doi.org/10.5281/zenodo.17777496)
  
  A template vault for [Obsidian](https://obsidian.md) with a number of useful plug-ins pre-configured.
 
