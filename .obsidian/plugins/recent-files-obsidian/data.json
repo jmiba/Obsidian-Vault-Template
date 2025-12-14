@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "7XRCWY33",
       "path": "02 Dateien/Medien/7XRCWY33.png"
-    },
-    {
-      "basename": "7PKLIJL7",
-      "path": "02 Dateien/Medien/7PKLIJL7.png"
     }
   ],
   "omittedPaths": [],

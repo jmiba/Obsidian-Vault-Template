@@ -51,19 +51,8 @@
               "icon": "lucide-file",
               "title": "Darum schlägt der Stift noch immer die Notiz-App"
             }
-          },
-          {
-            "id": "b66c099f41b8a7eb",
-            "type": "leaf",
-            "state": {
-              "type": "smart-chat-view",
-              "state": {},
-              "icon": "smart-chat",
-              "title": "Smart Chat"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -112,8 +101,8 @@
             "state": {
               "type": "recent-files",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "recent-files"
+              "icon": "clock",
+              "title": "Recent Files"
             }
           },
           {
@@ -274,7 +263,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+                "file": "README.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -302,7 +291,7 @@
                 }
               },
               "icon": "lucide-git-fork",
-              "title": "Graph von 2024-02-28, Mi (W09)"
+              "title": "Graph von README"
             }
           },
           {
@@ -341,6 +330,16 @@
             }
           },
           {
+            "id": "6e09be781c0b02bf",
+            "type": "leaf",
+            "state": {
+              "type": "smart-lookup-view",
+              "state": {},
+              "icon": "smart-lookup",
+              "title": "Lookup"
+            }
+          },
+          {
             "id": "3e031334a2d55d62",
             "type": "leaf",
             "state": {
@@ -358,12 +357,12 @@
             "state": {
               "type": "tlfItemView",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "tlfItemView"
+              "icon": "lucide-file",
+              "title": "File Info View"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 8
       },
       {
         "id": "463bd6bee6ee2334",
@@ -399,15 +398,16 @@
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
       "obsidian-file-info-plugin:File Info Panel": false,
-      "smart-connections:Open: Smart Chat": false,
       "smart-connections:Smart Connections: Open connections view": false,
       "smart-connections:Smart Connections: Open random connection": true,
+      "smart-connections:Smart Lookup: Open lookup view": false,
       "periodic-notes:Open today": false
     }
   },
-  "active": "121b5292f04bfa40",
+  "active": "bfde98f95a7d34fa",
   "lastOpenFiles": [
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "README.md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
@@ -433,7 +433,6 @@
     "01 Datenbanken/Aufgabenerfüllung.md",
     "01 Datenbanken/Beratung.md",
     "01 Datenbanken/Broken Links.md",
-    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
     "02 Dateien/Medien/Z99VS7EC.png",
     "02 Dateien/Medien/VWNP3I52.png",
     "02 Dateien/Medien/VR8I52KL.png",

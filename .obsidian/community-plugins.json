@@ -23,5 +23,6 @@
   "obsidian-pandoc",
   "obsidian-meta-bind-plugin",
   "number-headings-obsidian",
-  "smart-connections"
+  "smart-connections",
+  "smart-connections-lmstudio-embeddings"
 ]

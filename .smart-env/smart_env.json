@@ -1,227 +1,71 @@
 {
   "is_obsidian_vault": true,
   "smart_blocks": {
-    "embed_blocks": false,
+    "embed_blocks": true,
     "min_chars": 200
   },
   "smart_sources": {
-    "single_file_data_path": ".smart-env/smart_sources.json",
     "min_chars": 200,
     "embed_model": {
       "adapter": "transformers",
       "transformers": {
-        "legacy_transformers": false,
         "model_key": "TaylorAI/bge-micro-v2"
-      },
-      "TaylorAI/bge-micro-v2": {},
-      "ollama": {
-        "model_key": "snowflake-arctic-embed2:latest",
-        "host": "http://localhost:11434"
-      },
-      "andersonbcdefg/bge-small-4096": {},
-      "openai": {
-        "model_key": "text-embedding-3-small"
-      },
-      "snowflake-arctic-embed2:latest": {}
+      }
     },
     "excluded_headings": "",
     "file_exclusions": "Untitled",
     "folder_exclusions": ""
   },
-  "ribbon_icons": {
-    "connections": true,
-    "random_note": false
-  },
-  "smart_view_filter": {
-    "render_markdown": true,
-    "show_full_path": false,
-    "exclude_blocks_from_source_connections": false,
-    "exclude_frontmatter_blocks": true,
-    "expanded_view": false,
-    "results_limit": "20"
-  },
   "language": "en",
-  "new_user": false,
   "re_import_wait_time": 13,
   "smart_chat_threads": {
     "chat_model": {
-      "adapter": "lm_studio",
-      "ollama": {
-        "model_key": "undefined",
-        "host": "http://localhost:11434",
-        "models": {
-          "embeddinggemma:latest": {
-            "model_name": "embeddinggemma:latest",
-            "id": "embeddinggemma:latest",
-            "multimodal": false,
-            "max_input_tokens": 2048,
-            "can_use_tools": true
-          },
-          "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M": {
-            "model_name": "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M",
-            "id": "hf.co/MesTruck/multilingual-e5-large-instruct-GGUF:Q4_K_M",
-            "multimodal": false,
-            "max_input_tokens": 512,
-            "can_use_tools": true
-          },
-          "granite-embedding-278m-multilingual-IQ3_M:latest": {
-            "model_name": "granite-embedding-278m-multilingual-IQ3_M:latest",
-            "id": "granite-embedding-278m-multilingual-IQ3_M:latest",
-            "multimodal": false,
-            "max_input_tokens": 512,
-            "can_use_tools": true
-          },
-          "mxbai-embed-large:latest": {
-            "model_name": "mxbai-embed-large:latest",
-            "id": "mxbai-embed-large:latest",
-            "multimodal": false,
-            "max_input_tokens": 512,
-            "can_use_tools": true
-          },
-          "bge-m3:latest": {
-            "model_name": "bge-m3:latest",
-            "id": "bge-m3:latest",
-            "multimodal": false,
-            "max_input_tokens": 8192,
-            "can_use_tools": true
-          },
-          "jina/jina-embeddings-v2-base-de:latest": {
-            "model_name": "jina/jina-embeddings-v2-base-de:latest",
-            "id": "jina/jina-embeddings-v2-base-de:latest",
-            "multimodal": false,
-            "max_input_tokens": 8192,
-            "can_use_tools": true
-          },
-          "snowflake-arctic-embed2:latest": {
-            "model_name": "snowflake-arctic-embed2:latest",
-            "id": "snowflake-arctic-embed2:latest",
-            "multimodal": false,
-            "max_input_tokens": 8192,
-            "can_use_tools": true
-          },
-          "llama3.2:latest": {
-            "model_name": "llama3.2:latest",
-            "id": "llama3.2:latest",
-            "multimodal": false,
-            "max_input_tokens": 131072,
-            "can_use_tools": true
-          }
-        }
-      },
-      "platform_key": "openai",
-      "lm_studio": {
-        "model_key": "openai/gpt-oss-20b",
-        "models": {
-          "text-embedding-embeddinggemma-300m": {
-            "id": "text-embedding-embeddinggemma-300m",
-            "model_name": "text-embedding-embeddinggemma-300m",
-            "description": "LM Studio model: text-embedding-embeddinggemma-300m",
-            "multimodal": false
-          },
-          "dreamomni2-7.6b": {
-            "id": "dreamomni2-7.6b",
-            "model_name": "dreamomni2-7.6b",
-            "description": "LM Studio model: dreamomni2-7.6b",
-            "multimodal": false
-          },
-          "qwen/qwen3-vl-8b": {
-            "id": "qwen/qwen3-vl-8b",
-            "model_name": "qwen/qwen3-vl-8b",
-            "description": "LM Studio model: qwen/qwen3-vl-8b",
-            "multimodal": false
-          },
-          "text-embedding-qwen3-embedding-0.6b": {
-            "id": "text-embedding-qwen3-embedding-0.6b",
-            "model_name": "text-embedding-qwen3-embedding-0.6b",
-            "description": "LM Studio model: text-embedding-qwen3-embedding-0.6b",
-            "multimodal": false
-          },
-          "text-embedding-nomic-embed-text-v2-moe": {
-            "id": "text-embedding-nomic-embed-text-v2-moe",
-            "model_name": "text-embedding-nomic-embed-text-v2-moe",
-            "description": "LM Studio model: text-embedding-nomic-embed-text-v2-moe",
-            "multimodal": false
-          },
-          "google/gemma-3-27b": {
-            "id": "google/gemma-3-27b",
-            "model_name": "google/gemma-3-27b",
-            "description": "LM Studio model: google/gemma-3-27b",
-            "multimodal": false
-          },
-          "text-embedding-multilingual-e5-large-instruct": {
-            "id": "text-embedding-multilingual-e5-large-instruct",
-            "model_name": "text-embedding-multilingual-e5-large-instruct",
-            "description": "LM Studio model: text-embedding-multilingual-e5-large-instruct",
-            "multimodal": false
-          },
-          "text-embedding-nomic-embed-text-v1.5": {
-            "id": "text-embedding-nomic-embed-text-v1.5",
-            "model_name": "text-embedding-nomic-embed-text-v1.5",
-            "description": "LM Studio model: text-embedding-nomic-embed-text-v1.5",
-            "multimodal": false
-          },
-          "opengvlab_internvl3_5-38b": {
-            "id": "opengvlab_internvl3_5-38b",
-            "model_name": "opengvlab_internvl3_5-38b",
-            "description": "LM Studio model: opengvlab_internvl3_5-38b",
-            "multimodal": false
-          },
-          "deepseek/deepseek-r1-0528-qwen3-8b": {
-            "id": "deepseek/deepseek-r1-0528-qwen3-8b",
-            "model_name": "deepseek/deepseek-r1-0528-qwen3-8b",
-            "description": "LM Studio model: deepseek/deepseek-r1-0528-qwen3-8b",
-            "multimodal": false
-          },
-          "openai/gpt-oss-20b": {
-            "id": "openai/gpt-oss-20b",
-            "model_name": "openai/gpt-oss-20b",
-            "description": "LM Studio model: openai/gpt-oss-20b",
-            "multimodal": false
-          },
-          "llama-3-groq-8b-tool-use": {
-            "id": "llama-3-groq-8b-tool-use",
-            "model_name": "llama-3-groq-8b-tool-use",
-            "description": "LM Studio model: llama-3-groq-8b-tool-use",
-            "multimodal": false
-          },
-          "text-embedding-granite-embedding-278m-multilingual": {
-            "id": "text-embedding-granite-embedding-278m-multilingual",
-            "model_name": "text-embedding-granite-embedding-278m-multilingual",
-            "description": "LM Studio model: text-embedding-granite-embedding-278m-multilingual",
-            "multimodal": false
-          },
-          "google/gemma-3-12b": {
-            "id": "google/gemma-3-12b",
-            "model_name": "google/gemma-3-12b",
-            "description": "LM Studio model: google/gemma-3-12b",
-            "multimodal": false
-          },
-          "qwen/qwen3-14b": {
-            "id": "qwen/qwen3-14b",
-            "model_name": "qwen/qwen3-14b",
-            "description": "LM Studio model: qwen/qwen3-14b",
-            "multimodal": false
-          },
-          "deepseek-coder-v2-lite-instruct": {
-            "id": "deepseek-coder-v2-lite-instruct",
-            "model_name": "deepseek-coder-v2-lite-instruct",
-            "description": "LM Studio model: deepseek-coder-v2-lite-instruct",
-            "multimodal": false
-          }
-        }
-      }
-    },
-    "active_thread_key": "Untitled Chat 2025-11-02 11-38-34",
-    "system_prompt": "You are an expert knowledge worker with an extensive academic background in the role of a helpful assistant and productivity coach. You use information found in the files in {{folders_top}}.",
-    "detect_self_referential": true,
-    "review_context": true,
-    "stream": true,
-    "language": "en",
-    "modifier_key_to_send": "shift",
-    "use_tool_calls": true
+      "adapter": "ollama",
+      "ollama": {}
+    }
   },
   "smart_notices": {
     "muted": {}
   },
-  "version": ""
+  "smart_view_filter": {
+    "expanded_view": false,
+    "render_markdown": true,
+    "show_full_path": false
+  },
+  "version": "",
+  "new_user": true,
+  "models": {
+    "embedding_platform": "transformers",
+    "chat_completion_platform": "open_router"
+  },
+  "connections_lists": {
+    "results_collection_key": "smart_sources",
+    "score_algo_key": "similarity",
+    "connections_post_process": "none",
+    "results_limit": 20,
+    "exclude_frontmatter_blocks": true,
+    "connections_list_item_component_key": "connections_list_item_v3",
+    "components": {
+      "connections_list_item_v3": {
+        "render_markdown": true,
+        "show_full_path": false
+      }
+    }
+  },
+  "context_items": {
+    "template_before": "<item loc=\"{{KEY}}\" at=\"{{TIME_AGO}}\">",
+    "template_after": "</item>"
+  },
+  "smart_contexts": {
+    "template_before": "<context>\n{{FILE_TREE}}",
+    "template_after": "</context>"
+  },
+  "lookup_lists": {
+    "results_collection_key": "smart_sources",
+    "score_algo_key": "similarity",
+    "results_limit": 20
+  },
+  "embedding_models": {
+    "default_model_key": "lm_studio#1765673149241"
+  }
 }
