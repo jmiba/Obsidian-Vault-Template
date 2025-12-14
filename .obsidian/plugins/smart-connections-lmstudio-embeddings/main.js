@@ -128,11 +128,44 @@ function estimateTokens(text) {
 }
 var LmStudioEmbeddingAdapter = class {
   static adapter = "lmstudio";
+  static key = "lm_studio";
+  // Used by Smart Connections to identify this adapter
   static batch_size = 16;
+  static defaults = {
+    adapter: "lm_studio",
+    description: "LM Studio local embedding model",
+    default_model: ""
+  };
   model;
   state = "unloaded";
   constructor(model) {
     this.model = model;
+  }
+  /**
+   * The model_key getter is critical for Smart Connections.
+   * SC uses this to form the `embed_model_key` which is used to store/retrieve embeddings.
+   * Format: `{adapter_key}-{model_key}` e.g., "lm_studio-text-embedding-nomic-embed-text-v1.5"
+   * 
+   * This MUST return the same value across restarts for existing embeddings to be recognized.
+   */
+  get model_key() {
+    const stored = this?.model?.data?.model_key ?? this?.model?.data?.model ?? this?.model?.settings?.model_key;
+    if (typeof stored === "string" && stored.trim()) {
+      return stored.trim();
+    }
+    const modelLevel = this?.model?.model_key ?? this?.model?.id;
+    if (typeof modelLevel === "string" && modelLevel.trim()) {
+      return modelLevel.trim();
+    }
+    const firstModel = Object.keys(cachedModels)[0];
+    return firstModel ?? "";
+  }
+  /**
+   * Required by Smart Connections to check if model is ready.
+   * Must return true for embeddings to be recognized on startup.
+   */
+  get is_loaded() {
+    return this.state === "loaded";
   }
   get models() {
     return cachedModels;
@@ -156,18 +189,30 @@ var LmStudioEmbeddingAdapter = class {
     return this;
   }
   async ensureModelKey() {
-    const candidate = this?.model?.data?.model_key ?? this?.model?.data?.model ?? this?.model?.data?.model_id ?? this?.model?.data?.id ?? this?.model?.model_key ?? this?.model?.id ?? null;
-    const key = typeof candidate === "string" ? candidate.trim() : "";
-    if (key) return key;
+    const currentKey = this.model_key;
+    if (currentKey) return currentKey;
     await this.get_models(true);
     const fallback = Object.keys(cachedModels)[0]?.trim() ?? "";
     if (!fallback) throw new Error("LM Studio: no models available (GET /v1/models returned empty)");
     if (this?.model?.data) {
       this.model.data.model_key = fallback;
       this.model.data.model = fallback;
+      this.model.data.adapter = "lm_studio";
       this.model.debounce_save?.();
     }
     return fallback;
+  }
+  /**
+   * Set the model key explicitly. Called when user selects a model.
+   * This ensures the key is persisted for recognition across restarts.
+   */
+  set_model_key(key) {
+    if (this?.model?.data) {
+      this.model.data.model_key = key;
+      this.model.data.model = key;
+      this.model.data.adapter = "lm_studio";
+      this.model.debounce_save?.();
+    }
   }
   padToLength(vectors, targetLength) {
     if (vectors.length >= targetLength) return vectors.slice(0, targetLength);
@@ -281,6 +326,7 @@ var DEFAULT_SETTINGS = {
   maxTokens: 512,
   batchSize: 16
 };
+var ADAPTER_KEYS = ["lm_studio", "lmstudio", "lm-studio"];
 function findSmartConnectionsPlugin(app) {
   try {
     const appAny = app;
@@ -340,16 +386,16 @@ function registerLmStudioProvider(sc, env, settings2) {
   if (existing?.class === LmStudioEmbeddingAdapter) return;
   const transformersTemplate = providers.transformers ?? Object.values(providers)[0] ?? {};
   const batchSize = settings2?.batchSize ?? DEFAULT_SETTINGS.batchSize;
-  providers[targetKey] = {
+  const providerConfig = {
     ...transformersTemplate,
     ...existing ?? {},
     id: targetKey,
     name: "LM Studio",
     label: "LM Studio",
     description: "local, requires LM Studio app",
-    adapter: "lmstudio",
-    adapter_key: "lmstudio",
-    adapterKey: "lmstudio",
+    adapter: "lm_studio",
+    adapter_key: "lm_studio",
+    adapterKey: "lm_studio",
     batch_size: batchSize,
     max_batch_size: batchSize,
     // These flags control whether SC marks the provider as PRO/disabled in some versions.
@@ -362,36 +408,19 @@ function registerLmStudioProvider(sc, env, settings2) {
     enabled: true,
     class: LmStudioEmbeddingAdapter
   };
-  providers.lmstudio = providers[targetKey];
-  providers.lm_studio = providers[targetKey];
+  for (const key of ADAPTER_KEYS) {
+    providers[key] = providerConfig;
+  }
   try {
     const alt = env?.embedding_models?.providers;
     if (isRecord(alt)) {
-      alt[targetKey] = providers[targetKey];
-      alt.lmstudio = providers[targetKey];
-      alt.lm_studio = providers[targetKey];
+      for (const key of ADAPTER_KEYS) {
+        alt[key] = providerConfig;
+      }
     }
   } catch {
   }
-  try {
-    const emb = env?.embedding_models;
-    const registries = [
-      emb?.adapters,
-      emb?.adapter_classes,
-      emb?.adapterClasses,
-      emb?.adapter_registry,
-      emb?.adapterRegistry,
-      emb?.embedding_adapters,
-      emb?.embeddingAdapters
-    ];
-    for (const reg of registries) {
-      if (!isRecord(reg)) continue;
-      reg.lmstudio = LmStudioEmbeddingAdapter;
-      reg.lm_studio = LmStudioEmbeddingAdapter;
-      reg["lm-studio"] = LmStudioEmbeddingAdapter;
-    }
-  } catch {
-  }
+  registerAdapterClass(env);
   try {
     env?.embedding_models?.emit_event?.("providers-updated");
     env?.embedding_models?.emit?.("providers-updated");
@@ -399,18 +428,95 @@ function registerLmStudioProvider(sc, env, settings2) {
   } catch {
   }
 }
+function registerAdapterClass(env) {
+  const registries = [
+    env?.embedding_models?.adapters,
+    env?.embedding_models?.adapter_classes,
+    env?.embedding_models?.adapterClasses,
+    env?.embedding_models?.adapter_registry,
+    env?.embedding_models?.adapterRegistry,
+    env?.embedding_models?.embedding_adapters,
+    env?.embedding_models?.embeddingAdapters,
+    env?.config?.modules?.smart_embed_model?.adapters,
+    env?.config?.embedding_models?.adapters,
+    // Direct on embed model
+    env?.smart_sources?.embed_model?.adapters,
+    env?.smart_blocks?.embed_model?.adapters
+  ];
+  for (const reg of registries) {
+    if (!isRecord(reg)) continue;
+    for (const key of ADAPTER_KEYS) {
+      reg[key] = LmStudioEmbeddingAdapter;
+    }
+  }
+  try {
+    const SmartEmbedModel = env?.config?.modules?.smart_embed_model?.class;
+    if (SmartEmbedModel?.adapters && isRecord(SmartEmbedModel.adapters)) {
+      for (const key of ADAPTER_KEYS) {
+        SmartEmbedModel.adapters[key] = LmStudioEmbeddingAdapter;
+      }
+    }
+  } catch {
+  }
+}
 var SmartConnectionsLmStudioEmbeddings = class extends import_obsidian.Plugin {
   settings = DEFAULT_SETTINGS;
   bootstrapped = false;
+  registrationInterval = null;
   async onload() {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     this.applySettings();
     this.addSettingTab(new LmStudioSettingsTab(this.app, this));
     new import_obsidian.Notice(`LM Studio Embeddings loaded (v${this.manifest?.version ?? "unknown"})`);
-    this.bootstrap().catch((err) => console.warn("[LM Studio Embeddings] bootstrap failed", err));
+    this.tryEarlyRegistration();
+    this.registrationInterval = window.setInterval(() => {
+      if (this.bootstrapped) {
+        if (this.registrationInterval) {
+          window.clearInterval(this.registrationInterval);
+          this.registrationInterval = null;
+        }
+        return;
+      }
+      this.tryEarlyRegistration();
+    }, 200);
     this.app.workspace.onLayoutReady(() => {
       this.bootstrap().catch((err) => console.warn("[LM Studio Embeddings] bootstrap failed", err));
     });
+    this.bootstrap().catch((err) => console.warn("[LM Studio Embeddings] bootstrap failed", err));
+  }
+  onunload() {
+    if (this.registrationInterval) {
+      window.clearInterval(this.registrationInterval);
+      this.registrationInterval = null;
+    }
+  }
+  /**
+   * Try to register the adapter as early as possible, before SC initializes entities.
+   * This is non-blocking and won't throw errors if SC isn't ready yet.
+   */
+  tryEarlyRegistration() {
+    try {
+      const sc = findSmartConnectionsPlugin(this.app);
+      if (!sc) return false;
+      const env = sc?.env;
+      if (!env) return false;
+      const providers = findProvidersRegistry(env);
+      if (!providers) return false;
+      registerLmStudioProvider(sc, env, this.settings);
+      registerAdapterClass(env);
+      console.log("[LM Studio Embeddings] Early registration successful");
+      this.bootstrapped = true;
+      if (this.registrationInterval) {
+        window.clearInterval(this.registrationInterval);
+        this.registrationInterval = null;
+      }
+      listModels(true).catch(
+        (err) => console.warn("[LM Studio Embeddings] Failed to list models", err)
+      );
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
   applySettings() {
     setLmStudioSettings({
