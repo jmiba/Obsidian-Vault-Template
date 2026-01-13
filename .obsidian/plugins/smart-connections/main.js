@@ -1,4 +1,4 @@
-/*! smart-connections-obsidian v4.1.4 | (c) 2025 🌴 Brian (Brian Petro) */
+/*! smart-connections-obsidian v4.1.7 | (c) 2026 🌴 Brian (Brian Petro) */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -137,10 +137,10 @@ __export(main_exports, {
   default: () => SmartConnectionsPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian49 = __toESM(require("obsidian"), 1);
+var import_obsidian54 = __toESM(require("obsidian"), 1);
 
 // node_modules/obsidian-smart-env/smart_env.js
-var import_obsidian36 = require("obsidian");
+var import_obsidian41 = require("obsidian");
 
 // node_modules/obsidian-smart-env/node_modules/smart-events/adapters/_adapter.js
 var WILDCARD_KEY = "*";
@@ -824,7 +824,7 @@ function migrate_exclusion_settings_2025_08_22(settings = {}) {
 // node_modules/obsidian-smart-env/node_modules/smart-environment/smart_env.js
 var ROOT_SCOPE = typeof globalThis !== "undefined" ? globalThis : Function("return this")();
 var SmartEnv = class {
-  static version = "2.2.2";
+  static version = "2.2.7";
   scope_name = "smart_env";
   static global_ref = ROOT_SCOPE;
   global_ref = this.constructor.global_ref;
@@ -1233,7 +1233,7 @@ var SmartEnv = class {
     return this.opts.global_prop ?? "smart_env";
   }
   get item_types() {
-    return this.opts.item_types;
+    return this.config.item_types;
   }
   get fs_module_config() {
     return this.opts.modules.smart_fs;
@@ -3811,6 +3811,7 @@ var CollectionItem = class _CollectionItem {
   }
   /**
    * Validates the item before saving. Checks for presence and validity of key.
+   * @deprecated should be better handled 2025-12-17 (wrong scope?)
    * @returns {boolean}
    */
   validate_save() {
@@ -6634,6 +6635,7 @@ var SmartSources = class extends SmartEntities {
     else console.log("skipping process_embed_queue");
     await this.process_save_queue();
     await this.block_collection?.process_save_queue();
+    this.emit_event("sources:import_completed");
   }
   /**
    * Retrieves the source adapters based on the collection configuration.
@@ -7457,6 +7459,7 @@ function to_snake(str) {
 function parse_markdown_blocks(markdown, opts = {}) {
   const { start_index = 1, line_keys = false } = opts;
   const lines = markdown.split("\n");
+  const LIST_KEY_WORD_LEN = opts.list_key_word_len || 10;
   const result = {};
   const heading_stack = [];
   const heading_lines = {};
@@ -7479,7 +7482,7 @@ function parse_markdown_blocks(markdown, opts = {}) {
     const line = lines[i];
     const trimmed_line = line.trim();
     if (trimmed_line === "---") {
-      if (!frontmatter_started) {
+      if (!frontmatter_started && line_number === 1) {
         frontmatter_started = true;
         in_frontmatter = true;
         heading_lines["#---frontmatter---"] = [line_number, null];
@@ -7618,7 +7621,7 @@ function parse_markdown_blocks(markdown, opts = {}) {
         let key;
         if (line_keys) {
           const content_without_task = list_match[3].replace(/^\[(?: |x|X)\]\s*/, "");
-          const words = get_longest_words_in_order(content_without_task, 10);
+          const words = get_longest_words_in_order(content_without_task, LIST_KEY_WORD_LEN);
           key = `${parent_key}#${words}`;
         } else {
           key = `${parent_key}#{${n}}`;
@@ -8263,6 +8266,13 @@ var BasesSourceContentAdapter = class extends FileSourceContentAdapter {
   }
 };
 
+// node_modules/obsidian-smart-env/adapters/smart-sources/canvas.js
+var CanvasSourceContentAdapter = class extends FileSourceContentAdapter {
+  static extensions = ["canvas"];
+  async import() {
+  }
+};
+
 // node_modules/obsidian-smart-env/adapters/smart-sources/excalidraw.js
 var ExcalidrawSourceContentAdapter = class extends ObsidianMarkdownSourceContentAdapter {
   static extensions = ["excalidraw.md"];
@@ -8428,6 +8438,9 @@ var SmartBlock = class extends SmartEntity {
   async move_to(to_key) {
     await this.block_adapter.move_to(to_key);
     this.queue_save();
+  }
+  get_display_name(params = {}) {
+    return this.block_adapter?.get_display_name(params);
   }
   // Getters
   /**
@@ -8956,6 +8969,16 @@ var BlockContentAdapter = class {
     throw new Error("Not implemented");
   }
   /**
+   * @method get_display_name
+   * @abstract
+   * @param {Object} params Parameters for display name generation.
+   * @returns {string} The display name of the block.
+   * @throws {Error} If not implemented by subclass.
+   */
+  get_display_name(params) {
+    throw new Error("Not implemented");
+  }
+  /**
    * @name data
    * @type {Object}
    * @readonly
@@ -9132,6 +9155,28 @@ var MarkdownBlockContentAdapter = class extends BlockContentAdapter {
    */
   async _reparse_source() {
     await this.item.source.import();
+  }
+  get_display_name(params = {}) {
+    if (!this.item?.key) return "";
+    const show_full_path = params.show_full_path ?? true;
+    if (show_full_path) {
+      return this.item.key.replace(/#/g, " > ").replace(/\//g, " > ");
+    }
+    const pcs = [];
+    const [source_key, ...block_parts] = this.item.key.split("#");
+    const filename = source_key.split("/").pop();
+    pcs.push(filename);
+    if (block_parts.length) {
+      const last = block_parts[block_parts.length - 1];
+      if (last.startsWith("{") && last.endsWith("}")) {
+        block_parts.pop();
+        pcs.push(block_parts.pop());
+        if (this.item.lines) pcs.push(`Lines: ${this.item.lines.join("-")}`);
+      } else {
+        pcs.push(block_parts.pop());
+      }
+    }
+    return pcs.filter(Boolean).join(" > ");
   }
 };
 
@@ -9742,8 +9787,8 @@ var SmartHttpRequest = class {
    * });
    * console.log(await response.json());
    */
-  async request(request_params) {
-    return await this.adapter.request(request_params);
+  async request(request_params, throw_on_error = false) {
+    return await this.adapter.request(request_params, throw_on_error);
   }
 };
 
@@ -9802,14 +9847,14 @@ var SmartHttpResponseAdapter = class {
 
 // node_modules/obsidian-smart-env/node_modules/smart-http-request/adapters/obsidian.js
 var SmartHttpObsidianRequestAdapter = class extends SmartHttpRequestAdapter {
-  async request(request_params) {
+  async request(request_params, throw_on_error = false) {
     let response;
     try {
       if (!this.main.opts.obsidian_request_url) {
         throw new Error("obsidian_request_url is required in SmartHttp constructor opts");
       }
-      response = await this.main.opts.obsidian_request_url({ ...request_params, throw: false });
-      if (response.status === 400) throw new Error("Obsidian request failed");
+      response = await this.main.opts.obsidian_request_url({ ...request_params, throw: throw_on_error });
+      if (throw_on_error && response.status === 400) throw new Error("Obsidian request failed");
       return new SmartHttpObsidianResponseAdapter(response);
     } catch (error) {
       console.error("Error in SmartHttpObsidianRequestAdapter.request():");
@@ -10107,6 +10152,9 @@ function get_message_from_object(value) {
   return null;
 }
 function normalize_error(error, http_status = null) {
+  if (Array.isArray(error) && error.length > 0) {
+    return normalize_error(error[0], http_status);
+  }
   if (error == null) {
     return { message: "Unknown error", details: null, http_status };
   }
@@ -10998,8 +11046,7 @@ var SmartEmbedOllamaAdapter = class extends SmartEmbedModelApiAdapter {
     signup_url: null,
     // Not applicable for local instance
     batch_size: 30,
-    models: {},
-    model_key: "nomic-embed-text"
+    models: {}
   };
   get host() {
     return this.model.data.host || this.constructor.defaults.host;
@@ -11099,7 +11146,9 @@ var SmartEmbedOllamaAdapter = class extends SmartEmbedModelApiAdapter {
       }
       const model_data = this.parse_model_data(models_raw);
       this.model_data = model_data;
-      this.model.re_render_settings();
+      if (typeof this.model.re_render_settings === "function") {
+        this.model.re_render_settings();
+      }
       return model_data;
     }
     return this.model_data;
@@ -13046,6 +13095,7 @@ var SmartChatModelAnthropicResponseAdapter = class extends SmartChatModelRespons
    * @returns {Object} Response in OpenAI format
    */
   to_openai() {
+    if (this.error) return { error: normalize_error(this.error, this.status) };
     return {
       id: this._res.id,
       object: "chat.completion",
@@ -13644,6 +13694,7 @@ var SmartChatModelGeminiResponseAdapter = class extends SmartChatModelResponseAd
     };
   }
   to_openai() {
+    if (this.error) return { error: normalize_error(this.error, this.status) };
     const first_candidate = this._res.candidates[0];
     if (!this._res.id) this._res.id = "gemini-" + Date.now().toString();
     return {
@@ -14057,7 +14108,9 @@ var SmartChatModelOllamaAdapter = class extends SmartChatModelApiAdapter {
       this.model_data = this.parse_model_data(models_raw_data);
       await this.get_enriched_model_data();
       this.model.data.provider_models = this.model_data;
-      this.model.re_render_settings();
+      if (typeof this.model.re_render_settings === "function") {
+        this.model.re_render_settings();
+      }
       this.model_data_loaded_at = Date.now();
       return this.model_data;
     } catch (error) {
@@ -14227,6 +14280,7 @@ var SmartChatModelOllamaResponseAdapter = class extends SmartChatModelResponseAd
    * @returns {Object} Response in OpenAI format
    */
   to_openai() {
+    if (this.error) return { error: normalize_error(this.error, this.status) };
     return {
       id: this._res.created_at,
       object: "chat.completion",
@@ -14682,7 +14736,7 @@ var SmartChatModelDeepseekResponseAdapter = class extends SmartChatModelResponse
 };
 
 // node_modules/obsidian-smart-env/default.config.js
-var import_obsidian31 = require("obsidian");
+var import_obsidian36 = require("obsidian");
 
 // node_modules/obsidian-smart-env/node_modules/smart-blocks/content_parsers/parse_blocks.js
 function parse_blocks(source, content) {
@@ -15274,7 +15328,7 @@ var SmartContext = class extends CollectionItem {
     if (typeof name !== "string") throw new TypeError("Name must be a string");
     const was_nameless = !this.data.name || String(this.data.name).trim().length === 0;
     this.data.name = name;
-    if (was_nameless) this.emit_event("context:created");
+    if (was_nameless) this.emit_event("context:named");
     else this.emit_event("context:renamed", { name });
     this.queue_save();
   }
@@ -15302,7 +15356,7 @@ var SmartContext = class extends CollectionItem {
     }
     const context_items_text = segments.join("\n");
     if (typeof this.actions.context_merge_template === "function") {
-      return await this.actions.context_merge_template(context_items_text, context_items);
+      return await this.actions.context_merge_template(context_items_text, { context_items });
     }
     return context_items_text;
   }
@@ -15385,9 +15439,6 @@ var SmartContext = class extends CollectionItem {
 // node_modules/obsidian-smart-env/node_modules/smart-contexts/smart_contexts.js
 var SmartContexts = class extends Collection {
   static version = 0.1;
-  async load() {
-    console.log("SmartContexts: load called");
-  }
   /**
    * new_context
    * @param {object} data
@@ -15409,6 +15460,7 @@ var SmartContexts = class extends Collection {
    */
   static get default_settings() {
     return {
+      template_preset: "xml_structured",
       template_before: "<context>\n{{FILE_TREE}}",
       template_after: "</context>"
     };
@@ -15674,6 +15726,7 @@ var ContextItems = class extends Collection {
   }
   static get default_settings() {
     return {
+      template_preset: "xml_structured",
       template_before: '<item loc="{{KEY}}" at="{{TIME_AGO}}">',
       template_after: "</item>"
     };
@@ -15792,6 +15845,7 @@ var EventLogs = class extends Collection {
       if (!event_log) {
         event_log = new EventLog(this.env, { key: event_key });
         this.set(event_log);
+        this.emit_event("event_log:first", { first_of_event_key: event_key });
       }
       const next = next_log_stats(
         { ct: event_log.data.ct, first_at: event_log.data.first_at, last_at: event_log.data.last_at },
@@ -15864,16 +15918,16 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
     return this.modal_type;
   }
   static open(item_or_collection, params) {
-    const Modal9 = (
+    const Modal10 = (
       /** @type {typeof SmartFuzzySuggestModal} */
       this
     );
-    const modal = new Modal9(item_or_collection, params);
+    const modal = new Modal10(item_or_collection, params);
     modal.open(params);
     return modal;
   }
   static register_modal(plugin) {
-    const Modal9 = (
+    const Modal10 = (
       /** @type {typeof SmartFuzzySuggestModal} */
       this
     );
@@ -15882,10 +15936,10 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
       ...env.config.modals?.[this.modal_key] || {},
       class: null
     };
-    console.log(`Registering modal: ${this.display_text}`, { modal_config, Modal: Modal9 });
+    console.log(`Registering modal: ${this.display_text}`, { modal_config, Modal: Modal10 });
     const open_handler = (payload = {}) => {
-      const item = Modal9.resolve_item_from_payload(env, payload);
-      const modal = Modal9.open(item, {
+      const item = Modal10.resolve_item_from_payload(env, payload);
+      const modal = Modal10.open(item, {
         ...modal_config,
         ...payload
         // spread since event payload is locked
@@ -15893,7 +15947,7 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
       return modal;
     };
     const disposers = [
-      env?.events?.on?.(`${Modal9.event_domain}:open`, open_handler)
+      env?.events?.on?.(`${Modal10.event_domain}:open`, open_handler)
       // env.events?.on?.(`${Modal.event_domain}:suggest`, suggest_handler),
     ];
     const dispose_all = () => {
@@ -15903,7 +15957,7 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
       plugin.register(() => dispose_all());
     }
     return {
-      event_domain: Modal9.event_domain
+      event_domain: Modal10.event_domain
     };
   }
   static resolve_item_from_payload(env, payload) {
@@ -15914,13 +15968,14 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
     super.open();
     this.modalEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter") this.selectActiveSuggestion(e);
-      if (e.target !== this.inputEl || !this.inputEl.value || import_obsidian4.Keymap.isModEvent(e)) {
+      const is_cursor_end_of_input = this.inputEl.selectionStart === this.inputEl.value.length;
+      if (e.target !== this.inputEl || !this.inputEl.value || is_cursor_end_of_input || import_obsidian4.Keymap.isModEvent(e)) {
         if (e.key === "ArrowLeft") {
           this.use_arrow_left = true;
           this.selectActiveSuggestion(e);
           return;
         }
-        if (e.key === "ArrowRight") {
+        if (e.key === "ArrowRight" && (is_cursor_end_of_input || e.target !== this.inputEl || !this.inputEl.value)) {
           e.preventDefault();
           this.use_mod_select = true;
           this.use_arrow_right = true;
@@ -16017,6 +16072,14 @@ var SmartFuzzySuggestModal = class extends import_obsidian4.FuzzySuggestModal {
       if (typeof suggestion.arrow_left_action === "function") {
         this.handle_choose_action(suggestion, "arrow_left_action");
       } else {
+        if (this.last_input_value) {
+          this.inputEl.value = this.last_input_value;
+          setTimeout(() => {
+            const len = this.inputEl.value.length;
+            this.inputEl.setSelectionRange(len, len);
+          }, 0);
+          this.last_input_value = null;
+        }
         this.suggestions = null;
         this.params.default_suggest_action_keys = null;
         this.updateSuggestions();
@@ -16083,7 +16146,7 @@ var ContextModal = class extends SmartFuzzySuggestModal {
   }
   constructor(smart_context, params = {}) {
     super(smart_context);
-    this.params = params;
+    this.params = { ...params };
     this.smart_context = smart_context;
     this.setInstructions([
       { command: "Enter", purpose: "Add to context" },
@@ -16092,8 +16155,9 @@ var ContextModal = class extends SmartFuzzySuggestModal {
     ]);
   }
   open(params = {}) {
+    this.params = { ...this.params, ...params };
     super.open();
-    this.render(params);
+    this.render(this.params);
   }
   async render(params = this.params) {
     this.modalEl.style.display = "flex";
@@ -16125,13 +16189,79 @@ var NotificationsFeedModal = class extends import_obsidian6.Modal {
   async onOpen() {
     this.titleEl.setText("Smart Env notifications");
     this.contentEl.empty();
-    const container = await this.env.smart_components.render_component("notifications_feed", this.env);
-    this.contentEl.appendChild(container);
+    const event_log = await this.env.smart_components.render_component("notifications_feed", this.env);
+    this.contentEl.appendChild(event_log);
   }
   onClose() {
     this.contentEl.empty();
   }
 };
+
+// node_modules/obsidian-smart-env/src/modals/milestones_modal.js
+var import_obsidian7 = require("obsidian");
+var MILESTONES_HELP_URL = "https://smartconnections.app/smart-environment/milestones/?utm_source=milestones_modal_help";
+var MilestonesModal = class extends import_obsidian7.Modal {
+  constructor(app, env) {
+    super(app);
+    this.env = env;
+  }
+  async onOpen() {
+    render_milestones_modal_title(this.titleEl, this.env);
+    this.contentEl.empty();
+    const milestones = await this.env.smart_components.render_component("milestones", this.env, {});
+    this.contentEl.appendChild(milestones);
+  }
+  onClose() {
+    this.contentEl.empty();
+  }
+};
+function render_milestones_modal_title(title_el, env) {
+  if (!title_el) return;
+  title_el.empty();
+  title_el.classList.add("sc-milestones-modal__title");
+  const row_el = document.createElement("div");
+  row_el.className = "sc-milestones-modal__title-row";
+  const text_el = document.createElement("div");
+  text_el.className = "sc-milestones-modal__title-text";
+  text_el.textContent = "Smart Milestones";
+  const help_btn_el = document.createElement("button");
+  help_btn_el.type = "button";
+  help_btn_el.className = "sc-milestones-modal__help-btn";
+  help_btn_el.setAttribute("aria-label", "Open Smart Milestones help");
+  help_btn_el.setAttribute("title", "Help");
+  render_help_icon(help_btn_el);
+  help_btn_el.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    try {
+      env?.events?.emit?.("milestones:help", {});
+    } catch (err) {
+    }
+    window.open(MILESTONES_HELP_URL, "_external");
+  });
+  row_el.appendChild(text_el);
+  row_el.appendChild(help_btn_el);
+  title_el.appendChild(row_el);
+}
+function render_help_icon(icon_el) {
+  const ok = set_icon_with_fallback(icon_el, ["circle-help", "help-circle", "help", "info"]);
+  if (!ok) icon_el.textContent = "?";
+}
+function set_icon_with_fallback(icon_el, icon_ids) {
+  if (!icon_el) return false;
+  const ids = Array.isArray(icon_ids) ? icon_ids : [];
+  for (const icon_id of ids) {
+    if (typeof icon_id !== "string" || icon_id.length === 0) continue;
+    icon_el.textContent = "";
+    try {
+      (0, import_obsidian7.setIcon)(icon_el, icon_id);
+    } catch (err) {
+      continue;
+    }
+    if (icon_el.querySelector("svg")) return true;
+  }
+  return false;
+}
 
 // node_modules/obsidian-smart-env/default.settings.js
 var default_settings = {
@@ -16526,7 +16656,7 @@ var TransformersIframeEmbeddingModelAdapter = class extends SmartEmbedTransforme
         "batch_size": 1,
         "dims": 384,
         "max_tokens": 512,
-        "name": "BGE-micro-v2",
+        "name": "BGE-micro-v2 (fastest)",
         "description": "Local, 512 tokens, 384 dim (recommended)",
         "adapter": "transformers"
       },
@@ -16535,7 +16665,16 @@ var TransformersIframeEmbeddingModelAdapter = class extends SmartEmbedTransforme
         "batch_size": 1,
         "dims": 384,
         "max_tokens": 512,
-        "name": "Snowflake Arctic Embed XS",
+        "name": "Snowflake Arctic Embed XS (fast)",
+        "description": "Local, 512 tokens, 384 dim",
+        "adapter": "transformers"
+      },
+      "Xenova/multilingual-e5-small": {
+        "id": "Xenova/multilingual-e5-small",
+        "batch_size": 1,
+        "dims": 384,
+        "max_tokens": 512,
+        "name": "Multilingual E5 Small",
         "description": "Local, 512 tokens, 384 dim",
         "adapter": "transformers"
       }
@@ -16577,6 +16716,7 @@ var LookupList = class extends CollectionItem {
     await this.pre_process(params);
     let results = this.filter_and_score(params);
     if (this.should_post_process) results = await this.post_process(results, params);
+    this.emit_event("lookup:get_results");
     return results;
   }
   filter_and_score(params = {}) {
@@ -16717,15 +16857,15 @@ async function render2(collection, opts = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/utils/register_block_hover_popover.js
-var import_obsidian7 = require("obsidian");
-function register_block_hover_popover(parent, target, env, block_key) {
+var import_obsidian8 = require("obsidian");
+function register_block_hover_popover(parent, target, env, block_key, params = {}) {
   const app = env?.plugin?.app || window.app;
   target.addEventListener("mouseover", async (ev) => {
-    if (import_obsidian7.Keymap.isModEvent(ev)) {
+    if (import_obsidian8.Keymap.isModEvent(ev)) {
       const block = env.smart_blocks.get(block_key);
       const markdown = await block?.read();
       if (markdown) {
-        const popover = new import_obsidian7.HoverPopover(parent, target);
+        const popover = new import_obsidian8.HoverPopover(parent, target);
         const frag = env.smart_view.create_doc_fragment(`<div class="markdown-embed is-loaded">
                 <div class="markdown-embed-content node-insert-event">
                   <div class="markdown-preview-view markdown-rendered node-insert-event show-indentation-guide allow-fold-headings allow-fold-lists">
@@ -16737,14 +16877,17 @@ function register_block_hover_popover(parent, target, env, block_key) {
         popover.hoverEl.classList.add("smart-block-popover");
         popover.hoverEl.appendChild(frag);
         const sizer = popover.hoverEl.querySelector(".markdown-preview-sizer");
-        import_obsidian7.MarkdownRenderer.render(app, markdown, sizer, "/", popover);
+        import_obsidian8.MarkdownRenderer.render(app, markdown, sizer, "/", popover);
+        const event_domain = params.event_key_domain || "block";
+        block.emit_event(`${event_domain}:hover_preview`);
       }
     }
   });
 }
 
 // node_modules/obsidian-smart-env/src/utils/register_item_hover_popover.js
-function register_item_hover_popover(container, item) {
+var import_obsidian9 = require("obsidian");
+function register_item_hover_popover(container, item, params = {}) {
   const app = item.env?.plugin?.app || window.app;
   if (item.key.indexOf("{") === -1) {
     container.addEventListener("mouseover", (event) => {
@@ -16756,6 +16899,10 @@ function register_item_hover_popover(container, item) {
         targetEl: container,
         linktext: linktext_path
       });
+      if (import_obsidian9.Keymap.isModEvent(event)) {
+        const event_domain = params.event_key_domain || item.collection_key || "item";
+        item.emit_event(`${event_domain}:hover_preview`);
+      }
     });
   } else {
     register_block_hover_popover(container.parentElement, container, item.env, item.key);
@@ -16763,12 +16910,7 @@ function register_item_hover_popover(container, item) {
 }
 
 // node_modules/obsidian-smart-env/src/components/context-item/leaf.js
-var import_obsidian8 = require("obsidian");
-
-// node_modules/obsidian-smart-env/src/components/context-item/leaf.css
-var leaf_default = ".sc-context-item-leaf {\n  cursor: pointer;\n}\n.sc-context-item-score,\n.sc-context-item-size {\n  display: inline-block;\n  min-width: 4.5ch;\n  height: 1.7em;\n  line-height: 1.7em;\n  text-align: center;\n  font-weight: 600 !important;\n  font-size: 0.8em !important;\n  color: var(--nav-item-color) !important;\n  background: var(--background-modifier-hover);\n  border-radius: 6px;\n  padding: 0 0.4em;\n  margin-right: 0.35em;\n}\n.sc-context-item-size {\n  min-width: 0;\n}\n";
-
-// node_modules/obsidian-smart-env/src/components/context-item/leaf.js
+var import_obsidian10 = require("obsidian");
 function format_score(score) {
   const numeric_score = typeof score === "number" ? score : Number.parseFloat(score);
   if (!Number.isFinite(numeric_score)) return null;
@@ -16822,7 +16964,6 @@ function build_html3(context_item, params = {}) {
   </span>`;
 }
 async function render3(context_item, params = {}) {
-  this.apply_style_sheet(leaf_default);
   const html = build_html3(context_item, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
@@ -16843,7 +16984,7 @@ async function post_process2(context_item, container, params = {}) {
   }
   if (context_item.item_ref) {
     const name2 = container.querySelector(".sc-context-item-name");
-    name2.setAttribute("title", `Hold ${import_obsidian8.Platform.isMacOS ? "\u2318" : "Ctrl"} to preview`);
+    name2.setAttribute("title", `Hold ${import_obsidian10.Platform.isMacOS ? "\u2318" : "Ctrl"} to preview`);
     register_item_hover_popover(name2, context_item.item_ref);
   }
   const name = container.querySelector(".sc-context-item-name");
@@ -16941,7 +17082,7 @@ function calculate_embed_coverage(collection, total_items) {
 }
 
 // node_modules/obsidian-smart-env/src/components/form/dropdown.js
-var import_obsidian9 = require("obsidian");
+var import_obsidian11 = require("obsidian");
 function build_html5(scope, params = {}) {
   return `<div class="smart-form-dropdown-component"></div>`;
 }
@@ -16970,7 +17111,7 @@ async function post_process4(scope, container, params = {}) {
     container.textContent = "Error: options[] is required for dropdown component.";
     return container;
   }
-  const setting = new import_obsidian9.Setting(container);
+  const setting = new import_obsidian11.Setting(container);
   if (params.label && typeof setting.setName === "function") {
     setting.setName(params.label);
   }
@@ -17020,7 +17161,7 @@ async function post_process4(scope, container, params = {}) {
 render5.version = 0.2;
 
 // node_modules/obsidian-smart-env/src/components/lean_coffee_callout.js
-var import_obsidian10 = require("obsidian");
+var import_obsidian12 = require("obsidian");
 function build_html6(env, opts = {}) {
   return `<div class="wrapper">
     <div id="lean-coffee-callout" data-callout-metadata="" data-callout-fold="" data-callout="info" class="callout" style="mix-blend-mode: unset;">
@@ -17053,7 +17194,7 @@ function render6(env, opts = {}) {
   const frag = this.create_doc_fragment(html);
   const callout = frag.querySelector("#lean-coffee-callout");
   const icon_container = callout.querySelector(".callout-icon");
-  const icon = (0, import_obsidian10.getIcon)("smart-chat");
+  const icon = (0, import_obsidian12.getIcon)("smart-chat");
   if (icon) {
     this.empty(icon_container);
     icon_container.appendChild(icon);
@@ -17064,20 +17205,801 @@ function render6(env, opts = {}) {
 function post_process5(env, callout) {
 }
 
+// node_modules/obsidian-smart-env/src/components/milestones.css
+var milestones_default = `.sc-events-checklist {\r
+  display: flex;\r
+  flex-direction: column;\r
+  gap: var(--size-4-3);\r
+  padding: var(--size-4-2);\r
+\r
+  .sc-events-checklist__header {\r
+    display: flex;\r
+    align-items: baseline;\r
+    justify-content: space-between;\r
+    gap: var(--size-4-3);\r
+  }\r
+\r
+  .sc-events-checklist__title {\r
+    margin: 0;\r
+    font-size: var(--h2-size);\r
+  }\r
+\r
+  .sc-events-checklist__summary {\r
+    font-size: var(--font-ui-small);\r
+    color: var(--text-normal);\r
+    font-variant-numeric: tabular-nums;\r
+\r
+    padding: 0.15em 0.6em;\r
+    border-radius: 999px;\r
+    background-color: var(--background-secondary);\r
+    border: 1px solid var(--background-modifier-border);\r
+    white-space: nowrap;\r
+  }\r
+\r
+  .sc-events-checklist__hint {\r
+    font-size: var(--font-ui-small);\r
+    color: var(--text-muted);\r
+    text-align: right;\r
+  }\r
+\r
+  .sc-events-checklist__progress {\r
+    height: 6px;\r
+    border-radius: 999px;\r
+    overflow: hidden;\r
+    background-color: var(--background-secondary);\r
+    border: 1px solid var(--background-modifier-border);\r
+  }\r
+\r
+  .sc-events-checklist__progress-fill {\r
+    height: 100%;\r
+    width: var(--sc-events-checklist-progress, 0%);\r
+    background-color: var(--color-green, var(--interactive-accent));\r
+  }\r
+\r
+  .sc-events-checklist__group {\r
+    border-top: 1px solid var(--background-modifier-border);\r
+    padding-top: var(--size-4-3);\r
+  }\r
+\r
+  .sc-events-checklist__group-title {\r
+    margin: 0 0 var(--size-4-2) 0;\r
+    font-size: var(--h3-size);\r
+\r
+    display: flex;\r
+    align-items: baseline;\r
+    justify-content: space-between;\r
+    gap: var(--size-4-2);\r
+  }\r
+\r
+  .sc-events-checklist__group-name {\r
+    display: inline-flex;\r
+    align-items: center;\r
+    min-width: 0;\r
+  }\r
+\r
+  .sc-events-checklist__group-count {\r
+    font-size: var(--font-ui-small);\r
+    color: var(--text-muted);\r
+    white-space: nowrap;\r
+    font-variant-numeric: tabular-nums;\r
+    flex: 0 0 auto;\r
+  }\r
+\r
+  /*\r
+    Group completion badge:\r
+    - shows only when every item in the group is checked\r
+    - uses :has() (no JS needed)\r
+    - avoids false positives on empty groups by requiring at least one item\r
+  */\r
+  .sc-events-checklist__group:has(.sc-events-checklist__item):not(:has(.sc-events-checklist__item[data-checked='false'])) {\r
+    .sc-events-checklist__group-name::after {\r
+      content: "DONE";\r
+\r
+      /* layout */\r
+      display: inline-flex;\r
+      align-items: center;\r
+      justify-content: center;\r
+      margin-left: 0.5em;\r
+      padding: 0.08em 0.55em;\r
+      border-radius: 999px;\r
+      white-space: nowrap;\r
+      vertical-align: middle;\r
+\r
+      /* typography */\r
+      font-size: 0.65em;\r
+      font-weight: 700;\r
+      letter-spacing: 0.12em;\r
+      text-transform: uppercase;\r
+\r
+      /* theme vars (with safe fallback) */\r
+      color: var(--color-green, var(--text-accent));\r
+      background-color: var(--background-secondary);\r
+      border: 1px solid var(--background-modifier-border);\r
+\r
+      /* subtle depth, theme-aware */\r
+      box-shadow:\r
+        0 0 0 1px var(--background-primary),\r
+        0 1px 3px rgba(0, 0, 0, 0.25);\r
+      transform: translateY(-0.03em);\r
+    }\r
+  }\r
+\r
+  .sc-events-checklist__items {\r
+    list-style: none;\r
+    padding: 0;\r
+    margin: 0;\r
+    display: flex;\r
+    flex-direction: column;\r
+    gap: var(--size-2-2);\r
+  }\r
+\r
+  .sc-events-checklist__item {\r
+    display: flex;\r
+    flex-direction: column;\r
+    gap: 2px;\r
+    padding: 6px 8px;\r
+    border-radius: var(--radius-s);\r
+\r
+    cursor: pointer;\r
+    border: 1px solid transparent;\r
+\r
+    transition:\r
+      background-color 120ms ease,\r
+      border-color 120ms ease,\r
+      transform 120ms ease;\r
+\r
+    &:hover {\r
+      background: var(--background-modifier-hover);\r
+      border-color: var(--background-modifier-border);\r
+    }\r
+\r
+    &:active {\r
+      transform: translateY(1px);\r
+    }\r
+\r
+    &:focus-visible {\r
+      outline: 2px solid var(--interactive-accent);\r
+      outline-offset: 2px;\r
+      background: var(--background-modifier-hover);\r
+      border-color: var(--interactive-accent);\r
+    }\r
+  }\r
+\r
+  .sc-events-checklist__label {\r
+    display: flex;\r
+    align-items: flex-start;\r
+    gap: var(--size-2-2);\r
+    cursor: pointer;\r
+  }\r
+\r
+  .sc-events-checklist__icon {\r
+    display: inline-flex;\r
+    align-items: center;\r
+    justify-content: center;\r
+    margin-top: 2px;\r
+    width: 18px;\r
+    height: 18px;\r
+    flex: 0 0 auto;\r
+    color: var(--text-muted);\r
+\r
+    svg {\r
+      width: 18px;\r
+      height: 18px;\r
+    }\r
+  }\r
+\r
+  .sc-events-checklist__milestone {\r
+    line-height: 1.3;\r
+    user-select: text;\r
+    cursor: text;\r
+  }\r
+\r
+  .sc-events-checklist__item[data-checked='true'] {\r
+    .sc-events-checklist__icon {\r
+      color: var(--color-green, var(--text-accent));\r
+    }\r
+\r
+    .sc-events-checklist__milestone {\r
+      color: var(--text-normal);\r
+    }\r
+  }\r
+}\r
+\r
+/* 1) Host elements that should get a PRO badge */\r
+.sc-events-checklist__label.pro-milestone > .sc-events-checklist__milestone {\r
+  position: relative; /* safe default, keeps ::after anchored */\r
+}\r
+\r
+/* 2) The PRO badge itself */\r
+.sc-events-checklist__label.pro-milestone > .sc-events-checklist__milestone::after {\r
+  content: "PRO";\r
+\r
+  /* layout */\r
+  display: inline-flex;\r
+  align-items: center;\r
+  justify-content: center;\r
+  margin-left: 0.4em;\r
+  padding: 0.08em 0.55em;\r
+  border-radius: 999px;\r
+  white-space: nowrap;\r
+  vertical-align: middle;\r
+\r
+  /* typography */\r
+  font-size: 0.7em;\r
+  font-weight: 600;\r
+  letter-spacing: 0.14em;\r
+  text-transform: uppercase;\r
+  line-height: 1;\r
+\r
+  /* color system: only Obsidian variables */\r
+  background-color: var(--interactive-accent);\r
+  background-image: linear-gradient(\r
+    135deg,\r
+    var(--interactive-accent),\r
+    var(--interactive-accent-hover)\r
+  );\r
+  color: var(--text-on-accent, var(--background-primary));\r
+  border: 1px solid var(--background-modifier-border);\r
+\r
+  /* subtle separation & depth, theme-aware */\r
+  box-shadow:\r
+    0 0 0 1px var(--background-primary),\r
+    0 1px 3px rgba(0, 0, 0, 0.35);\r
+  transform: translateY(-0.03em);\r
+}\r
+\r
+/* 3) Interactive refinement: follow Obsidian's accent hover behavior */\r
+.sc-events-checklist__label.pro-milestone > .sc-events-checklist__milestone:hover::after {\r
+  background-color: var(--interactive-accent-hover);\r
+  filter: brightness(1.05);\r
+}\r
+\r
+/* Milestones modal: title row help icon */\r
+.sc-milestones-modal__title {\r
+  width: 100%;\r
+}\r
+\r
+.sc-milestones-modal__title-row {\r
+  display: flex;\r
+  align-items: center;\r
+  gap: var(--size-4-2);\r
+  width: 100%;\r
+}\r
+\r
+.sc-milestones-modal__title-text {\r
+  min-width: 0;\r
+}\r
+\r
+.sc-milestones-modal__help-btn {\r
+  display: inline-flex;\r
+  align-items: center;\r
+  justify-content: center;\r
+\r
+  width: 28px;\r
+  height: 28px;\r
+  padding: 0;\r
+  border-radius: var(--radius-s);\r
+\r
+  background: transparent;\r
+  border: 1px solid transparent;\r
+  color: var(--text-muted);\r
+\r
+  cursor: pointer;\r
+}\r
+\r
+.sc-milestones-modal__help-btn svg {\r
+  width: 18px;\r
+  height: 18px;\r
+}\r
+\r
+.sc-milestones-modal__help-btn:hover {\r
+  background: var(--background-modifier-hover);\r
+  border-color: var(--background-modifier-border);\r
+  color: var(--text-normal);\r
+}\r
+\r
+.sc-milestones-modal__help-btn:active {\r
+  transform: translateY(1px);\r
+}\r
+\r
+.sc-milestones-modal__help-btn:focus-visible {\r
+  outline: 2px solid var(--interactive-accent);\r
+  outline-offset: 2px;\r
+  background: var(--background-modifier-hover);\r
+  border-color: var(--interactive-accent);\r
+}\r
+`;
+
+// node_modules/obsidian-smart-env/src/components/milestones.js
+var import_obsidian14 = require("obsidian");
+
+// node_modules/obsidian-smart-env/src/utils/onboarding_events.js
+var import_obsidian13 = require("obsidian");
+var PLUGIN_INSTALL_EVENT_CONFIG = {
+  "connections:installed": {
+    ids: ["smart-connections"]
+  },
+  "connections_pro:installed": {
+    ids: ["smart-connections"],
+    require_pro_name: true
+  },
+  "context:installed": {
+    ids: ["smart-context"]
+  },
+  "context_pro:installed": {
+    ids: ["smart-context"],
+    require_pro_name: true
+  },
+  "chat:installed": {
+    ids: ["smart-chatgpt", "smart-chat"]
+  },
+  "chat_pro:installed": {
+    ids: ["smart-chat"],
+    require_pro_name: true
+  }
+};
+function register_first_of_event_notifications(env) {
+  env.events.on("event_log:first", (data) => {
+    const event_key = data?.first_of_event_key;
+    if (typeof event_key === "string" && event_key in EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY) {
+      const frag = document.createDocumentFragment();
+      const msg = `You achieved a new Smart Milestone \u{1F389}`;
+      const msg_el = document.createElement("p");
+      msg_el.textContent = msg;
+      frag.appendChild(msg_el);
+      const milestone_el = document.createElement("p");
+      milestone_el.textContent = `\u2705 ${EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY[event_key].milestone}`;
+      milestone_el.style.color = "var(--color-green)";
+      milestone_el.style.fontStyle = "italic";
+      frag.appendChild(milestone_el);
+      const btn = document.createElement("button");
+      btn.textContent = "View milestones";
+      btn.addEventListener("click", () => {
+        env.open_milestones_modal();
+      });
+      frag.appendChild(btn);
+      new import_obsidian13.Notice(frag, 7e3);
+    }
+  });
+}
+function check_if_event_emitted(env, event_key) {
+  const plugin_event_state = resolve_plugin_install_event(env, event_key);
+  if (plugin_event_state === true) return true;
+  if (env?.event_logs?.items?.[event_key]) return true;
+  if (plugin_event_state === false) return false;
+  return false;
+}
+var EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY = {
+  // Environment
+  "sources:import_completed": {
+    group: "Environment",
+    milestone: "Initial vault import completed (all sources discovered).",
+    link: "https://smartconnections.app/smart-environment/settings/?utm_source=milestones#sources"
+  },
+  "embedding:completed": {
+    group: "Environment",
+    milestone: "Initial embedding completed, you are ready to make connections!",
+    link: "https://smartconnections.app/smart-environment/settings/?utm_source=milestones#embedding-models"
+  },
+  // Connections
+  "connections:installed": {
+    group: "Connections",
+    milestone: "Installed Smart Connections (core plugin).",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones"
+  },
+  "connections:opened": {
+    group: "Connections",
+    milestone: "Opened the connections view.",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#quick-start"
+  },
+  "connections:drag_result": {
+    group: "Connections",
+    milestone: "Dragged a Smart Connections result into a note to create a link.",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#drag-link"
+  },
+  "connections:open_result": {
+    group: "Connections",
+    milestone: "Opened a Smart Connections result from the UI (list item or inline popover).",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#core-interactions"
+  },
+  "connections:sent_to_context": {
+    group: "Connections",
+    milestone: "Sent Connections results to Smart Context (turn discovery into a context pack).",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#send-to-context"
+  },
+  "connections:copied_list": {
+    group: "Connections",
+    milestone: "Copied Connections results as a list of links.",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#copy-list"
+  },
+  "connections:hover_preview": {
+    group: "Connections",
+    milestone: "Previewed a connection by holding cmd/ctrl while hovering the result.",
+    link: "https://smartconnections.app/smart-connections/list-feature/?utm_source=milestones#core-interactions"
+  },
+  "connections:open_random": {
+    group: "Connections",
+    milestone: "Opened a random connection from Smart Connections.",
+    link: "https://smartconnections.app/smart-connections/getting-started/?utm_source=milestones#open-a-random-connection"
+  },
+  // Connections Pro
+  "connections_pro:installed": {
+    group: "Connections Pro",
+    milestone: "Installed Smart Connections Pro.",
+    link: "https://smartconnections.app/pro-plugins/?utm_source=milestones#connections-pro",
+    is_pro: true
+  },
+  // Lookup
+  "lookup:hover_preview": {
+    group: "Lookup",
+    milestone: "Previewed a Smart Lookup result by holding cmd/ctrl while hovering.",
+    link: "https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results"
+  },
+  "lookup:get_results": {
+    group: "Lookup",
+    milestone: "Submitted a lookup query (started a semantic search).",
+    link: "https://smartconnections.app/smart-connections/lookup/?utm_source=milestones"
+  },
+  "lookup:drag_result": {
+    group: "Lookup",
+    milestone: "Dragged a Smart Lookup result into a note to create a link.",
+    link: "https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results"
+  },
+  "lookup:open_result": {
+    group: "Lookup",
+    milestone: "Opened a Lookup result.",
+    link: "https://smartconnections.app/smart-connections/lookup/?utm_source=milestones#understanding-results"
+  },
+  // Context
+  "context:created": {
+    group: "Context",
+    milestone: "First context created!",
+    link: "https://smartconnections.app/smart-context/builder/?utm_source=milestones#quick-start"
+  },
+  "context:copied": {
+    group: "Context",
+    milestone: "Copied context to clipboard.",
+    link: "https://smartconnections.app/smart-context/clipboard/?utm_source=milestones#copy-current"
+  },
+  "context_selector:open": {
+    group: "Context",
+    milestone: "Opened the Context Builder selector modal.",
+    link: "https://smartconnections.app/smart-context/builder/?utm_source=milestones#open-builder"
+  },
+  "context:named": {
+    group: "Context",
+    milestone: "Named a Smart Context (created a reusable saved context).",
+    link: "https://smartconnections.app/smart-context/builder/?utm_source=milestones#save-reuse"
+  },
+  "context:renamed": {
+    group: "Context",
+    milestone: "Renamed a Smart Context (increased clarity).",
+    link: "https://smartconnections.app/smart-context/builder/?utm_source=milestones#save-reuse"
+  },
+  "context:copied_with_media": {
+    group: "Context Pro",
+    milestone: "Copied context with media (images/PDF pages) for multimodal workflows.",
+    link: "https://smartconnections.app/smart-context/clipboard/?utm_source=milestones#copy-modes",
+    is_pro: true
+  },
+  // Context Pro
+  "context_pro:installed": {
+    group: "Context Pro",
+    milestone: "Installed Smart Context Pro.",
+    link: "https://smartconnections.app/pro-plugins/?utm_source=milestones#context-pro",
+    is_pro: true
+  },
+  // Chat
+  "chat:installed": {
+    group: "Chat",
+    milestone: "Installed Smart ChatGPT.",
+    link: "https://smartconnections.app/smart-chat/?utm_source=milestones"
+  },
+  "chat_codeblock:saved_thread": {
+    group: "Chat",
+    milestone: "Started a chat in a Smart Chat codeblock (opened the loop).",
+    link: "https://smartconnections.app/smart-chat/codeblock/?utm_source=milestones#quick-start"
+  },
+  "completion:completed": {
+    group: "Chat Pro",
+    milestone: "Received the first Smart Chat response (a completion finished).",
+    link: "https://smartconnections.app/smart-chat/api-integration/?utm_source=milestones#quick-start",
+    is_pro: true
+  },
+  "chat_codeblock:marked_done": {
+    group: "Chat",
+    milestone: "Marked the chat thread as done (closed the loop).",
+    link: "https://smartconnections.app/smart-chat/codeblock/?utm_source=milestones#chat-inbox"
+  },
+  // Chat Pro
+  "chat_pro:installed": {
+    group: "Chat Pro",
+    milestone: "Installed Smart Chat Pro.",
+    link: "https://smartconnections.app/pro-plugins/?utm_source=milestones#chat-pro",
+    is_pro: true
+  },
+  // Pro
+  "smart_plugins_oauth_completed": {
+    group: "Pro",
+    milestone: "Connected account (enabled Pro plugins).",
+    link: "https://smartconnections.app/pro-plugins/?utm_source=milestones"
+  },
+  // Connections Pro (Inline Connections)
+  "inline_connections:show": {
+    group: "Connections Pro",
+    milestone: "Opened inline connections in-note (used the inline workflow).",
+    link: "https://smartconnections.app/smart-connections/inline/?utm_source=milestones",
+    is_pro: true
+  },
+  "inline_connections:open_result": {
+    group: "Connections Pro",
+    milestone: "Opened an inline connections result (navigated from discovery to source).",
+    link: "https://smartconnections.app/smart-connections/inline/?utm_source=milestones",
+    is_pro: true
+  },
+  "inline_connections:drag_result": {
+    group: "Connections Pro",
+    milestone: "Inserted an inline link from an inline connection (converted discovery into a durable link).",
+    link: "https://smartconnections.app/smart-connections/inline/?utm_source=milestones",
+    is_pro: true
+  }
+};
+var EVENTS_CHECKLIST_GROUP_ORDER = [
+  "Environment",
+  "Connections",
+  "Lookup",
+  "Context",
+  "Chat",
+  "Pro",
+  "Connections Pro",
+  "Context Pro",
+  "Chat Pro"
+];
+function derive_events_checklist_groups(items_by_event_key) {
+  const group_map = Object.entries(items_by_event_key || {}).reduce(
+    (acc, [event_key, item]) => {
+      const group = item?.group || "Other";
+      if (!acc[group]) acc[group] = [];
+      acc[group].push({ event_key, group, milestone: item?.milestone || "", ...item });
+      return acc;
+    },
+    /** @type {Record<string, Array<{event_key: string, group: string, milestone: string, link: string, is_pro?: boolean}>>} */
+    {}
+  );
+  const all_groups = Object.keys(group_map);
+  const order_index = EVENTS_CHECKLIST_GROUP_ORDER.reduce(
+    (acc, name, idx) => {
+      acc[name] = idx;
+      return acc;
+    },
+    /** @type {Record<string, number>} */
+    {}
+  );
+  const sorted_groups = all_groups.sort((a, b) => {
+    const a_has = Object.prototype.hasOwnProperty.call(order_index, a);
+    const b_has = Object.prototype.hasOwnProperty.call(order_index, b);
+    if (a_has && b_has) return order_index[a] - order_index[b];
+    if (a_has) return -1;
+    if (b_has) return 1;
+    return a.localeCompare(b);
+  });
+  return sorted_groups.map((group) => {
+    const items = (group_map[group] || []).slice();
+    return { group, items };
+  });
+}
+function resolve_plugin_install_event(env, event_key) {
+  const config = PLUGIN_INSTALL_EVENT_CONFIG[event_key];
+  if (!config) return null;
+  const manifests = env?.plugin?.app?.plugins?.manifests || {};
+  const plugin_ids = Array.isArray(config.ids) ? config.ids : [];
+  for (const plugin_id of plugin_ids) {
+    const manifest = manifests[plugin_id];
+    if (!manifest) continue;
+    if (config.require_pro_name && !is_pro_manifest(manifest)) continue;
+    return true;
+  }
+  return false;
+}
+function is_pro_manifest(manifest) {
+  const name = manifest?.name;
+  if (typeof name !== "string") return false;
+  return name.toLowerCase().includes("pro");
+}
+
+// node_modules/obsidian-smart-env/src/components/milestones.js
+function build_html7(env, params = {}) {
+  const groups = derive_events_checklist_groups(EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY);
+  const checked_count = groups.reduce((acc, g) => {
+    const c = g.items.reduce((inner, item) => {
+      return inner + (check_if_event_emitted(env, item.event_key) ? 1 : 0);
+    }, 0);
+    return acc + c;
+  }, 0);
+  const total_count = groups.reduce((acc, g) => acc + g.items.length, 0);
+  const progress_pct = total_count > 0 ? Math.round(checked_count / total_count * 100) : 0;
+  const groups_html = groups.map((group) => {
+    const group_checked_count = group.items.reduce((acc, item) => {
+      return acc + (check_if_event_emitted(env, item.event_key) ? 1 : 0);
+    }, 0);
+    const group_total_count = group.items.length;
+    const items_html = group.items.map((item) => {
+      const checked = check_if_event_emitted(env, item.event_key) === true;
+      return build_item_html(item, { checked });
+    }).join("\n");
+    return `
+      <section class="sc-events-checklist__group" data-group="${escape_html(group.group)}">
+        <h3 class="sc-events-checklist__group-title">
+          <span class="sc-events-checklist__group-name">${escape_html(group.group)}</span>
+          <span class="sc-events-checklist__group-count" aria-label="Group completion">${group_checked_count.toString()} / ${group_total_count.toString()}</span>
+        </h3>
+        <ul class="sc-events-checklist__items">
+          ${items_html}
+        </ul>
+      </section>
+    `;
+  }).join("\n");
+  return `
+    <div
+      class="sc-events-checklist"
+      data-component="events_checklist"
+      style="--sc-events-checklist-progress: ${progress_pct.toString()}%;"
+    >
+      <div class="sc-events-checklist__header">
+        <div class="sc-events-checklist__summary" aria-label="Checklist completion">
+          ${checked_count.toString()} / ${total_count.toString()}
+        </div>
+        <div class="sc-events-checklist__hint" aria-hidden="true">
+          Click a milestone to open docs
+        </div>
+      </div>
+
+      <div
+        class="sc-events-checklist__progress"
+        role="progressbar"
+        aria-label="Overall progress"
+        aria-valuenow="${checked_count.toString()}"
+        aria-valuemin="0"
+        aria-valuemax="${total_count.toString()}"
+        title="${escape_html(`${progress_pct.toString()}% complete`)}"
+      >
+        <div class="sc-events-checklist__progress-fill" aria-hidden="true"></div>
+      </div>
+
+      <div class="sc-events-checklist__body">
+        ${groups_html}
+      </div>
+    </div>
+  `;
+}
+async function render7(env, params = {}) {
+  this.apply_style_sheet(milestones_default);
+  const html = build_html7.call(this, env, params);
+  const frag = this.create_doc_fragment(html);
+  const container = frag.firstElementChild;
+  post_process6.call(this, env, container, params);
+  return container;
+}
+async function post_process6(env, container, params = {}) {
+  attach_item_link_listeners(container);
+  render_item_state_icons(container);
+  return container;
+}
+function build_item_html(item, state) {
+  const checked = state.checked === true;
+  const checked_flag = checked ? "true" : "false";
+  const link = typeof item.link === "string" ? item.link : "";
+  const status_label = checked ? "Completed" : "Incomplete";
+  const aria_label = `Open docs: ${item.milestone || item.event_key || "milestone"} (${status_label})`;
+  return `
+    <li
+      class="sc-events-checklist__item"
+      data-event-key="${escape_html(item.event_key)}"
+      data-link="${escape_html(link)}"
+      data-checked="${checked_flag}"
+      tabindex="0"
+      role="button"
+      aria-label="${escape_html(aria_label)}"
+    >
+      <div class="sc-events-checklist__label${item.is_pro ? " pro-milestone" : ""}">
+        <span class="sc-events-checklist__icon" aria-hidden="true"></span>
+        <span class="sc-events-checklist__milestone">${escape_html(item.milestone)}</span>
+      </div>
+    </li>
+  `;
+}
+function attach_item_link_listeners(container) {
+  if (!container) return;
+  if (container.getAttribute("data-links-enabled") === "true") return;
+  container.setAttribute("data-links-enabled", "true");
+  container.addEventListener("click", (evt) => {
+    const item_el = get_item_el_from_event(container, evt);
+    if (!item_el) return;
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) return;
+    open_item_link(item_el);
+  });
+  container.addEventListener("keydown", (evt) => {
+    const key = evt && /** @type {KeyboardEvent} */
+    evt.key;
+    if (key !== "Enter" && key !== " ") return;
+    const item_el = get_item_el_from_event(container, evt);
+    if (!item_el) return;
+    evt.preventDefault();
+    open_item_link(item_el);
+  });
+}
+function open_item_link(item_el) {
+  const link = get_item_link(item_el);
+  if (typeof link === "string" && link.length > 0) {
+    window.open(link, "_external");
+  }
+}
+function render_item_state_icons(container) {
+  if (!container) return;
+  const item_els = Array.from(container.querySelectorAll(".sc-events-checklist__item"));
+  item_els.forEach((item_el) => {
+    const checked = item_el.getAttribute("data-checked") === "true";
+    const icon_el = item_el.querySelector(".sc-events-checklist__icon");
+    if (!icon_el) return;
+    set_item_icon(
+      /** @type {HTMLElement} */
+      icon_el,
+      checked
+    );
+  });
+}
+function set_item_icon(icon_el, checked) {
+  const icon_ids = checked ? ["circle-check", "check-circle", "check"] : ["circle", "circle-dashed", "dot"];
+  set_icon_with_fallback2(icon_el, icon_ids);
+}
+function set_icon_with_fallback2(icon_el, icon_ids) {
+  if (!icon_el) return;
+  const ids = Array.isArray(icon_ids) ? icon_ids : [];
+  for (const icon_id of ids) {
+    if (typeof icon_id !== "string" || icon_id.length === 0) continue;
+    icon_el.textContent = "";
+    try {
+      (0, import_obsidian14.setIcon)(icon_el, icon_id);
+    } catch (err) {
+      continue;
+    }
+    if (icon_el.querySelector("svg")) return;
+  }
+}
+function get_item_el_from_event(container, evt) {
+  const target = evt && /** @type {any} */
+  evt.target;
+  if (!target || typeof target.closest !== "function") return null;
+  const item_el = target.closest(".sc-events-checklist__item");
+  if (!item_el) return null;
+  if (!container.contains(item_el)) return null;
+  return item_el;
+}
+function get_item_link(item_el) {
+  const data_link = item_el.getAttribute("data-link");
+  if (typeof data_link === "string" && data_link.length > 0) return data_link;
+  const event_key = item_el.getAttribute("data-event-key");
+  if (typeof event_key !== "string" || event_key.length === 0) return "";
+  const item = EVENTS_CHECKLIST_ITEMS_BY_EVENT_KEY[event_key];
+  if (!item || typeof item.link !== "string") return "";
+  return item.link;
+}
+
 // node_modules/obsidian-smart-env/src/components/notifications_feed.js
-function build_html7() {
+function build_html8() {
   return `<div>
     <button class="copy-all-notifications-btn">Copy All Notifications</button>
     <div class="smart-env-notifications-feed"></div>
   </div>`;
 }
-async function render7(env, params = {}) {
-  const frag = this.create_doc_fragment(build_html7());
+async function render8(env, params = {}) {
+  const frag = this.create_doc_fragment(build_html8());
   const container = frag.firstElementChild;
-  post_process6.call(this, env, container, params);
+  post_process7.call(this, env, container, params);
   return frag;
 }
-async function post_process6(env, container, params = {}) {
+async function post_process7(env, container, params = {}) {
   const feed_container = container.querySelector(".smart-env-notifications-feed");
   this.empty(feed_container);
   const entries = Array.isArray(env.event_logs.session_events) ? [...env.event_logs.session_events] : [];
@@ -17156,10 +18078,10 @@ function to_time_ago(ms) {
 }
 
 // node_modules/obsidian-smart-env/src/components/pro-plugins/list.js
-var import_obsidian12 = require("obsidian");
+var import_obsidian16 = require("obsidian");
 
 // node_modules/obsidian-smart-env/src/utils/smart_plugins.js
-var import_obsidian11 = require("obsidian");
+var import_obsidian15 = require("obsidian");
 function get_smart_server_url() {
   if (typeof window !== "undefined" && window.SMART_SERVER_URL_OVERRIDE) {
     return window.SMART_SERVER_URL_OVERRIDE;
@@ -17315,7 +18237,7 @@ function is_server_version_newer(localVer, serverVer) {
   return false;
 }
 async function fetch_plugin_zip(repoName, token) {
-  const resp = await (0, import_obsidian11.requestUrl)({
+  const resp = await (0, import_obsidian15.requestUrl)({
     url: `${get_smart_server_url()}/plugin_download`,
     method: "POST",
     headers: {
@@ -17329,7 +18251,7 @@ async function fetch_plugin_zip(repoName, token) {
   }
   return validate_zip_buffer(resp.arrayBuffer, "Smart Plugins server");
 }
-async function fetch_zip_from_url(download_url, request_fn = import_obsidian11.requestUrl) {
+async function fetch_zip_from_url(download_url, request_fn = import_obsidian15.requestUrl) {
   console.log(`[smart_plugins] download plugin from URL: ${download_url}`);
   const resp = await request_fn({
     url: download_url,
@@ -17341,7 +18263,7 @@ async function fetch_zip_from_url(download_url, request_fn = import_obsidian11.r
   }
   return validate_zip_buffer(resp.arrayBuffer, "Download");
 }
-async function fetch_plugin_readme(repo, token, request_fn = import_obsidian11.requestUrl) {
+async function fetch_plugin_readme(repo, token, request_fn = import_obsidian15.requestUrl) {
   const resp = await request_fn({
     url: `${get_smart_server_url()}/plugin_readme`,
     method: "POST",
@@ -17368,7 +18290,7 @@ function get_oauth_storage_prefix(app) {
   return `${safe}_smart_plugins_oauth_`;
 }
 async function fetch_server_plugin_list(token) {
-  const resp = await (0, import_obsidian11.requestUrl)({
+  const resp = await (0, import_obsidian15.requestUrl)({
     url: `${get_smart_server_url()}/plugin_list`,
     method: "POST",
     headers: {
@@ -17412,7 +18334,7 @@ function derive_fallback_plugins() {
   ];
   return pro_placeholders;
 }
-function build_html8(env, params = {}) {
+function build_html9(env, params = {}) {
   return `
     <div class="pro-plugins-container setting-item-heading">
       <div class="setting-group">
@@ -17430,15 +18352,15 @@ function build_html8(env, params = {}) {
     </div>
   `;
 }
-async function render8(env, params = {}) {
+async function render9(env, params = {}) {
   this.apply_style_sheet(style_default);
-  const html = build_html8.call(this, env, params);
+  const html = build_html9.call(this, env, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  await post_process7.call(this, env, container, params);
+  await post_process8.call(this, env, container, params);
   return container;
 }
-async function post_process7(env, container, params = {}) {
+async function post_process8(env, container, params = {}) {
   const plugin = env.plugin || null;
   const app = plugin?.app || window.app;
   const oauth_storage_prefix = get_oauth_storage_prefix(app);
@@ -17477,9 +18399,9 @@ async function post_process7(env, container, params = {}) {
     btn.addEventListener("click", async () => {
       const ok = await copy_to_clipboard(login_url);
       if (ok) {
-        new import_obsidian12.Notice("Copied login link to clipboard.");
+        new import_obsidian16.Notice("Copied login link to clipboard.");
       } else {
-        new import_obsidian12.Notice("Copy failed. Please select and copy the link manually.");
+        new import_obsidian16.Notice("Copy failed. Please select and copy the link manually.");
       }
     });
     controls.appendChild(btn);
@@ -17506,14 +18428,14 @@ async function post_process7(env, container, params = {}) {
     if (env && typeof env.initiate_smart_plugins_oauth === "function") {
       last_login_url = initiate_smart_plugins_oauth();
     }
-    new import_obsidian12.Notice("Please complete the login in your browser.");
+    new import_obsidian16.Notice("Please complete the login in your browser.");
   };
   const render_oauth_login_section = () => {
     this.empty(login_container);
     manual_login_el = null;
     const token = localStorage.getItem(oauth_storage_prefix + "token") || "";
     if (!token) {
-      const setting2 = new import_obsidian12.Setting(login_container).setName("Connect account").setDesc("Log in with the key provided in your Pro welcome email.");
+      const setting2 = new import_obsidian16.Setting(login_container).setName("Connect account").setDesc("Log in with the key provided in your Pro welcome email.");
       setting2.addButton((btn) => {
         btn.setButtonText("Login");
         btn.onClick(async () => {
@@ -17522,14 +18444,14 @@ async function post_process7(env, container, params = {}) {
       });
       return;
     }
-    const setting = new import_obsidian12.Setting(login_container);
+    const setting = new import_obsidian16.Setting(login_container);
     setting.setDesc("Signed in to Smart Plugins Pro account.");
     setting.addButton((btn) => {
       btn.setButtonText("Logout");
       btn.onClick(() => {
         localStorage.removeItem(oauth_storage_prefix + "token");
         localStorage.removeItem(oauth_storage_prefix + "refresh");
-        new import_obsidian12.Notice("Logged out of Smart Plugins");
+        new import_obsidian16.Notice("Logged out of Smart Plugins");
         render_oauth_login_section();
         render_plugin_list_section();
       });
@@ -17548,7 +18470,7 @@ async function post_process7(env, container, params = {}) {
     }
   };
   const add_update_sub_to_login_section = () => {
-    const setting = new import_obsidian12.Setting(login_container).setName("Subscription Expired").setDesc("Your Smart Connections Pro subscription has expired. Please update your subscription to retain access to Pro plugins.");
+    const setting = new import_obsidian16.Setting(login_container).setName("Subscription Expired").setDesc("Your Smart Connections Pro subscription has expired. Please update your subscription to retain access to Pro plugins.");
     setting.addButton((btn) => {
       btn.setButtonText("Get Pro");
       btn.onClick(() => {
@@ -17648,9 +18570,9 @@ var copy_to_clipboard = async (text) => {
 };
 
 // node_modules/obsidian-smart-env/src/components/pro-plugins/list_item.js
-var import_obsidian13 = require("obsidian");
+var import_obsidian17 = require("obsidian");
 var PRO_PLUGINS_URL = "https://smartconnections.app/pro-plugins/";
-function build_html9(item, params = {}) {
+function build_html10(item, params = {}) {
   return `<div class="pro-plugins-list-item"></div>`;
 }
 function is_fallback_item(item) {
@@ -17681,17 +18603,17 @@ ${item.description}`;
   }
   return { plugin_id, display_name: display_name5, desc, button_label, is_disabled, server_version, local_version };
 }
-async function render9(item, params = {}) {
-  const html = build_html9(item, params);
+async function render10(item, params = {}) {
+  const html = build_html10(item, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  await post_process8.call(this, item, container, params);
+  await post_process9.call(this, item, container, params);
   return container;
 }
-async function post_process8(item, container, params = {}) {
+async function post_process9(item, container, params = {}) {
   const { app, token, installed_map = {}, on_installed } = params;
   if (is_fallback_item(item)) {
-    const row2 = new import_obsidian13.Setting(container).setName(item.name || "Pro plugin").setDesc(item.description || "Login to unlock Pro plugins.");
+    const row2 = new import_obsidian17.Setting(container).setName(item.name || "Pro plugin").setDesc(item.description || "Login to unlock Pro plugins.");
     if (item.core_id) {
       if (app.plugins.manifests[item.core_id]) {
         const core_installed_text = document.createElement("i");
@@ -17725,7 +18647,7 @@ async function post_process8(item, container, params = {}) {
   const plugin_id = item.manifest_id || item.repo.replace("/", "_");
   const local = installed_map[plugin_id] || null;
   const state = compute_display_state(item, local);
-  const row = new import_obsidian13.Setting(container).setName(state.display_name).setDesc(state.desc);
+  const row = new import_obsidian17.Setting(container).setName(state.display_name).setDesc(state.desc);
   row.addButton((btn) => {
     btn.setButtonText(state.button_label);
     btn.setDisabled(state.is_disabled);
@@ -17754,7 +18676,7 @@ var download_plugin_zip = async (item, token) => {
 var install_plugin = async (item, params = {}) => {
   const { app, token, on_installed } = params;
   try {
-    new import_obsidian13.Notice(`Installing "${item.repo}" ...`);
+    new import_obsidian17.Notice(`Installing "${item.repo}" ...`);
     const zip_data = await download_plugin_zip(item, token);
     const { files, pluginManifest } = await parse_zip_into_files(zip_data);
     const folder_name = item.plugin_id;
@@ -17766,32 +18688,32 @@ var install_plugin = async (item, params = {}) => {
       await app.plugins.disablePlugin(plugin_id);
     }
     await enable_plugin(app, plugin_id);
-    new import_obsidian13.Notice(`${item.repo} installed successfully.`);
+    new import_obsidian17.Notice(`${item.repo} installed successfully.`);
     if (typeof on_installed === "function") {
       await on_installed();
     }
   } catch (err) {
     console.error("[pro-plugins:list_item] Install error:", err);
-    new import_obsidian13.Notice(`Install failed: ${err.message}`);
+    new import_obsidian17.Notice(`Install failed: ${err.message}`);
   }
 };
 var show_plugin_readme = async (item, params = {}) => {
   const { app, token, display_name: display_name5 } = params;
   try {
     const readme = await fetch_plugin_readme(item.repo, token);
-    const modal = new import_obsidian13.Modal(app);
+    const modal = new import_obsidian17.Modal(app);
     modal.setTitle(display_name5 || item.name || item.repo);
-    await import_obsidian13.MarkdownRenderer.render(app, readme, modal.contentEl, "", new import_obsidian13.Component());
+    await import_obsidian17.MarkdownRenderer.render(app, readme, modal.contentEl, "", new import_obsidian17.Component());
     modal.open();
   } catch (err) {
     console.error("[pro-plugins:list_item] Failed to load README:", err);
-    new import_obsidian13.Notice("Failed to load README");
+    new import_obsidian17.Notice("Failed to load README");
   }
 };
 
 // node_modules/obsidian-smart-env/src/modals/smart_model_modal.js
-var import_obsidian14 = require("obsidian");
-var SmartModelModal = class extends import_obsidian14.Modal {
+var import_obsidian18 = require("obsidian");
+var SmartModelModal = class extends import_obsidian18.Modal {
   /**
    * @param {App} app
    * @param {EditModelModalOpts} opts
@@ -17856,8 +18778,8 @@ var SmartModelModal = class extends import_obsidian14.Modal {
 var env_model_default = '.model-settings .model-info {\r\n  border-radius: var(--radius-m);\r\n  padding: 1rem;\r\n  margin-bottom: 1rem;\r\n  background-color: var(--background-secondary);\r\n  pre {\r\n    margin: 0;\r\n    font-size: 0.9rem;\r\n  }\r\n  .test-result-icon {\r\n    vertical-align: middle;\r\n    margin-left: 0.5rem;\r\n  }\r\n  .test-result-icon[data-icon="square-check-big"]{\r\n    color: var(--color-green);\r\n  }\r\n  .test-result-icon[data-icon="circle-x"]{\r\n    color: var(--color-red);\r\n  }\r\n}';
 
 // node_modules/obsidian-smart-env/src/components/settings/env_model.js
-var import_obsidian15 = require("obsidian");
-function build_html10(model, params) {
+var import_obsidian19 = require("obsidian");
+function build_html11(model, params) {
   const details = [
     `Provider: ${model.data.provider_key}`,
     `Model: ${model.data.model_key || "**MISSING - EDIT & SELECT MODEL**"}`
@@ -17873,18 +18795,18 @@ function build_html10(model, params) {
     <pre>${details.join("\n")}</pre>
   </div>`;
 }
-async function render10(model, params) {
+async function render11(model, params) {
   this.apply_style_sheet(env_model_default);
-  const frag = this.create_doc_fragment(build_html10.call(this, model, params));
+  const frag = this.create_doc_fragment(build_html11.call(this, model, params));
   const container = frag.firstElementChild;
-  post_process9.call(this, model, container, params);
+  post_process10.call(this, model, container, params);
   return container;
 }
-async function post_process9(model, container, params) {
+async function post_process10(model, container, params) {
   const edit_btn = container.querySelector(".edit-model");
   const test_btn = container.querySelector(".test-model");
   const icon_el = container.querySelector(".test-result-icon");
-  (0, import_obsidian15.setIcon)(icon_el, get_test_result_icon_name(model));
+  (0, import_obsidian19.setIcon)(icon_el, get_test_result_icon_name(model));
   edit_btn.addEventListener("click", () => {
     new SmartModelModal(model).open();
   });
@@ -17905,7 +18827,7 @@ function get_test_result_icon_name(model) {
 }
 
 // node_modules/obsidian-smart-env/src/utils/smart-models/show_new_model_menu.js
-var import_obsidian16 = require("obsidian");
+var import_obsidian20 = require("obsidian");
 
 // node_modules/obsidian-smart-env/src/utils/smart-models/provider_options.js
 var provider_options = {
@@ -17952,6 +18874,11 @@ var provider_options = {
     {
       label: "PRO: Deepseek (cloud)",
       value: "deepseek",
+      disabled: true
+    },
+    {
+      label: "PRO: Azure OpenAI (cloud)",
+      value: "azure",
       disabled: true
     }
   ],
@@ -18004,7 +18931,7 @@ function show_new_model_menu(models_collection, event, params = {}) {
       event.title = "No providers available to create new models.";
     }
   } else {
-    const menu = new import_obsidian16.Menu();
+    const menu = new import_obsidian20.Menu();
     providers.forEach((provider) => {
       menu.addItem((item) => {
         item.setTitle(provider.label);
@@ -18027,7 +18954,7 @@ function show_new_model_menu(models_collection, event, params = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/utils/render_settings_config.js
-var import_obsidian17 = require("obsidian");
+var import_obsidian21 = require("obsidian");
 var SettingGroupPolyfill = class {
   constructor(container) {
     this.components = [];
@@ -18041,7 +18968,7 @@ var SettingGroupPolyfill = class {
     this.headerInnerEl.setText(heading);
   }
   addSetting(callback) {
-    const setting = new import_obsidian17.Setting(this.listEl);
+    const setting = new import_obsidian21.Setting(this.listEl);
     this.components.push(setting);
     callback(setting);
     return setting;
@@ -18061,14 +18988,18 @@ function render_settings_config(settings_config12, scope, container, params = {}
     acc[group][key] = config;
     return acc;
   }, { [default_group_name]: {} });
-  const settings_groups = Object.entries(group_map).sort(([a], [b]) => a === default_group_name ? -1 : b === default_group_name ? 1 : 0).map(([group_name, group_config]) => {
+  const settings_groups = Object.entries(group_map).sort(([a], [b]) => a === default_group_name ? -1 : b === default_group_name ? 1 : 0).filter(([, group_config]) => Object.keys(group_config).length > 0).map(([group_name, group_config]) => {
     const group_container = container.createDiv();
+    const group_params = {
+      ...params,
+      ...params.group_params?.[group_name] || {}
+    };
     return render_settings_group(
       group_name,
       scope,
       group_config,
       group_container,
-      params
+      group_params
     );
   });
   return settings_groups;
@@ -18091,18 +19022,13 @@ function render_settings_group(group_name, scope, settings_config12, container, 
   } = params;
   let setting_group = new SettingGroup(container);
   if (heading_btn && typeof heading_btn === "object") {
-    const heading_btn_setting = new import_obsidian17.Setting(setting_group.controlEl);
-    heading_btn_setting.addButton((btn) => {
-      if (heading_btn.btn_icon) btn.setIcon(heading_btn.btn_icon);
-      if (heading_btn.btn_text) btn.setButtonText(heading_btn.btn_text || "Execute");
-      btn.onClick(async (event) => {
-        if (typeof heading_btn.callback === "function") {
-          await handle_config_callback(heading_btn_setting, event, heading_btn.callback, { scope });
-        } else {
-          console.warn("No callback defined for heading button");
-        }
-      });
-    });
+    if (Array.isArray(heading_btn)) {
+      for (const btn_config of heading_btn) {
+        render_heading_button(setting_group, scope, btn_config);
+      }
+    } else {
+      render_heading_button(setting_group, scope, heading_btn);
+    }
   }
   setting_group.setHeading(group_name);
   for (const [setting_path, setting_config] of Object.entries(settings_config12)) {
@@ -18110,9 +19036,12 @@ function render_settings_group(group_name, scope, settings_config12, container, 
       console.warn(`Invalid setting config for ${setting_path}:`, setting_config);
       continue;
     }
+    const settng_is_pro = setting_config.scope_class === "pro-setting";
+    const env_is_pro = !!scope.env?.is_pro;
     setting_group.addSetting((setting) => {
       if (setting_config.name) setting.setName(setting_config.name);
       setting.setClass(setting_path.replace(/[^a-zA-Z0-9]/g, "-"));
+      if (setting_config.type) setting.setClass(`setting-type-${setting_config.type}`);
       if (setting_config.description) {
         setting.setDesc(setting_config.description);
       }
@@ -18180,6 +19109,37 @@ function render_settings_group(group_name, scope, settings_config12, container, 
             });
           });
           break;
+        case "textarea":
+          setting.addTextArea((text) => {
+            text.setValue(String(get_by_path(scope.settings, setting_path) || ""));
+            text.onChange((value) => {
+              if (settng_is_pro && !env_is_pro) {
+                new import_obsidian21.Notice("Nice try! This is a PRO feature. Please upgrade to access this setting.");
+                return;
+              }
+              set_by_path(scope.settings, setting_path, value);
+            });
+            if (settng_is_pro && !env_is_pro) {
+              text.setDisabled(true);
+            }
+          });
+          break;
+        case "slider":
+          setting.addSlider((slider) => {
+            const min = setting_config.min || 0;
+            const max = setting_config.max || 100;
+            const step = setting_config.step || 1;
+            slider.setLimits(min, max, step);
+            slider.setValue(get_by_path(scope.settings, setting_path) || min);
+            slider.setDynamicTooltip();
+            slider.onChange((value) => {
+              set_by_path(scope.settings, setting_path, value);
+              if (typeof setting_config.callback === "function") {
+                handle_config_callback(setting, value, setting_config.callback, { scope });
+              }
+            });
+          });
+          break;
         case "heading":
           setting.setHeading();
           break;
@@ -18200,6 +19160,26 @@ function render_settings_group(group_name, scope, settings_config12, container, 
     });
   }
   return setting_group;
+}
+function render_heading_button(setting_group, scope, heading_btn) {
+  const btn_el = setting_group.controlEl.createEl("button", { cls: "" });
+  if (heading_btn.btn_icon) {
+    (0, import_obsidian21.setIcon)(btn_el, heading_btn.btn_icon);
+  }
+  if (heading_btn.btn_text) {
+    btn_el.setText(heading_btn.btn_text);
+  }
+  if (heading_btn.label) {
+    btn_el.setAttr("aria-label", heading_btn.label);
+  }
+  btn_el.addEventListener("click", async (event) => {
+    if (typeof heading_btn.callback === "function") {
+      await handle_config_callback(null, event, heading_btn.callback, { scope });
+    } else {
+      console.warn("No callback defined for heading button");
+    }
+  });
+  setting_group.controlEl.appendChild(btn_el);
 }
 async function handle_config_callback(setting, event_or_value, cb, params = {}) {
   const {
@@ -18224,18 +19204,18 @@ function ensure_settings_config(settings_config12, scope) {
 }
 
 // node_modules/obsidian-smart-env/src/components/settings/env_model_type.js
-function build_html11(models_collection, params) {
+function build_html12(models_collection, params) {
   return `<div class="model-settings" data-model-type="${models_collection.collection_key}">
     <div class="global-settings"></div>
   </div>`;
 }
-async function render11(models_collection, params) {
-  const frag = this.create_doc_fragment(build_html11.call(this, models_collection, params));
+async function render12(models_collection, params) {
+  const frag = this.create_doc_fragment(build_html12.call(this, models_collection, params));
   const container = frag.firstElementChild;
-  post_process10.call(this, models_collection, container, params);
+  post_process11.call(this, models_collection, container, params);
   return container;
 }
-async function post_process10(models_collection, container, params) {
+async function post_process11(models_collection, container, params) {
   const disposers = [];
   const render_current_model_info = async (current_model) => {
     this.empty(container);
@@ -18271,7 +19251,7 @@ async function post_process10(models_collection, container, params) {
 }
 
 // node_modules/obsidian-smart-env/src/components/settings/env_models.js
-function build_html12(env, params) {
+function build_html13(env, params) {
   const models_collections = [
     env.embedding_models,
     env.chat_completion_models,
@@ -18284,13 +19264,13 @@ function build_html12(env, params) {
     ${type_containers}
   </div>`;
 }
-async function render12(env, params) {
-  const frag = this.create_doc_fragment(build_html12(env, params));
+async function render13(env, params) {
+  const frag = this.create_doc_fragment(build_html13(env, params));
   const container = frag.firstElementChild;
-  post_process11.call(this, env, container, params);
+  post_process12.call(this, env, container, params);
   return container;
 }
-async function post_process11(env, container, params) {
+async function post_process12(env, container, params) {
   const collection_containers = container.querySelectorAll("div[data-collection-key]");
   for (const collection_container of collection_containers) {
     const collection_key = collection_container.getAttribute("data-collection-key");
@@ -18304,7 +19284,7 @@ async function post_process11(env, container, params) {
 }
 
 // node_modules/obsidian-smart-env/src/modals/exclude_folders_fuzzy.js
-var import_obsidian18 = require("obsidian");
+var import_obsidian22 = require("obsidian");
 
 // node_modules/obsidian-smart-env/src/utils/exclusions.js
 function ensure_smart_sources_settings(env) {
@@ -18333,7 +19313,7 @@ function remove_exclusion(exclusions, value) {
 }
 
 // node_modules/obsidian-smart-env/src/modals/exclude_folders_fuzzy.js
-var ExcludedFoldersFuzzy = class extends import_obsidian18.FuzzySuggestModal {
+var ExcludedFoldersFuzzy = class extends import_obsidian22.FuzzySuggestModal {
   /**
    * @param {App} app - The Obsidian app
    * @param {Object} env - An environment-like object, must have .settings and .fs.folder_paths
@@ -18428,8 +19408,8 @@ var ExcludedFoldersFuzzy = class extends import_obsidian18.FuzzySuggestModal {
 };
 
 // node_modules/obsidian-smart-env/src/modals/excluded_sources.js
-var import_obsidian19 = require("obsidian");
-var ExcludedSourcesModal = class extends import_obsidian19.Modal {
+var import_obsidian23 = require("obsidian");
+var ExcludedSourcesModal = class extends import_obsidian23.Modal {
   /**
    * @param {Object} app - Obsidian app
    * @param {Object} env - The environment instance
@@ -18463,23 +19443,24 @@ var ExcludedSourcesModal = class extends import_obsidian19.Modal {
 };
 
 // node_modules/obsidian-smart-env/src/components/settings/env_sources.js
-async function build_html13(env, opts = {}) {
+async function build_html14(env, opts = {}) {
   return `
     <div class="sources-settings">
     </div>
   `;
 }
-async function render13(env, opts = {}) {
-  const html = await build_html13.call(this, env, opts);
+async function render14(env, opts = {}) {
+  const html = await build_html14.call(this, env, opts);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  post_process12.call(this, env, container, opts);
+  post_process13.call(this, env, container, opts);
   return container;
 }
-async function post_process12(env, container, opts = {}) {
+async function post_process13(env, container, opts = {}) {
   const settings_config12 = {
     folder_exclusions,
     view_exclusions,
+    // reset_env_settings_btn, // TODO: manually tested before implementing reset button
     re_import_sources
   };
   render_settings_config(settings_config12, env, container, {
@@ -18487,7 +19468,7 @@ async function post_process12(env, container, opts = {}) {
     heading_btn: {
       btn_icon: "help-circle",
       callback: (event, setting) => {
-        window.open("https://smartconnections.app/environment-settings/?utm_source=source-settings", "_external");
+        window.open("https://smartconnections.app/smart-environment/settings/?utm_source=source-settings", "_external");
       }
     }
   });
@@ -18572,12 +19553,12 @@ var re_import_sources = {
     confirm_cancel.addEventListener("click", (e) => {
       confirm_row.style.display = "none";
       reimport_btn.style.display = "inline-block";
-    });
+    }, { once: true });
   }
 };
 
 // node_modules/obsidian-smart-env/src/components/settings/model_actions.js
-function build_html14(model, params = {}) {
+function build_html15(model, params = {}) {
   return `<div class="smart-model-modal-actions">
     <button class="new-model-btn">New</button>
     <button class="delete-model-btn">Delete</button>
@@ -18588,13 +19569,13 @@ function build_html14(model, params = {}) {
     </div>
   </div>`;
 }
-async function render14(model, params = {}) {
-  const frag = this.create_doc_fragment(build_html14(model, params));
+async function render15(model, params = {}) {
+  const frag = this.create_doc_fragment(build_html15(model, params));
   const container = frag.firstElementChild;
-  post_process13.call(this, model, container, params);
+  post_process14.call(this, model, container, params);
   return container;
 }
-async function post_process13(model, container, params = {}) {
+async function post_process14(model, container, params = {}) {
   const new_model_btn = container.querySelector(".new-model-btn");
   new_model_btn.addEventListener("click", async (event) => {
     const on_before_new = params.on_before_new;
@@ -18624,7 +19605,7 @@ async function post_process13(model, container, params = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/components/settings/notifications.js
-async function build_html15(env, opts = {}) {
+async function build_html16(env, opts = {}) {
   let html = `<div class="settings-group">
     <div class="setting-item setting-item-heading">
       <div class="setting-item-name">Muted notices</div>
@@ -18650,14 +19631,14 @@ async function build_html15(env, opts = {}) {
   html += `</div>`;
   return html;
 }
-async function render15(env, opts = {}) {
-  let html = await build_html15.call(this, env, opts);
+async function render16(env, opts = {}) {
+  let html = await build_html16.call(this, env, opts);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  post_process14.call(this, env, container, opts);
+  post_process15.call(this, env, container, opts);
   return container;
 }
-async function post_process14(env, frag, opts = {}) {
+async function post_process15(env, frag, opts = {}) {
   const unmute_buttons = frag.querySelectorAll(".unmute-button");
   unmute_buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -18671,10 +19652,10 @@ async function post_process14(env, frag, opts = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/components/settings/style.css
-var style_default2 = ".sc-env-settings-container {\r\n  margin: 1rem 0;\r\n}\r\n\r\n.smart-env-settings-header {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.toggle-env-settings-btn {\r\n  cursor: pointer;\r\n}\r\n\r\n\r\n.setting-group .setting-items .setting-item.env-setting-highlight {\r\n  border: 1px solid var(--interactive-accent);\r\n  background-color: var(--interactive-hover);\r\n  padding: 0.5rem;\r\n  margin: 0.5rem 0;\r\n}\r\n\r\n.settings-group {\r\n  .setting-item {\r\n    border-top: none;\r\n  }\r\n}";
+var style_default2 = ".sc-env-settings-container {\n  margin: 1rem 0;\n}\n\n.smart-env-settings-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.5rem;\n}\n\n.toggle-env-settings-btn {\n  cursor: pointer;\n}\n\n\n.setting-group .setting-items .setting-item.env-setting-highlight {\n  border: 1px solid var(--interactive-accent);\n  background-color: var(--interactive-hover);\n  padding: 0.5rem;\n  margin: 0.5rem 0;\n}\n\n.settings-group {\n  .setting-item {\n    border-top: none;\n  }\n}\n\n.sc-inline-confirm-row {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-top: 0.5rem;\n}\n";
 
 // node_modules/obsidian-smart-env/src/components/settings/smart_env.js
-async function build_html16(env, params = {}) {
+async function build_html17(env, params = {}) {
   return `<div class="smart-env-settings-container">
     <div class="sources-container">
       <h1>Sources</h1>
@@ -18687,15 +19668,15 @@ async function build_html16(env, params = {}) {
     </div>
   </div>`;
 }
-async function render16(env, params = {}) {
+async function render17(env, params = {}) {
   this.apply_style_sheet(style_default2);
-  const html = await build_html16.call(this, env, params);
+  const html = await build_html17.call(this, env, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  post_process15.call(this, env, container, params);
+  post_process16.call(this, env, container, params);
   return container;
 }
-async function post_process15(env, container, opts = {}) {
+async function post_process16(env, container, opts = {}) {
   const models_container = container.querySelector(".models-container");
   const sources_container = container.querySelector(".sources-container");
   const notifications_container = container.querySelector(".notifications-container");
@@ -18716,77 +19697,34 @@ function render_if_available(component_key, env, container) {
 }
 
 // node_modules/obsidian-smart-env/src/components/smart-context/actions.js
-function build_html17() {
-  return `<div>
-    <div class="sc-context-view-actions">
-      <input
-        type="text"
-        class="sc-context-name-input"
-        placeholder="Context name\u2026"
-        aria-label="Context name"
-      />
-      <span class="sc-context-actions-right">
-        <button class="sc-add-context-btn" type="button">Add context</button>
-        <button class="sc-clear-context-btn" type="button" style="display:none;">Clear</button>
-        <button class="sc-copy-clipboard" type="button" style="display:none;">Copy to clipboard</button>
-      </span>
+var import_obsidian24 = require("obsidian");
+function build_html18() {
+  return `
+    <div class="sc-context-actions">
+      <div class="sc-context-actions-left">
+      </div>
+      <div class="sc-context-actions-right">
+      </div>
     </div>
-  </div>`;
+  `;
 }
-function sanitize_context_name(name) {
-  const str = String(name ?? "").trim();
-  if (!str) return "";
-  const collapsed = str.replace(/\s+/g, " ");
-  const max = 120;
-  return collapsed.length > max ? collapsed.slice(0, max) : collapsed;
-}
-async function render17(ctx, opts = {}) {
-  const html = build_html17();
+async function render18(ctx, opts = {}) {
+  const html = build_html18();
   const frag = this.create_doc_fragment(html);
-  const container = frag.querySelector(".sc-context-view-actions");
-  post_process16.call(this, ctx, container, opts);
+  const container = frag.firstElementChild;
+  post_process17.call(this, ctx, container, opts);
   return container;
 }
-async function post_process16(ctx, container, opts = {}) {
+async function post_process17(ctx, container, opts = {}) {
   const render_ctx_actions = () => {
-    const name_input = container.querySelector(".sc-context-name-input");
-    const refresh_name = () => {
-      name_input.value = ctx?.data?.name ? String(ctx.data.name) : "";
-    };
-    const save_name = () => {
-      const next = sanitize_context_name(name_input.value);
-      if (next === (ctx.data.name || "")) return;
-      ctx.name = next;
-    };
-    refresh_name();
-    name_input.addEventListener("keydown", (e) => {
-      e.stopPropagation();
-      if (e.key === "Enter") {
-        save_name();
-        name_input.blur();
-      }
-      if (e.key === "Escape") {
-        refresh_name();
-        name_input.blur();
-      }
-    });
-    name_input.addEventListener("blur", () => save_name());
-    const add_btn = container.querySelector(".sc-add-context-btn");
-    add_btn.addEventListener("click", () => {
-      ctx.emit_event("context_selector:open");
-    });
-    if (ctx.has_context_items) {
-      const copy_btn = container.querySelector(".sc-copy-clipboard");
-      copy_btn.style.display = "inline-block";
-      copy_btn.addEventListener("click", async () => {
-        ctx.actions.context_copy_to_clipboard();
-      });
-      const clear_btn = container.querySelector(".sc-clear-context-btn");
-      clear_btn.style.display = "inline-block";
-      clear_btn.addEventListener("click", () => {
-        ctx.clear_all();
-      });
-    }
+    const actions_left = container.querySelector(".sc-context-actions-left");
+    this.empty(actions_left);
+    const actions_right = container.querySelector(".sc-context-actions-right");
+    this.empty(actions_right);
+    render_btn_open_selector(ctx, actions_right);
+    render_btn_copy_context(ctx, actions_right);
+    render_btn_clear_context(ctx, actions_right);
+    render_btn_help(ctx, actions_right);
   };
   render_ctx_actions();
   const disposers = [];
@@ -18794,67 +19732,119 @@ async function post_process16(ctx, container, opts = {}) {
   this.attach_disposer(container, disposers);
   return container;
 }
+function render_btn_open_selector(ctx, container) {
+  const add_btn = document.createElement("button");
+  add_btn.type = "button";
+  add_btn.className = "sc-add-context-btn";
+  add_btn.textContent = "Add context";
+  container.appendChild(add_btn);
+  add_btn.addEventListener("click", () => {
+    ctx.emit_event("context_selector:open");
+  });
+}
+function render_btn_copy_context(ctx, container) {
+  const copy_btn = document.createElement("button");
+  copy_btn.type = "button";
+  copy_btn.className = "sc-copy-clipboard";
+  copy_btn.textContent = "Copy to clipboard";
+  if (!ctx.has_context_items) {
+    copy_btn.style.display = "none";
+  }
+  container.appendChild(copy_btn);
+  copy_btn.addEventListener("click", async () => {
+    ctx.actions.context_copy_to_clipboard();
+  });
+}
+function render_btn_clear_context(ctx, container) {
+  const clear_btn = document.createElement("button");
+  clear_btn.type = "button";
+  clear_btn.className = "sc-clear-context-btn";
+  clear_btn.textContent = "Clear";
+  if (!ctx.has_context_items) {
+    clear_btn.style.display = "none";
+  }
+  container.appendChild(clear_btn);
+  clear_btn.addEventListener("click", () => {
+    ctx.clear_all();
+    ctx.emit_event("context:cleared");
+  });
+}
+function render_btn_help(ctx, container) {
+  const help_btn = document.createElement("button");
+  help_btn.type = "button";
+  help_btn.className = "sc-help-btn";
+  help_btn.setAttribute("aria-label", "Learn more");
+  container.appendChild(help_btn);
+  (0, import_obsidian24.setIcon)(help_btn, "help-circle");
+  help_btn.addEventListener("click", () => {
+    window.open("https://smartconnections.app/smart-context/builder/?utm_source=context-selector-modal", "_external");
+    ctx.emit_event("context_selector:help");
+  });
+}
 
 // node_modules/obsidian-smart-env/src/components/smart-context/styles.css
-var styles_default = "/* Modal view adjustments */\r\n.modal-container .sc-context-view {\r\n  max-height: 60%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  .sc-context-view-body {\r\n    overflow: auto;\r\n  }\r\n  .sc-add-context-btn {\r\n    display: none;\r\n  }\r\n}";
+var styles_default = "/* Modal view adjustments */\r\n.modal-container .sc-context-view {\r\n  max-height: 60%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  .sc-context-view-body {\r\n    overflow: auto;\r\n  }\r\n  .sc-add-context-btn {\r\n    display: none;\r\n  }\r\n  .sc-context-view-header {\r\n    padding: var(--size-4-2);\r\n  }\r\n  .sc-context-actions {\r\n    display: flex;\r\n    justify-content: space-between;\r\n  }\r\n  .sc-context-actions-right {\r\n    display: flex;\r\n    gap: var(--size-4-2);\r\n  }\r\n\r\n  .sc-context-view-body {\r\n    padding: var(--size-4-2);\r\n  }\r\n\r\n  .sc-context-view-footer {\r\n    padding: var(--size-4-2);\r\n  }\r\n\r\n}\r\n\r\n/* make hover popover work in builder modal */\r\n.hover-popover {\r\n  z-index: 100;\r\n}\r\n";
 
 // node_modules/obsidian-smart-env/utils/copy_to_clipboard.js
-var import_obsidian20 = require("obsidian");
+var import_obsidian25 = require("obsidian");
 async function copy_to_clipboard2(text) {
   try {
     if (navigator?.clipboard?.writeText) {
       await navigator.clipboard.writeText(text);
-    } else if (!import_obsidian20.Platform.isMobile) {
+    } else if (!import_obsidian25.Platform.isMobile) {
       const { clipboard } = require("electron");
       clipboard.writeText(text);
     } else {
-      new import_obsidian20.Notice("Unable to copy text: no valid method found.");
+      new import_obsidian25.Notice("Unable to copy text: no valid method found.");
     }
   } catch (err) {
     console.error("Failed to copy text:", err);
-    new import_obsidian20.Notice("Failed to copy.");
+    new import_obsidian25.Notice("Failed to copy.");
   }
 }
 
 // node_modules/obsidian-smart-env/src/components/smart-context/item.js
-function build_html18(ctx, opts = {}) {
+function build_html19(ctx, opts = {}) {
   return `<div>
     <div class="sc-context-view" data-context-key="${ctx.data.key}">
       <div class="sc-context-view-header">
-        <div class="sc-context-view-actions"></div>
+        <div class="sc-context-actions"></div>
       </div>
       <div class="sc-context-view-body">
-        <div class="sc-context-view-tree"></div>
+        <div class="sc-context-tree"></div>
       </div>
       <div class="sc-context-view-footer">
-        <div class="sc-context-view-meta"></div>
+        <div class="sc-context-meta"></div>
       </div>
     </div>
   </div>`;
 }
-async function render18(ctx, opts = {}) {
-  const html = build_html18(ctx, opts);
+async function render19(ctx, opts = {}) {
+  const html = build_html19(ctx, opts);
   this.apply_style_sheet(styles_default);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".sc-context-view");
-  post_process17.call(this, ctx, container, opts);
+  post_process18.call(this, ctx, container, opts);
   return container;
 }
-async function post_process17(ctx, container, opts = {}) {
+async function post_process18(ctx, container, opts = {}) {
   const disposers = [];
-  const actions_el = container.querySelector(".sc-context-view-actions");
-  const tree_el = container.querySelector(".sc-context-view-tree");
-  const meta_el = container.querySelector(".sc-context-view-meta");
   const render_children = async () => {
-    const actions = await ctx.env.render_component("smart_context_actions", ctx, opts);
-    this.empty(actions_el);
-    actions_el.appendChild(actions);
-    const tree = await ctx.env.render_component("smart_context_tree", ctx, opts);
-    this.empty(tree_el);
-    tree_el.appendChild(tree);
-    const meta = await ctx.env.render_component("smart_context_meta", ctx, opts);
-    this.empty(meta_el);
-    meta_el.appendChild(meta);
+    const header = container.querySelector(".sc-context-view-header");
+    ctx.env.smart_components.render_component("smart_context_actions", ctx, opts).then((actions) => {
+      this.empty(header);
+      header.appendChild(actions);
+    });
+    const body = container.querySelector(".sc-context-view-body");
+    ctx.env.smart_components.render_component("smart_context_tree", ctx, opts).then((tree) => {
+      this.empty(body);
+      body.appendChild(tree);
+    });
+    const footer = container.querySelector(".sc-context-view-footer");
+    ctx.env.smart_components.render_component("smart_context_meta", ctx, opts).then((meta) => {
+      this.empty(footer);
+      footer.appendChild(meta);
+    });
   };
   const plugin = ctx.env.plugin;
   const app = plugin?.app || window.app;
@@ -18900,19 +19890,19 @@ function tree_dom_to_wikilinks(container) {
 function estimate_tokens(char_count) {
   return Math.ceil((char_count || 0) / 4);
 }
-function build_html19() {
-  return `<div>
-    <div class="sc-context-view-meta" aria-live="polite"></div>
-  </div>`;
+function build_html20() {
+  return `
+    <div class="sc-context-meta" aria-live="polite"></div>
+  `;
 }
-async function render19(ctx, params = {}) {
-  const html = build_html19();
+async function render20(ctx, params = {}) {
+  const html = build_html20();
   const frag = this.create_doc_fragment(html);
-  const container = frag.querySelector(".sc-context-view-meta");
-  post_process18.call(this, ctx, container, params);
+  const container = frag.firstElementChild;
+  post_process19.call(this, ctx, container, params);
   return container;
 }
-async function post_process18(ctx, container, params = {}) {
+async function post_process19(ctx, container, params = {}) {
   const render_meta = () => {
     if (ctx?.has_context_items) {
       const chars = ctx.size || 0;
@@ -19051,20 +20041,24 @@ function tree_to_html(node, selected_paths) {
   return `<ul>${child_html}</ul>`;
 }
 
+// node_modules/obsidian-smart-env/src/components/smart-context/tree.css
+var tree_default = ".sc-context-tree {\r\n  ul {\r\n    padding-inline-start: 1.7rem;\r\n  }\r\n  li:has(> .sc-context-item-leaf > .sc-context-item-remove) {\r\n    list-style-type: none;\r\n  }\r\n  .sc-context-item-remove:hover {\r\n    font-weight: bold;\r\n    filter: brightness(1.8);\r\n  }\r\n  .sc-context-item-remove {\r\n    padding: 0 0.2rem;\r\n    margin-left: -1.4rem;\r\n  }\r\n}\r\n.sc-context-item-leaf {\r\n  cursor: pointer;\r\n}\r\n.sc-context-item-score,\r\n.sc-context-item-size {\r\n  display: inline-block;\r\n  min-width: 4.5ch;\r\n  height: 1.7em;\r\n  line-height: 1.7em;\r\n  text-align: center;\r\n  font-weight: 600 !important;\r\n  font-size: 0.8em !important;\r\n  color: var(--nav-item-color) !important;\r\n  background: var(--background-modifier-hover);\r\n  border-radius: 6px;\r\n  padding: 0 0.4em;\r\n  margin-right: 0.35em;\r\n}\r\n.sc-context-item-size {\r\n  min-width: 0;\r\n}";
+
 // node_modules/obsidian-smart-env/src/components/smart-context/tree.js
-function build_html20(ctx, params = {}) {
-  return `<div>
+function build_html21(ctx, params = {}) {
+  return `
     <div class="sc-context-tree" data-context-key="${ctx.data.key}"></div>
-  </div>`;
+  `;
 }
-async function render20(ctx, params = {}) {
-  const html = build_html20(ctx, params);
+async function render21(ctx, params = {}) {
+  this.apply_style_sheet(tree_default);
+  const html = build_html21(ctx, params);
   const frag = this.create_doc_fragment(html);
-  const container = frag.querySelector(".sc-context-tree");
-  post_process19.call(this, ctx, container, params);
+  const container = frag.firstElementChild;
+  post_process20.call(this, ctx, container, params);
   return container;
 }
-async function post_process19(ctx, container, params = {}) {
+async function post_process20(ctx, container, params = {}) {
   const render_tree_leaves = () => {
     const env = ctx.env;
     const items = ctx.context_items.filter(params.filter);
@@ -19096,7 +20090,7 @@ async function post_process19(ctx, container, params = {}) {
 var source_inspector_default = ".source-inspector {\r\n  background-color: var(--background-secondary-alt);\r\n  margin: var(--size-4-3) 0;\r\n  padding: var(--size-4-3);\r\n  border-radius: var(--radius-m);\r\n}\r\n\r\n.source-inspector-blocks-container {\r\n  margin-top: var(--size-4-2);\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: var(--size-4-3);\r\n}\r\n\r\n.source-inspector-blocks-container blockquote {\r\n  margin-left: var(--size-4-3);\r\n  padding-left: var(--size-4-3);\r\n  border-left: 2px solid var(--text-faint);\r\n}\r\n";
 
 // node_modules/obsidian-smart-env/src/components/source_inspector.js
-function build_html21(source, opts = {}) {
+function build_html22(source, opts = {}) {
   return `<div>
     <div class="source-inspector-source-info">
       <button class="source-inspector-show-data-btn" type="button">Show source data</button>
@@ -19110,14 +20104,14 @@ function build_html21(source, opts = {}) {
     </div>
   </div>`;
 }
-async function render21(source, opts = {}) {
-  const html = build_html21(source, opts);
+async function render22(source, opts = {}) {
+  const html = build_html22(source, opts);
   const frag = this.create_doc_fragment(html);
   this.apply_style_sheet(source_inspector_default);
-  await post_process20.call(this, source, frag, opts);
+  await post_process21.call(this, source, frag, opts);
   return frag;
 }
-async function post_process20(source, frag, opts = {}) {
+async function post_process21(source, frag, opts = {}) {
   const container = frag.querySelector(".source-inspector .source-inspector-blocks-container");
   if (!container) return frag;
   const source_info = frag.querySelector(".source-inspector-source-info");
@@ -19179,14 +20173,14 @@ async function post_process20(source, frag, opts = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/components/status_bar.js
-var import_obsidian24 = require("obsidian");
+var import_obsidian29 = require("obsidian");
 
 // node_modules/obsidian-smart-env/src/utils/register_status_bar_context_menu.js
-var import_obsidian23 = require("obsidian");
+var import_obsidian28 = require("obsidian");
 
 // node_modules/obsidian-smart-env/views/source_inspector.js
-var import_obsidian21 = require("obsidian");
-var SmartNoteInspectModal = class extends import_obsidian21.Modal {
+var import_obsidian26 = require("obsidian");
+var SmartNoteInspectModal = class extends import_obsidian26.Modal {
   constructor(smart_connections_plugin, entity) {
     super(smart_connections_plugin.app);
     this.smart_connections_plugin = smart_connections_plugin;
@@ -19207,8 +20201,8 @@ var SmartNoteInspectModal = class extends import_obsidian21.Modal {
 };
 
 // node_modules/obsidian-smart-env/src/modals/env_stats.js
-var import_obsidian22 = require("obsidian");
-var EnvStatsModal = class extends import_obsidian22.Modal {
+var import_obsidian27 = require("obsidian");
+var EnvStatsModal = class extends import_obsidian27.Modal {
   constructor(app, env) {
     super(app);
     this.env = env;
@@ -19232,7 +20226,7 @@ var EnvStatsModal = class extends import_obsidian22.Modal {
 
 // node_modules/obsidian-smart-env/src/utils/register_status_bar_context_menu.js
 function register_status_bar_context_menu(env, status_container, deps = {}) {
-  const { Menu: MenuClass = import_obsidian23.Menu } = deps;
+  const { Menu: MenuClass = import_obsidian28.Menu } = deps;
   const plugin = env.main;
   const on_context_menu = (ev) => {
     ev.preventDefault();
@@ -19242,12 +20236,12 @@ function register_status_bar_context_menu(env, status_container, deps = {}) {
       (item) => item.setTitle("Inspect active note").setIcon("search").onClick(async () => {
         const active_file = plugin.app.workspace.getActiveFile();
         if (!active_file) {
-          new import_obsidian23.Notice("No active note found");
+          new import_obsidian28.Notice("No active note found");
           return;
         }
         const src = env.smart_sources?.get(active_file.path);
         if (!src) {
-          new import_obsidian23.Notice("Active note is not indexed by Smart Environment");
+          new import_obsidian28.Notice("Active note is not indexed by Smart Environment");
           return;
         }
         new SmartNoteInspectModal(plugin, src).open();
@@ -19262,7 +20256,12 @@ function register_status_bar_context_menu(env, status_container, deps = {}) {
     menu.addItem(
       (item) => item.setTitle("Export data").setIcon("download").onClick(() => {
         env.export_json();
-        new import_obsidian23.Notice("Smart Env exported");
+        new import_obsidian28.Notice("Smart Env exported");
+      })
+    );
+    menu.addItem(
+      (item) => item.setTitle("Milestones").setIcon("flag").onClick(() => {
+        env.open_milestones_modal();
       })
     );
     menu.addItem(
@@ -19287,7 +20286,7 @@ function register_status_bar_context_menu(env, status_container, deps = {}) {
 var status_bar_default = ".status-bar-item:has(.smart-env-status-container) {\n  padding: 0 0.5em;\n\n  &:hover {\n    background-color: var(--background-modifier-hover);\n  }\n  &> .smart-env-status-container {\n    display: flex;\n    align-items: center;\n    gap: 0.5em;\n    text-decoration: none;\n    color: var(--status-bar-text-color);\n  }\n}\n\n.smart-env-status-indicator {\n  width: 0.6em;\n  height: 0.6em;\n  border-radius: 999px;\n  background-color: var(--interactive-accent);\n  opacity: 0;\n  transform: scale(0.3);\n  transition: opacity 150ms ease, transform 150ms ease;\n}\n.smart-env-status-indicator[data-level='info'] {\n  background-color: var(--interactive-accent);\n}\n.smart-env-status-indicator[data-level='attention'] {\n  background-color: var(--color-yellow);\n}\n.smart-env-status-indicator[data-level='warning'] {\n  background-color: var(--color-orange);\n}\n.smart-env-status-indicator[data-level='error'] {\n  background-color: var(--color-red);\n}\n\n.smart-env-status-indicator[data-count] {\n  opacity: 1;\n  transform: scale(1);\n}\n\n.smart-env-notifications-feed {\n  display: flex;\n  flex-direction: column;\n  padding: 0.5rem 0;\n  gap: 0.42rem;\n}\n\n.smart-env-notifications-empty {\n  margin: 0;\n  color: var(--text-muted);\n}\n\n.smart-env-notification {\n  font-size: var(--font-smaller);\n  display: flex;\n  flex-direction: column;\n  border-left: 3px solid var(--interactive-accent);\n  padding-left: 0.75rem;\n}\n\n.smart-env-notification[data-level='attention'] {\n  border-color: var(--color-yellow);\n}\n\n.smart-env-notification[data-level='warning'] {\n  border-color: var(--color-orange);\n}\n\n.smart-env-notification[data-level='error'] {\n  border-color: var(--color-red);\n}\n\n.smart-env-notification__message {\n  margin: 0;\n  font-weight: 500;\n  white-space: pre-wrap;\n}\n\n.smart-env-notification__meta {\n  color: var(--text-muted);\n  padding: 0.37rem 0;\n}\n\n.status-bar-mobile {\n  position: var(--status-bar-position);\n  bottom: 0;\n  border-radius: 0 8px 0 0;\n  border-style: solid;\n  border-width: 1px;\n  border-color: var(--status-bar-border-color);\n  background-color: var(--status-bar-background);\n  color: var(--status-bar-text-color);\n  font-size: var(--status-bar-font-size);\n  min-height: 18px;\n  padding: var(--size-4-1);\n  user-select: none;\n  z-index: var(--layer-status-bar);\n  font-variant-numeric: tabular-nums;\n  &> .smart-env-status-container {\n    padding: 5px 5px 5px 0;\n  }\n}\n\n/* footer view on mobile */\n.embedded-backlinks > .status-bar-mobile {\n  position: relative;\n  border-style: none;\n}";
 
 // node_modules/obsidian-smart-env/src/components/status_bar.js
-function build_html22() {
+function build_html23() {
   return `
     <a
       class="smart-env-status-container"
@@ -19308,14 +20307,14 @@ function build_html22() {
     </a>
   `;
 }
-async function render22(env, opts = {}) {
+async function render23(env, opts = {}) {
   this.apply_style_sheet(status_bar_default);
-  const frag = this.create_doc_fragment(build_html22());
+  const frag = this.create_doc_fragment(build_html23());
   const anchor = frag.firstElementChild;
-  post_process21.call(this, env, anchor, opts);
+  post_process22.call(this, env, anchor, opts);
   return anchor;
 }
-function post_process21(env, container, opts = {}) {
+function post_process22(env, container, opts = {}) {
   const icon_slot = container?.querySelector?.(".smart-env-status-icon");
   const status_indicator = container?.querySelector?.(".smart-env-status-indicator");
   const status_msg = container?.querySelector?.(".smart-env-status-msg");
@@ -19338,7 +20337,7 @@ function post_process21(env, container, opts = {}) {
       indicator_level = "attention";
     }
     if (icon_slot) {
-      (0, import_obsidian24.setIcon)(icon_slot, "smart-connections");
+      (0, import_obsidian29.setIcon)(icon_slot, "smart-connections");
     }
     if (status_indicator) {
       if (!status_indicator._click_handler) {
@@ -19395,8 +20394,8 @@ function post_process21(env, container, opts = {}) {
 }
 
 // node_modules/obsidian-smart-env/src/components/supporter_callout.js
-var import_obsidian25 = require("obsidian");
-function build_html23(plugin, opts = {}) {
+var import_obsidian30 = require("obsidian");
+function build_html24(plugin, opts = {}) {
   const { plugin_name = plugin.manifest.name } = opts;
   return `<div class="wrapper">
     <div id="footer-callout" data-callout-metadata="" data-callout-fold="" data-callout="info" class="callout" style="mix-blend-mode: unset;">
@@ -19453,16 +20452,16 @@ function build_html23(plugin, opts = {}) {
     </div>
   </div>`;
 }
-function render23(plugin, opts = {}) {
-  const html = build_html23.call(this, plugin, opts);
+function render24(plugin, opts = {}) {
+  const html = build_html24.call(this, plugin, opts);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".wrapper");
-  post_process22.call(this, plugin, container, opts);
+  post_process23.call(this, plugin, container, opts);
   return container;
 }
-async function post_process22(plugin, container) {
+async function post_process23(plugin, container) {
   const icon_container = container.querySelector(".callout-icon");
-  const icon = (0, import_obsidian25.getIcon)("hand-heart");
+  const icon = (0, import_obsidian30.getIcon)("hand-heart");
   if (icon) {
     this.empty(icon_container);
     icon_container.appendChild(icon);
@@ -19474,8 +20473,8 @@ async function post_process22(plugin, container) {
 }
 
 // node_modules/obsidian-smart-env/src/components/user_agreement_callout.js
-var import_obsidian26 = require("obsidian");
-function build_html24(plugin, opts = {}) {
+var import_obsidian31 = require("obsidian");
+function build_html25(plugin, opts = {}) {
   const { plugin_name = plugin.manifest.name } = opts;
   return `<div class="wrapper">
     <div id="footer-callout" data-callout-metadata="" data-callout-fold="" data-callout="info" class="callout" style="mix-blend-mode: unset;">
@@ -19497,29 +20496,29 @@ function build_html24(plugin, opts = {}) {
     </div>
   </div>`;
 }
-function render24(plugin, opts = {}) {
-  const html = build_html24.call(this, plugin, opts);
+function render25(plugin, opts = {}) {
+  const html = build_html25.call(this, plugin, opts);
   const frag = this.create_doc_fragment(html);
   const callout = frag.querySelector("#footer-callout");
   const icon_container = callout.querySelector(".callout-icon");
-  const icon = (0, import_obsidian26.getIcon)("smart-connections");
+  const icon = (0, import_obsidian31.getIcon)("smart-connections");
   if (icon) {
     this.empty(icon_container);
     icon_container.appendChild(icon);
   }
-  post_process23.call(this, plugin, callout, opts);
+  post_process24.call(this, plugin, callout, opts);
   return callout;
 }
-function post_process23(plugin, callout) {
+function post_process24(plugin, callout) {
 }
 
 // node_modules/obsidian-smart-env/src/actions/context/copy_to_clipboard.js
-var import_obsidian27 = require("obsidian");
+var import_obsidian32 = require("obsidian");
 async function copy_to_clipboard3(params = {}) {
   const context_items = this.context_items.filter(params.filter);
   if (!context_items.length) {
     this.emit_event("notification:warning", { message: "No context items to copy." });
-    return new import_obsidian27.Notice("No context items to copy.");
+    return new import_obsidian32.Notice("No context items to copy.");
   }
   const content = await this.get_text(params);
   await copy_to_clipboard2(content);
@@ -19529,7 +20528,8 @@ async function copy_to_clipboard3(params = {}) {
     max_depth: params.max_depth,
     exclusions: params.exclusions
   });
-  new import_obsidian27.Notice(message);
+  this.emit_event("context:copied");
+  new import_obsidian32.Notice(message);
 }
 function format_stats_message(stats = {}) {
   const item_count = Number.isFinite(stats.item_count) ? stats.item_count : 0;
@@ -19561,12 +20561,99 @@ function sum_exclusions(exclusions) {
   }, 0);
 }
 
+// node_modules/obsidian-smart-env/src/utils/smart-context/template_presets.js
+var DEFAULT_TEMPLATE_PRESET = "xml_structured";
+var template_presets = {
+  xml_structured: {
+    label: "XML-style (default)",
+    context_template_before: "<context>\n{{FILE_TREE}}",
+    context_template_after: "</context>",
+    item_template_before: '<item loc="{{KEY}}" at="{{TIME_AGO}}" depth="{{LINK_DEPTH}}">',
+    item_template_after: "</item>"
+  },
+  markdown_headings: {
+    label: "Markdown headings",
+    context_template_before: "{{FILE_TREE}}",
+    context_template_after: "",
+    item_template_before: [
+      "## {{KEY}}",
+      "Updated: {{TIME_AGO}} | Depth: {{LINK_DEPTH}}",
+      "````{{EXT}}"
+    ].join("\n"),
+    item_template_after: "````\n"
+  },
+  json_structured: {
+    label: "JSON structured",
+    context_template_before: '{\n  "context": {',
+    context_template_after: "  }\n}",
+    item_template_before: '    "{{KEY}}": { "name": "{{ITEM_NAME}}", "updated": "{{TIME_AGO}}", "depth": {{LINK_DEPTH}}, "content": ',
+    item_template_after: "    },",
+    json_stringify: true
+  },
+  // PRO
+  custom: {
+    label: "Custom (PRO)"
+  }
+};
+var get_preset_key = (settings = {}) => {
+  const preset_key = settings.template_preset || DEFAULT_TEMPLATE_PRESET;
+  if (template_presets[preset_key]) return preset_key;
+  return "custom";
+};
+var get_template_value = (settings, defaults, preset_field_key, settings_field_key) => {
+  const preset_key = get_preset_key(settings);
+  const preset = template_presets[preset_key];
+  if (preset_key !== "custom" && preset && typeof preset[preset_field_key] === "string") {
+    return preset[preset_field_key];
+  }
+  return settings?.[settings_field_key] || defaults?.[settings_field_key];
+};
+function get_template_preset_options() {
+  return Object.entries(template_presets).map(([value, config]) => ({
+    value,
+    label: config.label || value
+  }));
+}
+function get_context_templates(settings = {}, defaults = {}) {
+  return {
+    template_before: get_template_value(settings, defaults, "context_template_before", "template_before"),
+    template_after: get_template_value(settings, defaults, "context_template_after", "template_after")
+  };
+}
+function get_item_templates(settings = {}, defaults = {}) {
+  const preset_key = get_preset_key(settings);
+  const preset = template_presets[preset_key];
+  return {
+    ...preset_key === "custom" ? { json_stringify: settings.json_stringify } : {},
+    // only include settings.json_stringify if custom
+    ...preset && typeof preset === "object" ? preset : {},
+    // include all preset fields
+    template_before: get_template_value(settings, defaults, "item_template_before", "template_before"),
+    template_after: get_template_value(settings, defaults, "item_template_after", "template_after")
+  };
+}
+
 // node_modules/obsidian-smart-env/src/actions/context-item/merge_template.js
-async function merge_template(context_items_text, context_items) {
+var derive_item_name_from_key = (key = "") => {
+  if (typeof key !== "string" || key.trim().length === 0) return "";
+  const [filename_with_fragment] = key.split(/[\\/]/).slice(-1);
+  const [source_name, ...block_parts] = (filename_with_fragment || "").split("#");
+  const src_no_ext = source_name.includes(".") ? source_name.slice(0, source_name.lastIndexOf(".")) : source_name;
+  if (block_parts.length > 0) {
+    return `${src_no_ext}#${block_parts.join("#")}`;
+  }
+  return src_no_ext;
+};
+var get_item_name = (context_item) => {
+  return derive_item_name_from_key(context_item.key);
+};
+async function merge_template(item_text, params = {}) {
   const MERGE_VARS = {
     "KEY": this.key,
+    "ITEM_NAME": get_item_name(this),
     "TIME_AGO": convert_to_time_ago(this.mtime) || "Missing",
-    "LINK_DEPTH": this.data.d || 0
+    "LINK_DEPTH": this.data.d || "0",
+    "EXT": this.item_ref?.file_type || ""
   };
   const replace_vars = async (template) => {
     const re_var = /{{([\w_]+)}}/g;
@@ -19578,36 +20665,60 @@ async function merge_template(context_items_text, context_items) {
     }
     return template;
   };
-  const before = await replace_vars(this.settings.template_before || default_settings2.template_before);
-  const after = await replace_vars(this.settings.template_after || default_settings2.template_after);
-  return ["", before, context_items_text, after, ""].join("\n");
+  const templates = get_item_templates(this.settings, default_settings2);
+  if (params.json_stringify || templates.json_stringify) {
+    item_text = JSON.stringify(item_text);
+  }
+  const before = await replace_vars(templates.template_before);
+  const after = await replace_vars(templates.template_after);
+  return ["", before, item_text, after, ""].join("\n");
 }
 var settings_config7 = {
-  item_explanation: {
-    type: "html",
-    value: `
-      <div class="setting-explanation">
-        <h5>Item templates</h5>
-        <ul>
-          <li><code>{{KEY}}</code> - Full path of the item</li>
-          <li><code>{{TIME_AGO}}</code> - Time since the item was last modified</li>
-          <li><code>{{LINK_DEPTH}}</code> - Depth level of the item</li>
-        </ul>
-      </div>
-    `
+  template_preset: {
+    group: "Item templates",
+    type: "dropdown",
+    name: "Select template",
+    description: "Wraps each context item with a pre-configured template.",
+    options_callback: () => get_template_preset_options()
   },
   template_before: {
+    group: "Item templates",
     type: "textarea",
     name: "Template Before",
-    description: "Template to wrap before the context item content."
+    description: "Template to wrap before the context item content.",
+    scope_class: "pro-setting"
   },
   template_after: {
+    group: "Item templates",
     type: "textarea",
     name: "Template After",
-    description: "Template to wrap after the context item content."
+    description: "Template to wrap after the context item content.",
+    scope_class: "pro-setting"
+  },
+  item_explanation: {
+    type: "html",
+    group: "Item templates",
+    value: `
+        <b>Available variables:</b>
+        <ul>
+          <li><code>{{KEY}}</code> - Full path of the item</li>
+          <li><code>{{ITEM_NAME}}</code> - Source file or block name without folder path or file extension</li>
+          <li><code>{{TIME_AGO}}</code> - Time since the item was last modified</li>
+          <li><code>{{LINK_DEPTH}}</code> - Depth level of the item</li>
+          <li><code>{{EXT}}</code> - File extension of the item</li>
+        </ul>
+    `
+  },
+  json_stringify: {
+    group: "Item templates",
+    type: "toggle",
+    name: "JSON Stringify",
+    description: "Convert the item content to a JSON string (forces full content into single line in quotes).",
+    scope_class: "pro-setting"
   }
 };
 var default_settings2 = {
+  template_preset: "xml_structured",
   template_before: '<item loc="{{KEY}}" at="{{TIME_AGO}}">',
   template_after: "</item>"
 };
@@ -19687,7 +20798,8 @@ function build_tree_string(node, prefix = "") {
 }
 
 // node_modules/obsidian-smart-env/src/actions/context/merge_template.js
-async function merge_template2(context_items_text, context_items) {
+async function merge_template2(context_items_text, params = {}) {
+  const context_items = params.context_items || [];
   const MERGE_VARS = {
     "FILE_TREE": () => {
       return build_file_tree_string(context_items.map((c) => c.key));
@@ -19702,34 +20814,45 @@ async function merge_template2(context_items_text, context_items) {
     }
     return template;
   };
-  const before = await replace_vars(this.settings.template_before || default_settings3.template_before);
-  const after = await replace_vars(this.settings.template_after || default_settings3.template_after);
+  const templates = get_context_templates(this.settings, default_settings3);
+  const before = await replace_vars(templates.template_before);
+  const after = await replace_vars(templates.template_after);
   return [before, context_items_text, after].join("\n");
 }
 var settings_config8 = {
-  context_explanation: {
-    type: "html",
-    value: `
-      <div class="setting-explanation">
-        <h5>Context templates</h5>
-        <ul>
-          <li><code>{{FILE_TREE}}</code> - Shows hierarchical view of all files</li>
-        </ul>
-      </div>
-    `
+  template_preset: {
+    type: "dropdown",
+    group: "Context templates",
+    name: "Select template",
+    description: "Wraps the full context with a pre-configured template.",
+    options_callback: () => get_template_preset_options()
   },
   template_before: {
     type: "textarea",
+    group: "Context templates",
     name: "Template Before",
-    description: "Template to wrap before the context."
+    description: "Template to wrap before the context.",
+    scope_class: "pro-setting"
   },
   template_after: {
     type: "textarea",
+    group: "Context templates",
     name: "Template After",
-    description: "Template to wrap after the context."
+    description: "Template to wrap after the context.",
+    scope_class: "pro-setting"
+  },
+  context_explanation: {
+    type: "html",
+    group: "Context templates",
+    value: `<b>Available variables:</b>
+      <ul>
+        <li><code>{{FILE_TREE}}</code> - Shows hierarchical view of all files</li>
+      </ul>
+    `
   }
 };
 var default_settings3 = {
+  template_preset: "xml_structured",
   template_before: "<context>\n{{FILE_TREE}}",
   template_after: "</context>"
 };
@@ -19743,7 +20866,11 @@ function context_suggest_blocks(params = {}) {
   } else {
     blocks = Object.values(this.env.smart_blocks.items);
   }
-  return blocks.map((block) => ({
+  return blocks.sort((a, b) => {
+    const a_line = Array.isArray(a.lines) && a.lines.length ? a.lines[0] : Infinity;
+    const b_line = Array.isArray(b.lines) && b.lines.length ? b.lines[0] : Infinity;
+    return a_line - b_line;
+  }).map((block) => ({
     key: block.key,
     display: get_block_display_name2(block, { show_full_path: false }),
     select_action: () => {
@@ -19784,10 +20911,14 @@ function context_suggest_sources(params = {}) {
     select_action: () => {
       this.add_item(src.key);
     },
-    mod_select_action: () => {
+    mod_select_action: ({ modal }) => {
+      modal.last_input_value = modal.inputEl.value;
+      modal.inputEl.value = "";
       return context_suggest_blocks.call(this, { source_key: src.key });
     },
-    arrow_right_action: () => {
+    arrow_right_action: ({ modal }) => {
+      modal.last_input_value = modal.inputEl.value;
+      modal.inputEl.value = "";
       return context_suggest_blocks.call(this, { source_key: src.key });
     }
   }));
@@ -19832,7 +20963,7 @@ var settings_config9 = {
 };
 
 // node_modules/obsidian-smart-env/src/utils/open_source.js
-var import_obsidian28 = require("obsidian");
+var import_obsidian33 = require("obsidian");
 async function open_source(item, event = null) {
   try {
     const env = item.env;
@@ -19852,8 +20983,8 @@ async function open_source(item, event = null) {
     }
     let leaf;
     if (event) {
-      const is_mod = import_obsidian28.Keymap.isModEvent(event);
-      const is_alt = import_obsidian28.Keymap.isModifier(event, "Alt");
+      const is_mod = import_obsidian33.Keymap.isModEvent(event);
+      const is_alt = import_obsidian33.Keymap.isModifier(event, "Alt");
       if (is_mod && is_alt) {
         leaf = obsidian_app.workspace.splitActiveLeaf("vertical");
       } else if (is_mod) {
@@ -19904,24 +21035,25 @@ var smart_env_config = {
     env_stats: { render: render4 },
     form_dropdown: { render: render5 },
     lean_coffee_callout: { render: render6 },
-    notifications_feed: { render: render7 },
-    pro_plugins_list: { render: render8 },
-    pro_plugins_list_item: { render: render9 },
-    settings_env_model: { render: render10 },
-    settings_env_model_type: { render: render11 },
-    settings_env_models: { render: render12 },
-    settings_env_sources: { render: render13 },
-    settings_model_actions: { render: render14 },
-    settings_notifications: { render: render15 },
-    settings_smart_env: { render: render16 },
-    smart_context_actions: { render: render17 },
-    smart_context_item: { render: render18 },
-    smart_context_meta: { render: render19 },
-    smart_context_tree: { render: render20 },
-    source_inspector: { render: render21 },
-    status_bar: { render: render22 },
-    supporter_callout: { render: render23 },
-    user_agreement_callout: { render: render24 }
+    milestones: { render: render7 },
+    notifications_feed: { render: render8 },
+    pro_plugins_list: { render: render9 },
+    pro_plugins_list_item: { render: render10 },
+    settings_env_model: { render: render11 },
+    settings_env_model_type: { render: render12 },
+    settings_env_models: { render: render13 },
+    settings_env_sources: { render: render14 },
+    settings_model_actions: { render: render15 },
+    settings_notifications: { render: render16 },
+    settings_smart_env: { render: render17 },
+    smart_context_actions: { render: render18 },
+    smart_context_item: { render: render19 },
+    smart_context_meta: { render: render20 },
+    smart_context_tree: { render: render21 },
+    source_inspector: { render: render22 },
+    status_bar: { render: render23 },
+    supporter_callout: { render: render24 },
+    user_agreement_callout: { render: render25 }
   },
   actions: {
     context_copy_to_clipboard: { action: copy_to_clipboard3 },
@@ -19980,13 +21112,13 @@ var smart_env_config2 = {
       },
       http_adapter: new SmartHttpRequest({
         adapter: SmartHttpObsidianRequestAdapter,
-        obsidian_request_url: import_obsidian31.requestUrl
+        obsidian_request_url: import_obsidian36.requestUrl
       })
     },
     http_adapter: {
       class: SmartHttpRequest,
       adapter: SmartHttpObsidianRequestAdapter,
-      obsidian_request_url: import_obsidian31.requestUrl
+      obsidian_request_url: import_obsidian36.requestUrl
     }
   },
   collections: {
@@ -20002,7 +21134,8 @@ var smart_env_config2 = {
         "md": ObsidianMarkdownSourceContentAdapter,
         "txt": ObsidianMarkdownSourceContentAdapter,
         "excalidraw.md": ExcalidrawSourceContentAdapter,
-        "base": BasesSourceContentAdapter
+        "base": BasesSourceContentAdapter,
+        "canvas": CanvasSourceContentAdapter
         // "canvas": MarkdownSourceContentAdapter,
         // "default": MarkdownSourceContentAdapter,
       },
@@ -20044,6 +21177,9 @@ var smart_env_config2 = {
         "context_suggest_sources"
       ]
     },
+    milestones_modal: {
+      class: MilestonesModal
+    },
     notifications_feed_modal: {
       class: NotificationsFeedModal
     }
@@ -20053,9 +21189,9 @@ merge_env_config(smart_env_config2, smart_env_config);
 var default_config_default = smart_env_config2;
 
 // node_modules/obsidian-smart-env/utils/add_icons.js
-var import_obsidian32 = require("obsidian");
+var import_obsidian37 = require("obsidian");
 function add_smart_chat_icon() {
-  (0, import_obsidian32.addIcon)("smart-chat", `<defs>
+  (0, import_obsidian37.addIcon)("smart-chat", `<defs>
   <symbol id="smart-chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
     <path d="M2 4c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2h-8l-5 4v-4H4c-1.1 0-2-.9-2-2Z" stroke-width="2"></path>
     <path d="M7 8c.5.3 1.3.3 1.8 0" stroke-width="2"></path>
@@ -20066,7 +21202,7 @@ function add_smart_chat_icon() {
 <use href="#smart-chat-icon" />`);
 }
 function add_smart_connections_icon() {
-  (0, import_obsidian32.addIcon)("smart-connections", `<path d="M50,20 L80,40 L80,60 L50,100" stroke="currentColor" stroke-width="4" fill="none"/>
+  (0, import_obsidian37.addIcon)("smart-connections", `<path d="M50,20 L80,40 L80,60 L50,100" stroke="currentColor" stroke-width="4" fill="none"/>
     <path d="M30,50 L55,70" stroke="currentColor" stroke-width="5" fill="none"/>
     <circle cx="50" cy="20" r="9" fill="currentColor"/>
     <circle cx="80" cy="40" r="9" fill="currentColor"/>
@@ -20075,7 +21211,7 @@ function add_smart_connections_icon() {
     <circle cx="30" cy="50" r="9" fill="currentColor"/>`);
 }
 function add_smart_lookup_icon() {
-  (0, import_obsidian32.addIcon)("smart-lookup", `<defs>
+  (0, import_obsidian37.addIcon)("smart-lookup", `<defs>
   <clipPath id="sc-in-search-clip" clipPathUnits="userSpaceOnUse">
     <circle cx="11" cy="11" r="8"></circle>
   </clipPath>
@@ -20097,7 +21233,7 @@ function add_smart_lookup_icon() {
 }
 
 // node_modules/obsidian-smart-env/node_modules/smart-notices/smart_notices.js
-var import_obsidian33 = require("obsidian");
+var import_obsidian38 = require("obsidian");
 
 // node_modules/obsidian-smart-env/node_modules/smart-notices/notices.js
 var NOTICES = {
@@ -20414,7 +21550,7 @@ var SmartNotices = class {
    */
   _add_mute_button(id, container) {
     const btn = document.createElement("button");
-    (0, import_obsidian33.setIcon)(btn, "bell-off");
+    (0, import_obsidian38.setIcon)(btn, "bell-off");
     btn.addEventListener("click", () => {
       if (!this.settings.muted) this.settings.muted = {};
       this.settings.muted[id] = true;
@@ -20443,10 +21579,10 @@ var SmartNotices = class {
 };
 
 // node_modules/obsidian-smart-env/utils/sc_oauth.js
-var import_obsidian35 = require("obsidian");
+var import_obsidian40 = require("obsidian");
 
 // node_modules/obsidian-smart-env/node_modules/smart-plugins-obsidian/utils.js
-var import_obsidian34 = require("obsidian");
+var import_obsidian39 = require("obsidian");
 function get_smart_server_url2() {
   if (typeof window !== "undefined" && window.SMART_SERVER_URL_OVERRIDE) {
     return window.SMART_SERVER_URL_OVERRIDE;
@@ -20466,7 +21602,7 @@ function set_local_storage_token({ access_token, refresh_token }, oauth_storage_
 async function exchange_code_for_tokens(code, plugin) {
   const oauth_storage_prefix = build_oauth_storage_prefix(plugin.app.vault.getName());
   const url = `${get_smart_server_url2()}/auth/oauth_exchange2`;
-  const resp = await (0, import_obsidian35.requestUrl)({
+  const resp = await (0, import_obsidian40.requestUrl)({
     url,
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -20489,12 +21625,6 @@ var OAUTH_SUFFIX = "_smart_plugins_oauth_";
 function build_oauth_storage_prefix(vault_name) {
   const safe_name = String(vault_name || "").toLowerCase().replace(/[^a-z0-9]/g, "_");
   return `${safe_name}${OAUTH_SUFFIX}`;
-}
-
-// node_modules/obsidian-smart-env/utils/open_url_externally.js
-function open_url_externally(plugin, url) {
-  const webviewer = plugin.app.internalPlugins?.plugins?.webviewer?.instance;
-  window.open(url, webviewer ? "_external" : "_blank");
 }
 
 // node_modules/obsidian-smart-env/utils/replace_folder_tree_var.js
@@ -20642,7 +21772,7 @@ var SmartEnv2 = class extends SmartEnv {
     if (window.smart_env && !window.smart_env.constructor.version) {
       const update_notice = "Detected ancient SmartEnv. Removing it to prevent issues with new plugins. Make sure your Smart Plugins are up-to-date!";
       console.warn(update_notice);
-      new import_obsidian36.Notice(update_notice, 0);
+      new import_obsidian41.Notice(update_notice, 0);
       window.smart_env = null;
     }
     const opts = merge_env_config(env_config, default_config_default);
@@ -20651,15 +21781,15 @@ var SmartEnv2 = class extends SmartEnv {
   }
   async load(force_load = false) {
     this.run_migrations();
-    if (!import_obsidian36.Platform.isMobile && !this.plugin.app.workspace.protocolHandlers.has("smart-plugins/callback")) {
+    if (!import_obsidian41.Platform.isMobile && !this.plugin.app.workspace.protocolHandlers.has("smart-plugins/callback")) {
       this.plugin.registerObsidianProtocolHandler("smart-plugins/callback", async (params) => {
         await this.handle_smart_plugins_oauth_callback(params);
       });
     }
-    if (import_obsidian36.Platform.isMobile && !force_load) {
+    if (import_obsidian41.Platform.isMobile && !force_load) {
       const frag = this.smart_view.create_doc_fragment(`<div><p>Smart Environment loading deferred on mobile.</p><button>Load Environment</button></div>`);
       frag.querySelector("button").addEventListener("click", this.load.bind(this, true));
-      new import_obsidian36.Notice(frag, 0);
+      new import_obsidian41.Notice(frag, 0);
       return;
     }
     await super.load();
@@ -20685,6 +21815,7 @@ var SmartEnv2 = class extends SmartEnv {
     const ContextModal2 = this._config.modals.context_selector.class;
     ContextModal2.register_modal(this.main);
     this.register_status_bar();
+    register_first_of_event_notifications(this);
   }
   emit_source_opened(current_path, event_source = null) {
     if (this._current_opened_source === current_path) return;
@@ -20720,7 +21851,7 @@ var SmartEnv2 = class extends SmartEnv {
   get notices() {
     if (!this._notices) {
       this._notices = new SmartNotices(this, {
-        adapter: import_obsidian36.Notice
+        adapter: import_obsidian41.Notice
       });
     }
     return this._notices;
@@ -20746,7 +21877,7 @@ var SmartEnv2 = class extends SmartEnv {
   async handle_smart_plugins_oauth_callback(params) {
     const code = params.code;
     if (!code) {
-      new import_obsidian36.Notice("No OAuth code provided in URL. Login failed.");
+      new import_obsidian41.Notice("No OAuth code provided in URL. Login failed.");
       return;
     }
     try {
@@ -20754,7 +21885,7 @@ var SmartEnv2 = class extends SmartEnv {
       this.events.emit("smart_plugins_oauth_completed");
     } catch (err) {
       console.error("OAuth callback error", err);
-      new import_obsidian36.Notice(`OAuth callback error: ${err.message}`);
+      new import_obsidian41.Notice(`OAuth callback error: ${err.message}`);
     }
   }
   /**
@@ -20798,10 +21929,22 @@ var SmartEnv2 = class extends SmartEnv {
     const modal = new NotificationsModalClass(this.obsidian_app, this);
     modal.open();
   }
+  // open milestones modal
+  open_milestones_modal() {
+    const MilestonesModalClass = this.config.modals.milestones_modal.class;
+    const modal = new MilestonesModalClass(this.obsidian_app, this);
+    modal.open();
+  }
   run_migrations() {
     remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-plugins"] });
     remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-editor"] });
     remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-sources"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-claude"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-gemini"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-deepseek"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-perplexity"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-grok"] });
+    remove_smart_plugins_plugin({ app: this.plugin.app, plugin_ids: ["smart-aistudio"] });
   }
 };
 function download_json(json, filename) {
@@ -20817,16 +21960,16 @@ function download_json(json, filename) {
 }
 
 // node_modules/obsidian-smart-env/src/views/smart_plugin_settings_tab.js
-var import_obsidian38 = require("obsidian");
+var import_obsidian43 = require("obsidian");
 
 // node_modules/obsidian-smart-env/utils/wait_for_env_to_load.js
-var import_obsidian37 = require("obsidian");
+var import_obsidian42 = require("obsidian");
 async function wait_for_env_to_load(scope, opts = {}) {
   const { wait_for_states = ["loaded"] } = opts;
   const container = scope.container || scope.containerEl;
   if (!wait_for_states.includes(scope.env?.state)) {
     let clicked_load_env = false;
-    while (scope.env.state === "init" && import_obsidian37.Platform.isMobile && !clicked_load_env) {
+    while (scope.env.state === "init" && import_obsidian42.Platform.isMobile && !clicked_load_env) {
       if (container) {
         container.empty();
         scope.env.smart_view.safe_inner_html(container, "<button>Load Smart Environment</button>");
@@ -20943,7 +22086,7 @@ var settings_default = `/* 1) Host elements that should get a PRO badge */\r
 `;
 
 // node_modules/obsidian-smart-env/src/views/smart_plugin_settings_tab.js
-var SmartPluginSettingsTab = class extends import_obsidian38.PluginSettingTab {
+var SmartPluginSettingsTab = class extends import_obsidian43.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -21024,7 +22167,7 @@ var SmartPluginSettingsTab = class extends import_obsidian38.PluginSettingTab {
     return app.setting.pluginTabs.find((t) => t.id === "smart-environment");
   }
 };
-var SmartEnvSettingTab = class extends import_obsidian38.PluginSettingTab {
+var SmartEnvSettingTab = class extends import_obsidian43.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -21082,8 +22225,9 @@ function render_pre_env_load(scope) {
 }
 
 // node_modules/obsidian-smart-env/smart_plugin.js
-var import_obsidian39 = require("obsidian");
-var SmartPlugin = class extends import_obsidian39.Plugin {
+var import_obsidian44 = require("obsidian");
+var SmartPlugin = class extends import_obsidian44.Plugin {
+  SmartEnv = SmartEnv2;
   /**
    * override in subclass to provide commands.
    * use property key to override commands in further subclasses.
@@ -21165,6 +22309,14 @@ var SmartPlugin = class extends import_obsidian39.Plugin {
    */
   async is_new_plugin_version(current_version) {
     return await this.get_last_known_version() !== current_version;
+  }
+  /**
+   * @deprecated use SmartEnv.notices instead
+   */
+  get notices() {
+    if (this.env?.notices) return this.env.notices;
+    if (!this._notices) this._notices = new SmartNotices(this.env, import_obsidian44.Notice);
+    return this._notices;
   }
 };
 
@@ -21606,6 +22758,7 @@ var CollectionItem2 = class _CollectionItem {
   }
   /**
    * Validates the item before saving. Checks for presence and validity of key.
+   * @deprecated should be better handled 2025-12-17 (wrong scope?)
    * @returns {boolean}
    */
   validate_save() {
@@ -22609,9 +23762,20 @@ var connections_lists_default = {
 // src/components/connections_codeblock.css
 var connections_codeblock_default = ".connections-codeblock {\r\n  .connections-top-bar {\r\n    display: flex;\r\n    gap: 0.5rem 1rem;\r\n\r\n    .connections-actions {\r\n      display: flex;\r\n      flex-direction: row;\r\n      flex-wrap: wrap;\r\n      align-items: center;\r\n      gap: 0.5rem;\r\n      span {\r\n        font-weight: 600;\r\n        justify-self: end;\r\n      }\r\n    }\r\n  }\r\n  .connections-list {\r\n    padding-top: 0.85rem;\r\n\r\n    > .sc-collapsed ul {\r\n      display: none;\r\n    }\r\n    > .sc-collapsed span svg {\r\n      transform: rotate(-90deg);\r\n    }\r\n    > .sc-result-pinned {\r\n      box-shadow: 0 0 0 1px var(--interactive-accent);\r\n      border-radius: var(--radius-s);\r\n      background-color: var(--background-modifier-hover);\r\n    }\r\n  }\r\n}";
 
+// src/components/connections_codeblock.js
+var import_obsidian46 = require("obsidian");
+
 // node_modules/obsidian-smart-env/src/modals/story.js
-var import_obsidian40 = require("obsidian");
-var StoryModal = class _StoryModal extends import_obsidian40.Modal {
+var import_obsidian45 = require("obsidian");
+
+// node_modules/obsidian-smart-env/utils/open_url_externally.js
+function open_url_externally(plugin, url) {
+  const webviewer = plugin.app.internalPlugins?.plugins?.webviewer?.instance;
+  window.open(url, webviewer ? "_external" : "_blank");
+}
+
+// node_modules/obsidian-smart-env/src/modals/story.js
+var StoryModal = class _StoryModal extends import_obsidian45.Modal {
   constructor(plugin, { title, url }) {
     super(plugin.app);
     this.plugin = plugin;
@@ -22628,7 +23792,7 @@ var StoryModal = class _StoryModal extends import_obsidian40.Modal {
     const container = this.contentEl.createEl("div", {
       cls: "sc-story-container"
     });
-    if (import_obsidian40.Platform.isMobile) {
+    if (import_obsidian45.Platform.isMobile) {
       const btn = container.createEl("button", { text: "Open in browser" });
       btn.addEventListener("click", () => {
         open_url_externally(this.plugin, this.url);
@@ -22655,180 +23819,48 @@ var StoryModal = class _StoryModal extends import_obsidian40.Modal {
   }
 };
 
-// src/components/connections_codeblock.js
-async function build_html25(connections_list, opts = {}) {
-  const top_bar_buttons = [
-    {
-      title: "Refresh connections",
-      icon: "refresh-cw",
-      attrs: 'data-action="refresh-connections"'
-    },
-    {
-      title: "Expand all",
-      icon: "unfold-vertical",
-      attrs: 'data-action="expand-all"'
-    },
-    {
-      title: "Collapse all",
-      icon: "fold-vertical",
-      attrs: 'data-action="collapse-all"'
-    },
-    {
-      title: "Send results to Smart Context",
-      icon: "briefcase",
-      attrs: 'data-action="send-to-smart-context"'
-    },
-    {
-      title: "Connections settings",
-      icon: "settings",
-      attrs: 'data-action="open-settings"'
-    },
-    {
-      title: "Help & getting started",
-      icon: "help-circle",
-      attrs: 'data-action="open-help"'
-    }
-  ].map((btn) => `
-    <button
-      aria-label="${btn.title}"
-      ${btn.attrs ?? ""}
-    >
-      ${this.get_icon_html(btn.icon)}
-    </button>
-  `).join("");
-  const html = `<div class="connections-codeblock connections-item-view sc-connections-view">
-    <div class="connections-top-bar">
-      <div class="connections-actions">
-        ${top_bar_buttons}
-        <span>Smart Connections</span>
-      </div>
-    </div>
-    <div class="connections-list-container"></div>
-    <div class="connections-bottom-bar"></div>
-  </div>`;
-  return html;
-}
-async function render25(connections_list, opts = {}) {
-  const html = await build_html25.call(this, connections_list, opts);
-  const frag = this.create_doc_fragment(html);
-  this.apply_style_sheet(connections_codeblock_default);
-  const container = frag.firstElementChild;
-  post_process24.call(this, connections_list, container, opts);
-  return frag;
-}
-async function post_process24(connections_list, container, opts = {}) {
-  const list_container = container.querySelector(".connections-list-container");
-  const env = connections_list.env;
-  const app = env.plugin.app || window.app;
-  const render_list = async () => {
-    console.log("Rendering connections list in codeblock view");
-    const connections_list_component_key = opts.connections_list_component_key || connections_list.connections_list_component_key || "connections_list_v3";
-    const list = await env.smart_components.render_component(connections_list_component_key, connections_list, opts);
-    this.empty(list_container);
-    list_container.appendChild(list);
+// src/utils/connections_context_items.js
+function build_connections_context_items(params = {}) {
+  const { source_item, results = [] } = params;
+  const items = [];
+  const seen_keys = /* @__PURE__ */ new Set();
+  const append_item = (item, score) => {
+    const key = item?.key;
+    if (!key || seen_keys.has(key)) return;
+    seen_keys.add(key);
+    items.push({ key, score });
   };
-  if (!container._has_listeners) {
-    container._has_listeners = true;
-    const refresh_button = container.querySelector('[data-action="refresh-connections"]');
-    refresh_button?.addEventListener("click", async () => {
-      const refresh_entity = connections_list.item;
-      if (refresh_entity) {
-        await refresh_entity.read();
-        refresh_entity.queue_import();
-        await refresh_entity.collection.process_source_import_queue?.();
-        render_list();
-      } else {
-        console.warn("No entity found for refresh");
-      }
-    });
-    const expand_all_button = container.querySelector('[data-action="expand-all"]');
-    expand_all_button?.addEventListener("click", () => {
-      container.querySelectorAll(".sc-result").forEach((elm) => {
-        elm.classList.remove("sc-collapsed");
-      });
-    });
-    const collapse_all_button = container.querySelector('[data-action="collapse-all"]');
-    collapse_all_button?.addEventListener("click", () => {
-      container.querySelectorAll(".sc-result").forEach((elm) => {
-        elm.classList.add("sc-collapsed");
-      });
-    });
-    const context_button = container.querySelector('[data-action="send-to-smart-context"]');
-    context_button?.addEventListener("click", async () => {
-      const results = Array.isArray(connections_list.results) ? connections_list.results : [];
-      if (!results.length) return new Notice("No connection results to send to Smart Context");
-      const smart_context = env.smart_contexts.new_context();
-      smart_context.add_items(results.map((r) => ({ key: r.item.key, score: r.score })));
-      smart_context.emit_event("context_selector:open");
-    });
-    const settings_button = container.querySelector('[data-action="open-settings"]');
-    settings_button?.addEventListener("click", () => {
-      app.setting.open();
-      app.setting.openTabById("smart-connections");
-    });
-    const open_help = () => {
-      StoryModal.open(env.plugin, {
-        title: "Getting Started With Smart Connections",
-        url: "https://smartconnections.app/story/smart-connections-getting-started/?utm_source=connections-view-help#page=understanding-connections-1"
-      });
-    };
-    const help_button = container.querySelector('[data-action="open-help"]');
-    help_button?.addEventListener("click", open_help);
+  if (source_item) append_item(source_item, source_item.score ?? 1);
+  results.forEach((result) => append_item(result?.item, result?.score));
+  return items;
+}
+
+// src/utils/format_connections_as_links.js
+function format_connections_as_links(results = []) {
+  if (!Array.isArray(results) || !results.length) return "";
+  return results.map(({ item }) => {
+    let lines;
+    if (item.key.endsWith("}")) {
+      lines = `Lines: ${item.lines.join("-")}`;
+    }
+    const link = get_wikilink(item);
+    if (!link) return "";
+    if (lines) {
+      return `${link.replace(/\#\{\d+\}/, "")} (${lines})`;
+    }
+    return link;
+  }).filter(Boolean).join("\n");
+}
+function get_wikilink(item) {
+  if (!item?.key) return "";
+  const [source_key, ...block_parts] = item.key.split("#");
+  const filename = source_key.split("/").pop().replace(/\.md$/i, "");
+  if (block_parts.length) {
+    const block_ref = block_parts.pop();
+    return `- [[${filename}#${block_ref}]]`;
   }
-  render_list();
-  return container;
+  return `- [[${filename}]]`;
 }
-
-// src/components/connections-list-item/v3.js
-var import_obsidian41 = require("obsidian");
-
-// src/components/connections-list-item/v3.css
-var css_sheet = new CSSStyleSheet();
-css_sheet.replaceSync(`a.sc-result-file-title {
-  text-decoration: none !important;
-}
-
-a.sc-result-file-title > .sc-score {
-  display: inline-block;
-  width: 4.5ch;
-  height: 1.7em;
-  line-height: 1.7em;
-  text-align: center;
-  font-weight: 600 !important;
-  font-size: 0.8em !important;
-  color: var(--nav-item-color) !important;
-  background: var(--background-modifier-hover);
-  border-radius: 6px;
-}
-
-a.sc-result-file-title > .sc-path {
-  margin-right: -3px;
-}
-
-a.sc-result-file-title > .sc-path,
-a.sc-result-file-title > .sc-title {
-  font-weight: bold !important;
-  text-decoration: underline;
-}
-
-a.sc-result-file-title > .sc-breadcrumb:not(.sc-path, .sc-title, .sc-score) {
-  font-style: italic;
-}
-
-a.sc-result-file-title > .sc-breadcrumb-separator {
-  color: color-mix(in srgb, var(--text-normal) 50%, transparent) !important;
-}
-
-.sc-result.sc-result-graph-focus {
-  outline: 2px solid color-mix(in srgb, var(--interactive-accent) 70%, transparent);
-  border-radius: var(--radius-s);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--background-primary) 80%, transparent),
-    0 0 0.5rem color-mix(in srgb, var(--interactive-accent) 45%, transparent);
-  transition: outline 120ms ease, box-shadow 120ms ease;
-}
-`);
-var v3_default = css_sheet;
 
 // src/utils/connections_list_item_state.js
 function build_prefixed_connection_key(collection_key, item_key) {
@@ -22919,6 +23951,237 @@ function is_connection_hidden(connections, prefixed_key) {
   return state.hidden !== void 0 && state.hidden !== null;
 }
 
+// src/utils/filter_hidden_results.js
+function filter_hidden_results(results = [], connections_state = {}) {
+  if (!Array.isArray(results) || !results.length) return [];
+  if (!connections_state || typeof connections_state !== "object") return results;
+  return results.filter((result) => {
+    const item = result?.item;
+    if (!item) return false;
+    const prefixed_key = build_prefixed_connection_key(item.collection_key, item.key);
+    const state = connections_state[prefixed_key];
+    if (!state || typeof state !== "object") return true;
+    const hidden = state.hidden !== void 0 && state.hidden !== null;
+    const pinned = state.pinned !== void 0 && state.pinned !== null;
+    return !(hidden && !pinned);
+  });
+}
+
+// src/components/connections_codeblock.js
+async function build_html26(connections_list, opts = {}) {
+  const top_bar_buttons = [
+    {
+      title: "Refresh connections",
+      icon: "refresh-cw",
+      attrs: 'data-action="refresh-connections"'
+    },
+    {
+      title: "Expand all",
+      icon: "unfold-vertical",
+      attrs: 'data-action="expand-all"'
+    },
+    {
+      title: "Collapse all",
+      icon: "fold-vertical",
+      attrs: 'data-action="collapse-all"'
+    },
+    {
+      title: "Send results to Smart Context",
+      icon: "briefcase",
+      attrs: 'data-action="send-to-smart-context"'
+    },
+    {
+      title: "Copy as list of links",
+      icon: "copy",
+      attrs: 'data-action="copy-as-links"'
+    },
+    {
+      title: "Connections settings",
+      icon: "settings",
+      attrs: 'data-action="open-settings"'
+    },
+    {
+      title: "Help & getting started",
+      icon: "help-circle",
+      attrs: 'data-action="open-help"'
+    }
+  ].map((btn) => `
+    <button
+      aria-label="${btn.title}"
+      ${btn.attrs ?? ""}
+    >
+      ${this.get_icon_html(btn.icon)}
+    </button>
+  `).join("");
+  const html = `<div class="connections-codeblock connections-item-view sc-connections-view">
+    <div class="connections-top-bar">
+      <div class="connections-actions">
+        ${top_bar_buttons}
+        <span>Smart Connections</span>
+      </div>
+    </div>
+    <div class="connections-list-container"></div>
+    <div class="connections-bottom-bar"></div>
+  </div>`;
+  return html;
+}
+async function render26(connections_list, opts = {}) {
+  const html = await build_html26.call(this, connections_list, opts);
+  const frag = this.create_doc_fragment(html);
+  this.apply_style_sheet(connections_codeblock_default);
+  const container = frag.firstElementChild;
+  post_process25.call(this, connections_list, container, opts);
+  return frag;
+}
+async function post_process25(connections_list, container, opts = {}) {
+  const list_container = container.querySelector(".connections-list-container");
+  const env = connections_list.env;
+  const app = env.plugin.app || window.app;
+  const render_list = async () => {
+    console.log("Rendering connections list in codeblock view");
+    const connections_list_component_key = opts.connections_list_component_key || connections_list.connections_list_component_key || "connections_list_v3";
+    const list = await env.smart_components.render_component(
+      connections_list_component_key,
+      connections_list,
+      opts
+    );
+    this.empty(list_container);
+    list_container.appendChild(list);
+  };
+  if (!container._has_listeners) {
+    container._has_listeners = true;
+    const refresh_button = container.querySelector('[data-action="refresh-connections"]');
+    refresh_button?.addEventListener("click", async () => {
+      const refresh_entity = connections_list.item;
+      if (refresh_entity) {
+        await refresh_entity.read();
+        refresh_entity.queue_import();
+        await refresh_entity.collection.process_source_import_queue?.();
+        render_list();
+      } else {
+        console.warn("No entity found for refresh");
+      }
+    });
+    const expand_all_button = container.querySelector('[data-action="expand-all"]');
+    expand_all_button?.addEventListener("click", () => {
+      container.querySelectorAll(".sc-result").forEach((elm) => {
+        elm.classList.remove("sc-collapsed");
+      });
+    });
+    const collapse_all_button = container.querySelector('[data-action="collapse-all"]');
+    collapse_all_button?.addEventListener("click", () => {
+      container.querySelectorAll(".sc-result").forEach((elm) => {
+        elm.classList.add("sc-collapsed");
+      });
+    });
+    const context_button = container.querySelector('[data-action="send-to-smart-context"]');
+    context_button?.addEventListener("click", async () => {
+      const raw_results = await get_results_fallback(connections_list, opts);
+      if (!raw_results.length) return new import_obsidian46.Notice("No connection results to send to Smart Context");
+      const connections_state = connections_list?.item?.data?.connections || {};
+      const visible_results = filter_hidden_results(raw_results, connections_state);
+      const context_items = build_connections_context_items({
+        source_item: connections_list?.item,
+        results: visible_results
+      });
+      if (!context_items.length) return new import_obsidian46.Notice("No visible connection results to send to Smart Context");
+      const smart_context = env.smart_contexts.new_context();
+      smart_context.add_items(context_items);
+      smart_context.emit_event("context_selector:open");
+      connections_list.emit_event("connections:sent_to_context");
+    });
+    const copy_links_button = container.querySelector('[data-action="copy-as-links"]');
+    copy_links_button?.addEventListener("click", async () => {
+      const raw_results = await get_results_fallback(connections_list, opts);
+      if (!raw_results.length) return new import_obsidian46.Notice("No connection results to copy");
+      const connections_state = connections_list?.item?.data?.connections || {};
+      const visible_results = filter_hidden_results(raw_results, connections_state);
+      const links_payload = format_connections_as_links(visible_results);
+      if (!links_payload) return new import_obsidian46.Notice("No visible connection results to copy");
+      await copy_to_clipboard2(links_payload);
+      new import_obsidian46.Notice("Copied connections as list of links");
+      connections_list.emit_event("connections:copied_list");
+    });
+    const settings_button = container.querySelector('[data-action="open-settings"]');
+    settings_button?.addEventListener("click", () => {
+      app.setting.open();
+      app.setting.openTabById("smart-connections");
+    });
+    const open_help = () => {
+      StoryModal.open(env.plugin, {
+        title: "Getting Started With Smart Connections",
+        url: "https://smartconnections.app/story/smart-connections-getting-started/?utm_source=connections-view-help#page=understanding-connections-1"
+      });
+    };
+    const help_button = container.querySelector('[data-action="open-help"]');
+    help_button?.addEventListener("click", open_help);
+  }
+  render_list();
+  return container;
+}
+async function get_results_fallback(connections_list, opts = {}) {
+  const cached = Array.isArray(connections_list?.results) ? connections_list.results : [];
+  if (cached.length) return cached;
+  try {
+    const results = await connections_list.get_results({ ...opts });
+    return Array.isArray(results) ? results : [];
+  } catch (err) {
+    console.error("Failed to fetch connections results", err);
+    return [];
+  }
+}
+
+// src/components/connections-list-item/v3.js
+var import_obsidian47 = require("obsidian");
+
+// src/components/connections-list-item/v3.css
+var css_sheet = new CSSStyleSheet();
+css_sheet.replaceSync(`a.sc-result-file-title {
+  text-decoration: none !important;
+}
+
+a.sc-result-file-title > .sc-score {
+  display: inline-block;
+  width: 4.5ch;
+  height: 1.7em;
+  line-height: 1.7em;
+  text-align: center;
+  font-weight: 600 !important;
+  font-size: 0.8em !important;
+  color: var(--nav-item-color) !important;
+  background: var(--background-modifier-hover);
+  border-radius: 6px;
+}
+
+a.sc-result-file-title > .sc-path {
+  margin-right: -3px;
+}
+
+a.sc-result-file-title > .sc-path,
+a.sc-result-file-title > .sc-title {
+  font-weight: bold !important;
+  text-decoration: underline;
+}
+
+a.sc-result-file-title > .sc-breadcrumb:not(.sc-path, .sc-title, .sc-score) {
+  font-style: italic;
+}
+
+a.sc-result-file-title > .sc-breadcrumb-separator {
+  color: color-mix(in srgb, var(--text-normal) 50%, transparent) !important;
+}
+
+.sc-result.sc-result-graph-focus {
+  outline: 2px solid color-mix(in srgb, var(--interactive-accent) 70%, transparent);
+  border-radius: var(--radius-s);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--background-primary) 80%, transparent),
+    0 0 0.5rem color-mix(in srgb, var(--interactive-accent) 45%, transparent);
+  transition: outline 120ms ease, box-shadow 120ms ease;
+}
+`);
+var v3_default = css_sheet;
+
 // src/utils/get_item_display_name.js
 function get_item_display_name3(item, settings = {}) {
   if (!item?.key) return "";
@@ -22936,26 +24199,6 @@ function get_item_display_name3(item, settings = {}) {
   return pcs.join(" > ");
 }
 
-// src/utils/format_connections_as_links.js
-function format_connections_as_links(results = []) {
-  if (!Array.isArray(results) || !results.length) return "";
-  return results.map(({ item }) => {
-    const link = get_wikilink(item);
-    if (!link) return "";
-    return link;
-  }).filter(Boolean).join("\n");
-}
-function get_wikilink(item) {
-  if (!item?.key) return "";
-  const [source_key, ...block_parts] = item.key.split("#");
-  const filename = source_key.split("/").pop().replace(/\.md$/i, "");
-  if (block_parts.length) {
-    const block_ref = block_parts.pop();
-    return `- [[${filename}#${block_ref}]]`;
-  }
-  return `- [[${filename}]]`;
-}
-
 // node_modules/obsidian-smart-env/utils/parse_item_key_to_wikilink.js
 function parse_item_key_to_wikilink(key) {
   if (!key) return "";
@@ -22968,26 +24211,30 @@ function parse_item_key_to_wikilink(key) {
 }
 
 // node_modules/obsidian-smart-env/src/utils/register_item_drag.js
-function handle_connection_drag(obsidian_app, item, event) {
+function handle_connection_drag(obsidian_app, item, params, event) {
   const drag_manager = obsidian_app.dragManager;
   const link_text = parse_item_key_to_wikilink(item.key);
   const drag_data = drag_manager.dragLink(event, link_text);
   drag_manager.onDragStart(event, drag_data);
-  item.emit_event("connections_result:drag");
+  if (params.drag_event_key) {
+    item.emit_event(params.drag_event_key);
+  } else {
+    item.emit_event("connections:drag_result");
+  }
 }
-function register_item_drag(container, item) {
+function register_item_drag(container, item, params = {}) {
   const env = item.env;
   const app = env.obsidian_app;
   container.setAttribute("draggable", "true");
-  container.addEventListener("dragstart", handle_connection_drag.bind(null, app, item));
+  container.addEventListener("dragstart", handle_connection_drag.bind(null, app, item, params));
 }
 
 // src/components/connections-list-item/v3.js
-async function build_html26(result, opts = {}) {
+async function build_html27(result, params = {}) {
   const item = result.item;
   const env = item.env;
   const score = result.score;
-  const connections_settings = opts.connections_settings ?? env.connections_lists.settings;
+  const connections_settings = params.connections_settings ?? env.connections_lists.settings;
   const component_settings = connections_settings.components?.connections_list_item_v3 || {};
   const header_html = get_result_header_html(score, item, component_settings);
   const all_expanded = connections_settings.expanded_view;
@@ -23013,20 +24260,20 @@ async function build_html26(result, opts = {}) {
     </div>
   </div>`;
 }
-async function render26(result_scope, opts = {}) {
+async function render27(result_scope, params = {}) {
   this.apply_style_sheet(v3_default);
-  let html = await build_html26.call(this, result_scope, opts);
+  let html = await build_html27.call(this, result_scope, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".sc-result");
-  post_process25.call(this, result_scope, container, opts);
+  post_process26.call(this, result_scope, container, params);
   return container;
 }
-async function post_process25(result_scope, container, opts = {}) {
+async function post_process26(result_scope, container, params = {}) {
   const { item } = result_scope;
   const env = item.env;
   const plugin = env.smart_connections_plugin;
   const app = plugin.app;
-  const connections_settings = opts.connections_settings ?? env.connections_lists.settings;
+  const connections_settings = params.connections_settings ?? env.connections_lists.settings;
   const component_settings = connections_settings.components?.connections_list_item_v3 || {};
   const should_render_markdown = component_settings?.render_markdown ?? true;
   if (!should_render_markdown) container.classList.add("sc-result-plaintext");
@@ -23059,11 +24306,13 @@ ${await entity.read()}`;
   };
   const toggle_fold_elm = container.querySelector(".header .svg-icon.right-triangle");
   toggle_fold_elm.addEventListener("click", toggle_result);
-  register_item_drag(container, item);
-  register_item_hover_popover(container, item);
+  const event_key_domain = params.event_key_domain || "connections";
+  const drag_event_key = `${event_key_domain}:drag_result`;
+  register_item_drag(container, item, { drag_event_key });
+  register_item_hover_popover(container, item, { event_key_domain });
   container.addEventListener("click", (event) => {
     open_source(item, event);
-    item.emit_event("connections_result:clicked", { event_source: "connections-list-item-v3" });
+    item.emit_event(`${event_key_domain}:open_result`, { event_source: "connections-list-item-v3" });
   });
   const observer = new MutationObserver((mutations) => {
     const has_expansion_change = mutations.some((mutation) => {
@@ -23094,7 +24343,7 @@ ${await entity.read()}`;
     const results = result_scope.connections_list?.results || [];
     const target_name = get_item_display_name3(item, component_settings) || item.key;
     console.log({ target_name, item });
-    const menu = new import_obsidian41.Menu(app);
+    const menu = new import_obsidian47.Menu(app);
     menu.addItem((menu_item) => {
       menu_item.setTitle(`Hide ${target_name}`).setIcon("eye-off").onClick(() => {
         try {
@@ -23108,7 +24357,7 @@ ${await entity.read()}`;
           container.dataset.hidden = "true";
           source_item.collection.save();
         } catch (err) {
-          new import_obsidian41.Notice("Hide failed \u2013 check console");
+          new import_obsidian47.Notice("Hide failed \u2013 check console");
           console.error(err);
         }
       });
@@ -23129,7 +24378,7 @@ ${await entity.read()}`;
           source_item.queue_save();
           source_item.collection.save();
         } catch (err) {
-          new import_obsidian41.Notice(`${title_prefix} failed \u2013 check console`);
+          new import_obsidian47.Notice(`${title_prefix} failed \u2013 check console`);
           console.error(err);
         }
       });
@@ -23140,6 +24389,8 @@ ${await entity.read()}`;
       menu.addItem((menu_item) => {
         menu_item.setTitle("Copy as list of links").setIcon("copy").onClick(async () => {
           await copy_to_clipboard2(links_payload);
+          new import_obsidian47.Notice("Connections links copied to clipboard");
+          result_scope.connections_list.emit_event("connections:copied_list");
         });
       });
     }
@@ -23155,7 +24406,7 @@ ${await entity.read()}`;
           container.closest(".sc-connections-view")?.querySelector('[title="Refresh"]')?.click();
           source_item.collection.save();
         } catch (err) {
-          new import_obsidian41.Notice("Unhide failed \u2013 check console");
+          new import_obsidian47.Notice("Unhide failed \u2013 check console");
           console.error(err);
         }
       });
@@ -23174,7 +24425,7 @@ ${await entity.read()}`;
           source_item.queue_save();
           source_item.collection.save();
         } catch (err) {
-          new import_obsidian41.Notice("Unpin failed \u2013 check console");
+          new import_obsidian47.Notice("Unpin failed \u2013 check console");
           console.error(err);
         }
       });
@@ -23243,17 +24494,17 @@ var settings_config11 = {
 };
 
 // src/components/connections-list/v3.js
-async function build_html27(connections_list, opts = {}) {
+async function build_html28(connections_list, opts = {}) {
   return `<div><div class="connections-list sc-list" data-key="${connections_list.item.key}"></div></div>`;
 }
-async function render27(connections_list, opts = {}) {
-  const html = await build_html27.call(this, connections_list, opts);
+async function render28(connections_list, opts = {}) {
+  const html = await build_html28.call(this, connections_list, opts);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".connections-list");
-  post_process26.call(this, connections_list, container, opts);
+  post_process27.call(this, connections_list, container, opts);
   return container;
 }
-async function post_process26(connections_list, container, opts = {}) {
+async function post_process27(connections_list, container, opts = {}) {
   container.dataset.key = connections_list.item.key;
   const results = await connections_list.get_results(opts);
   if (!results || !Array.isArray(results) || results.length === 0) {
@@ -23271,8 +24522,8 @@ async function post_process26(connections_list, container, opts = {}) {
 var display_name4 = "List only";
 
 // src/components/connections-settings/header.js
-var import_obsidian42 = require("obsidian");
-async function build_html28(scope_plugin) {
+var import_obsidian48 = require("obsidian");
+async function build_html29(scope_plugin) {
   return `
     <div>
       <div data-user-agreement></div>
@@ -23285,14 +24536,14 @@ async function build_html28(scope_plugin) {
     </div>
   `;
 }
-async function render28(scope_plugin) {
-  const html = await build_html28.call(this, scope_plugin);
+async function render29(scope_plugin) {
+  const html = await build_html29.call(this, scope_plugin);
   const frag = this.create_doc_fragment(html);
   const container = frag.firstElementChild;
-  post_process27.call(this, scope_plugin, container);
+  post_process28.call(this, scope_plugin, container);
   return container;
 }
-async function post_process27(scope_plugin, frag) {
+async function post_process28(scope_plugin, frag) {
   const user_agreement_container = frag.querySelector("[data-user-agreement]");
   if (user_agreement_container) {
     const user_agreement = await scope_plugin.env.render_component(
@@ -23338,7 +24589,7 @@ async function post_process27(scope_plugin, frag) {
   });
   return frag;
 }
-var ScProSupportModal = class extends import_obsidian42.Modal {
+var ScProSupportModal = class extends import_obsidian48.Modal {
   open() {
     super.open();
     this.titleEl.setText("Need help and support?");
@@ -23364,7 +24615,7 @@ var ScProSupportModal = class extends import_obsidian42.Modal {
 var v3_default2 = ".connections-view-early {\n  .connections-top-bar {\n    display: flex;\n    gap: 0.5rem 1rem;\n\n    .connections-actions {\n      display: flex;\n      flex-direction: row;\n      flex-wrap: wrap;\n      flex: 0 0 auto;\n    }\n\n    .sc-context {\n      display: flex;\n      flex-direction: column;\n      margin: 0;\n      gap: 0.1rem;\n      width: auto;\n      flex: 1 1 auto;\n\n      .sc-context-line {\n        line-height: 1.1;\n      }\n\n      .sc-context-line--parent {\n        color: var(--text-muted);\n        font-size: 0.85em;\n      }\n\n      .sc-context-line--focus {\n        color: var(--text-normal);\n        font-size: 1.05em;\n        font-weight: 600;\n      }\n    }\n  }\n  .connections-list {\n    padding-top: 0.85rem;\n\n    > .sc-collapsed ul {\n      display: none;\n    }\n    > .sc-collapsed span svg {\n      transform: rotate(-90deg);\n    }\n    > .sc-result-pinned {\n      box-shadow: 0 0 0 1px var(--interactive-accent);\n      border-radius: var(--radius-s);\n      background-color: var(--background-modifier-hover);\n    }\n  }\n}";
 
 // src/components/connections-view/v3.js
-var import_obsidian43 = require("obsidian");
+var import_obsidian49 = require("obsidian");
 
 // src/utils/context_lines.js
 var BLOCK_SEPARATOR = "#";
@@ -23409,7 +24660,7 @@ async function connections_view_refresh_handler(event) {
 }
 
 // src/components/connections-view/v3.js
-async function build_html29(view, opts = {}) {
+async function build_html30(view, opts = {}) {
   const is_paused = Boolean(view.paused);
   const pause_title = is_paused ? "Resume auto-refresh" : "Pause auto-refresh";
   const top_bar_buttons = [
@@ -23445,15 +24696,15 @@ async function build_html29(view, opts = {}) {
   </div></div>`;
   return html;
 }
-async function render29(view, opts = {}) {
-  const html = await build_html29.call(this, view, opts);
+async function render30(view, opts = {}) {
+  const html = await build_html30.call(this, view, opts);
   const frag = this.create_doc_fragment(html);
   this.apply_style_sheet(v3_default2);
   const container = frag.querySelector(".sc-connections-view");
-  post_process28.call(this, view, container, opts);
+  post_process29.call(this, view, container, opts);
   return frag;
 }
-async function post_process28(view, container, opts = {}) {
+async function post_process29(view, container, opts = {}) {
   const list_container = container.querySelector(".connections-list-container");
   const sc_top_bar_context = container.querySelector(".sc-top-bar .sc-context");
   const env = view.env;
@@ -23477,19 +24728,35 @@ async function post_process28(view, container, opts = {}) {
     };
     const menu_button = container.querySelector('[data-action="open-menu"]');
     menu_button?.addEventListener("click", (event) => {
-      const menu = new import_obsidian43.Menu(view.plugin.app);
+      const menu = new import_obsidian49.Menu(view.plugin.app);
+      const raw_results = Array.isArray(connections_list?.results) ? connections_list.results : [];
+      const connections_state = connections_list?.item?.data?.connections || {};
+      const visible_results = filter_hidden_results(raw_results, connections_state);
       menu.addItem((menu_item) => {
         menu_item.setTitle("Refresh connections").setIcon("refresh-cw").onClick(() => {
           connections_view_refresh_handler.call(view, { target: container });
         });
       });
       menu.addItem((menu_item) => {
-        menu_item.setTitle("Send results to Smart Context").setIcon("briefcase").onClick(async () => {
-          const results = Array.isArray(connections_list.results) ? connections_list.results : [];
-          if (!results.length) return;
+        const context_items = build_connections_context_items({
+          source_item: connections_item,
+          results: visible_results
+        });
+        menu_item.setTitle("Send results to Smart Context").setIcon("briefcase").setDisabled(!context_items.length).onClick(async () => {
+          if (!context_items.length) return new import_obsidian49.Notice("No connection results to send to Smart Context");
           const smart_context = env.smart_contexts.new_context();
-          smart_context.add_items(results.map((r) => ({ key: r.item.key, score: r.score })));
+          smart_context.add_items(context_items);
           smart_context.emit_event("context_selector:open");
+          connections_list.emit_event("connections:sent_to_context");
+        });
+      });
+      menu.addItem((menu_item) => {
+        const links_payload = format_connections_as_links(visible_results);
+        menu_item.setTitle("Copy as list of links").setIcon("copy").setDisabled(!links_payload).onClick(async () => {
+          if (!links_payload) return new import_obsidian49.Notice("No connection results to copy");
+          await copy_to_clipboard2(links_payload);
+          new import_obsidian49.Notice("Connections links copied to clipboard");
+          connections_list.emit_event("connections:copied_list");
         });
       });
       menu.addItem((menu_item) => {
@@ -23608,7 +24875,7 @@ var DEFAULT_DEBOUNCE_MS = 300;
 var REQUIRED_MESSAGE = "Enter a lookup query to continue.";
 var PLACEHOLDER = "Describe the idea, topic, or question you want to explore\u2026";
 var INFO = "Use semantic (embeddings) search to surface relevant notes. Results are sorted by similarity to your query. Note: returns different results than lexical (keyword) search.";
-async function build_html30(view, params = {}) {
+async function build_html31(view, params = {}) {
   return `<div><div class="lookup-item-view sc-connections-view connections-view-early">
     <form class="lookup-query-form" novalidate>
       <label class="lookup-query-label" for="lookup-query-input" title="${INFO}">Smart Lookup</label>
@@ -23626,15 +24893,15 @@ async function build_html30(view, params = {}) {
     </div>
   </div></div>`;
 }
-async function render30(view, params = {}) {
+async function render31(view, params = {}) {
   this.apply_style_sheet(lookup_item_view_default);
-  const html = await build_html30.call(this, view, params);
+  const html = await build_html31.call(this, view, params);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".lookup-item-view");
-  post_process29.call(this, view, container, params);
+  post_process30.call(this, view, container, params);
   return container;
 }
-async function post_process29(view, container, params = {}) {
+async function post_process30(view, container, params = {}) {
   const query_input = container.querySelector(".lookup-query-input");
   const query_form = container.querySelector(".lookup-query-form");
   const list_container = container.querySelector(".lookup-list-container");
@@ -23695,17 +24962,17 @@ function update_query_validity({ input_el, query }) {
 }
 
 // src/components/lookup_list.js
-async function build_html31(lookup_list, opts = {}) {
+async function build_html32(lookup_list, opts = {}) {
   return `<div><div class="lookup-list connections-list sc-list" data-key="${lookup_list.item.key}"></div></div>`;
 }
-async function render31(lookup_list, opts = {}) {
-  const html = await build_html31.call(this, lookup_list, opts);
+async function render32(lookup_list, opts = {}) {
+  const html = await build_html32.call(this, lookup_list, opts);
   const frag = this.create_doc_fragment(html);
   const container = frag.querySelector(".lookup-list");
-  post_process30.call(this, lookup_list, container, opts);
+  post_process31.call(this, lookup_list, container, opts);
   return container;
 }
-async function post_process30(lookup_list, container, opts = {}) {
+async function post_process31(lookup_list, container, opts = {}) {
   container.dataset.key = lookup_list.key;
   const results = await lookup_list.get_results(opts);
   if (!results || !Array.isArray(results) || results.length === 0) {
@@ -23715,7 +24982,10 @@ async function post_process30(lookup_list, container, opts = {}) {
   }
   const smart_components = lookup_list.env.smart_components;
   const result_frags = await Promise.all(results.map((result) => {
-    return smart_components.render_component(`connections_list_item_v3`, result, { ...opts });
+    return smart_components.render_component(`connections_list_item_v3`, result, {
+      event_key_domain: "lookup",
+      ...opts
+    });
   }));
   result_frags.forEach((result_frag) => container.appendChild(result_frag));
   return container;
@@ -23793,13 +25063,13 @@ var smart_env_config3 = {
   },
   modules: {},
   components: {
-    connections_codeblock: { render: render25 },
-    connections_list_item_v3: { render: render26, settings_config: settings_config11 },
-    connections_list_v3: { render: render27, display_name: display_name4 },
-    connections_settings_header: { render: render28 },
-    connections_view_v3: { render: render29 },
-    lookup_item_view: { render: render30 },
-    lookup_list: { render: render31 }
+    connections_codeblock: { render: render26 },
+    connections_list_item_v3: { render: render27, settings_config: settings_config11 },
+    connections_list_v3: { render: render28, display_name: display_name4 },
+    connections_settings_header: { render: render29 },
+    connections_view_v3: { render: render30 },
+    lookup_item_view: { render: render31 },
+    lookup_list: { render: render32 }
   },
   actions: {
     connections_list_pre_process: { action: pre_process2, pre_process: pre_process2 }
@@ -23807,7 +25077,7 @@ var smart_env_config3 = {
 };
 
 // node_modules/obsidian-smart-env/utils/open_note.js
-var import_obsidian44 = require("obsidian");
+var import_obsidian50 = require("obsidian");
 async function open_note(plugin, target_path, event = null, opts = {}) {
   const { new_tab = false } = opts;
   const env = plugin.env;
@@ -23827,8 +25097,8 @@ async function open_note(plugin, target_path, event = null, opts = {}) {
   }
   let leaf;
   if (event) {
-    const is_mod = import_obsidian44.Keymap.isModEvent(event);
-    const is_alt = import_obsidian44.Keymap.isModifier(event, "Alt");
+    const is_mod = import_obsidian50.Keymap.isModEvent(event);
+    const is_alt = import_obsidian50.Keymap.isModifier(event, "Alt");
     if (is_mod && is_alt) {
       leaf = plugin.app.workspace.splitActiveLeaf("vertical");
     } else if (is_mod || new_tab) {
@@ -23847,352 +25117,6 @@ async function open_note(plugin, target_path, event = null, opts = {}) {
     editor.scrollIntoView({ to: pos, from: pos }, true);
   }
 }
-
-// node_modules/smart-notices/smart_notices.js
-var import_obsidian45 = require("obsidian");
-
-// node_modules/smart-notices/notices.js
-var NOTICES2 = {
-  item_excluded: {
-    en: "Cannot show Smart Connections for excluded entity: {{entity_key}}"
-  },
-  load_env: {
-    en: "Mobile detected: to prevent performance issues, click to load Smart Environment when ready.",
-    button: {
-      en: `Load Smart Env`,
-      callback: (env) => {
-        env.load(true);
-      }
-    },
-    timeout: 1e4
-  },
-  /** @deprecated in favor of in-component insctructions (2025-06-22) */
-  missing_entity: {
-    en: "No entity found for key: {{key}}"
-  },
-  notice_muted: {
-    en: "Notice muted"
-  },
-  new_version_available: {
-    en: "A new version is available! (v{{version}})",
-    timeout: 15e3,
-    button: {
-      en: "Release notes",
-      callback: (scope) => {
-        window.open("https://github.com/brianpetro/obsidian-smart-connections/releases", "_blank");
-      }
-    }
-  },
-  new_early_access_version_available: {
-    en: "A new early access version is available! (v{{version}})"
-  },
-  supporter_key_required: {
-    en: "Supporter license key required for early access update"
-  },
-  revert_to_stable_release: {
-    en: 'Click "Check for Updates" in the community plugins tab and complete the update for Smart Connections to finish reverting to the stable release.',
-    timeout: 0
-  },
-  action_installed: {
-    en: 'Installed action "{{name}}"'
-  },
-  action_install_error: {
-    en: 'Error installing action "{{name}}": {{error}}',
-    timeout: 0
-  },
-  embed_model_not_loaded: {
-    en: "Embed model not loaded. Please wait for the model to load and try again."
-  },
-  embed_search_text_failed: {
-    en: "Failed to embed search text."
-  },
-  error_in_embedding_search: {
-    en: "Error in embedding search. See console for details."
-  },
-  copied_to_clipboard: {
-    en: "Message: {{content}} copied successfully."
-  },
-  copy_failed: {
-    en: "Unable to copy message to clipboard."
-  },
-  copied_chatgpt_url_to_clipboard: {
-    en: "ChatGPT URL copied to clipboard."
-  },
-  loading_collection: {
-    en: "Loading {{collection_key}}..."
-  },
-  done_loading_collection: {
-    en: "{{collection_key}} loaded."
-  },
-  saving_collection: {
-    en: "Saving {{collection_key}}..."
-  },
-  initial_scan: {
-    en: "[{{collection_key}}] Starting initial scan...",
-    timeout: 0
-  },
-  done_initial_scan: {
-    en: "[{{collection_key}}] Initial scan complete.",
-    timeout: 3e3
-  },
-  pruning_collection: {
-    en: "Pruning {{collection_key}}..."
-  },
-  done_pruning_collection: {
-    en: "Pruned {{count}} items from {{collection_key}}."
-  },
-  embedding_progress: {
-    en: "Embedding progress: {{progress}} / {{total}}\n{{tokens_per_second}} tokens/sec using {{model_name}}",
-    button: {
-      en: "Pause",
-      callback: (env) => {
-        console.log("pausing");
-        env.smart_sources.entities_vector_adapter.halt_embed_queue_processing();
-      }
-    },
-    timeout: 0
-  },
-  embedding_complete: {
-    en: "Embedding complete. {{total_embeddings}} embeddings created. {{tokens_per_second}} tokens/sec using {{model_name}}",
-    timeout: 0
-  },
-  embedding_paused: {
-    en: "Embedding paused. Progress: {{progress}} / {{total}}\n{{tokens_per_second}} tokens/sec using {{model_name}}",
-    button: {
-      en: "Resume",
-      callback: (env) => {
-        env.smart_sources.entities_vector_adapter.resume_embed_queue_processing(100);
-      }
-    },
-    timeout: 0
-  },
-  embedding_error: {
-    en: "Error embedding: {{error}}",
-    timeout: 0
-  },
-  import_progress: {
-    en: "Importing... {{progress}} / {{total}} sources",
-    timeout: 0
-  },
-  done_import: {
-    en: "Import complete. {{count}} sources imported in {{time_in_seconds}}s",
-    timeout: 0
-  },
-  no_import_queue: {
-    en: "No items in import queue"
-  },
-  clearing_all: {
-    en: "Clearing all data...",
-    timeout: 0
-  },
-  done_clearing_all: {
-    en: "All data cleared and reimported",
-    timeout: 3e3
-  },
-  image_extracting: {
-    en: "Extracting text from Image(s)",
-    timeout: 0
-  },
-  pdf_extracting: {
-    en: "Extracting text from PDF(s)",
-    timeout: 0
-  },
-  insufficient_settings: {
-    en: "Insufficient settings for {{key}}, missing: {{missing}}",
-    timeout: 0
-  },
-  unable_to_init_source: {
-    en: "Unable to initialize source: {{key}}",
-    timeout: 0
-  },
-  reload_sources: {
-    en: "Reloaded sources in {{time_ms}}ms"
-  }
-};
-
-// node_modules/smart-notices/smart_notices.js
-function define_default_create_methods2(notices) {
-  for (const key of Object.keys(notices)) {
-    const notice_obj = notices[key];
-    if (typeof notice_obj.create !== "function") {
-      notice_obj.create = function(opts = {}) {
-        let text = this.en ?? key;
-        for (const [k, v] of Object.entries(opts)) {
-          text = text.replace(new RegExp(`{{${k}}}`, "g"), String(v));
-        }
-        let button;
-        if (!opts.button && this.button) {
-          const btn_label = typeof this.button.en === "string" ? this.button.en : "OK";
-          button = {
-            text: btn_label,
-            callback: typeof this.button.callback === "function" ? this.button.callback : () => {
-            }
-            // no-op
-          };
-        } else {
-          button = opts.button;
-        }
-        let final_timeout = opts.timeout ?? this.timeout ?? 5e3;
-        return {
-          text,
-          button,
-          timeout: final_timeout,
-          confirm: opts.confirm,
-          // pass any user-provided confirm
-          immutable: opts.immutable
-          // pass any user-provided immutable
-        };
-      };
-    }
-  }
-  return notices;
-}
-var SmartNotices2 = class {
-  /**
-   * @param {Object} scope - The main plugin instance
-   */
-  constructor(env, opts = {}) {
-    env?.create_env_getter(this);
-    this.active = {};
-    this.adapter = opts.adapter || this.env.config.modules.smart_notices.adapter;
-    define_default_create_methods2(NOTICES2);
-  }
-  /** plugin settings for notices (muted, etc.) */
-  get settings() {
-    if (!this.env?.settings?.smart_notices) {
-      this.env.settings.smart_notices = {};
-    }
-    if (!this.env?.settings?.smart_notices?.muted) {
-      this.env.settings.smart_notices.muted = {};
-    }
-    return this.env?.settings?.smart_notices;
-  }
-  /**
-   * Displays a notice by key or custom message.
-   * Usage:
-   *   notices.show('load_env', { scope: this });
-   *
-   * @param {string} id - The notice key or custom ID
-   * @param {object} opts - Additional user opts
-   */
-  show(id, opts = {}) {
-    let message = null;
-    if (typeof opts === "string") {
-      message = opts;
-    } else {
-      opts = opts || {};
-    }
-    const normalized_id = this._normalize_notice_key(id);
-    if (this.settings?.muted?.[normalized_id]) {
-      if (opts.confirm?.callback) {
-        opts.confirm.callback();
-      }
-      return;
-    }
-    const notice_entry = NOTICES2[id];
-    let derived = {
-      text: message || id,
-      timeout: opts.timeout ?? 5e3,
-      button: opts.button,
-      immutable: opts.immutable,
-      confirm: opts.confirm
-    };
-    if (notice_entry?.create) {
-      const result = notice_entry.create({ ...opts });
-      derived.text = message || result.text;
-      derived.timeout = result.timeout;
-      derived.button = result.button;
-      derived.immutable = result.immutable;
-      derived.confirm = result.confirm;
-    }
-    const content_fragment = this._build_fragment(normalized_id, derived.text, derived);
-    if (this.active[normalized_id]?.noticeEl?.isConnected) {
-      return this.active[normalized_id].setMessage(content_fragment, derived.timeout);
-    }
-    return this._render_notice(normalized_id, content_fragment, derived);
-  }
-  /**
-   * Normalizes the notice key to a safe string.
-   */
-  _normalize_notice_key(key) {
-    return key.replace(/[^a-zA-Z0-9_-]/g, "_");
-  }
-  /**
-   * Creates and tracks the notice instance
-   */
-  _render_notice(normalized_id, content_fragment, { timeout }) {
-    this.active[normalized_id] = new this.adapter(content_fragment, timeout);
-    return this.active[normalized_id];
-  }
-  /**
-   * Builds a DocumentFragment with notice text & possible buttons
-   */
-  _build_fragment(id, text, { button, confirm: confirm2, immutable }) {
-    const frag = document.createDocumentFragment();
-    frag.createEl("p", {
-      cls: "sc-notice-head",
-      text: `[Smart Env v${this.env.constructor.version}]`
-    });
-    const content = frag.createEl("p", { cls: "sc-notice-content", text });
-    const actions = frag.createEl("div", { cls: "sc-notice-actions" });
-    if (confirm2?.text && typeof confirm2.callback === "function") {
-      this._add_button(confirm2, actions);
-    }
-    if (button?.text && typeof button.callback === "function") {
-      this._add_button(button, actions);
-    }
-    if (!immutable) {
-      this._add_mute_button(id, actions);
-    }
-    return frag;
-  }
-  /**
-   * Creates a <button> appended to the container
-   */
-  _add_button(btnConfig, container) {
-    const btn = document.createElement("button");
-    this.env.smart_view.safe_inner_html(btn, btnConfig.text);
-    btn.addEventListener("click", (e) => {
-      if (btnConfig.stay_open) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      btnConfig.callback?.(this.env);
-    });
-    container.appendChild(btn);
-  }
-  /**
-   * Mute button
-   */
-  _add_mute_button(id, container) {
-    const btn = document.createElement("button");
-    (0, import_obsidian45.setIcon)(btn, "bell-off");
-    btn.addEventListener("click", () => {
-      if (!this.settings.muted) this.settings.muted = {};
-      this.settings.muted[id] = true;
-      if (NOTICES2["notice muted"]) {
-        this.show("notice muted", null, { timeout: 2e3 });
-      }
-    });
-    container.appendChild(btn);
-  }
-  /**
-   * Hides & clears all active notices
-   */
-  unload() {
-    for (const id in this.active) {
-      this.remove(id);
-    }
-  }
-  /**
-   * Removes an active notice by key
-   */
-  remove(id) {
-    const normalized_id = this._normalize_notice_key(id);
-    this.active[normalized_id]?.hide();
-    delete this.active[normalized_id];
-  }
-};
 
 // src/views/settings_tab.js
 var ScEarlySettingsTab = class extends SmartPluginSettingsTab {
@@ -24214,18 +25138,84 @@ var ScEarlySettingsTab = class extends SmartPluginSettingsTab {
     container.empty?.();
     container.innerHTML = '<div class="sc-loading">Loading main settings...</div>';
     container.empty?.();
-    const smart_view = this.env?.smart_view;
     const cl_container = container.createDiv({
       cls: "sc-settings-tab__section",
       attr: { "data-section-key": "connections_lists" }
     });
     cl_container.createEl("h1", { text: "Connections" });
     const connections_lists_settings_config = this.env.config.collections.connections_lists.settings_config;
-    const settings_group = render_settings_config(
+    render_settings_config(
       connections_lists_settings_config,
       this.env.connections_lists,
       cl_container,
-      { default_group_name: "Connections lists" }
+      {
+        default_group_name: "Connections lists",
+        group_params: {
+          "Connections lists": {
+            heading_btn: [
+              {
+                label: "Learn about Connections Lists",
+                btn_text: "Learn more",
+                callback: () => window.open("https://smartconnections.app/smart-connections/list-feature/?utm_source=connections-settings-tab", "_external")
+              },
+              {
+                label: "Settings documentation for Connections Lists",
+                btn_icon: "help-circle",
+                callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#connections-lists", "_external")
+              }
+            ]
+          },
+          "Display": {
+            heading_btn: {
+              label: "Settings documentation for Display",
+              btn_icon: "help-circle",
+              callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#display", "_external")
+            }
+          },
+          "Score algorithm": {
+            heading_btn: {
+              label: "Settings documentation for Score Algorithms",
+              btn_icon: "help-circle",
+              callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#score-algorithm", "_external")
+            }
+          },
+          "Ranking algorithm": {
+            heading_btn: {
+              label: "Settings documentation for Ranking Algorithms",
+              btn_icon: "help-circle",
+              callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#ranking-algorithm", "_external")
+            }
+          },
+          "Filters": {
+            heading_btn: {
+              label: "Settings documentation for Filters",
+              btn_icon: "help-circle",
+              callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#filters", "_external")
+            }
+          },
+          "Inline connections": {
+            heading_btn: [
+              {
+                label: "Learn about the inline connections feature",
+                btn_text: "Learn more",
+                callback: () => window.open("https://smartconnections.app/smart-connections/inline/?utm_source=connections-settings-tab", "_external")
+              },
+              {
+                label: "Settings documentation for inline connections",
+                btn_icon: "help-circle",
+                callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#inline-connections", "_external")
+              }
+            ]
+          },
+          "Footer connections": {
+            heading_btn: {
+              label: "Settings documentation for Footer Connections",
+              btn_icon: "help-circle",
+              callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#footer-connections", "_external")
+            }
+          }
+        }
+      }
     );
     const ll_container = container.createDiv({
       cls: "sc-settings-tab__section",
@@ -24236,7 +25226,25 @@ var ScEarlySettingsTab = class extends SmartPluginSettingsTab {
       lookup_lists_settings_config,
       this.env.lookup_lists,
       ll_container,
-      { default_group_name: "Lookup lists" }
+      {
+        default_group_name: "Lookup lists",
+        group_params: {
+          "Lookup lists": {
+            heading_btn: [
+              {
+                label: "Learn about Lookup Lists",
+                btn_text: "Learn more",
+                callback: () => window.open("https://smartconnections.app/smart-connections/lookup/?utm_source=connections-settings-tab", "_external")
+              },
+              {
+                label: "Settings documentation for Lookup Lists",
+                btn_icon: "help-circle",
+                callback: () => window.open("https://smartconnections.app/smart-connections/settings/?utm_source=connections-settings-tab#lookup-lists", "_external")
+              }
+            ]
+          }
+        }
+      }
     );
     this.register_env_events();
   }
@@ -24251,11 +25259,11 @@ var ScEarlySettingsTab = class extends SmartPluginSettingsTab {
 };
 
 // src/views/release_notes_view.js
-var import_obsidian47 = require("obsidian");
+var import_obsidian52 = require("obsidian");
 
 // node_modules/obsidian-smart-env/views/smart_item_view.js
-var import_obsidian46 = require("obsidian");
-var SmartItemView = class extends import_obsidian46.ItemView {
+var import_obsidian51 = require("obsidian");
+var SmartItemView = class extends import_obsidian51.ItemView {
   /**
    * Creates an instance of SmartItemView.
    * @param {any} leaf
@@ -24412,7 +25420,7 @@ var SmartItemView = class extends import_obsidian46.ItemView {
     this.register_plugin_events();
     this.app.workspace.registerHoverLinkSource(this.constructor.view_type, { display: this.getDisplayText(), defaultMod: true });
     this.render_view();
-    if (import_obsidian46.Platform.isMobile) {
+    if (import_obsidian51.Platform.isMobile) {
       const status_bar_container = this.containerEl.querySelector(".status-bar-mobile") ?? this.containerEl.createDiv({ cls: "status-bar-mobile" });
       ;
       status_bar_container.empty();
@@ -24438,7 +25446,7 @@ var SmartItemView = class extends import_obsidian46.ItemView {
 };
 
 // releases/latest_release.md
-var latest_release_default = '> [!NOTE] Patch v4.1.4\n> - Added fallback for opening Pro login in case the button doesn\'t automatically open the browser as expected\n\n> [!NOTE]- Previous patches\n> > [!NOTE]- v4.1.3\n> > - Added link to documentation in settings for easier access\n> > - Fixed highlight "Reset data" after embedding model change\n> \n> > [!NOTE]- v4.1.2\n> > - Improved model configuration UX\n> >   - Added "Delete" functionality to better manage models\n> > - Enhanced UI for settings and improved styling\n> > - Pro: Updated score algorithm settings to clarify descriptions\n> \n> > [!NOTE]- v4.1.1\n> > - Connections codeblock view should render as expected without errors\n> \n> \n# Smart Connections `v4`\r\n\r\n## What\'s new in v4\r\n\r\nSmart Connections v4 focuses the core plugin on a simple promise: install, enable, and AI-powered connections just work. Advanced configuration and power-user workflows now live in Pro plugins. Read [Introducing Pro Plugins](https://smartconnections.app/introducing-pro-plugins/?utm_source=connections-release-notes) to learn more.\r\n\r\n### Pause connections\r\n\r\nUse the new Connections "pause" button to freeze the connections results. This allows you to move through your vault while keeping the connections to a specific note visible while you work.\r\n\r\n### Copy connections as list of links\r\n\r\nRight-click the connections results to *copy all links* to clipboard.\r\n\r\n### Copy all connections content (Context Engineering)\r\n\r\nClick the connections view menu button and "Send to Smart Context" (briefcase icon) option. This allows you to quickly copy *all content from the connections* to clipboard for use as context with any AI chat! The Smart Context view also lets you add or remove items before copying all to the clipboard in one-click!\r\n\r\n### Pinned connections\r\n\r\nIn addition to "hiding" connections, you can now "Pin" connections. This ensures the pinned connections are always visible in the connections view. **Connections Pro:** *Hidden and pinned connections are used by new connections algorithms (available in Pro) to improve results!*\r\n\r\n### Events and notifications\r\n\r\nImportant events are now surfaced in a dedicated notifications modal:\r\n\r\n- On desktop, click the Smart Env item in the status bar to open the notifications modal.  \r\n- On mobile, a Smart Environment notice appears at the bottom of the Connections view; tap it to review events.\r\n\r\nExamples of events you might see:\r\n\r\n- Initial indexing complete for your vault  \r\n- Sources reimported after model changes  \r\n- Warnings when exclusions block indexing on specific folders or files  \r\n\r\nObjectives of the new Events system:\r\n\r\n- make the environment inspectable and understandable\r\n- reduce the number of Obsidian native notifications\r\n\r\n### Connections Pro\r\n\r\nConnections Pro builds on the core plugin and Smart Environment to give power users more control.\r\n\r\n![](https://smartconnections.app/assets/connections-view-pro-notes.gif)\r\n\r\nExamples of Pro features:\r\n\r\n- **Inline connections**  \r\n  Small badges in the editor that show how many strong matches a block has, with a pop-over of related blocks and notes.  \r\n- **Footer connections**  \r\n  A persistent panel that updates as you type so high value connections stay visible while you write.  \r\n- **Configurable scoring and ranking**  \r\n  Choose different algorithms for how results are scored and optionally add a rerank stage.  \r\n- **Connections in Bases**  \r\n  Use `score_connection` and `list_connections` in Obsidian Bases to show similarity columns and related note lists in tables.  \r\n- **Advanced filters and models**  \r\n  Extra Smart Environment controls for embeddings, collections, and include or exclude rules.  \r\n- **Early release experiments**  \r\n  New ideas launch in Early channels first so supporters can shape how they evolve.\r\n\r\nConnections Pro is part of the [Pro plugins](https://smartconnections.app/pro-plugins/?utm_source=connections-release-notes) family and is available to active project supporters. It is still built on the same open Smart Environment. Supporting Pro helps fund development of all Smart Plugins and the free core.\n';
+var latest_release_default = '> [!NOTE] Patch v4.1.7\n> - Added: Links to docs from [milestones](https://smartconnections.app/smart-environment/milestones/?utm_source=release-notes)\n> - Added: Include active source item in context created from the connections view\n> - Fixed: replaced model source for multilingual E5 Small embedding model to ensure quantized variations available\n\n> [!NOTE]- Previous patches\n> > [!NOTE]- v4.1.6\n> > - Added: milestones feature with modal and checklist components\n> > - Added: connections view menu option to copy results as links \n> > - Added: multilingual-e5-small embedding model support\n> > - Improved: settings tab with added "learn more" and "help" buttons to settings groups\n> > - Fixed: markdown parser should handle frontmatter correctly (prevent false-positive frontmatter detection)\n> \n> > [!NOTE]- v4.1.4\n> > - Added fallback for opening Pro login in case the button doesn\'t automatically open the browser as expected\n> \n> > [!NOTE]- v4.1.3\n> > - Added link to documentation in settings for easier access\n> > - Fixed highlight "Reset data" after embedding model change\n> \n> > [!NOTE]- v4.1.2\n> > - Improved model configuration UX\n> >   - Added "Delete" functionality to better manage models\n> > - Enhanced UI for settings and improved styling\n> > - Pro: Updated score algorithm settings to clarify descriptions\n> \n> > [!NOTE]- v4.1.1\n> > - Connections codeblock view should render as expected without errors\n> \n> \n# Smart Connections `v4`\r\n\r\n## What\'s new in v4\r\n\r\nSmart Connections v4 focuses the core plugin on a simple promise: install, enable, and AI-powered connections just work. Advanced configuration and power-user workflows now live in Pro plugins. Read [Introducing Pro Plugins](https://smartconnections.app/introducing-pro-plugins/?utm_source=connections-release-notes) to learn more.\r\n\r\n### Pause connections\r\n\r\nUse the new Connections "pause" button to freeze the connections results. This allows you to move through your vault while keeping the connections to a specific note visible while you work.\r\n\r\n### Copy connections as list of links\r\n\r\nRight-click the connections results to *copy all links* to clipboard.\r\n\r\n### Copy all connections content (Context Engineering)\r\n\r\nClick the connections view menu button and "Send to Smart Context" (briefcase icon) option. This allows you to quickly copy *all content from the connections* to clipboard for use as context with any AI chat! The Smart Context view also lets you add or remove items before copying all to the clipboard in one-click!\r\n\r\n### Pinned connections\r\n\r\nIn addition to "hiding" connections, you can now "Pin" connections. This ensures the pinned connections are always visible in the connections view. **Connections Pro:** *Hidden and pinned connections are used by new connections algorithms (available in Pro) to improve results!*\r\n\r\n### Events and notifications\r\n\r\nImportant events are now surfaced in a dedicated notifications modal:\r\n\r\n- On desktop, click the Smart Env item in the status bar to open the notifications modal.  \r\n- On mobile, a Smart Environment notice appears at the bottom of the Connections view; tap it to review events.\r\n\r\nExamples of events you might see:\r\n\r\n- Initial indexing complete for your vault  \r\n- Sources reimported after model changes  \r\n- Warnings when exclusions block indexing on specific folders or files  \r\n\r\nObjectives of the new Events system:\r\n\r\n- make the environment inspectable and understandable\r\n- reduce the number of Obsidian native notifications\r\n\r\n### Connections Pro\r\n\r\nConnections Pro builds on the core plugin and Smart Environment to give power users more control.\r\n\r\n![](https://smartconnections.app/assets/connections-view-pro-notes.gif)\r\n\r\nExamples of Pro features:\r\n\r\n- **Inline connections**  \r\n  Small badges in the editor that show how many strong matches a block has, with a pop-over of related blocks and notes.  \r\n- **Footer connections**  \r\n  A persistent panel that updates as you type so high value connections stay visible while you write.  \r\n- **Configurable scoring and ranking**  \r\n  Choose different algorithms for how results are scored and optionally add a rerank stage.  \r\n- **Connections in Bases**  \r\n  Use `score_connection` and `list_connections` in Obsidian Bases to show similarity columns and related note lists in tables.  \r\n- **Advanced filters and models**  \r\n  Extra Smart Environment controls for embeddings, collections, and include or exclude rules.  \r\n- **Early release experiments**  \r\n  New ideas launch in Early channels first so supporters can shape how they evolve.\r\n\r\nConnections Pro is part of the [Pro plugins](https://smartconnections.app/pro-plugins/?utm_source=connections-release-notes) family and is available to active project supporters. It is still built on the same open Smart Environment. Supporting Pro helps fund development of all Smart Plugins and the free core.\n';
 
 // src/views/release_notes_view.js
 var ReleaseNotesView = class _ReleaseNotesView extends SmartItemView {
@@ -24487,7 +25495,7 @@ var ReleaseNotesView = class _ReleaseNotesView extends SmartItemView {
       await new Promise((resolve) => setTimeout(resolve, 100));
       console.warn("Waiting for containerEl to be ready...", this.container);
     }
-    await import_obsidian47.MarkdownRenderer.render(
+    await import_obsidian52.MarkdownRenderer.render(
       this.app,
       latest_release_default,
       this.container,
@@ -24542,9 +25550,9 @@ function pick_weighted_connection(connections, { rng }) {
 }
 
 // src/utils/add_icons.js
-var import_obsidian48 = require("obsidian");
+var import_obsidian53 = require("obsidian");
 function add_smart_dice_icon() {
-  (0, import_obsidian48.addIcon)("smart-dice", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  (0, import_obsidian53.addIcon)("smart-dice", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="1" y="1" width="22" height="22" rx="2" fill="none"/>
 
   <g transform="translate(12 10) scale(0.18) translate(-50 -50)">
@@ -24604,6 +25612,7 @@ var ConnectionsItemView = class extends SmartItemView {
     container.empty();
     container.appendChild(frag);
     this.register_env_listeners();
+    this.env.events.emit("connections:opened");
   }
   async open_settings() {
     await this.app.setting.open();
@@ -24803,11 +25812,11 @@ ${json}
 
 // src/main.js
 var {
-  Notice: Notice10,
+  Notice: Notice13,
   Plugin: Plugin2,
   requestUrl: requestUrl7,
   Platform: Platform10
-} = import_obsidian49.default;
+} = import_obsidian54.default;
 var SmartConnectionsPlugin = class extends SmartPlugin {
   SmartEnv = SmartEnv2;
   get smart_env_config() {
@@ -24826,7 +25835,7 @@ var SmartConnectionsPlugin = class extends SmartPlugin {
   }
   // GETTERS
   get obsidian() {
-    return import_obsidian49.default;
+    return import_obsidian54.default;
   }
   get api() {
     return this._api;
@@ -24975,15 +25984,16 @@ var SmartConnectionsPlugin = class extends SmartPlugin {
   async open_random_connection() {
     const curr_file = this.app.workspace.getActiveFile();
     if (!curr_file) {
-      new Notice10("No active file to find connections for");
+      new Notice13("No active file to find connections for");
       return;
     }
     const rand_entity = await get_random_connection(this.env, curr_file.path);
     if (!rand_entity) {
-      new Notice10("Cannot open random connection for non-embedded source: " + curr_file.path);
+      new Notice13("Cannot open random connection for non-embedded source: " + curr_file.path);
       return;
     }
     this.open_note(rand_entity.item.path);
+    this.env?.events?.emit?.("connections:open_random");
   }
   async open_note(target_path, event = null) {
     await open_note(this, target_path, event);
@@ -25000,14 +26010,6 @@ var SmartConnectionsPlugin = class extends SmartPlugin {
 ${message ? "# " + message + "\n" : ""}${ignore}`);
       console.log("Added to .gitignore: " + ignore);
     }
-  }
-  /**
-   * @deprecated use SmartEnv.notices instead
-   */
-  get notices() {
-    if (this.env?.notices) return this.env.notices;
-    if (!this._notices) this._notices = new SmartNotices2(this.env, Notice10);
-    return this._notices;
   }
 };
 

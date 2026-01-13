@@ -197,28 +197,15 @@
             }
           },
           {
-            "id": "973af1eb83aedd76",
-            "type": "leaf",
-            "state": {
-              "type": "zotero-annotation-view",
-              "state": {
-                "file": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
-                "itemId": -1,
-                "attachmentId": -1,
-                "follow": "zt-reader"
-              },
-              "icon": "lucide-ghost",
-              "title": "zotero-annotation-view"
-            }
-          },
-          {
             "id": "a255dd377eb59770",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "alphabetical",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
@@ -286,7 +273,7 @@
                   "repelStrength": 10,
                   "linkStrength": 1,
                   "linkDistance": 250,
-                  "scale": 1.2754245006257954,
+                  "scale": 0.6488873738523637,
                   "close": true
                 }
               },
@@ -320,35 +307,15 @@
             }
           },
           {
-            "id": "ebba1ff22ae02083",
-            "type": "leaf",
-            "state": {
-              "type": "smart-connections-view",
-              "state": {},
-              "icon": "smart-connections",
-              "title": "Connections"
-            }
-          },
-          {
-            "id": "6e09be781c0b02bf",
-            "type": "leaf",
-            "state": {
-              "type": "smart-lookup-view",
-              "state": {},
-              "icon": "smart-lookup",
-              "title": "Lookup"
-            }
-          },
-          {
             "id": "3e031334a2d55d62",
             "type": "leaf",
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "Test mit Pandoc Reference List Plugin.md"
+                "file": "README.md"
               },
               "icon": "lucide-info",
-              "title": "File properties for Test mit Pandoc Reference List Plugin"
+              "title": "Dateieigenschaften von README"
             }
           },
           {
@@ -360,9 +327,29 @@
               "icon": "lucide-file",
               "title": "File Info View"
             }
+          },
+          {
+            "id": "c2754e65820cc799",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {},
+              "icon": "smart-connections",
+              "title": "Connections"
+            }
+          },
+          {
+            "id": "0ee6a90f230ef939",
+            "type": "leaf",
+            "state": {
+              "type": "smart-lookup-view",
+              "state": {},
+              "icon": "smart-lookup",
+              "title": "Lookup"
+            }
           }
         ],
-        "currentTab": 8
+        "currentTab": 4
       },
       {
         "id": "463bd6bee6ee2334",
@@ -387,6 +374,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian42-brat:BRAT": false,
       "bases:Neue Base erstellen": false,
       "graph:Graph-Ansicht öffnen": false,
       "switcher:Schnellauswahl öffnen": false,
@@ -406,11 +394,11 @@
   },
   "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "README.md",
     "Notizensammlung/Themen/Wissensmanagement.md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
-    "README.md",
     "04 Literatur-Notes/Omnivore/Obsidian Linter.md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
     "01 Datenbanken/Task Panel.md",

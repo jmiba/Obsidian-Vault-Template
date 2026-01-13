@@ -259,7 +259,7 @@ function updatePropertiesPane(propertiesEl, file, app, plugin) {
     var _a;
     const frontmatter = (_a = app.metadataCache.getCache(file.path)) === null || _a === void 0 ? void 0 : _a.frontmatter;
     if (!!frontmatter) {
-        const nodes = propertiesEl.querySelectorAll("div.internal-link > .multi-select-pill-content");
+        const nodes = propertiesEl.querySelectorAll("div.multi-select-pill-content");
         for (let i = 0; i < nodes.length; ++i) {
             const el = nodes[i];
             const linkText = el.textContent;
@@ -1336,11 +1336,12 @@ class SuperchargedLinks extends obsidian.Plugin {
         // @ts-ignore
         if (((_k = (_j = (_h = (_g = plugin.app) === null || _g === void 0 ? void 0 : _g.internalPlugins) === null || _h === void 0 ? void 0 : _h.plugins) === null || _j === void 0 ? void 0 : _j.bases) === null || _k === void 0 ? void 0 : _k.enabled) && plugin.settings.enableBases) {
             // console.log('Supercharged links: Enabling bases support');
-            plugin.registerViewType('bases', plugin, 'a.internal-link');
-            plugin.registerViewType('bases', plugin, '.internal-link > .multi-select-pill-content');
+            plugin.registerViewType('bases', plugin, 'span.internal-link');
+            plugin.registerViewType('bases', plugin, '.multi-select-pill-content');
             // For embedded bases
-            plugin.registerViewType('markdown', plugin, 'div.bases-table-cell a.internal-link');
-            plugin.registerViewType('markdown', plugin, 'div.bases-table-cell .internal-link > .multi-select-pill-content');
+            plugin.registerViewType('markdown', plugin, 'div.bases-table-cell > span.internal-link');
+            plugin.registerViewType('markdown', plugin, 'div.bases-table-cell div.multi-select-pill-content');
+            plugin.registerViewType('markdown', plugin, 'div.bases-cards-line');
         }
         if ((_o = (_m = (_l = plugin.app) === null || _l === void 0 ? void 0 : _l.plugins) === null || _m === void 0 ? void 0 : _m.plugins) === null || _o === void 0 ? void 0 : _o['similar-notes']) {
             plugin.registerViewType('markdown', plugin, '.similar-notes-pane .tree-item-inner', true);

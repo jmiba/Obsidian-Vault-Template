@@ -54,11 +54,13 @@
   },
   "context_items": {
     "template_before": "<item loc=\"{{KEY}}\" at=\"{{TIME_AGO}}\">",
-    "template_after": "</item>"
+    "template_after": "</item>",
+    "template_preset": "xml_structured"
   },
   "smart_contexts": {
     "template_before": "<context>\n{{FILE_TREE}}",
-    "template_after": "</context>"
+    "template_after": "</context>",
+    "template_preset": "xml_structured"
   },
   "lookup_lists": {
     "results_collection_key": "smart_sources",
