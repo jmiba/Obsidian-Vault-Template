@@ -227,9 +227,18 @@ var LmStudioEmbeddingAdapter = class {
     const valid = Number.isFinite(candidate) && candidate > 0 ? candidate : fallback;
     try {
       if (this?.model?.data) {
-        if (!Number.isFinite(this.model.data.batch_size) || this.model.data.batch_size <= 0) this.model.data.batch_size = valid;
-        if (!Number.isFinite(this.model.data.max_batch_size) || this.model.data.max_batch_size <= 0) this.model.data.max_batch_size = valid;
-        this.model.debounce_save?.();
+        let changed = false;
+        if (!Number.isFinite(this.model.data.batch_size) || this.model.data.batch_size <= 0) {
+          this.model.data.batch_size = valid;
+          changed = true;
+        }
+        if (!Number.isFinite(this.model.data.max_batch_size) || this.model.data.max_batch_size <= 0) {
+          this.model.data.max_batch_size = valid;
+          changed = true;
+        }
+        if (changed) {
+          this.model.debounce_save?.();
+        }
       }
     } catch {
     }
@@ -293,10 +302,12 @@ var LmStudioEmbeddingAdapter = class {
         for (const one of group) recovered.push(await embedOne(modelKey, one));
         vectors.push(...recovered);
       }
-      const inferredDims = vectors[0]?.length;
-      if (Number.isFinite(inferredDims) && this?.model?.data && !Number.isFinite(this.model.data.dims)) {
-        this.model.data.dims = inferredDims;
-        this.model.debounce_save?.();
+      if (vectors.length > 0 && this?.model?.data && !Number.isFinite(this.model.data.dims)) {
+        const inferredDims = vectors[0]?.length;
+        if (Number.isFinite(inferredDims) && inferredDims > 0) {
+          this.model.data.dims = inferredDims;
+          this.model.debounce_save?.();
+        }
       }
     }
     const padded = this.padToLength(vectors, normalized.length);
@@ -421,12 +432,6 @@ function registerLmStudioProvider(sc, env, settings2) {
   } catch {
   }
   registerAdapterClass(env);
-  try {
-    env?.embedding_models?.emit_event?.("providers-updated");
-    env?.embedding_models?.emit?.("providers-updated");
-    sc?.events?.emit?.("providers-updated");
-  } catch {
-  }
 }
 function registerAdapterClass(env) {
   const registries = [
@@ -503,7 +508,6 @@ var SmartConnectionsLmStudioEmbeddings = class extends import_obsidian.Plugin {
       const providers = findProvidersRegistry(env);
       if (!providers) return false;
       registerLmStudioProvider(sc, env, this.settings);
-      registerAdapterClass(env);
       console.log("[LM Studio Embeddings] Early registration successful");
       this.bootstrapped = true;
       if (this.registrationInterval) {

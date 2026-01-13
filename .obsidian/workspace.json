@@ -387,8 +387,8 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Neue Base erstellen": false,
       "graph:Graph-Ansicht öffnen": false,
-      "bases:Create new base": false,
       "switcher:Schnellauswahl öffnen": false,
       "canvas:Neuen Canvas erstellen": false,
       "daily-notes:Heutige Notiz öffnen": false,
