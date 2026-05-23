@@ -38,18 +38,18 @@
             }
           },
           {
-            "id": "116760bb9e60cfed",
+            "id": "f3631ec696c5abe0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notizensammlung/Themen/Wissensmanagement.md",
+                "file": "Notizensammlung/Webseiten nach Obsidian speichern.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Wissensmanagement"
+              "title": "Webseiten nach Obsidian speichern"
             }
           }
         ]
@@ -167,12 +167,11 @@
               "title": "Lesezeichen"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 339.5
+    "width": 278.5
   },
   "right": {
     "id": "2aaee8f84269a5a5",
@@ -361,7 +360,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 399.5
+    "width": 318.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -386,22 +385,17 @@
   },
   "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
-    "Notizensammlung/Themen/Wissensmanagement.md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "Notizensammlung/Webseiten nach Obsidian speichern.md",
     "README.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "Notizensammlung/Themen/Wissensmanagement.md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
-    "04 Literatur-Notes/Omnivore/Obsidian Linter.md",
-    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
-    "01 Datenbanken/Task Panel.md",
-    "01 Datenbanken/Attachments.base",
-    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
-    "Wissensmanagement/Things Theme.md",
-    "Wissensmanagement/Second Brain mit KI.md",
-    "Wissensmanagement/Schreibtechniken.md",
-    "01 Datenbanken/Change Log.md",
+    "Notizensammlung/Obsidian-Plugin zur Anbindung von Zotero konfigurieren.md",
+    "02 Dateien/Pasted image 20260523164917.png",
+    "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md",
+    "02 Dateien/Medien/Pasted image 20260523163136.png",
     "02 Dateien/Vorlagen/Wochenseite.md",
-    "02 Dateien/Vorlagen/prompts/dalle-2/art3D.md",
     "02 Dateien/Vorlagen/Wissenschaftlicher Artikel.md",
     "02 Dateien/Vorlagen/Use Template.md",
     "02 Dateien/Vorlagen/Topic.md",
@@ -410,9 +404,16 @@
     "02 Dateien/Vorlagen/Notizenvorlage.md",
     "02 Dateien/Vorlagen/Kindvorlage.md",
     "02 Dateien/Vorlagen/General Note.md",
-    "01 Datenbanken/topics.md",
-    "01 Datenbanken/Themen.md",
-    "01 Datenbanken/Aufgabenerfüllung.md",
+    "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
+    "02 Dateien/Medien/Pasted image 20260523163412.png",
+    "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
+    "01 Datenbanken/Task Panel.md",
+    "01 Datenbanken/Change Log.md",
+    "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
+    "04 Literatur-Notes/Omnivore/Obsidian Linter.md",
+    "01 Datenbanken/Attachments.base",
+    "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md",
+    "Wissensmanagement/Things Theme.md",
     "02 Dateien/Medien/Z99VS7EC.png",
     "02 Dateien/Medien/VWNP3I52.png",
     "02 Dateien/Medien/VR8I52KL.png",
@@ -420,9 +421,6 @@
     "02 Dateien/Medien/Pasted image 20250612092914.png",
     "02 Dateien/Medien/Pasted image 20241112161125.png",
     "02 Dateien/Medien/Pasted image 20240426090424.png",
-    "02 Dateien/Medien/Pasted image 20240426085616.png",
-    "02 Dateien/Medien/Pasted image 20240426085430.png",
-    "02 Dateien/Medien/Pasted image 20240426085007.png",
     "Dashboard.canvas",
     "04 Literatur-Notes/Web Clippings",
     "02 Dateien/Javascript/topics.json",

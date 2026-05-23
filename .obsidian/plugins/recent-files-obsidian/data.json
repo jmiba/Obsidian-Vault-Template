@@ -5,52 +5,36 @@
       "path": "README.md"
     },
     {
-      "basename": "Wissensmanagement",
-      "path": "Notizensammlung/Themen/Wissensmanagement.md"
+      "basename": "Webseiten nach Obsidian speichern",
+      "path": "Notizensammlung/Webseiten nach Obsidian speichern.md"
     },
     {
       "basename": "2024-02-28, Mi (W09)",
       "path": "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md"
     },
     {
-      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
-      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
+      "basename": "Wissensmanagement",
+      "path": "Notizensammlung/Themen/Wissensmanagement.md"
     },
     {
-      "basename": "2024-02-19, Mo (W08)",
-      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
+      "basename": "Darum schlägt der Stift noch immer die Notiz-App",
+      "path": "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md"
     },
     {
       "basename": "Tiago Forte - Second Brain",
       "path": "Wissensmanagement/Tiago Forte - Second Brain.md"
     },
     {
-      "basename": "Task Panel",
-      "path": "01 Datenbanken/Task Panel.md"
+      "basename": "Obsidian-Plugin zur Anbindung von Zotero konfigurieren",
+      "path": "Notizensammlung/Obsidian-Plugin zur Anbindung von Zotero konfigurieren.md"
     },
     {
-      "basename": "Attachments",
-      "path": "01 Datenbanken/Attachments.base"
+      "basename": "Obsidian-Plugin Smart Connections einrichten",
+      "path": "Notizensammlung/Obsidian-Plugin Smart Connections einrichten.md"
     },
     {
-      "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
-      "path": "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md"
-    },
-    {
-      "basename": "Things Theme",
-      "path": "Wissensmanagement/Things Theme.md"
-    },
-    {
-      "basename": "Second Brain mit KI",
-      "path": "Wissensmanagement/Second Brain mit KI.md"
-    },
-    {
-      "basename": "Schreibtechniken",
-      "path": "Wissensmanagement/Schreibtechniken.md"
-    },
-    {
-      "basename": "Change Log",
-      "path": "01 Datenbanken/Change Log.md"
+      "basename": "Pasted image 20260523163136",
+      "path": "02 Dateien/Medien/Pasted image 20260523163136.png"
     },
     {
       "basename": "Wochenseite",
@@ -89,6 +73,38 @@
       "path": "02 Dateien/Vorlagen/General Note.md"
     },
     {
+      "basename": "Task Panel",
+      "path": "01 Datenbanken/Task Panel.md"
+    },
+    {
+      "basename": "Change Log",
+      "path": "01 Datenbanken/Change Log.md"
+    },
+    {
+      "basename": "2024-02-19, Mo (W08)",
+      "path": "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md"
+    },
+    {
+      "basename": "Attachments",
+      "path": "01 Datenbanken/Attachments.base"
+    },
+    {
+      "basename": "Leitlininien zum Umgang mit KI in Forschung und Lehre",
+      "path": "Notizensammlung/Leitlininien zum Umgang mit KI in Forschung und Lehre.md"
+    },
+    {
+      "basename": "Things Theme",
+      "path": "Wissensmanagement/Things Theme.md"
+    },
+    {
+      "basename": "Second Brain mit KI",
+      "path": "Wissensmanagement/Second Brain mit KI.md"
+    },
+    {
+      "basename": "Schreibtechniken",
+      "path": "Wissensmanagement/Schreibtechniken.md"
+    },
+    {
       "basename": "topics",
       "path": "01 Datenbanken/topics.md"
     },
@@ -107,10 +123,6 @@
     {
       "basename": "Broken Links",
       "path": "01 Datenbanken/Broken Links.md"
-    },
-    {
-      "basename": "Obsidian-Plugin Pocket einrichten",
-      "path": "Notizensammlung/Obsidian-Plugin Pocket einrichten.md"
     },
     {
       "basename": "Test mit Pandoc Reference List Plugin",
@@ -135,10 +147,6 @@
     {
       "basename": "Pasted image 20250612092914",
       "path": "02 Dateien/Medien/Pasted image 20250612092914.png"
-    },
-    {
-      "basename": "Pasted image 20241112161125",
-      "path": "02 Dateien/Medien/Pasted image 20241112161125.png"
     },
     {
       "basename": "Pasted image 20240426090424",
@@ -191,14 +199,6 @@
     {
       "basename": "IAHYIC4E",
       "path": "02 Dateien/Medien/IAHYIC4E.png"
-    },
-    {
-      "basename": "HJI78LQI",
-      "path": "02 Dateien/Medien/HJI78LQI.png"
-    },
-    {
-      "basename": "DIF793R8",
-      "path": "02 Dateien/Medien/DIF793R8.png"
     }
   ],
   "omittedPaths": [],

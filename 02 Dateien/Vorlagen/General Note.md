@@ -1,18 +1,15 @@
 ---
-topics: 
-tags: 
-aliases: 
+topics:
+tags:
+aliases:
 lang: de-DE
-created: <% tp.file.creation_date("DD.MM.YYYYTHH:mm:ss") %>
-related: 
+created: <% tp.date.now("YYYY-MM-DDTHH:mm:ss") %>
+related:
 parent:
 ---
 
 ```dataviewjs
-await dv.view("02 Dateien/Javascript/related_write")
+await dv.view("02 Dateien/Javascript/related_list")
 ```
-> [!example]- In diesem Zusammenhang:
-> %% INSERT A %%
-Noch kein Thema in Frontmatter `topics` definiert!
-%% END A %%
+
 

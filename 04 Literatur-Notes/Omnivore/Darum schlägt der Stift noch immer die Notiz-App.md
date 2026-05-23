@@ -26,9 +26,9 @@ await dv.view("02 Dateien/Javascript/related_write")
 # Meine Notes
 ## Zum Thema "Wissensmanagement":
 
+- [[Notizensammlung/Webseiten nach Obsidian speichern.md|Webseiten nach Obsidian speichern]] (23.05.2026)
 - [[Notizensammlung/Themen/Wissensmanagement.md|Wissensmanagement]] (17.03.2025)
-- [[Notizensammlung/Obsidian-Plugin ZotLit konfigurieren.md|Obsidian-Plugin ZotLit konfigurieren]] (28.02.2024)
-- [[Notizensammlung/Obsidian-Plugin Pocket einrichten.md|Obsidian-Plugin Pocket einrichten]] (27.02.2024)
+- [[Notizensammlung/Obsidian-Plugin zur Anbindung von Zotero konfigurieren.md|Obsidian-Plugin zur Anbindung von Zotero konfigurieren]] (28.02.2024)
 - [[Wissensmanagement/Things Theme.md|Things Theme]] (01.06.2023)
 - [[Wissensmanagement/Tiago Forte - Second Brain.md|Tiago Forte - Second Brain]] (21.03.2023)
 
@@ -50,9 +50,9 @@ await dv.view("02 Dateien/Javascript/related_write")
 
 Rein technisch betrachtet sind digitale Notizen dem klassischen Notizbuch weit überlegen. In der Praxis zeigt sich bisweilen jedoch ein anderes Bild.
 
-![Darum schlägt der Stift noch immer die Notiz-App](https://proxy-prod.omnivore-image-cache.app/620x350,s_rsgFIsS3LT2uwcAO-vfceHzuWNuAKONVtyPtEq-1-A/https://images.t3n.de/news/wp-content/uploads/2022/11/notizbuch-vs-notiz-app.jpg?class=hero "Darum schlägt der Stift noch immer die Notiz-App") 
+![[Pasted image 20260523163412.png]]
 
- Notizhefte haben durchaus Nachteile gegenüber Apps – aber eben auch Vorteile. (Foto: t3n)
+Notizhefte haben durchaus Nachteile gegenüber Apps – aber eben auch Vorteile. (Foto: t3n)
 
 Digitale Notizen lassen sich verschlagworten, in Ordner aufteilen, mit anderen teilen oder sogar bequem im Team bearbeiten. Außerdem sind sie überall verfügbar, lassen sich schnell in Aufgaben oder Termine umwandeln und sie können Links oder Bilder enthalten. Auf den ersten Blick spricht also nur wenig für das altgediente Notizbuch. Die vermeintliche Überlegenheit von Notiz-[Apps](https://t3n.de/tag/apps/ "Weitere News zu Apps") zeigt sich in der Praxis aber leider nicht immer.
 

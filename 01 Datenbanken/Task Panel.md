@@ -59,7 +59,7 @@ if ( tasks.successful == true ) {
 ## Prioritäre Aufgaben
 ```dataview
 task
-where fällig <= dateformat(date(sow)+dur(200 days),"yyyy-MM-dd, ccc ('W'WW)")
+where fällig <= dateformat(date(sow)+dur(365 days),"yyyy-MM-dd, ccc ('W'WW)")
 where (status != "x" AND status != "-") and prio
 sort file.ctime
 group by join(list(prio, fällig), ": ") AS due
@@ -69,7 +69,7 @@ sort due asc
 ## Aufgaben ohne Priorität
 ```dataview
 task
-where fällig <= dateformat(date(sow)+dur(200 days),"yyyy-MM-dd, ccc ('W'WW)")
+where fällig <= dateformat(date(sow)+dur(365 days),"yyyy-MM-dd, ccc ('W'WW)")
 where (status != "x" AND status != "-" AND status != ">") and !prio
 sort fällig asc
 group by fällig
@@ -78,7 +78,7 @@ group by fällig
 ## Delegierte Aufgaben
 ```dataview
 task
-where fällig <= dateformat(date(sow)+dur(200 days),"yyyy-MM-dd, ccc ('W'WW)")
+where fällig <= dateformat(date(sow)+dur(365 days),"yyyy-MM-dd, ccc ('W'WW)")
 where (status = ">")
 group by (fällig+": "+resp) AS resp-fällig
 
