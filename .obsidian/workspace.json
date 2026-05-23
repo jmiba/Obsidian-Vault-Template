@@ -102,7 +102,7 @@
               "type": "recent-files",
               "state": {},
               "icon": "clock",
-              "title": "Recent Files"
+              "title": "Recent files"
             }
           },
           {
@@ -167,7 +167,8 @@
               "title": "Lesezeichen"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -319,16 +320,6 @@
             }
           },
           {
-            "id": "ec4dfb3ac5e02803",
-            "type": "leaf",
-            "state": {
-              "type": "tlfItemView",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "File Info View"
-            }
-          },
-          {
             "id": "c2754e65820cc799",
             "type": "leaf",
             "state": {
@@ -344,8 +335,8 @@
             "state": {
               "type": "smart-lookup-view",
               "state": {},
-              "icon": "smart-lookup",
-              "title": "Lookup"
+              "icon": "lucide-ghost",
+              "title": "smart-lookup-view"
             }
           }
         ],
@@ -374,6 +365,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "smart-connections:Toggle Footer Connections": false,
       "obsidian42-brat:BRAT": false,
       "bases:Neue Base erstellen": false,
       "graph:Graph-Ansicht öffnen": false,
@@ -385,18 +377,18 @@
       "zk-prefixer:Neue eindeutige Notiz erstellen": false,
       "audio-recorder:Audioaufzeichnung starten/stoppen": false,
       "templater-obsidian:Templater": false,
-      "obsidian-file-info-plugin:File Info Panel": false,
       "smart-connections:Smart Connections: Open connections view": false,
       "smart-connections:Smart Connections: Open random connection": true,
       "smart-connections:Smart Lookup: Open lookup view": false,
+      "obsidian-file-info-plugin:File info panel": false,
       "periodic-notes:Open today": false
     }
   },
   "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
+    "Notizensammlung/Themen/Wissensmanagement.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
     "README.md",
-    "Notizensammlung/Themen/Wissensmanagement.md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
     "04 Literatur-Notes/Omnivore/Obsidian Linter.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",

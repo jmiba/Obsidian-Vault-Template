@@ -49,8 +49,15 @@
       "connections_list_item_v3": {
         "render_markdown": true,
         "show_full_path": false
+      },
+      "connections_list_v4": {
+        "show_graph": true
       }
-    }
+    },
+    "connections_view_location": "right",
+    "connections_list_component_key": "connections_list_v4",
+    "frontmatter_filter_include": "",
+    "frontmatter_filter_exclude": ""
   },
   "context_items": {
     "template_before": "<item loc=\"{{KEY}}\" at=\"{{TIME_AGO}}\">",
@@ -69,5 +76,12 @@
   },
   "embedding_models": {
     "default_model_key": "lm_studio#1765673149241"
+  },
+  "event_logs": {
+    "native_notice_info": false,
+    "native_notice_warning": true,
+    "native_notice_error": true,
+    "native_notice_attention": false,
+    "native_notice_milestone": true
   }
 }

@@ -18,12 +18,12 @@
   "supercharged-links-obsidian",
   "obsidian-charts",
   "better-word-count",
-  "zotlit",
   "obsidian-pandoc-reference-list",
   "obsidian-pandoc",
   "obsidian-meta-bind-plugin",
   "number-headings-obsidian",
   "obsidian42-brat",
   "smart-connections",
-  "smart-connections-lmstudio-embeddings"
+  "smart-connections-lmstudio-embeddings",
+  "zotlit"
 ]

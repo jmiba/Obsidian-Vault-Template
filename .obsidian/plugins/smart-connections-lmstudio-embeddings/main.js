@@ -28,6 +28,7 @@ var import_obsidian = require("obsidian");
 // src/lmstudio.ts
 var settings = {
   baseUrl: "http://127.0.0.1:1234",
+  apiKey: "",
   requestTimeoutMs: 12e4,
   maxTokens: 512,
   batchSize: 16
@@ -43,7 +44,13 @@ async function fetchJson(urlPath, init) {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), settings.requestTimeoutMs);
   try {
-    const res = await fetch(`${baseUrl}${urlPath}`, { ...init, signal: controller.signal });
+    const headers = new Headers(init?.headers || {});
+    const apiKey = settings.apiKey?.trim();
+    if (apiKey) {
+      const bearer = apiKey.toLowerCase().startsWith("bearer ") ? apiKey : `Bearer ${apiKey}`;
+      headers.set("Authorization", bearer);
+    }
+    const res = await fetch(`${baseUrl}${urlPath}`, { ...init, headers, signal: controller.signal });
     const text = await res.text().catch(() => "");
     if (!res.ok) {
       throw new Error(`LM Studio HTTP ${res.status} ${res.statusText}${text ? `: ${text}` : ""}`);
@@ -333,6 +340,7 @@ var LmStudioEmbeddingAdapter = class {
 // src/main.ts
 var DEFAULT_SETTINGS = {
   baseUrl: "http://127.0.0.1:1234",
+  apiKey: "",
   requestTimeoutMs: 12e4,
   maxTokens: 512,
   batchSize: 16
@@ -525,6 +533,7 @@ var SmartConnectionsLmStudioEmbeddings = class extends import_obsidian.Plugin {
   applySettings() {
     setLmStudioSettings({
       baseUrl: this.settings.baseUrl,
+      apiKey: this.settings.apiKey,
       requestTimeoutMs: this.settings.requestTimeoutMs,
       maxTokens: this.settings.maxTokens,
       batchSize: this.settings.batchSize
@@ -562,6 +571,13 @@ var LmStudioSettingsTab = class extends import_obsidian.PluginSettingTab {
         await this.plugin.saveSettings();
       })
     );
+    new import_obsidian.Setting(containerEl).setName("LM Studio API key").setDesc("Optional. Sent as an Authorization: Bearer header.").addText((text) => {
+      text.setPlaceholder("Optional").setValue(this.plugin.settings.apiKey).onChange(async (value) => {
+        this.plugin.settings.apiKey = value.trim();
+        await this.plugin.saveSettings();
+      });
+      text.inputEl.type = "password";
+    });
     new import_obsidian.Setting(containerEl).setName("Request timeout (ms)").addText(
       (text) => text.setValue(String(this.plugin.settings.requestTimeoutMs)).onChange(async (value) => {
         const n = Number(value);
