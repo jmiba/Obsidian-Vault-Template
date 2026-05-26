@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiStar",
       "LiBadge",
       "MipOmnivore",
       "LiPaperclip",
-      "LiGripHorizontal",
-      "LiCheckSquare"
+      "LiGripHorizontal"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [
@@ -116,5 +116,6 @@
   "05 Tagebuch/Wöchentliche Notes": "FasCalendarWeek",
   "01 Datenbanken/Sport.md": "LiBike",
   "04 Literatur-Notes/Web Clippings": "LiPaperclip",
-  "01 Datenbanken/Attachments.base": "LiPaperclip"
+  "01 Datenbanken/Attachments.base": "LiPaperclip",
+  "04 Literatur-Notes/Starred News": "LiStar"
 }

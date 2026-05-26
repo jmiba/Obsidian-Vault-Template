@@ -1,0 +1,23 @@
+{
+  "provider": "google-reader",
+  "apiUrl": "",
+  "username": "",
+  "password": "",
+  "accessToken": "",
+  "appId": "",
+  "appKey": "",
+  "feedlyStreamId": "",
+  "outputFolder": "04 Literatur-Notes/Starred News",
+  "importLimit": 50,
+  "detectDuplicateUrls": false,
+  "duplicateUrlFrontmatterProperty": "url",
+  "noteTemplatePath": "",
+  "includeArticleContent": true,
+  "fetchArticleSource": true,
+  "articleSourceMode": "missing",
+  "includeRemoteImages": true,
+  "noteTags": "rss-starred, news",
+  "syncOnStartup": true,
+  "autoSync": true,
+  "syncIntervalMinutes": 60
+}

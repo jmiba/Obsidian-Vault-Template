@@ -380,14 +380,18 @@
       "smart-connections:Smart Connections: Open random connection": true,
       "smart-connections:Smart Lookup: Open lookup view": false,
       "obsidian-file-info-plugin:File info panel": false,
-      "periodic-notes:Open today": false
+      "periodic-notes:Open today": false,
+      "starred-news-sync:Sync starred news": false
     }
   },
   "active": "f7eea69b80bb8315",
   "lastOpenFiles": [
-    "Notizensammlung/Webseiten nach Obsidian speichern.md",
-    "README.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-28, Mi (W09).md",
+    "01 Datenbanken/Change Log.md",
+    "04 Literatur-Notes/Starred News",
+    "01 Datenbanken/Task Panel.md",
+    "README.md",
+    "Notizensammlung/Webseiten nach Obsidian speichern.md",
     "Notizensammlung/Themen/Wissensmanagement.md",
     "04 Literatur-Notes/Omnivore/Darum schlägt der Stift noch immer die Notiz-App.md",
     "Wissensmanagement/Tiago Forte - Second Brain.md",
@@ -407,8 +411,6 @@
     "04 Literatur-Notes/Omnivore/The Secret Power of ‘Read It Later’ Apps.md",
     "02 Dateien/Medien/Pasted image 20260523163412.png",
     "Notizensammlung/Obsidian-Plugin Pocket einrichten.md",
-    "01 Datenbanken/Task Panel.md",
-    "01 Datenbanken/Change Log.md",
     "05 Tagebuch/Tägliche Notiz/2024-02-19, Mo (W08).md",
     "04 Literatur-Notes/Omnivore/Obsidian Linter.md",
     "01 Datenbanken/Attachments.base",
@@ -430,7 +432,6 @@
     "02 Dateien/Javascript/erschließung.js",
     "smart-chats",
     "Obsidian-Vault-Template/LICENSE",
-    "Obsidian-Vault-Template",
     "Canvasses/Unbenannt.canvas",
     "Herausgebertätigkeit/BFP 47-2/00 Editorial Map.canvas",
     "Untitled.canvas",

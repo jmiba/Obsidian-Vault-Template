@@ -1,0 +1,9 @@
+{
+	"id": "starred-news-sync",
+	"name": "Starred News Sync",
+	"version": "0.1.8",
+	"minAppVersion": "0.15.0",
+	"description": "Import starred RSS reader items as notes with YAML frontmatter.",
+	"author": "J. Mittelbach",
+	"isDesktopOnly": false
+}
