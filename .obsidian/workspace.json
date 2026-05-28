@@ -380,8 +380,8 @@
       "smart-connections:Smart Connections: Open random connection": true,
       "smart-connections:Smart Lookup: Open lookup view": false,
       "obsidian-file-info-plugin:File info panel": false,
-      "periodic-notes:Open today": false,
-      "starred-news-sync:Sync starred news": false
+      "starred-news-sync:Sync starred news": false,
+      "periodic-notes:Open today": false
     }
   },
   "active": "f7eea69b80bb8315",
