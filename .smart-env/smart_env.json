@@ -16,6 +16,27 @@
     "file_exclusions": "Untitled",
     "folder_exclusions": ""
   },
+  "gitignore_exclusions": [
+    ".DS_Store",
+    ".AppleDouble",
+    ".LSOverride",
+    "Icon\r\r",
+    "._*",
+    ".DocumentRevisions-V100",
+    ".fseventsd",
+    ".Spotlight-V100",
+    ".TemporaryItems",
+    ".Trashes",
+    ".VolumeIcon.icns",
+    ".com.apple.timemachine.donotpresent",
+    ".AppleDB",
+    ".AppleDesktop",
+    "Network Trash Folder",
+    "Temporary Items",
+    ".apdisk",
+    "*.icloud"
+  ],
+  "gitignore_exclusions_updated_at": 1788021801168,
   "language": "en",
   "re_import_wait_time": 13,
   "smart_chat_threads": {
@@ -57,7 +78,8 @@
     "connections_view_location": "right",
     "connections_list_component_key": "connections_list_v4",
     "frontmatter_filter_include": "",
-    "frontmatter_filter_exclude": ""
+    "frontmatter_filter_exclude": "",
+    "footer_connections_list_component_key": "connections_list_v3"
   },
   "context_items": {
     "template_before": "<item loc=\"{{KEY}}\" at=\"{{TIME_AGO}}\">",
@@ -72,7 +94,8 @@
   "lookup_lists": {
     "results_collection_key": "smart_sources",
     "score_algo_key": "similarity",
-    "results_limit": 20
+    "results_limit": 20,
+    "get_results_action_key": "lookup_list_get_results"
   },
   "embedding_models": {
     "default_model_key": "lm_studio#1765673149241"

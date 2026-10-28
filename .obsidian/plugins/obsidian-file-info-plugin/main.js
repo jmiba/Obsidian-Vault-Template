@@ -868,6 +868,7 @@ var tlfFileInfo = class extends import_obsidian3.Plugin {
       };
     };
     const requeryStats = debounce(1e3, async () => {
+      var _a;
       const file = this.app.workspace.getActiveFile();
       let data = "";
       let isText = 0;
@@ -878,7 +879,7 @@ var tlfFileInfo = class extends import_obsidian3.Plugin {
         isText = 1;
         data = await this.app.vault.cachedRead(file);
       }
-      const imageExtensions = ["gif", "png", "jpg", "jpeg", "bmp", "png", "webp", "tiff"];
+      const imageExtensions = ["avif", "bmp", "gif", "jpg", "jpeg", "png", "svg", "webp"];
       if (file && file.extension && imageExtensions.includes(String(file.extension).toLowerCase())) {
         isImage = 1;
       }
@@ -993,13 +994,23 @@ var tlfFileInfo = class extends import_obsidian3.Plugin {
         this.currentFileInfo.arrCurrentURLFrequency = currentURLFrequency;
         this.currentFileInfo.numImageWidth = imageWidth;
         this.currentFileInfo.numImageHeight = imageHeight;
-        if (isImage) {
-          let urlPath = file.path;
-          urlPath = encodeURIComponent(urlPath);
-          urlPath = "app://local/" + this.app.vault.adapter.basePath.replace(/\\/g, "/") + this.currentFileInfo.strRelativePath.replace(/\\/g, "/") + urlPath;
+        if (isImage && String(file.extension).toLowerCase() === "svg") {
+          const imageFilePath = file.path;
+          const svgDimensions = this.getSvgImageDimensions(await this.app.vault.cachedRead(file));
+          if (((_a = this.app.workspace.getActiveFile()) == null ? void 0 : _a.path) !== imageFilePath) {
+            return;
+          }
+          this.currentFileInfo.numImageWidth = svgDimensions.width;
+          this.currentFileInfo.numImageHeight = svgDimensions.height;
+        } else if (isImage) {
+          const imageFilePath = file.path;
+          const urlPath = this.app.vault.getResourcePath(file);
           const img = new Image();
-          img.setAttribute("crossOrigin", "anonymous");
           img.onload = () => {
+            var _a2;
+            if (((_a2 = this.app.workspace.getActiveFile()) == null ? void 0 : _a2.path) !== imageFilePath) {
+              return;
+            }
             this.currentFileInfo.numImageWidth = img.naturalWidth;
             this.currentFileInfo.numImageHeight = img.naturalHeight;
             this.updateFileInfoDisplays();
@@ -1098,6 +1109,34 @@ var tlfFileInfo = class extends import_obsidian3.Plugin {
       numSelectedParagraphs: 0,
       numSelectedLines: 0
     };
+  }
+  getSvgImageDimensions(svgText) {
+    const svgDocument = new DOMParser().parseFromString(svgText, "image/svg+xml");
+    const svgElement = svgDocument.querySelector("svg");
+    if (!svgElement) {
+      return { width: 0, height: 0 };
+    }
+    const width = this.parseSvgDimension(svgElement.getAttribute("width"));
+    const height = this.parseSvgDimension(svgElement.getAttribute("height"));
+    if (!width || !height) {
+      return { width: 0, height: 0 };
+    }
+    return { width, height };
+  }
+  parseSvgDimension(dimension) {
+    if (!dimension) {
+      return 0;
+    }
+    const match = dimension.trim().match(/^([0-9]+(?:\.[0-9]+)?)(?:px)?$/i);
+    if (!match) {
+      return 0;
+    }
+    const rawValue = match[1];
+    if (!rawValue) {
+      return 0;
+    }
+    const value = Number(rawValue);
+    return Number.isFinite(value) ? value : 0;
   }
   updateImplementationSettings() {
     if (!this.settings.showPanel && !this.settings.showStatusBarPopup) {

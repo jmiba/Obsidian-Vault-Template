@@ -145,6 +145,7 @@ var LmStudioEmbeddingAdapter = class {
   };
   model;
   state = "unloaded";
+  dimensionProbeModelKey = "";
   constructor(model) {
     this.model = model;
   }
@@ -185,15 +186,57 @@ var LmStudioEmbeddingAdapter = class {
   async get_models(refreshOrOpts = false) {
     const refresh = this.coerceRefreshArg(refreshOrOpts);
     const models = await listModels(refresh);
-    if (this?.model?.data && (!this.model.data.provider_models || Object.keys(this.model.data.provider_models).length === 0)) {
+    if (this?.model?.data) {
+      const storedModels = this.model.data.provider_models;
+      if (storedModels && typeof storedModels === "object") {
+        for (const [modelKey, modelConfig] of Object.entries(models)) {
+          const storedDims = Number(storedModels?.[modelKey]?.dims);
+          if (Number.isInteger(storedDims) && storedDims > 0 && !modelConfig.dims) {
+            modelConfig.dims = storedDims;
+          }
+        }
+      }
       this.model.data.provider_models = models;
     }
     return models;
   }
   async load(refreshOrOpts = false) {
     await this.get_models(refreshOrOpts);
+    await this.ensureSelectedModelDimensions();
     this.state = "loaded";
     return this;
+  }
+  persistModelDimensions(modelKey, dims) {
+    if (!Number.isInteger(dims) || dims <= 0) {
+      throw new Error(`LM Studio: invalid embedding dimensions (${dims})`);
+    }
+    if (cachedModels[modelKey]) cachedModels[modelKey].dims = dims;
+    const data = this?.model?.data;
+    if (!data) return;
+    let changed = data.dims !== dims || data.dimensions !== dims;
+    data.dims = dims;
+    data.dimensions = dims;
+    if (data.provider_models && typeof data.provider_models === "object") {
+      const providerModel = data.provider_models[modelKey] ?? cachedModels[modelKey];
+      if (providerModel) {
+        changed ||= providerModel.dims !== dims;
+        providerModel.dims = dims;
+        data.provider_models[modelKey] = providerModel;
+      }
+    }
+    if (changed) this.model.debounce_save?.();
+  }
+  async ensureSelectedModelDimensions() {
+    const modelKey = await this.ensureModelKey();
+    if (this.dimensionProbeModelKey === modelKey) {
+      const knownDims = Number(this?.model?.data?.dims);
+      if (Number.isInteger(knownDims) && knownDims > 0) return knownDims;
+    }
+    const probe = await embedOne(modelKey, "Smart Connections embedding dimension probe");
+    const dims = probe.length;
+    this.persistModelDimensions(modelKey, dims);
+    this.dimensionProbeModelKey = modelKey;
+    return dims;
   }
   async ensureModelKey() {
     const currentKey = this.model_key;
@@ -218,6 +261,7 @@ var LmStudioEmbeddingAdapter = class {
       this.model.data.model_key = key;
       this.model.data.model = key;
       this.model.data.adapter = "lm_studio";
+      this.dimensionProbeModelKey = "";
       this.model.debounce_save?.();
     }
   }
@@ -309,11 +353,10 @@ var LmStudioEmbeddingAdapter = class {
         for (const one of group) recovered.push(await embedOne(modelKey, one));
         vectors.push(...recovered);
       }
-      if (vectors.length > 0 && this?.model?.data && !Number.isFinite(this.model.data.dims)) {
+      if (vectors.length > 0) {
         const inferredDims = vectors[0]?.length;
         if (Number.isFinite(inferredDims) && inferredDims > 0) {
-          this.model.data.dims = inferredDims;
-          this.model.debounce_save?.();
+          this.persistModelDimensions(modelKey, inferredDims);
         }
       }
     }

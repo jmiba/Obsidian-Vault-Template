@@ -1,27 +1,21 @@
 {
-  "logLevel": "ERROR",
-  "citationEditorSuggester": false,
-  "showCitekeyInSuggester": false,
-  "literatureNoteFolder": "04 Literatur-Notes/Zotero",
-  "enableServer": true,
-  "serverPort": 9091,
-  "serverHostname": "127.0.0.1",
-  "template": {
-    "folder": "02 Dateien/Vorlagen/ZotLit",
-    "templates": {
-      "filename": "<%=  it.shortTitle ?  it.shortTitle+\" (\"+it.date+\")\" :  it.title ?it.title+\" (\"+it.date+\")\" : it.citekey ?? it.DOI ?? it.key %>.md"
-    }
+  "__VERSION__": 9,
+  "citation.editor-suggester": false,
+  "note.literature-folder": "04 Literatur-Notes/Zotero",
+  "server.enabled": true,
+  "template.auto-pair-eta": true,
+  "attachment.folder-path": "02 Dateien/Medien",
+  "log.level": "error",
+  "template.folder": "02 Dateien/Vorlagen/ZotLit",
+  "citation.open-as-links": true,
+  "zotero.library-scope": {
+    "mode": "selected",
+    "libraries": [
+      {
+        "type": "personal"
+      }
+    ]
   },
-  "updateAnnotBlock": false,
-  "updateOverwrite": false,
-  "autoPairEta": true,
-  "autoTrim": [
-    false,
-    false
-  ],
-  "autoRefresh": true,
-  "zoteroDataDir": "",
-  "citationLibrary": 1,
-  "imgExcerptImport": "copy",
-  "imgExcerptPath": "02 Dateien/Medien"
+  "release.previous-version": "2.1.4",
+  "release.migration-pending": true
 }

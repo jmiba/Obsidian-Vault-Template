@@ -1,18 +1,13 @@
 {
+  "data_version": 2,
   "command_timeout": 5,
   "templates_folder": "02 Dateien/Vorlagen",
-  "templates_pairs": [
-    [
-      "",
-      ""
-    ]
-  ],
-  "trigger_on_file_creation": true,
+  "templates_pairs": [],
+  "trigger_on_file_creation_mode": "folder",
   "auto_jump_to_cursor": true,
-  "enable_system_commands": false,
+  "jump_to_cursor_after_file_name": false,
   "shell_path": "",
   "user_scripts_folder": "",
-  "enable_folder_templates": true,
   "folder_templates": [
     {
       "folder": "/",
@@ -27,20 +22,14 @@
       "template": "02 Dateien/Vorlagen/Wochenseite.md"
     }
   ],
-  "enable_file_templates": false,
-  "file_templates": [
-    {
-      "regex": ".*",
-      "template": ""
-    }
-  ],
+  "file_templates": [],
   "syntax_highlighting": true,
   "syntax_highlighting_mobile": false,
   "enabled_templates_hotkeys": [
     "02 Dateien/Vorlagen/Sport.md"
   ],
-  "startup_templates": [
-    ""
-  ],
+  "startup_templates": [],
+  "intellisense_render": "1",
+  "ignore_folders_on_creation": [],
   "enable_ribbon_icon": true
 }
